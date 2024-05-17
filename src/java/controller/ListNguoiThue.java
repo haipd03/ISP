@@ -36,9 +36,11 @@ public class ListNguoiThue extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        String id = request.getParameter("lntid");
         DAO u = new DAO();
-        List<KhachThue> kt = u.getKhachThue();
-        request.setAttribute("kt", kt);
+        
+        List<KhachThue> kt = u.getKhachThue(id);
+        request.setAttribute("listNguoiThue", kt);
         request.getRequestDispatcher("form.jsp").forward(request, response);
     }
 

@@ -9,6 +9,7 @@ package model;
  * @author THANH SON
  */
 public class KhachThue {
+
     private int KhachID;
     private String HoVaTen;
     private String CCCD;
@@ -17,11 +18,12 @@ public class KhachThue {
     private String TenNguoiThan;
     private String SDTNguoiThan;
     private String QuanHeVoiNguoiThan;
+    private int PhongID;
 
     public KhachThue() {
     }
 
-    public KhachThue(int KhachID, String HoVaTen, String CCCD, String SDT, String QueQuan, String TenNguoiThan, String SDTNguoiThan, String QuanHeVoiNguoiThan) {
+    public KhachThue(int KhachID, String HoVaTen, String CCCD, String SDT, String QueQuan, String TenNguoiThan, String SDTNguoiThan, String QuanHeVoiNguoiThan, int PhongID) {
         this.KhachID = KhachID;
         this.HoVaTen = HoVaTen;
         this.CCCD = CCCD;
@@ -30,6 +32,7 @@ public class KhachThue {
         this.TenNguoiThan = TenNguoiThan;
         this.SDTNguoiThan = SDTNguoiThan;
         this.QuanHeVoiNguoiThan = QuanHeVoiNguoiThan;
+        this.PhongID = PhongID;
     }
 
     public int getKhachID() {
@@ -96,9 +99,17 @@ public class KhachThue {
         this.QuanHeVoiNguoiThan = QuanHeVoiNguoiThan;
     }
 
+    public int getPhongID() {
+        return PhongID;
+    }
+
+    public void setPhongID(int PhongID) {
+        this.PhongID = PhongID;
+    }
+
     @Override
     public String toString() {
-        return "KhachThue{" + "KhachID=" + KhachID + ", HoVaTen=" + HoVaTen + ", CCCD=" + CCCD + ", SDT=" + SDT + ", QueQuan=" + QueQuan + ", TenNguoiThan=" + TenNguoiThan + ", SDTNguoiThan=" + SDTNguoiThan + ", QuanHeVoiNguoiThan=" + QuanHeVoiNguoiThan + '}';
+        return "KhachThue{" + "KhachID=" + KhachID + ", HoVaTen=" + HoVaTen + ", CCCD=" + CCCD + ", SDT=" + SDT + ", QueQuan=" + QueQuan + ", TenNguoiThan=" + TenNguoiThan + ", SDTNguoiThan=" + SDTNguoiThan + ", QuanHeVoiNguoiThan=" + QuanHeVoiNguoiThan + ", PhongID=" + PhongID + '}';
     }
     
 }

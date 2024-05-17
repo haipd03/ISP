@@ -45,11 +45,12 @@ public class DAO extends MyDAO {
         return Phongs;
     }
 
-    public List<KhachThue> getKhachThue() {
-        List<KhachThue> khachThues = new ArrayList<>();
-        String sql = "SELECT * FROM KhachThue";
+    public List<KhachThue> getKhachThue(String id) {
+        List<KhachThue> KhachThues = new ArrayList<>();
+        String sql = "Select * from khachthue k where k.PhongID=?";
         try {
             ps = con.prepareStatement(sql);
+            ps.setString(1, id);
             rs = ps.executeQuery();
             while (rs.next()) {
                 int KhachID = rs.getInt("KhachID");
@@ -60,14 +61,14 @@ public class DAO extends MyDAO {
                 String TenNguoiThan = rs.getString("TenNguoiThan");
                 String SDTNguoiThan = rs.getString("SDTNguoiThan");
                 String QuanHeVoiNguoiThan = rs.getString("QuanHeVoiNguoiThan");
-                KhachThue khachThue = new KhachThue(KhachID, HoVaTen, CCCD, SDT, QueQuan, TenNguoiThan, SDTNguoiThan, QuanHeVoiNguoiThan);
-                // Thêm đối tượng khachThue vào danh sách khachThues
-                khachThues.add(khachThue);
+                int PhongID = rs.getInt("PhongID");
+                KhachThue khachThue = new KhachThue(KhachID, HoVaTen, CCCD, SDT, QueQuan, TenNguoiThan, SDTNguoiThan, QuanHeVoiNguoiThan,PhongID); 
+                KhachThues.add(khachThue);
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // hoặc xử lý ngoại lệ tùy ý
+            e.printStackTrace(); 
         }
-        return khachThues;
+        return KhachThues;
     }
 
     public List<Phong> getPhong1() {
@@ -149,10 +150,9 @@ public class DAO extends MyDAO {
 
     public static void main(String[] args) {
         DAO dao = new DAO();
-        List<KhachThue> listC = dao.getKhachThue();
-
-        for (KhachThue category : listC) {
-            System.out.println(category);
+        List<KhachThue> kt = dao.getKhachThue("1009");
+        for (KhachThue kt1 : kt ) {
+            System.out.println(kt1);
         }
     }
 
