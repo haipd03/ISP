@@ -14,14 +14,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 import model.KhachThue;
-import model.Phong;
 
 /**
  *
  * @author THANH SON
  */
-@WebServlet(name = "ListNguoiThue", urlPatterns = {"/listNguoiThue"})
-public class ListNguoiThue extends HttpServlet {
+@WebServlet(name = "ListEdit", urlPatterns = {"/listEdit"})
+public class ListEdit extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,11 +33,11 @@ public class ListNguoiThue extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id = request.getParameter("lntid");
+        String id = request.getParameter("lntt");
         DAO dao = new DAO();
-        List<KhachThue> kt = dao.getKhachThue(id);
-        request.setAttribute("listNguoiThue", kt);
-        request.getRequestDispatcher("form.jsp").forward(request, response);
+        KhachThue kt = dao.getKhachThueByKhachID(id);
+        request.setAttribute("listNguoiThue1", kt);
+        request.getRequestDispatcher("edit.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

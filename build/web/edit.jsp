@@ -133,48 +133,56 @@
 
                     </aside>
                     <!--/Sidebar-->
-                    <!--Main-->
-                    <main class="bg-white-500 flex-1 p-3 overflow-hidden">
-                        <div class="flex flex-col">
-                            <c:forEach items="${listNguoiThue}" var="o">
-                                <!-- Card Section Starts Here -->
-                                <div class="flex flex-1 flex-col md:flex-row lg:flex-row mx-2">
-                                    <!-- Horizontal form -->
-                                    <div class="mb-2 border-solid border-grey-light rounded border shadow-sm w-full md:w-1/2 lg:w-1/2">
-                                        <div class="bg-gray-300 px-2 py-3 border-solid border-gray-400 border-b">
-                                            Danh Sách Khách Hàng
-                                        </div>
-                                        <div class="p-3">
-                                            <form class="w-full" action="listNguoiThue" method="post">
-                                                <p>ID Khách: ${o.khachID}</p>
-                                                <p>Tên Khách: ${o.hoVaTen}</p>
-                                                <p>CCCD: ${o.CCCD}</p>
-                                                <p>SDT: ${o.SDT}</p>
-                                                <p>Quê Quán: ${o.queQuan}</p>
-                                                <p>Tên Người Thân: ${o.tenNguoiThan}</p>
-                                                <p>SDT Người Thân: ${o.SDTNguoiThan}</p>
-                                                <p>Quan Hệ Với Người Thân: ${o.quanHeVoiNguoiThan}</p>
-                                                <p>ID Phòng: ${o.phongID}</p>
-                                                <br/>
-                                                <div class="md:flex md:items-center">
-                                                    <div class="md:w-2/3">
-                                                        <a class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-                                                           href="listEdit?lntt=${o.khachID}">Update
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <!-- /Horizontal form -->
-                                </div>
-                            </c:forEach>
-                            <!-- /Cards Section Ends Here -->
-                        </div>
-                    </main>
 
                     <!-- Underline form -->
-
+                    <div class="mb-2 md:mx-2 lg:mx-2 border-solid border-gray-200 rounded border shadow-sm w-full md:w-1/2 lg:w-1/3">
+                        <div class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b">
+                            Sửa Khách Thuê
+                        </div>
+                        <div class="p-3">
+                            <form action="editKhachThue" method="post">
+                                <table>
+                                    <tr>
+                                        <td>ID Khách</td>
+                                        <td><input type="text" name="KhachID" readonly value="${listNguoiThue1.khachID}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tên Khách</td>
+                                        <td><input type="text" name="HoVaTen" value="${listNguoiThue1.hoVaTen}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>CCCD</td>
+                                        <td><input type="text" name="CCCD" value="${listNguoiThue1.CCCD}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>SDT</td>
+                                        <td><input type="text" name="SDT" value="${listNguoiThue1.SDT}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Quê Quán</td>
+                                        <td><input type="text" name="QueQuan" value="${listNguoiThue1.queQuan}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tên Người Thân</td>
+                                        <td><input type="text" name="TenNguoiThan" value="${listNguoiThue1.tenNguoiThan}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>SDT Người Thân</td>
+                                        <td><input type="text" name="SDTNguoiThan" value="${listNguoiThue1.SDTNguoiThan}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Quan Hệ Với Người Thân</td>
+                                        <td><input type="text" name="QuanHeVoiNguoiThan" value="${listNguoiThue1.quanHeVoiNguoiThan}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>ID Phòng</td>
+                                        <td><input type="text" name="PhongID" readonly value="${listNguoiThue1.phongID}"></td>
+                                    </tr>
+                                </table>
+                                <input type="submit" value="update">
+                            </form>
+                        </div>
+                    </div>
                     <!--/Underline form-->
                     <!--/Main-->                                
                 </div>

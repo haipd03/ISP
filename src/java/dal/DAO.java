@@ -4,6 +4,7 @@
  */
 package dal;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,6 +19,30 @@ import model.Phong;
  * @author admin
  */
 public class DAO extends MyDAO {
+
+    private Connection con;
+    private List<KhachThue> kt;
+    private String status = "ok";
+
+    public List<KhachThue> getKt() {
+        return kt;
+    }
+
+    public void setKt(List<KhachThue> kt) {
+        this.kt = kt;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public DAO() {
+        con = new DBContext().connection;
+    }
 
     public List<Phong> getPhong() {
         List<Phong> Phongs = new ArrayList<>();
@@ -62,13 +87,58 @@ public class DAO extends MyDAO {
                 String SDTNguoiThan = rs.getString("SDTNguoiThan");
                 String QuanHeVoiNguoiThan = rs.getString("QuanHeVoiNguoiThan");
                 int PhongID = rs.getInt("PhongID");
-                KhachThue khachThue = new KhachThue(KhachID, HoVaTen, CCCD, SDT, QueQuan, TenNguoiThan, SDTNguoiThan, QuanHeVoiNguoiThan,PhongID); 
+                KhachThue khachThue = new KhachThue(KhachID, HoVaTen, CCCD, SDT, QueQuan, TenNguoiThan, SDTNguoiThan, QuanHeVoiNguoiThan, PhongID);
                 KhachThues.add(khachThue);
             }
         } catch (SQLException e) {
-            e.printStackTrace(); 
+            e.printStackTrace();
         }
         return KhachThues;
+    }
+    
+    public KhachThue getKhachThueByKhachID(String id) {
+        String sql = "Select * from khachthue k where k.KhachID=?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                int KhachID = rs.getInt("KhachID");
+                String HoVaTen = rs.getString("HoVaTen");
+                String CCCD = rs.getString("CCCD");
+                String SDT = rs.getString("SDT");
+                String QueQuan = rs.getString("QueQuan");
+                String TenNguoiThan = rs.getString("TenNguoiThan");
+                String SDTNguoiThan = rs.getString("SDTNguoiThan");
+                String QuanHeVoiNguoiThan = rs.getString("QuanHeVoiNguoiThan");
+                int PhongID = rs.getInt("PhongID");
+                KhachThue khachThue = new KhachThue(KhachID, HoVaTen, CCCD, SDT, QueQuan, TenNguoiThan, SDTNguoiThan, QuanHeVoiNguoiThan, PhongID);
+                return khachThue;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void Update(String KhachID, String HoVaTen, String CCCD, String SDT, String QueQuan, String TenNguoiThan, String SDTNguoiThan, String QuanHeVoiNguoiThan, String PhongID) {
+        String sql = "UPDATE khachthue SET KhachID=?, HoVaTen=?, CCCD=?, SDT=?, QueQuan=?, TenNguoiThan=?, SDTNguoiThan=?, QuanHeVoiNguoiThan=?, PhongID=? WHERE KhachID=?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, KhachID);
+            ps.setString(2, HoVaTen);
+            ps.setString(3, CCCD);
+            ps.setString(4, SDT);
+            ps.setString(5, QueQuan);
+            ps.setString(6, TenNguoiThan);
+            ps.setString(7, SDTNguoiThan);
+            ps.setString(8, QuanHeVoiNguoiThan);
+            ps.setString(9, PhongID);
+            ps.setString(10, KhachID);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<Phong> getPhong1() {
@@ -150,10 +220,10 @@ public class DAO extends MyDAO {
 
     public static void main(String[] args) {
         DAO dao = new DAO();
-        List<KhachThue> kt = dao.getKhachThue("1009");
-        for (KhachThue kt1 : kt ) {
-            System.out.println(kt1);
-        }
+        KhachThue kt = dao.getKhachThueByKhachID("1014");
+        
+            System.out.println(kt);
+        
     }
 
 }
