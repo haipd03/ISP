@@ -146,7 +146,7 @@
                                         <tr>
                                             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">KhuID</th>
                                             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Name</th>
-                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">AccountID</th>
+                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Tên Quản Lý</th>
                                             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Số Phòng</th>
                                                 <c:if test="${sessionScope.acc.accountID == 1}">
                                                 <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Tùy Chọn</th>
@@ -159,10 +159,16 @@
                                                 <tr class="bg-white border-b">
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.khuID}</td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.name}</td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.accountID}</td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">
+                                                        <c:forEach items="${listK3}" var="a">
+                                                            <c:if test="${a.accountID == o.accountID}">
+                                                                ${a.hoVaTen}
+                                                            </c:if>
+                                                        </c:forEach>
+                                                    </td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">50</td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">
-                                                        <a href='add?type=0&id=${st.id}' class="text-indigo-600 hover:text-indigo-900">Update</a>
+                                                        <a href='loadkhu?lkid=${o.khuID}' class="text-indigo-600 hover:text-indigo-900">Update</a>
                                                         <a href='deletekhu?kid=${o.khuID}' class="text-red-600 hover:text-red-900 ml-2">Delete</a>
                                                     </td>
                                                 </tr>
@@ -174,7 +180,13 @@
                                                 <tr class="bg-white border-b">
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.khuID}</td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.name}</td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.accountID}</td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">
+                                                        <c:forEach items="${listK3}" var="a">
+                                                            <c:if test="${a.accountID == o.accountID}">
+                                                                ${a.hoVaTen}
+                                                            </c:if>
+                                                        </c:forEach>
+                                                    </td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">50</td>
                                                 </tr>
                                             </c:if>
@@ -185,7 +197,13 @@
                                                 <tr class="bg-white border-b">
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.khuID}</td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.name}</td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.accountID}</td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">
+                                                        <c:forEach items="${listK3}" var="a">
+                                                            <c:if test="${a.accountID == o.accountID}">
+                                                                ${a.hoVaTen}
+                                                            </c:if>
+                                                        </c:forEach>
+                                                    </td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">50</td>
                                                 </tr>
                                             </c:if>
@@ -210,51 +228,54 @@
                                 <div class="space-y-4">
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">ID Khu</label>
-                                        <input type="text" name="khuID" value="${listNguoiThue1.khachID}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400">
+                                        <input type="text" name="khuID" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400">
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Tên Khu</label>
-                                        <input type="text" name="name" value="${listNguoiThue1.hoVaTen}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400">
+                                        <input type="text" name="name" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400">
                                     </div>
-                                    <div class="flex items-center">
-                                        <label class="w-1/3 text-gray-700 font-semibold">AccountID</label>
-                                        <input type="text" name="accountID" value="${listNguoiThue1.CCCD}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400">
-                                    </div>
+                                    <label class="w-1/3 text-gray-700 font-semibold">Tên Quản Lý</label>
+                                    <select name="accountID" class="form-select" aria-label="Default select example">
+                                        <c:forEach items="${listK3}" var="o">
+                                            <option value="${o.accountID}">${o.hoVaTen}</option>
+                                        </c:forEach>
+                                    </select>
                                 </div>
-                                <div class="mt-4">
-                                    <input type="submit" value="Add" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
-                                </div>
-                            </form>
                         </div>
+                        <div class="mt-4">
+                            <input type="submit" value="Add" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
+                        </div>
+                        </form>
                     </div>
-
-                    <script>
-                        function showAddKhuForm() {
-                            var addKhuForm = document.getElementById("addKhuForm");
-                            if (addKhuForm.style.display === "none" || addKhuForm.style.display === "") {
-                                addKhuForm.style.display = "block";
-                            } else {
-                                addKhuForm.style.display = "none";
-                            }
-                        }
-                    </script>
-
-
-                    <!--/Underline form-->
-                    <!--/Main-->                                
                 </div>
-                <!--Footer-->
-                <footer class="bg-grey-darkest text-white p-2">
-                    <div class="flex flex-1 mx-auto">&copy; My Design</div>
-                </footer>
-                <!--/footer-->
 
+                <script>
+                    function showAddKhuForm() {
+                        var addKhuForm = document.getElementById("addKhuForm");
+                        if (addKhuForm.style.display === "none" || addKhuForm.style.display === "") {
+                            addKhuForm.style.display = "block";
+                        } else {
+                            addKhuForm.style.display = "none";
+                        }
+                    }
+                </script>
+
+
+                <!--/Underline form-->
+                <!--/Main-->                                
             </div>
+            <!--Footer-->
+            <footer class="bg-grey-darkest text-white p-2">
+                <div class="flex flex-1 mx-auto">&copy; My Design</div>
+            </footer>
+            <!--/footer-->
 
         </div>
 
-        <script src="./main.js"></script>
+    </div>
 
-    </body>
+    <script src="./main.js"></script>
+
+</body>
 
 </html>

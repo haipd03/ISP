@@ -37,12 +37,16 @@ public class ListKhu extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         DAO dao = new DAO();
-        List<Khu> list = dao.getPhongByKhuID();
-        List<Khu> list1 = dao.getPhongByKhuID1();
-        List<Khu> list2 = dao.getPhongByKhuID2();
+        List<Khu> list = dao.getKhuByKhuID();
+        List<Khu> list1 = dao.getKhuByKhuID1();
+        List<Khu> list2 = dao.getKhuByKhuID2();
+        List<Accounts> acc = dao.getAccounts();
+        
         request.setAttribute("listK", list);
         request.setAttribute("listK1", list1);
         request.setAttribute("listK2", list2);
+        request.setAttribute("listK3", acc);
+        
         request.getRequestDispatcher("khu.jsp").forward(request, response);
     }
 

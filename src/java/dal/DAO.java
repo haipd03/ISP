@@ -142,7 +142,7 @@ public class DAO extends MyDAO {
         }
     }
 
-    public List<Khu> getPhongByKhuID() {
+    public List<Khu> getKhuByKhuID() {
         List<Khu> khus = new ArrayList<>();
         String sql = "select * from Khu";
         try {
@@ -161,7 +161,7 @@ public class DAO extends MyDAO {
         return khus;
     }
 
-    public List<Khu> getPhongByKhuID1() {
+    public List<Khu> getKhuByKhuID1() {
         List<Khu> khus = new ArrayList<>();
         String sql = "select * from Khu Where KhuID= 1";
         try {
@@ -180,7 +180,7 @@ public class DAO extends MyDAO {
         return khus;
     }
 
-    public List<Khu> getPhongByKhuID2() {
+    public List<Khu> getKhuByKhuID2() {
         List<Khu> khus = new ArrayList<>();
         String sql = "select * from Khu Where KhuID= 2";
         try {
@@ -217,6 +217,74 @@ public class DAO extends MyDAO {
             ps.setString(1, khuID);
             ps.setString(2, name);
             ps.setString(3, accountID);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<Accounts> getAccounts() {
+        List<Accounts> Account = new ArrayList<>();
+        String sql = "select * from Accounts"; // Câu lệnh SQL để lấy dữ liệu từ bảng Truyen
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int AccountID = rs.getInt("AccountID");
+                String TaiKhoan = rs.getString("TaiKhoan");
+                String Password = rs.getString("Password");
+                int Role = rs.getInt("Role");
+                String HoVaTen = rs.getString("HoVaTen");
+                String Email = rs.getString("Email");
+                int CCCD = rs.getInt("CCCD");
+                String DiaChi = rs.getString("DiaChi");
+
+                Accounts Accounts = new Accounts(AccountID, TaiKhoan, Password, Role, HoVaTen, Email, CCCD, DiaChi);
+                Account.add(Accounts);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // In ra lỗi nếu có
+        }
+        return Account;
+    }
+
+    public void CountPhongInKhu(String kid) {
+        String sql = "SELECT COUNT(*) AS SoPhong FROM Phong P INNER JOIN Khu K ON P.KhuID = K.KhuID WHERE P.KhuID = ?;";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, kid);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Khu getKhuByKhuID(String id) {
+        String sql = "Select * from khu k where k.KhuID=?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                int KhuID = rs.getInt("KhuID");
+                String Name = rs.getString("Name");
+                int AccountID = rs.getInt("AccountID");
+                Khu khu = new Khu(KhuID, Name, AccountID);
+                return khu;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void UpdateKhu(String khuID,String name, String accountID) {
+        String sql = "UPDATE [dbo].[Khu] SET [Name] = ?,[AccountID] = ? WHERE KhuID = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setString(2, accountID);
+            ps.setString(3, khuID);
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -302,10 +370,11 @@ public class DAO extends MyDAO {
 
     public static void main(String[] args) {
         DAO dao = new DAO();
-        KhachThue kt = dao.getKhachThueByKhachID("1014");
+        List<Accounts> accountsList = dao.getAccounts();
 
-        System.out.println(kt);
-
+        for (Accounts account : accountsList) {
+            System.out.println(account);
+        }
     }
 
 }

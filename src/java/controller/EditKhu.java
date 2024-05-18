@@ -12,17 +12,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.util.List;
-import model.Accounts;
-import model.KhachThue;
 
 /**
  *
  * @author THANH SON
  */
-@WebServlet(name = "ListEdit", urlPatterns = {"/listEdit"})
-public class ListEdit extends HttpServlet {
+@WebServlet(name = "EditKhu", urlPatterns = {"/editkhu"})
+public class EditKhu extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,18 +32,12 @@ public class ListEdit extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        Accounts a = (Accounts) session.getAttribute("acc");
-
-        if (a == null || a.getRole() == 1) {
-            response.sendRedirect("listphong");
-        } else {
-            String id = request.getParameter("lntt");
-            DAO dao = new DAO();
-            KhachThue kt = dao.getKhachThueByKhachID(id);
-            request.setAttribute("listNguoiThue1", kt);
-            request.getRequestDispatcher("editkhachthue.jsp").forward(request, response);
-        }
+        String khuID = request.getParameter("khuID");
+        String name = request.getParameter("name");
+        String accountID = request.getParameter("accountID");
+        DAO dao = new DAO();
+        dao.UpdateKhu(khuID, name, accountID);
+        response.sendRedirect("khu");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
