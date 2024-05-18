@@ -44,7 +44,7 @@ public class ListNguoiThue extends HttpServlet {
         } else {
             String id = request.getParameter("lntid");
             DAO dao = new DAO();
-            List<KhachThue> kt = dao.getKhachThue(id);
+            List<KhachThue> kt = dao.getKhachThueByPhongID(id);
             request.setAttribute("listNguoiThue", kt);
             request.getRequestDispatcher("form.jsp").forward(request, response);
         }

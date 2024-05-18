@@ -71,7 +71,7 @@ public class DAO extends MyDAO {
         return Phongs;
     }
 
-    public List<KhachThue> getKhachThue(String id) {
+    public List<KhachThue> getKhachThueByPhongID(String id) {
         List<KhachThue> KhachThues = new ArrayList<>();
         String sql = "Select * from khachthue k where k.PhongID=?";
         try {
@@ -122,7 +122,7 @@ public class DAO extends MyDAO {
         return null;
     }
 
-    public void Update(String KhachID, String HoVaTen, String CCCD, String SDT, String QueQuan, String TenNguoiThan, String SDTNguoiThan, String QuanHeVoiNguoiThan, String PhongID) {
+    public void Updatekhachthue(String KhachID, String HoVaTen, String CCCD, String SDT, String QueQuan, String TenNguoiThan, String SDTNguoiThan, String QuanHeVoiNguoiThan, String PhongID) {
         String sql = "UPDATE khachthue SET KhachID=?, HoVaTen=?, CCCD=?, SDT=?, QueQuan=?, TenNguoiThan=?, SDTNguoiThan=?, QuanHeVoiNguoiThan=?, PhongID=? WHERE KhachID=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -197,6 +197,30 @@ public class DAO extends MyDAO {
             e.printStackTrace();
         }
         return khus;
+    }
+
+    public void DeleteKhu(String kid) {
+        String sql = "delete from Khu where KhuID = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, kid);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void InsertKhu(String khuID, String name, String accountID) {
+        String sql = "INSERT INTO [dbo].[Khu] ([KhuID],[Name],[AccountID]) VALUES (?,?,?)";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, khuID);
+            ps.setString(2, name);
+            ps.setString(3, accountID);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<Phong> getPhong1() {
