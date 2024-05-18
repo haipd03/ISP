@@ -134,44 +134,40 @@
                     </aside>
                     <!--/Sidebar-->
                     <!--Main-->
-                    <main class="bg-white-500 flex-1 p-3 overflow-hidden">
-                        <div class="flex flex-col">
+                    <main class="bg-gray-100 flex-1 p-6 overflow-hidden">
+                        <div class="flex flex-col space-y-4">
                             <c:forEach items="${listNguoiThue}" var="o">
                                 <!-- Card Section Starts Here -->
-                                <div class="flex flex-1 flex-col md:flex-row lg:flex-row mx-2">
-                                    <!-- Horizontal form -->
-                                    <div class="mb-2 border-solid border-grey-light rounded border shadow-sm w-full md:w-1/2 lg:w-1/2">
-                                        <div class="bg-gray-300 px-2 py-3 border-solid border-gray-400 border-b">
+                                <div class="flex flex-col md:flex-row lg:flex-row mx-2">
+                                    <!-- Card -->
+                                    <div class="mb-4 bg-white border border-gray-200 rounded-lg shadow-lg w-full md:w-1/2 lg:w-1/2">
+                                        <div class="bg-purple-600 text-white px-4 py-3 rounded-t-lg">
                                             Danh Sách Khách Hàng
                                         </div>
-                                        <div class="p-3">
-                                            <form class="w-full" action="listNguoiThue" method="post">
-                                                <p>ID Khách: ${o.khachID}</p>
-                                                <p>Tên Khách: ${o.hoVaTen}</p>
-                                                <p>CCCD: ${o.CCCD}</p>
-                                                <p>SDT: ${o.SDT}</p>
-                                                <p>Quê Quán: ${o.queQuan}</p>
-                                                <p>Tên Người Thân: ${o.tenNguoiThan}</p>
-                                                <p>SDT Người Thân: ${o.SDTNguoiThan}</p>
-                                                <p>Quan Hệ Với Người Thân: ${o.quanHeVoiNguoiThan}</p>
-                                                <p>ID Phòng: ${o.phongID}</p>
-                                                <br/>
-                                                <div class="md:flex md:items-center">
-                                                    <div class="md:w-2/3">
-                                                        <a class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-                                                           href="listEdit?lntt=${o.khachID}">Update
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </form>
+                                        <div class="p-4">
+                                            <p class="text-gray-700"><strong>ID Khách:</strong> ${o.khachID}</p>
+                                            <p class="text-gray-700"><strong>Tên Khách:</strong> ${o.hoVaTen}</p>
+                                            <p class="text-gray-700"><strong>CCCD:</strong> ${o.CCCD}</p>
+                                            <p class="text-gray-700"><strong>SDT:</strong> ${o.SDT}</p>
+                                            <p class="text-gray-700"><strong>Quê Quán:</strong> ${o.queQuan}</p>
+                                            <p class="text-gray-700"><strong>Tên Người Thân:</strong> ${o.tenNguoiThan}</p>
+                                            <p class="text-gray-700"><strong>SDT Người Thân:</strong> ${o.SDTNguoiThan}</p>
+                                            <p class="text-gray-700"><strong>Quan Hệ Với Người Thân:</strong> ${o.quanHeVoiNguoiThan}</p>
+                                            <p class="text-gray-700"><strong>ID Phòng:</strong> ${o.phongID}</p>
+                                            <div class="mt-4">
+                                                <a class="inline-block bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
+                                                   href="listEdit?lntt=${o.khachID}">Update
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
-                                    <!-- /Horizontal form -->
+                                    <!-- /Card -->
                                 </div>
+                                <!-- /Card Section Ends Here -->
                             </c:forEach>
-                            <!-- /Cards Section Ends Here -->
                         </div>
                     </main>
+
 
                     <!-- Underline form -->
 

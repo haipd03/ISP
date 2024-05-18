@@ -15,15 +15,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Accounts;
-import model.KhachThue;
-import model.Phong;
+import model.Khu;
 
 /**
  *
  * @author THANH SON
  */
-@WebServlet(name = "ListNguoiThue", urlPatterns = {"/listNguoiThue"})
-public class ListNguoiThue extends HttpServlet {
+@WebServlet(name = "ListKhu", urlPatterns = {"/khu"})
+public class ListKhu extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,18 +35,15 @@ public class ListNguoiThue extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Accounts a = (Accounts) session.getAttribute("acc");
-
-        if (a == null) {
-            response.sendRedirect("login");
-        } else {
-            String id = request.getParameter("lntid");
-            DAO dao = new DAO();
-            List<KhachThue> kt = dao.getKhachThue(id);
-            request.setAttribute("listNguoiThue", kt);
-            request.getRequestDispatcher("form.jsp").forward(request, response);
-        }
+        response.setContentType("text/html;charset=UTF-8");
+        DAO dao = new DAO();
+        List<Khu> list = dao.getPhongByKhuID();
+        List<Khu> list1 = dao.getPhongByKhuID1();
+        List<Khu> list2 = dao.getPhongByKhuID2();
+        request.setAttribute("listK", list);
+        request.setAttribute("listK1", list1);
+        request.setAttribute("listK2", list2);
+        request.getRequestDispatcher("khu.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

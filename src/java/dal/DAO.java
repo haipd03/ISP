@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Accounts;
 import model.KhachThue;
+import model.Khu;
 import model.Phong;
 
 /**
@@ -95,7 +96,7 @@ public class DAO extends MyDAO {
         }
         return KhachThues;
     }
-    
+
     public KhachThue getKhachThueByKhachID(String id) {
         String sql = "Select * from khachthue k where k.KhachID=?";
         try {
@@ -139,6 +140,63 @@ public class DAO extends MyDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<Khu> getPhongByKhuID() {
+        List<Khu> khus = new ArrayList<>();
+        String sql = "select * from Khu";
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int KhuID = rs.getInt("KhuID");
+                String Name = rs.getString("Name");
+                int AccountID = rs.getInt("AccountID");
+                Khu khu = new Khu(KhuID, Name, AccountID);
+                khus.add(khu);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return khus;
+    }
+
+    public List<Khu> getPhongByKhuID1() {
+        List<Khu> khus = new ArrayList<>();
+        String sql = "select * from Khu Where KhuID= 1";
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int KhuID = rs.getInt("KhuID");
+                String Name = rs.getString("Name");
+                int AccountID = rs.getInt("AccountID");
+                Khu khu = new Khu(KhuID, Name, AccountID);
+                khus.add(khu);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return khus;
+    }
+
+    public List<Khu> getPhongByKhuID2() {
+        List<Khu> khus = new ArrayList<>();
+        String sql = "select * from Khu Where KhuID= 2";
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int KhuID = rs.getInt("KhuID");
+                String Name = rs.getString("Name");
+                int AccountID = rs.getInt("AccountID");
+                Khu khu = new Khu(KhuID, Name, AccountID);
+                khus.add(khu);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return khus;
     }
 
     public List<Phong> getPhong1() {
@@ -221,9 +279,9 @@ public class DAO extends MyDAO {
     public static void main(String[] args) {
         DAO dao = new DAO();
         KhachThue kt = dao.getKhachThueByKhachID("1014");
-        
-            System.out.println(kt);
-        
+
+        System.out.println(kt);
+
     }
 
 }

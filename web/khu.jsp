@@ -135,52 +135,71 @@
                     <!--/Sidebar-->
 
                     <!-- Underline form -->
-                    <div class="mb-4 md:mx-2 lg:mx-2 border border-gray-300 rounded-lg shadow-lg w-full md:w-1/2 lg:w-1/3">
-                        <div class="bg-purple-600 text-white px-4 py-3 rounded-t-lg">
-                            Sửa Khách Thuê
+                    <div class="mb-2 md:mx-2 lg:mx-2 border-solid border-gray-200 rounded border shadow-sm w-full md:w-1/2 lg:w-1/3">
+                        <div class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b font-bold">
+                            Khu
                         </div>
-                        <div class="p-6 bg-white">
+                        <div class="p-3">
                             <form action="editKhachThue" method="post">
-                                <div class="space-y-4">
-                                    <div class="flex items-center">
-                                        <label class="w-1/3 text-gray-700 font-semibold">ID Khách</label>
-                                        <input type="text" name="KhachID" readonly value="${listNguoiThue1.khachID}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
-                                    </div>
-                                    <div class="flex items-center">
-                                        <label class="w-1/3 text-gray-700 font-semibold">Tên Khách</label>
-                                        <input type="text" name="HoVaTen" value="${listNguoiThue1.hoVaTen}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
-                                    </div>
-                                    <div class="flex items-center">
-                                        <label class="w-1/3 text-gray-700 font-semibold">CCCD</label>
-                                        <input type="text" name="CCCD" value="${listNguoiThue1.CCCD}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
-                                    </div>
-                                    <div class="flex items-center">
-                                        <label class="w-1/3 text-gray-700 font-semibold">SDT</label>
-                                        <input type="text" name="SDT" value="${listNguoiThue1.SDT}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
-                                    </div>
-                                    <div class="flex items-center">
-                                        <label class="w-1/3 text-gray-700 font-semibold">Quê Quán</label>
-                                        <input type="text" name="QueQuan" value="${listNguoiThue1.queQuan}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
-                                    </div>
-                                    <div class="flex items-center">
-                                        <label class="w-1/3 text-gray-700 font-semibold">Tên Người Thân</label>
-                                        <input type="text" name="TenNguoiThan" value="${listNguoiThue1.tenNguoiThan}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
-                                    </div>
-                                    <div class="flex items-center">
-                                        <label class="w-1/3 text-gray-700 font-semibold">SDT Người Thân</label>
-                                        <input type="text" name="SDTNguoiThan" value="${listNguoiThue1.SDTNguoiThan}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
-                                    </div>
-                                    <div class="flex items-center">
-                                        <label class="w-1/3 text-gray-700 font-semibold">Quan Hệ Với Người Thân</label>
-                                        <input type="text" name="QuanHeVoiNguoiThan" value="${listNguoiThue1.quanHeVoiNguoiThan}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
-                                    </div>
-                                    <div class="flex items-center">
-                                        <label class="w-1/3 text-gray-700 font-semibold">ID Phòng</label>
-                                        <input type="text" name="PhongID" readonly value="${listNguoiThue1.phongID}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
-                                    </div>
-                                </div>
-                                <div class="mt-6 flex justify-end">
-                                    <input type="submit" value="Update" class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 transition-colors duration-200">
+                                <table class="min-w-full leading-normal">
+                                    <thead>
+                                        <tr>
+                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">KhuID</th>
+                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Name</th>
+                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">AccountID</th>
+                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Số Phòng</th>
+                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Tùy Chọn</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <c:forEach items="${listK}" var="o">
+                                            <c:if test="${sessionScope.acc.accountID == 1}">
+                                                <tr class="bg-white border-b">
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.khuID}</td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.name}</td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.accountID}</td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">50</td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">
+                                                        <a href='add?type=0&id=${st.id}' class="text-indigo-600 hover:text-indigo-900">Update</a>
+                                                        <a href='add?type=1&id=${st.id}' class="text-red-600 hover:text-red-900 ml-2">Delete</a>
+                                                    </td>
+                                                </tr>
+                                            </c:if>
+                                        </c:forEach>
+
+                                        <c:forEach items="${listK1}" var="o">
+                                            <c:if test="${sessionScope.acc.accountID == 2}">
+                                                <tr class="bg-white border-b">
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.khuID}</td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.name}</td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.accountID}</td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">50</td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">
+                                                        <a href='add?type=0&id=${st.id}' class="text-indigo-600 hover:text-indigo-900">Update</a>
+                                                        <a href='add?type=1&id=${st.id}' class="text-red-600 hover:text-red-900 ml-2">Delete</a>
+                                                    </td>
+                                                </tr>
+                                            </c:if>
+                                        </c:forEach>
+
+                                        <c:forEach items="${listK2}" var="o">
+                                            <c:if test="${sessionScope.acc.accountID == 3}">
+                                                <tr class="bg-white border-b">
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.khuID}</td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.name}</td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.accountID}</td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">50</td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">
+                                                        <a href='add?type=0&id=${st.id}' class="text-indigo-600 hover:text-indigo-900">Update</a>
+                                                        <a href='add?type=1&id=${st.id}' class="text-red-600 hover:text-red-900 ml-2">Delete</a>
+                                                    </td>
+                                                </tr>
+                                            </c:if>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
+                                <div class="mt-4">
+                                    <input type="submit" value="Update" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
                                 </div>
                             </form>
                         </div>

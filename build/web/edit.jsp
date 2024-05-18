@@ -135,54 +135,57 @@
                     <!--/Sidebar-->
 
                     <!-- Underline form -->
-                    <div class="mb-2 md:mx-2 lg:mx-2 border-solid border-gray-200 rounded border shadow-sm w-full md:w-1/2 lg:w-1/3">
-                        <div class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b">
+                    <div class="mb-4 md:mx-2 lg:mx-2 border border-gray-300 rounded-lg shadow-lg w-full md:w-1/2 lg:w-1/3">
+                        <div class="bg-purple-600 text-white px-4 py-3 rounded-t-lg">
                             Sửa Khách Thuê
                         </div>
-                        <div class="p-3">
+                        <div class="p-6 bg-white">
                             <form action="editKhachThue" method="post">
-                                <table>
-                                    <tr>
-                                        <td>ID Khách</td>
-                                        <td><input type="text" name="KhachID" readonly value="${listNguoiThue1.khachID}"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tên Khách</td>
-                                        <td><input type="text" name="HoVaTen" value="${listNguoiThue1.hoVaTen}"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>CCCD</td>
-                                        <td><input type="text" name="CCCD" value="${listNguoiThue1.CCCD}"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>SDT</td>
-                                        <td><input type="text" name="SDT" value="${listNguoiThue1.SDT}"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Quê Quán</td>
-                                        <td><input type="text" name="QueQuan" value="${listNguoiThue1.queQuan}"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tên Người Thân</td>
-                                        <td><input type="text" name="TenNguoiThan" value="${listNguoiThue1.tenNguoiThan}"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>SDT Người Thân</td>
-                                        <td><input type="text" name="SDTNguoiThan" value="${listNguoiThue1.SDTNguoiThan}"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Quan Hệ Với Người Thân</td>
-                                        <td><input type="text" name="QuanHeVoiNguoiThan" value="${listNguoiThue1.quanHeVoiNguoiThan}"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>ID Phòng</td>
-                                        <td><input type="text" name="PhongID" readonly value="${listNguoiThue1.phongID}"></td>
-                                    </tr>
-                                </table>
-                                <input type="submit" value="update">
+                                <div class="space-y-4">
+                                    <div class="flex items-center">
+                                        <label class="w-1/3 text-gray-700 font-semibold">ID Khách</label>
+                                        <input type="text" name="KhachID" readonly value="${listNguoiThue1.khachID}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                    </div>
+                                    <div class="flex items-center">
+                                        <label class="w-1/3 text-gray-700 font-semibold">Tên Khách</label>
+                                        <input type="text" name="HoVaTen" value="${listNguoiThue1.hoVaTen}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                    </div>
+                                    <div class="flex items-center">
+                                        <label class="w-1/3 text-gray-700 font-semibold">CCCD</label>
+                                        <input type="text" name="CCCD" value="${listNguoiThue1.CCCD}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                    </div>
+                                    <div class="flex items-center">
+                                        <label class="w-1/3 text-gray-700 font-semibold">SDT</label>
+                                        <input type="text" name="SDT" value="${listNguoiThue1.SDT}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                    </div>
+                                    <div class="flex items-center">
+                                        <label class="w-1/3 text-gray-700 font-semibold">Quê Quán</label>
+                                        <input type="text" name="QueQuan" value="${listNguoiThue1.queQuan}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                    </div>
+                                    <div class="flex items-center">
+                                        <label class="w-1/3 text-gray-700 font-semibold">Tên Người Thân</label>
+                                        <input type="text" name="TenNguoiThan" value="${listNguoiThue1.tenNguoiThan}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                    </div>
+                                    <div class="flex items-center">
+                                        <label class="w-1/3 text-gray-700 font-semibold">SDT Người Thân</label>
+                                        <input type="text" name="SDTNguoiThan" value="${listNguoiThue1.SDTNguoiThan}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                    </div>
+                                    <div class="flex items-center">
+                                        <label class="w-1/3 text-gray-700 font-semibold">Quan Hệ Với Người Thân</label>
+                                        <input type="text" name="QuanHeVoiNguoiThan" value="${listNguoiThue1.quanHeVoiNguoiThan}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                    </div>
+                                    <div class="flex items-center">
+                                        <label class="w-1/3 text-gray-700 font-semibold">ID Phòng</label>
+                                        <input type="text" name="PhongID" readonly value="${listNguoiThue1.phongID}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                    </div>
+                                </div>
+                                <div class="mt-6 flex justify-end">
+                                    <input type="submit" value="Update" class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 transition-colors duration-200">
+                                </div>
                             </form>
                         </div>
                     </div>
+
                     <!--/Underline form-->
                     <!--/Main-->                                
                 </div>
