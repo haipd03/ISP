@@ -251,9 +251,9 @@
                                                     <span>Thiết bị</span>
                                                 </div>
                                                 <c:if test="${p.phongConTrong == 0}">
-                                                    <div class="text-center mr-3 border-r pr-3">
-                                                        <span>Người Thuê</span>
-                                                    </div>
+                                                    <a class="text-center mr-3 border-r pr-3" href="listNguoiThue?lntid=${p.phongID}">
+                                                        Người Thuê
+                                                    </a>
                                                 </c:if>
                                                 <div class="text-center">
                                                     <span>Xóa</span>
@@ -290,9 +290,9 @@
                                                     <span>Thiết bị</span>
                                                 </div>
                                                 <c:if test="${o.phongConTrong == 0}">
-                                                    <div class="text-center mr-3 border-r pr-3">
-                                                        <span>Người Thuê</span>
-                                                    </div>
+                                                    <a class="text-center mr-3 border-r pr-3" href="listNguoiThue?lntid=${o.phongID}">
+                                                        Người Thuê
+                                                    </a>
                                                 </c:if>
                                                 <div class="text-center">
                                                     <span>Xóa</span>
