@@ -32,11 +32,11 @@ public class EditKhu extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String khuID = request.getParameter("khuID");
         String name = request.getParameter("name");
         String accountID = request.getParameter("accountID");
+        String khuID = request.getParameter("khuID");
         DAO dao = new DAO();
-        dao.UpdateKhu(khuID, name, accountID);
+        dao.UpdateKhu(name, accountID, khuID);
         response.sendRedirect("khu");
     }
 

@@ -282,7 +282,7 @@ public class DAO extends MyDAO {
         return null;
     }
 
-    public void UpdateKhu(String khuID, String name, String accountID) {
+    public void UpdateKhu(String name, String accountID, String khuID) {
         String sql = "UPDATE [dbo].[Khu] SET [Name] = ?,[AccountID] = ? WHERE KhuID = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -372,7 +372,7 @@ public class DAO extends MyDAO {
         return null;
     }
 
-     public static void main(String[] args) {
+    public static void main(String[] args) {
         DBContext dbContext = new DBContext();
 
         try (Connection con = dbContext.connection) {

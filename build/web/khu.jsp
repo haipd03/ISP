@@ -147,7 +147,6 @@
                                             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">KhuID</th>
                                             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Name</th>
                                             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Tên Quản Lý</th>
-                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Số Phòng</th>
                                                 <c:if test="${sessionScope.acc.accountID == 1}">
                                                 <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Tùy Chọn</th>
                                                 </c:if>
@@ -169,7 +168,6 @@
                                                             </c:if>
                                                         </c:forEach>
                                                     </td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${LSP}</td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">
                                                         <a href='loadkhu?lkid=${o.khuID}' class="text-indigo-600 hover:text-indigo-900">Update</a>
                                                         <a href='deletekhu?kid=${o.khuID}' class="text-red-600 hover:text-red-900 ml-2">Delete</a>
@@ -190,7 +188,6 @@
                                                             </c:if>
                                                         </c:forEach>
                                                     </td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${LSP}</td>
                                                 </tr>
                                             </c:if>
                                         </c:forEach>
@@ -207,13 +204,11 @@
                                                             </c:if>
                                                         </c:forEach>
                                                     </td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${LSP}</td>
                                                 </tr>
                                             </c:if>
                                         </c:forEach>
                                     </tbody>
                                 </table>
-                                <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">Hiện Thị Số Phòng</button><hr>
                             </form>
                             <c:if test="${sessionScope.acc.accountID == 1}">
                                 <div class="mb-2 md:mx-2 lg:mx-2">
@@ -247,10 +242,10 @@
                                         </c:forEach>
                                     </select>
                                 </div>
+                                <div class="mt-4">
+                                    <input type="submit" value="Add" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
+                                </div>
                             </form>
-                        </div>
-                        <div class="mt-4">
-                            <input type="submit" value="Add" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
                         </div>
 
                     </div>
