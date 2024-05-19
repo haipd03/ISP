@@ -248,15 +248,19 @@ public class DAO extends MyDAO {
         return Account;
     }
 
-    public void CountPhongInKhu(String kid) {
+    public int CountPhongInKhu(String kid) {
         String sql = "SELECT COUNT(*) AS SoPhong FROM Phong P INNER JOIN Khu K ON P.KhuID = K.KhuID WHERE P.KhuID = ?;";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, kid);
-            ps.executeUpdate();
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("SoPhong");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return 0;
     }
 
     public Khu getKhuByKhuID(String id) {
@@ -278,7 +282,7 @@ public class DAO extends MyDAO {
         return null;
     }
 
-    public void UpdateKhu(String khuID,String name, String accountID) {
+    public void UpdateKhu(String khuID, String name, String accountID) {
         String sql = "UPDATE [dbo].[Khu] SET [Name] = ?,[AccountID] = ? WHERE KhuID = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -368,12 +372,20 @@ public class DAO extends MyDAO {
         return null;
     }
 
-    public static void main(String[] args) {
-        DAO dao = new DAO();
-        List<Accounts> accountsList = dao.getAccounts();
+     public static void main(String[] args) {
+        DBContext dbContext = new DBContext();
 
-        for (Accounts account : accountsList) {
-            System.out.println(account);
+        try (Connection con = dbContext.connection) {
+            System.out.println("Kết nối thành công!");
+
+            // Tạo đối tượng Main để gọi phương thức CountPhongInKhu
+            DAO dao = new DAO();
+            String kid = "1"; // Thay đổi giá trị này tùy theo khu cần đếm
+            int soPhong = dao.CountPhongInKhu(kid);
+            System.out.println("Số phòng trong khu " + kid + " là: " + soPhong);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

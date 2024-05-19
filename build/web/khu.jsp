@@ -135,12 +135,12 @@
                     <!--/Sidebar-->
 
                     <!-- Underline form -->
-                    <div class="mb-2 md:mx-2 lg:mx-2 border-solid border-gray-200 rounded border shadow-sm w-full md:w-1/2 lg:w-1/3">
+                    <div class="mb-2 md:mx-2 lg:mx-2 border-solid border-gray-200 rounded border shadow-sm w-full md:w-1/2 lg:w-2/3">
                         <div class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b font-bold">
                             Khu
                         </div>
                         <div class="p-3">
-                            <form action="editKhachThue" method="post">
+                            <form action="khu" method="post">
                                 <table class="min-w-full leading-normal">
                                     <thead>
                                         <tr>
@@ -157,7 +157,10 @@
                                         <c:forEach items="${listK}" var="o">
                                             <c:if test="${sessionScope.acc.accountID == 1}">
                                                 <tr class="bg-white border-b">
-                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.khuID}</td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">
+                                                        ${o.khuID}
+                                                        <input type="hidden" name="khuID" value="${o.khuID}">
+                                                    </td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.name}</td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">
                                                         <c:forEach items="${listK3}" var="a">
@@ -166,7 +169,7 @@
                                                             </c:if>
                                                         </c:forEach>
                                                     </td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">50</td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${LSP}</td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">
                                                         <a href='loadkhu?lkid=${o.khuID}' class="text-indigo-600 hover:text-indigo-900">Update</a>
                                                         <a href='deletekhu?kid=${o.khuID}' class="text-red-600 hover:text-red-900 ml-2">Delete</a>
@@ -187,7 +190,7 @@
                                                             </c:if>
                                                         </c:forEach>
                                                     </td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">50</td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${LSP}</td>
                                                 </tr>
                                             </c:if>
                                         </c:forEach>
@@ -204,12 +207,13 @@
                                                             </c:if>
                                                         </c:forEach>
                                                     </td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">50</td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${LSP}</td>
                                                 </tr>
                                             </c:if>
                                         </c:forEach>
                                     </tbody>
                                 </table>
+                                <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">Hiện Thị Số Phòng</button><hr>
                             </form>
                             <c:if test="${sessionScope.acc.accountID == 1}">
                                 <div class="mb-2 md:mx-2 lg:mx-2">
@@ -237,15 +241,18 @@
                                     <label class="w-1/3 text-gray-700 font-semibold">Tên Quản Lý</label>
                                     <select name="accountID" class="form-select" aria-label="Default select example">
                                         <c:forEach items="${listK3}" var="o">
-                                            <option value="${o.accountID}">${o.hoVaTen}</option>
+                                            <c:if test="${o.accountID ne 1}">
+                                                <option value="${o.accountID}">${o.hoVaTen}</option>
+                                            </c:if>
                                         </c:forEach>
                                     </select>
                                 </div>
+                            </form>
                         </div>
                         <div class="mt-4">
                             <input type="submit" value="Add" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
                         </div>
-                        </form>
+
                     </div>
                 </div>
 

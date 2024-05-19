@@ -41,12 +41,16 @@ public class ListKhu extends HttpServlet {
         List<Khu> list1 = dao.getKhuByKhuID1();
         List<Khu> list2 = dao.getKhuByKhuID2();
         List<Accounts> acc = dao.getAccounts();
-        
+
+        String kid = request.getParameter("khuID");
+        int soPhong = dao.CountPhongInKhu(kid);
+        request.setAttribute("LSP", soPhong);
+
         request.setAttribute("listK", list);
         request.setAttribute("listK1", list1);
         request.setAttribute("listK2", list2);
         request.setAttribute("listK3", acc);
-        
+
         request.getRequestDispatcher("khu.jsp").forward(request, response);
     }
 
