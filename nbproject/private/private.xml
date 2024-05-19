@@ -6,9 +6,10 @@
             <file>file:/D:/ISP392/PhongTro/ISP/src/java/model/Accounts.java</file>
             <file>file:/D:/ISP392/PhongTro/ISP/src/java/dal/DAO.java</file>
             <file>file:/D:/ISP392/PhongTro/ISP/src/java/controller/AddKhu.java</file>
+            <file>file:/D:/ISP392/PhongTro/ISP/src/java/controller/LoadKhu.java</file>
             <file>file:/D:/ISP392/PhongTro/ISP/src/java/controller/DeleteKhu.java</file>
             <file>file:/D:/ISP392/PhongTro/ISP/src/java/controller/ListEdit.java</file>
-            <file>file:/D:/ISP392/PhongTro/ISP/src/java/controller/ListNguoiThue.java</file>
+            <file>file:/D:/ISP392/PhongTro/ISP/src/java/controller/EditKhu.java</file>
             <file>file:/D:/ISP392/PhongTro/ISP/src/java/controller/ListKhu.java</file>
         </group>
     </open-files>

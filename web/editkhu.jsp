@@ -154,12 +154,14 @@
                                         <label class="w-1/3 text-gray-700 font-semibold">Tên Quản Lý</label>
                                         <select name="accountID" class="form-select" aria-label="Default select example">
                                             <c:forEach items="${listK3}" var="o">
-                                                <c:if test="${o.accountID eq listkhu.accountID}">
-                                                    <option value="${o.accountID}" selected>${o.hoVaTen}</option>
-                                                </c:if>
-                                                <c:if test="${o.accountID ne listkhu.accountID}">
-                                                    <option value="${o.accountID}">${o.hoVaTen}</option>
-                                                </c:if>
+                                                <c:if test="${o.accountID ne 1}">
+                                                    <c:if test="${o.accountID eq listkhu.accountID}">
+                                                        <option value="${o.accountID}" selected>${o.hoVaTen}</option>
+                                                    </c:if>
+                                                    <c:if test="${o.accountID ne listkhu.accountID}">
+                                                        <option value="${o.accountID}">${o.hoVaTen}</option>
+                                                    </c:if>
+                                                </c:if>   
                                             </c:forEach>
                                         </select>
                                     </div>
