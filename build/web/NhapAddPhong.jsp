@@ -1,3 +1,9 @@
+<%-- 
+    Document   : NhapAddPhong
+    Created on : May 19, 2024, 11:10:18 PM
+    Author     : Admin
+--%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import = "model.Phong" %>
 <%@page import = "java.util.*" %>
@@ -135,36 +141,44 @@
                     <!--/Sidebar-->
 
                     <!-- Underline form -->
-                    <div class="mb-4 md:mx-2 lg:mx-2 border border-gray-300 rounded-lg shadow-lg w-full md:w-1/2 lg:w-1/3">
-                        <div class="bg-purple-600 text-white px-4 py-3 rounded-t-lg">
-                            Sửa Khu
+                    <div class="mb-4 mx-auto border border-gray-300 rounded-lg shadow-lg w-full md:w-1/2 lg:w-1/3">
+                        <div class="bg-purple-600 text-white px-4 py-3 rounded-t-lg w-full ">
+                            Thêm Phòng
                         </div>
                         <div class="p-6 bg-white">
-                            <form action="editkhu" method="post">
+                            <form action="themphong" method="post">
                                 <div class="space-y-4">
                                     <div class="flex items-center">
-                                        <label class="w-1/3 text-gray-700 font-semibold">ID Khu</label>
-                                        <input type="text" name="khuID" readonly value="${listkhu.khuID}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <label class="w-1/3 text-gray-700 font-semibold">Phòng ID:</label>
+                                        <input type="text" name="PhongID" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
-                                        <label class="w-1/3 text-gray-700 font-semibold">Tên Khu</label>
-                                        <input type="text" name="name" value="${listkhu.name}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <label class="w-1/3 text-gray-700 font-semibold">Số Phòng:</label>
+                                        <input type="text" name="SoPhong" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
-                                        <label class="w-1/3 text-gray-700 font-semibold">Tên Quản Lý</label>
-                                        <select name="accountID" class="form-select" aria-label="Default select example">
-                                            <c:forEach items="${listK3}" var="o">
-                                                <c:if test="${o.accountID ne 1}">
-                                                    <c:if test="${o.accountID eq listkhu.accountID}">
-                                                        <option value="${o.accountID}" selected>${o.hoVaTen}</option>
-                                                    </c:if>
-                                                    <c:if test="${o.accountID ne listkhu.accountID}">
-                                                        <option value="${o.accountID}">${o.hoVaTen}</option>
-                                                    </c:if>
-                                                </c:if>   
-                                            </c:forEach>
+                                        <label class="w-1/3 text-gray-700 font-semibold">Khu ID:</label>
+                                        <input type="text" name="KhuID" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                    </div>
+                                    <div class="flex items-center">
+                                        <label class="w-1/3 text-gray-700 font-semibold">Loại Phòng:</label>
+                                        <select name="LoaiPhong" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                            <option value="Đơn">Đơn</option>
+                                            <option value="Đôi">Đôi</option>
                                         </select>
                                     </div>
+                                    <div class="flex items-center">
+                                        <label class="w-1/3 text-gray-700 font-semibold">Phòng:</label>
+                                        <!-- Hidden input for actual value -->
+                                        <input type="hidden" name="PhongConTrong" value="1">
+                                        <!-- Read-only input for display -->
+                                        <input type="text" value="Trống" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                    </div>
+                                    <div class="flex items-center">
+                                        <label class="w-1/3 text-gray-700 font-semibold">Giá:</label>
+                                        <input type="text" name="Gia" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                    </div>
+                                    <p style="color: red">${message}</p>
                                 </div>
                                 <div class="mt-6 flex justify-end">
                                     <input type="submit" value="Update" class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 transition-colors duration-200">
@@ -172,6 +186,7 @@
                             </form>
                         </div>
                     </div>
+
 
                     <!--/Underline form-->
                     <!--/Main-->                                

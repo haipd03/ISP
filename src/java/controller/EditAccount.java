@@ -13,48 +13,45 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.util.List;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Accounts;
-import model.Khu;
-import model.Phong;
 
 /**
  *
  * @author admin
  */
-@WebServlet(name="ListPhong", urlPatterns={"/listphong"})
-public class ListPhong extends HttpServlet {
+@WebServlet(name="EditAccount", urlPatterns={"/editaccount"})
+public class EditAccount extends HttpServlet {
    
-
-
-protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    /** 
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        Accounts a = (Accounts) session.getAttribute("acc");
-       DAO u = new DAO();
-        List<Phong> lp = u.getPhong();
-       
-        List<Phong> lp1 = u.getPhongDetailsByAccountID(a.getAccountID());
-        List<Khu> lk = u.getKhu2();
-        List<Phong> bp = u.getPhongForLoaiPhong();
-        List<Phong> ba = u.getPhongForGia();
-        List<Phong> btt = u.getPhongForTinhTrang();
-        
-        
-        
-      request.setAttribute("lp", lp);
-      
-      request.setAttribute("lp1", lp1);
-      request.setAttribute("lk", lk);
-        request.setAttribute("bp", bp);
-        request.setAttribute("ba", ba);
-        request.setAttribute("btt", btt);
-      
-      request.getRequestDispatcher("index.jsp").forward(request, response);
+       int accountID = Integer.parseInt(request.getParameter("AccountID"));
+            String taiKhoan = request.getParameter("TaiKhoan");
+            String password = request.getParameter("Password");
+            int role = Integer.parseInt(request.getParameter("Role"));
+            String hoVaTen = request.getParameter("HoVaTen");
+            String email = request.getParameter("Email");
+            int cccd = Integer.parseInt(request.getParameter("CCCD"));
+            String diaChi = request.getParameter("DiaChi");
+
+            Accounts account = new Accounts(accountID, taiKhoan, password, role, hoVaTen, email, cccd, diaChi);
+            DAO dao = new DAO();
+        try {
+            dao.updateAccount(account);
+        } catch (SQLException ex) {
+            Logger.getLogger(EditAccount.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        response.sendRedirect("listaccount");
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -94,4 +91,3 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
     }// </editor-fold>
 
 }
-

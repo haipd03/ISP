@@ -1,7 +1,14 @@
+<%-- 
+    Document   : HienThiThongTinPhong
+    Created on : May 19, 2024, 9:15:39 PM
+    Author     : Admin
+--%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import = "model.Phong" %>
 <%@page import = "java.util.*" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,7 +20,12 @@
         <link rel="stylesheet" href="./dist/styles.css">
         <link rel="stylesheet" href="./dist/all.css">
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i,700,700i" rel="stylesheet">
-        <title>Forms | Tailwind Admin</title>
+        <title>HienThiPhong</title>
+        <script>
+            function confirmDelete() {
+                return confirm("Bạn có chắc chắn muốn xóa phòng này?");
+            }
+        </script>
     </head>
 
     <body>
@@ -133,45 +145,47 @@
 
                     </aside>
                     <!--/Sidebar-->
+                    <!--Main-->
+                    <main class="bg-gray-100 flex-1 p-6 overflow-hidden">
+                        <div class="flex flex-col space-y-4">
+                            <!-- Check if Phong attribute is not null -->
+                            <c:if test="${not empty Phong}">
+                                <!-- Display room information -->
+                                <div class="flex flex-col md:flex-row lg:flex-row mx-2">
+                                    <div class="mb-4 bg-white border border-gray-200 rounded-lg shadow-lg w-full md:w-1/2 lg:w-1/3">
+<!--                                      <p>${success}</p>  -->
+                                      <div class="bg-purple-600 text-white px-4 py-3 rounded-t-lg">
+                                            Thông Tin Phòng Thêm
+                                        </div>
+                                        
+                                        <div class="p-4">
+                                            <p class="text-gray-700"><strong>Phòng ID:</strong> ${Phong.phongID}</p>
+                                            <p class="text-gray-700"><strong>Số Phòng:</strong> ${Phong.soPhong}</p>
+                                            <p class="text-gray-700"><strong>Khu ID:</strong> ${Phong.khuID}</p>
+                                            <p class="text-gray-700"><strong>Loại phòng:</strong> ${Phong.loaiPhong}</p>
+                                            <p class="text-gray-700"><strong>Phòng:</strong>  
+                                                <c:if test="${Phong.phongConTrong eq 1}">
+                                                    <span>Trống</span><br>
+                                                </c:if>
+                                            </p>
+                                            <p class="text-gray-700"><strong>Giá:</strong> ${Phong.gia}VND</p>
+                                            <!-- Add any additional actions/buttons here -->
+                                            <div class="mt-4 flex space-x-2">
+                                               
+                                               
+                                                <a class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200" href="/quanlytro/listphong">Home</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:if>
+                        </div>
+                    </main>
+
+
+
 
                     <!-- Underline form -->
-                    <div class="mb-4 md:mx-2 lg:mx-2 border border-gray-300 rounded-lg shadow-lg w-full md:w-1/2 lg:w-1/3">
-                        <div class="bg-purple-600 text-white px-4 py-3 rounded-t-lg">
-                            Sửa Khu
-                        </div>
-                        <div class="p-6 bg-white">
-                            <form action="editkhu" method="post">
-                                <div class="space-y-4">
-                                    <div class="flex items-center">
-                                        <label class="w-1/3 text-gray-700 font-semibold">ID Khu</label>
-                                        <input type="text" name="khuID" readonly value="${listkhu.khuID}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
-                                    </div>
-                                    <div class="flex items-center">
-                                        <label class="w-1/3 text-gray-700 font-semibold">Tên Khu</label>
-                                        <input type="text" name="name" value="${listkhu.name}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
-                                    </div>
-                                    <div class="flex items-center">
-                                        <label class="w-1/3 text-gray-700 font-semibold">Tên Quản Lý</label>
-                                        <select name="accountID" class="form-select" aria-label="Default select example">
-                                            <c:forEach items="${listK3}" var="o">
-                                                <c:if test="${o.accountID ne 1}">
-                                                    <c:if test="${o.accountID eq listkhu.accountID}">
-                                                        <option value="${o.accountID}" selected>${o.hoVaTen}</option>
-                                                    </c:if>
-                                                    <c:if test="${o.accountID ne listkhu.accountID}">
-                                                        <option value="${o.accountID}">${o.hoVaTen}</option>
-                                                    </c:if>
-                                                </c:if>   
-                                            </c:forEach>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="mt-6 flex justify-end">
-                                    <input type="submit" value="Update" class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 transition-colors duration-200">
-                                </div>
-                            </form>
-                        </div>
-                    </div>
 
                     <!--/Underline form-->
                     <!--/Main-->                                

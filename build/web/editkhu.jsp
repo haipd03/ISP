@@ -137,7 +137,7 @@
                     <!-- Underline form -->
                     <div class="mb-4 md:mx-2 lg:mx-2 border border-gray-300 rounded-lg shadow-lg w-full md:w-1/2 lg:w-1/3">
                         <div class="bg-purple-600 text-white px-4 py-3 rounded-t-lg">
-                            Sửa Khách Thuê
+                            Sửa Khu
                         </div>
                         <div class="p-6 bg-white">
                             <form action="editkhu" method="post">

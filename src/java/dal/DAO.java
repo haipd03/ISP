@@ -210,6 +210,46 @@ public class DAO extends MyDAO {
         } 
         return accounts;
     }
+    
+     public void addAccount(Accounts account) {
+        String sql = "INSERT INTO Accounts (AccountID, TaiKhoan, Password, Role, HoVaTen, Email, CCCD, DiaChi) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, account.getAccountID());
+            ps.setString(2, account.getTaiKhoan());
+            ps.setString(3, account.getPassword());
+            ps.setInt(4, account.getRole());
+            ps.setString(5, account.getHoVaTen());
+            ps.setString(6, account.getEmail());
+            ps.setInt(7, account.getCCCD());
+            ps.setString(8, account.getDiaChi());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+     
+     public void deleteAccount(String accountID) throws SQLException  {
+        String sql = "DELETE FROM Accounts WHERE AccountID = ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, accountID);
+            ps.executeUpdate();
+        }
+    }
+     
+     public void updateAccount(Accounts account) throws SQLException {
+        String sql = "UPDATE Accounts SET TaiKhoan = ?, Password = ?, Role = ?, HoVaTen = ?, Email = ?, CCCD = ?, DiaChi = ? WHERE AccountID = ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, account.getTaiKhoan());
+            ps.setString(2, account.getPassword());
+            ps.setInt(3, account.getRole());
+            ps.setString(4, account.getHoVaTen());
+            ps.setString(5, account.getEmail());
+            ps.setInt(6, account.getCCCD());
+            ps.setString(7, account.getDiaChi());
+            ps.setInt(8, account.getAccountID());
+            ps.executeUpdate();
+        }
+    }
      
     
      public List<KhachThue> getKhachThueByPhongID(String id) {
@@ -365,6 +405,8 @@ public class DAO extends MyDAO {
             e.printStackTrace();
         }
     }
+    
+    
 
     
     
@@ -415,30 +457,204 @@ public class DAO extends MyDAO {
         }
     }
     
-     public List<Accounts> getAccounts() {
-        List<Accounts> Account = new ArrayList<>();
-        String sql = "select * from Accounts"; // Câu lệnh SQL để lấy dữ liệu từ bảng Truyen
+ public List<Phong> searchbySoPhong(String soPhong) {
+        List<Phong> Phongs = new ArrayList<>();
+        String sql = "SELECT * FROM Phong WHERE SoPhong = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, soPhong);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                // Retrieve data from the result set
+                int PhongID = rs.getInt("PhongID");
+                int SoPhong = rs.getInt("SoPhong");
+                int KhuID = rs.getInt("KhuID");
+                String LoaiPhong = rs.getString("LoaiPhong");
+                int PhongConTrong = rs.getInt("PhongConTrong");
+                int Gia = rs.getInt("Gia");
+
+                // Create a Phong object from the retrieved data
+                Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, Gia);
+                // Add the Phong object to the list
+                Phongs.add(phong);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Print any SQL exceptions that occur
+        }
+        return Phongs; // Return the list of Phong objects
+    }
+
+ 
+  public List<Khu> getKhu2() {
+        List<Khu> khus = new ArrayList<>();
+        String sql = "SELECT * FROM khu";
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                int AccountID = rs.getInt("AccountID");
-                String TaiKhoan = rs.getString("TaiKhoan");
-                String Password = rs.getString("Password");
-                int Role = rs.getInt("Role");
-                String HoVaTen = rs.getString("HoVaTen");
-                String Email = rs.getString("Email");
-                int CCCD = rs.getInt("CCCD");
-                String DiaChi = rs.getString("DiaChi");
+                // Lấy thông tin từ cơ sở dữ liệu
 
-                Accounts Accounts = new Accounts(AccountID, TaiKhoan, Password, Role, HoVaTen, Email, CCCD, DiaChi);
-                Account.add(Accounts);
+                int KhuID = rs.getInt("KhuID");
+                String name = rs.getString("Name");
+                int AccountID = rs.getInt("AccountID");
+                // Tạo đối tượng Truyen từ thông tin lấy được
+                Khu Khu = new Khu(KhuID, name, AccountID);
+                // Thêm đối tượng Truyen vào danh sách truyens
+                khus.add(Khu);
             }
         } catch (SQLException e) {
             e.printStackTrace(); // In ra lỗi nếu có
         }
-        return Account;
+        return khus;
     }
+  
+   public List<Phong> getPhongByKhuID(String ck) {
+        List<Phong> Phongs = new ArrayList<>();
+        String sql = "SELECT * FROM Phong Where KhuID= ?";   // edit
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, ck);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int PhongID = rs.getInt("PhongID");   //edit dua vao thuoc tinh
+                int SoPhong = rs.getInt("SoPhong");
+                int KhuID = rs.getInt("KhuID");
+
+                String LoaiPhong = rs.getString("LoaiPhong");
+                int PhongConTrong = rs.getInt("PhongConTrong");
+                int Gia = rs.getInt("Gia");
+                Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, Gia);
+                Phongs.add(phong);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // In ra lỗi nếu có
+        }
+        return Phongs;
+    }
+
+    public List<Phong> getPhongByLoaiPhong(String bl) {
+        List<Phong> Phongs = new ArrayList<>();
+        String sql = "SELECT * FROM Phong WHERE LoaiPhong LIKE ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, "%" + bl + "%"); // Concatenate the wildcard characters around the parameter value
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int PhongID = rs.getInt("PhongID");
+                int SoPhong = rs.getInt("SoPhong");
+                int KhuID = rs.getInt("KhuID");
+                String LoaiPhong = rs.getString("LoaiPhong");
+                int PhongConTrong = rs.getInt("PhongConTrong");
+                int Gia = rs.getInt("Gia");
+                Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, Gia);
+                Phongs.add(phong);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Print error if any
+        }
+        return Phongs;
+    }
+
+    public List<Phong> getPhongByGia(String bg) {
+        List<Phong> Phongs = new ArrayList<>();
+        String sql = "SELECT * FROM Phong WHERE Gia = ?";   // edit
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, bg);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int PhongID = rs.getInt("PhongID");   //edit dua vao thuoc tinh
+                int SoPhong = rs.getInt("SoPhong");
+                int KhuID = rs.getInt("KhuID");
+                String LoaiPhong = rs.getString("LoaiPhong");
+                int PhongConTrong = rs.getInt("PhongConTrong");
+
+                int Gia = rs.getInt("Gia");
+
+                Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, Gia);
+                Phongs.add(phong);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // In ra lỗi nếu có
+        }
+        return Phongs;
+    }
+
+    public List<Phong> getPhongByTinhTrang(String bt) {
+        List<Phong> Phongs = new ArrayList<>();
+        String sql = "SELECT * FROM Phong WHERE PhongConTrong = ?";   // edit
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, bt);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int PhongID = rs.getInt("PhongID");   //edit dua vao thuoc tinh
+                int SoPhong = rs.getInt("SoPhong");
+                int KhuID = rs.getInt("KhuID");
+                String LoaiPhong = rs.getString("LoaiPhong");
+                int PhongConTrong = rs.getInt("PhongConTrong");
+
+                int Gia = rs.getInt("Gia");
+
+                Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, Gia);
+                Phongs.add(phong);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // In ra lỗi nếu có
+        }
+        return Phongs;
+    }
+    
+    public List<Phong> getPhongForLoaiPhong() {
+    List<Phong> Phongs = new ArrayList<>();
+    String sql = "SELECT DISTINCT LoaiPhong FROM Phong";
+    try {
+        ps = con.prepareStatement(sql);
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            String LoaiPhong = rs.getString("LoaiPhong");
+            Phong phong = new Phong(LoaiPhong);
+            Phongs.add(phong);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return Phongs;
+}
+    
+    public List<Phong> getPhongForGia() {
+    List<Phong> Phongs = new ArrayList<>();
+    String sql = "SELECT DISTINCT Gia FROM Phong";
+    try {
+        ps = con.prepareStatement(sql);
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            int Gia = rs.getInt("Gia");
+            Phong phong = new Phong(Gia);
+            Phongs.add(phong);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return Phongs;
+}
+    
+     public List<Phong> getPhongForTinhTrang() {
+    List<Phong> Phongs = new ArrayList<>();
+    String sql = "SELECT DISTINCT PhongConTrong FROM Phong";
+    try {
+        ps = con.prepareStatement(sql);
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            int PhongConTrong = rs.getInt("PhongConTrong");
+            Phong phong = new Phong(PhongConTrong, true);
+            Phongs.add(phong);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return Phongs;
+}
 
      
     public static void main(String[] args) {
