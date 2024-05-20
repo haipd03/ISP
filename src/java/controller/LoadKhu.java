@@ -45,7 +45,7 @@ public class LoadKhu extends HttpServlet {
             String id = request.getParameter("lkid");
             DAO dao = new DAO();
             Khu k = dao.getKhuByKhuID(id);
-            List<Accounts> acc = dao.getAccounts();
+            List<Accounts> acc = dao.getAllAccounts();
             request.setAttribute("listkhu", k);
             request.setAttribute("listK3", acc);
             request.getRequestDispatcher("editkhu.jsp").forward(request, response);

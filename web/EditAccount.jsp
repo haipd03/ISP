@@ -135,36 +135,47 @@
                     <!--/Sidebar-->
 
                     <!-- Underline form -->
-                    <div class="mb-4 md:mx-2 lg:mx-2 border border-gray-300 rounded-lg shadow-lg w-full md:w-1/2 lg:w-1/3">
-                        <div class="bg-purple-600 text-white px-4 py-3 rounded-t-lg">
-                            Sửa Khu
+                    <div class="mb-4 md:mx-2 lg:mx-2 border border-gray-300 rounded-lg shadow-lg w-full md:w-1/2 lg:w-4/5">
+                        <div class="bg-gray-600 text-white px-4 py-3 rounded-t-lg">
+                            Sửa Tài Khoản
                         </div>
                         <div class="p-6 bg-white">
-                            <form action="editkhu" method="post">
+                            <form action="editaccount" method="post">
                                 <div class="space-y-4">
                                     <div class="flex items-center">
-                                        <label class="w-1/3 text-gray-700 font-semibold">ID Khu</label>
-                                        <input type="text" name="khuID" readonly value="${listkhu.khuID}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <label class="w-1/3 text-gray-700 font-semibold">AccountID</label>
+                                        <input type="text" name="AccountID" readonly value="${listA.accountID}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
-                                        <label class="w-1/3 text-gray-700 font-semibold">Tên Khu</label>
-                                        <input type="text" name="name" value="${listkhu.name}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <label class="w-1/3 text-gray-700 font-semibold">TaiKhoan</label>
+                                        <input type="text" name="TaiKhoan" value="${listA.taiKhoan}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
-                                        <label class="w-1/3 text-gray-700 font-semibold">Tên Quản Lý</label>
-                                        <select name="accountID" class="form-select" aria-label="Default select example">
-                                            <c:forEach items="${listK3}" var="o">
-                                                <c:if test="${o.accountID ne 1}">
-                                                    <c:if test="${o.accountID eq listkhu.accountID}">
-                                                        <option value="${o.accountID}" selected>${o.hoVaTen}</option>
-                                                    </c:if>
-                                                    <c:if test="${o.accountID ne listkhu.accountID}">
-                                                        <option value="${o.accountID}">${o.hoVaTen}</option>
-                                                    </c:if>
-                                                </c:if>   
-                                            </c:forEach>
-                                        </select>
+                                        <label class="w-1/3 text-gray-700 font-semibold">Password</label>
+                                        <input type="text" name="Password" value="${listA.password}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
+                                    <div class="flex items-center">
+                                        <label class="w-1/3 text-gray-700 font-semibold">Role</label>
+                                        <input type="text" name="Role" value="${listA.role}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                    </div>
+                                    <div class="flex items-center">
+                                        <label class="w-1/3 text-gray-700 font-semibold">HoVaTen</label>
+                                        <input type="text" name="HoVaTen" value="${listA.hoVaTen}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                    </div>
+                                    <div class="flex items-center">
+                                        <label class="w-1/3 text-gray-700 font-semibold">Email</label>
+                                        <input type="text" name="Email" value="${listA.email}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                    </div>
+                                    <div class="flex items-center">
+                                        <label class="w-1/3 text-gray-700 font-semibold">CCCD</label>
+                                        <input type="text" name="CCCD" value="${listA.CCCD}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                    </div>
+                                    <div class="flex items-center">
+                                        <label class="w-1/3 text-gray-700 font-semibold">DiaChi</label>
+                                        <input type="text" name="DiaChi" value="${listA.diaChi}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                    </div>
+                                    
+                                   
                                 </div>
                                 <div class="mt-6 flex justify-end">
                                     <input type="submit" value="Update" class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 transition-colors duration-200">

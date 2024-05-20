@@ -40,7 +40,7 @@ public class ListKhu extends HttpServlet {
         List<Khu> list = dao.getKhuByKhuID();
         List<Khu> list1 = dao.getKhuByKhuID1();
         List<Khu> list2 = dao.getKhuByKhuID2();
-        List<Accounts> acc = dao.getAccounts();
+        List<Accounts> acc = dao.getAllAccounts();
 
 
         request.setAttribute("listK", list);
