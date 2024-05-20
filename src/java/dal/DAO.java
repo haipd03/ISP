@@ -221,6 +221,33 @@ public class DAO extends MyDAO {
         return KhachThues;
     }
 
+    public List<KhachThue> getKhachThueByPhongIDByAccountID(String id, int aid) {
+        List<KhachThue> KhachThues = new ArrayList<>();
+        String sql = "SELECT Kh.* FROM KhachThue Kh JOIN Phong P ON P.PhongID = Kh.PhongID JOIN Khu K ON K.KhuID = P.KhuID JOIN Accounts a ON a.AccountID = k.AccountID WHERE Kh.PhongID = ? and a.AccountID =?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, id);
+            ps.setInt(2, aid);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int KhachID = rs.getInt("KhachID");
+                String HoVaTen = rs.getString("HoVaTen");
+                String CCCD = rs.getString("CCCD");
+                String SDT = rs.getString("SDT");
+                String QueQuan = rs.getString("QueQuan");
+                String TenNguoiThan = rs.getString("TenNguoiThan");
+                String SDTNguoiThan = rs.getString("SDTNguoiThan");
+                String QuanHeVoiNguoiThan = rs.getString("QuanHeVoiNguoiThan");
+                int PhongID = rs.getInt("PhongID");
+                KhachThue khachThue = new KhachThue(KhachID, HoVaTen, CCCD, SDT, QueQuan, TenNguoiThan, SDTNguoiThan, QuanHeVoiNguoiThan, PhongID);
+                KhachThues.add(khachThue);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return KhachThues;
+    }
+
     public KhachThue getKhachThueByKhachID(String id) {
         String sql = "Select * from khachthue k where k.KhachID=?";
         try {

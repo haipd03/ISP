@@ -150,8 +150,8 @@
                                                 <div class="text-center mr-3 border-r pr-3">
                                                     <span>Thiết bị</span>
                                                 </div>
-                                                <c:if test="${o.phongConTrong == 0}">
-                                                    <a class="text-center mr-3 border-r pr-3" href="listNguoiThue?lntid=${o.phongID}">
+                                                <c:if test="${p.phongConTrong == 0}">
+                                                    <a class="text-center mr-3 border-r pr-3" href="listNguoiThue?lntid=${p.phongID}">
                                                         Người Thuê
                                                     </a>
                                                 </c:if>
