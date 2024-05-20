@@ -77,6 +77,9 @@ public class Phong {
         this.Gia = Gia;
     }
 
+    public Phong(int phongID, int soPhong, int khuID, String loaiPhong, int gia) {
+    this(phongID, soPhong, khuID, loaiPhong, 1, gia); // Gọi constructor khác với giá trị mặc định là 1
+}
     @Override
     public String toString() {
         return "Phong{" + "PhongID=" + PhongID + ", SoPhong=" + SoPhong + ", KhuID=" + KhuID + ", LoaiPhong=" + LoaiPhong + ", PhongConTrong=" + PhongConTrong + ", Gia=" + Gia + '}';

@@ -13,10 +13,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.util.List;
-import model.Accounts;
-import model.Khu;
 import model.Phong;
 
 /**
@@ -32,18 +29,13 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        Accounts a = (Accounts) session.getAttribute("acc");
        DAO u = new DAO();
         List<Phong> lp = u.getPhong();
-       
-        List<Phong> lp1 = u.getPhongDetailsByAccountID(a.getAccountID());
-        
+        List<Phong> lp1 = u.getPhong1();
+        List<Phong> lp2 = u.getPhong2();
       request.setAttribute("lp", lp);
-      
       request.setAttribute("lp1", lp1);
-      
+      request.setAttribute("lp2", lp2);
       request.getRequestDispatcher("index.jsp").forward(request, response);
     } 
 

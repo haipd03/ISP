@@ -1,0 +1,199 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : May 18, 2024, 8:07:48 PM
+    Author     : Admin
+*/
+
+body {
+            background-color: white;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin: 20px auto;
+            width: 400px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .container h1 {
+            text-align: center;
+        }
+        .container label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .container input[type="text"] {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        .container input[type="submit"] {
+            width: 48%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .container a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .container .button-group {
+            text-align: center;
+        }
+        .container .button-group button {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        body {
+            background-color: white;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin: 20px auto;
+            width: 400px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .container h1 {
+            text-align: center;
+        }
+        .container label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .container span {
+            font-weight: bold;
+        }
+        .container .button-group {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .container .button-group a {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 3px;
+        }
+
+body {
+            background-color: white;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin: 20px auto;
+            width: 400px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .container h1 {
+            text-align: center;
+        }
+        .container p {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        .container .info {
+            margin-top: 20px;
+        }
+        .container .info label {
+            display: inline-block;
+            width: 120px;
+            font-weight: bold;
+        }
+        
+        .container1 {
+                display: flex;
+                justify-content: flex-end;
+            }
+
+            .add-button {
+                display: inline-block;
+                padding: 8px 16px; /* Adjust the value as needed */
+                background-color: #4CAF50;
+                color: white;
+                font-size: 15px; /* Adjust the value as needed */
+                border: none;
+                cursor: pointer;
+                transition: background-color 0.3s;
+                border-radius: 7px; /* Adjust the value as needed */
+            }
+
+            .add-button:hover {
+                background-color: #45a049;
+            }
+            /* CSS cho nút "Sửa", "Xóa", và "Home" */
+.container .button-group button {
+    display: inline-block;
+    margin: 0 10px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.container .button-group button:hover {
+    background-color: #45a049;
+}
+.container .button-group .edit-button {
+    background-color: orange; /* Màu cam */
+}
+
+/* CSS cho nút "Xóa" */
+.container .button-group .delete-button {
+    background-color: red; /* Màu đỏ */
+}
+
+/* CSS cho nút "Home" */
+.container .home-button {
+    background-color: blue; /* Màu xanh da trời */
+}
+body {
+            background-color: white;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin: 20px auto;
+            width: 400px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .container h1 {
+            text-align: center;
+        }
+        .container p {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        .container .info {
+            margin-top: 20px;
+        }
+        .container .info label {
+            display: inline-block;
+            width: 120px;
+            font-weight: bold;
+        }

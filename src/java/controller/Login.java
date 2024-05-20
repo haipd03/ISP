@@ -43,6 +43,8 @@ public class Login extends HttpServlet {
         } else {
             HttpSession session = request.getSession();
             session.setAttribute("acc", a);
+            
+            session.setAttribute("userRole", a.getRole()); 
             session.setMaxInactiveInterval(10000);
             response.sendRedirect("listphong");
         }
