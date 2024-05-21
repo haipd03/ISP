@@ -26,7 +26,7 @@ public class Search extends HttpServlet {
 
     
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
@@ -37,13 +37,20 @@ public class Search extends HttpServlet {
 //        }
         DAO dao = new DAO();
         List<Phong> ltr = dao.searchbySoPhong(txtSearch); // Pass the search text to the search method
-
+        List<Khu> lk = dao.getKhu2();   //edit
+        List<Phong> bp = dao.getPhongForLoaiPhong();
+        List<Phong> btt = dao.getPhongForTinhTrang();
+        List<Phong> ba = dao.getPhongForGia();
 //        if (ltr == null || ltr.isEmpty()) {
 //            response.sendRedirect("404.html");
 //            return;
 //        }
 
         request.setAttribute("lp", ltr);
+        request.setAttribute("lk", lk); //edit
+        request.setAttribute("bp", bp);
+        request.setAttribute("btt", btt);
+        request.setAttribute("ba", ba);
 
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
