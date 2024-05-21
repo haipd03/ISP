@@ -210,7 +210,7 @@
                                             </div>
                                             <div class="flex justify-center pb-3 text-grey-dark">
                                                 <div class="text-center mr-3 border-r pr-3">
-                                                    <span>Thiết bị</span>
+                                                    <a href="listthietbi?id=${o.phongID}" class="button-link">Thiết bị</a>
                                                 </div>
                                                 <c:if test="${o.phongConTrong == 0}">
                                                     <div class="text-center mr-3 border-r pr-3">
@@ -248,7 +248,7 @@
                                             </div>
                                             <div class="flex justify-center pb-3 text-grey-dark">
                                                 <div class="text-center mr-3 border-r pr-3">
-                                                    <span>Thiết bị</span>
+                                                    <a href="listthietbi?id=${p.phongID}" class="button-link">Thiết bị</a>
                                                 </div>
                                                 <c:if test="${p.phongConTrong == 0}">
                                                     <div class="text-center mr-3 border-r pr-3">
@@ -287,7 +287,7 @@
                                             </div>
                                             <div class="flex justify-center pb-3 text-grey-dark">
                                                 <div class="text-center mr-3 border-r pr-3">
-                                                    <span>Thiết bị</span>
+                                                    <a href="listthietbi?id=${o.phongID}" class="button-link">Thiết bị</a>
                                                 </div>
                                                 <c:if test="${o.phongConTrong == 0}">
                                                     <div class="text-center mr-3 border-r pr-3">
