@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
+    <servlet>
+        <servlet-name>ThemPhong</servlet-name>
+        <servlet-class>controller.ThemPhong</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ThemPhong</servlet-name>
+        <url-pattern>/themphong</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>LoadPhong</servlet-name>
+        <servlet-class>controller.LoadPhong</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>LoadPhong</servlet-name>
+        <url-pattern>/loadphong</url-pattern>
+    </servlet-mapping>
+   
+    
+</web-app>
