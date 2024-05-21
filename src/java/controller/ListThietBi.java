@@ -23,19 +23,22 @@ public class ListThietBi extends HttpServlet {
         Accounts a = (Accounts) session.getAttribute("acc");
 
         if (a == null) {
-            // Redirect to login page or show error message if account is not logged in
+            // Redirect to login page if account is not logged in
             response.sendRedirect("login.jsp");
+            return;  // Ensure no further processing occurs
         } else {
             String id = request.getParameter("id");
             DAO dao = new DAO();
+            List<ThietBi> ltb;
             if (a.getRole() == 1) {
-                List<ThietBi> ltb = dao.getThietBibyIDandAccID1(id, a.getAccountID());
-                request.setAttribute("ltb", ltb);
+                ltb = dao.getThietBibyIDandAccID1(id, a.getAccountID());
             } else {
-                List<ThietBi> ltb = dao.getThietBi(id);
-                request.setAttribute("ltb", ltb);
+                ltb = dao.getThietBi(id);
             }
+            request.setAttribute("ltb", ltb);
 
+            // Set the id parameter as a request attribute
+            request.setAttribute("phongID", id);
         }
         request.getRequestDispatcher("thietbi.jsp").forward(request, response);
     }

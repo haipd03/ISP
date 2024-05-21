@@ -155,8 +155,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <c:forEach items="${ltb}" var="thietBi" >
-                                    <tr class="transition-colors hover:bg-gray-100 ">
+                                <c:forEach items="${ltb}" var="thietBi">
+                                    <tr class="transition-colors hover:bg-gray-100">
                                         <td class="px-4 py-2">${thietBi.thietBiID}</td>
                                         <td class="px-4 py-2">${thietBi.phongID}</td>
                                         <td class="px-4 py-2">${thietBi.name}</td>
@@ -165,19 +165,20 @@
                                         <td class="px-4 py-2">${thietBi.gia}</td>
                                         <td class="px-4 py-2">
                                             <a href="editthietbi?tbid=${thietBi.thietBiID}" class="text-blue-500 hover:text-blue-700 mr-2">Sửa</a>
-                                            <a href="deletethietbi?tbid=${thietBi.thietBiID}" class="text-red-500 hover:text-red-700">Xóa</a>                                            
+                                            <a href="deletethietbi?tbid=${thietBi.thietBiID}" class="text-red-500 hover:text-red-700">Xóa</a>
                                         </td>
                                     </tr>
                                 </c:forEach>
                             </tbody>
                         </table>
                         <div class="mt-4">
-                            <a href="inserttb?ib=${ltb[0].phongID}">
+                            <a href="inserttb?ib=${phongID}">
                                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Thêm thiết bị</button>
                             </a>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
         <script src="./main.js"></script>

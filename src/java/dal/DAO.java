@@ -871,6 +871,31 @@ public class DAO extends MyDAO {
         }
         return Account;
     }
+    
+    public List<Phong> getPhongByPhongID(String id) {
+        List<Phong> Phongs = new ArrayList<>();
+        String sql = "SELECT * FROM Phong WHERE PhongID = ?";   // edit
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int PhongID = rs.getInt("PhongID");   //edit dua vao thuoc tinh
+                int SoPhong = rs.getInt("SoPhong");
+                int KhuID = rs.getInt("KhuID");
+                String LoaiPhong = rs.getString("LoaiPhong");
+                int PhongConTrong = rs.getInt("PhongConTrong");
+
+                int Gia = rs.getInt("Gia");
+
+                Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, Gia);
+                Phongs.add(phong);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // In ra lỗi nếu có
+        }
+        return Phongs;
+    }
 
     public static void main(String[] args) {
         DAO dao = new DAO();
