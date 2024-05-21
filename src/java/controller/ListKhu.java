@@ -33,23 +33,25 @@ public class ListKhu extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
+        Accounts a = (Accounts) session.getAttribute("acc");
         DAO dao = new DAO();
         List<Khu> list = dao.getKhuByKhuID();
-        List<Khu> list1 = dao.getKhuByKhuID1();
-        List<Khu> list2 = dao.getKhuByKhuID2();
-        List<Accounts> acc = dao.getAllAccounts();
-
+        List<Khu> list1 = dao.getKhuByKhuID1(a.getAccountID());
+        List<Accounts> acc = dao.getAccounts();
 
         request.setAttribute("listK", list);
         request.setAttribute("listK1", list1);
-        request.setAttribute("listK2", list2);
         request.setAttribute("listK3", acc);
 
         request.getRequestDispatcher("khu.jsp").forward(request, response);
     }
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
