@@ -12,18 +12,30 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
+import model.Accounts;
 import model.Phong;
 
 /**
  *
  * @author Admin
  */
+@WebServlet(name="ThemPhong", urlPatterns={"/themphong"})
+
 public class ThemPhong extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
+        Accounts a = (Accounts) session.getAttribute("acc");
+ 
+         if (a == null ) {
+            // Redirect to login page or show error message if account is not logged in
+            response.sendRedirect("login.jsp");
+        } else {
       String phongIDString = request.getParameter("PhongID");
         String soPhongString = request.getParameter("SoPhong");
         String khuIDString = request.getParameter("KhuID");
@@ -40,14 +52,14 @@ public class ThemPhong extends HttpServlet {
 
             if (phongID <= 0 || soPhong <= 0 || khuID <= 0 || phongConTrong < 0 || gia < 0) {
                 request.setAttribute("message", "Dữ liệu nhập vào không hợp lệ!");
-                request.getRequestDispatcher("NhapAddPhong.jsp").forward(request, response);
+                request.getRequestDispatcher("/nhapaddphong").forward(request, response);
                 return;
             }
 
             PhongDAO phongDAO = new PhongDAO();
             if (phongDAO.isPhongIDExists(phongID) || phongDAO.isSoPhongExists(soPhong)) {
                 request.setAttribute("message", "Phòng ID hoặc Số Phòng đã tồn tại trong cơ sở dữ liệu! Vui lòng chọn một Phòng ID hoặc Số Phòng khác.");
-                request.getRequestDispatcher("NhapAddPhong.jsp").forward(request, response);
+                request.getRequestDispatcher("/nhapaddphong").forward(request, response);
                 return;
             }
 
@@ -60,11 +72,15 @@ public class ThemPhong extends HttpServlet {
                 request.getRequestDispatcher("HienThiPhongThem.jsp").forward(request, response);
             } else {
                 request.setAttribute("message", "Thêm phòng thất bại!");
-                request.getRequestDispatcher("NhapAddPhong.jsp").forward(request, response);
+                request.getRequestDispatcher("/nhapaddphong").forward(request, response);
             }
         } catch (NumberFormatException e) {
             request.setAttribute("message", "Dữ liệu nhập vào không hợp lệ!");
-            request.getRequestDispatcher("NhapAddPhong.jsp").forward(request, response);
+            request.getRequestDispatcher("/nhapaddphong").forward(request, response);
         }
     }
+    }
 }
+
+
+

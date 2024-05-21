@@ -457,12 +457,12 @@ public class DAO extends MyDAO {
         }
     }
     
- public List<Phong> searchbySoPhong(String soPhong) {
+public List<Phong> searchbySoPhong(String soPhong) {
         List<Phong> Phongs = new ArrayList<>();
-        String sql = "SELECT * FROM Phong WHERE SoPhong = ?";
+        String sql = "SELECT * FROM Phong WHERE SoPhong LIKE ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, soPhong);
+            ps.setString(1, "%" + soPhong + "%");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 // Retrieve data from the result set
@@ -479,7 +479,7 @@ public class DAO extends MyDAO {
                 Phongs.add(phong);
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Print any SQL exceptions that occur
+            e.printStackTrace(); // Printany SQL exceptions that occur
         }
         return Phongs; // Return the list of Phong objects
     }

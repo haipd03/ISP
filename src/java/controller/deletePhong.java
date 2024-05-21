@@ -8,14 +8,22 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import model.Accounts;
 import model.Phong;
 
 @WebServlet(name = "DeletePhong", urlPatterns = {"/deletePhong"})
 public class deletePhong extends HttpServlet {
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+          HttpSession session = request.getSession();
+        Accounts a = (Accounts) session.getAttribute("acc");
+ 
+         if (a == null) {
+            // Redirect to login page or show error message if account is not logged in
+            response.sendRedirect("login.jsp");
+        } else {
         // Lấy số phòng từ request
         int phongID = Integer.parseInt(request.getParameter("phongID"));
         
@@ -36,4 +44,8 @@ public class deletePhong extends HttpServlet {
         // Sau khi xóa, chuyển hướng lại trang danh sách phòng
         response.sendRedirect(request.getContextPath() + "/listphong");
     }
+    }
 }
+
+
+

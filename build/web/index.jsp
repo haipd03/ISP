@@ -54,14 +54,14 @@
 
                         <div class="flex flex-col">
                             <c:if test="${sessionScope.acc.role == 0}">
-                                
-                                
-                                <form class="searchform cf flex justify-center items-center mt-8 mb-8" action="search" method="post">
-                                    <input id="roomNumberInput" name="txt" type="text" placeholder="Tim kiem so phong nao?" class="w-full md:w-3/4 lg:w-1/2 p-2 border border-gray-600 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                        Search
-                                    </button>
-                                </form>
+
+
+                                 <form class="searchform cf flex justify-center items-center mt-8 mb-8" action="search" method="post">
+                                                            <input id="roomNumberInput" name="txt" type="text" placeholder="Nhập số phòng" class="w-full md:w-3/4 lg:w-1/2 p-2 border border-gray-600 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r-lg focus:outline-none focus:ring-2 focus:ring-blue-500" type="submit">
+                                                                Search
+                                                            </button>
+                                                        </form>
 
 
                                 <!-- Stats Row Starts Here -->
@@ -150,15 +150,15 @@
                             <table border="0">
                                 <tbody>
                                     <tr>
+
                                         <td><h1>List </h1></td>
                                         <td><div class="flex justify-end">
-                                                <button type="submit" class="bg-green-500 hover:bg-green-800 text-white font-bold py-2 px-4 rounded">
-                                                    ADD
-                                                </button>
+                                                <form action="nhapaddphong" method="post">
+                                                    <button type="submit"  class="bg-green-500 hover:bg-green-800 text-white font-bold py-2 px-4 rounded"">ADD</button>
+                                                </form>
                                             </div>
                                         </td>
-                                    </tr>
-                                </tbody>
+                                    </tr>                                </tbody>
                             </table>
 
                             <div class="flex flex-1 flex-wrap mx-2 p-1 mt-2 mx-auto lg:mx-2 md:mx-2" style="gap: 10px">
