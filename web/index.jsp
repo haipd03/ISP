@@ -156,15 +156,14 @@
                     <main class="bg-white-300 flex-1 p-3 overflow-hidden">
 
                         <div class="flex flex-col">
+                                      <form class="searchform cf flex justify-center items-center mt-8 mb-8" action="search" method="post">
+                                                            <input id="roomNumberInput" name="txt" type="text" placeholder="Nhập số phòng" class="w-full md:w-3/4 lg:w-1/2 p-2 border border-gray-600 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r-lg focus:outline-none focus:ring-2 focus:ring-blue-500" type="submit">
+                                                                Search
+                                                            </button>
+                                                        </form>
 
-                            <form class="searchform cf flex justify-center items-center mt-4 mb-4" action="search" method="post">
-                                <input id="roomNumberInput" name="txt" type="text" placeholder="Tim kiem so phong nao?" class="w-full md:w-3/4 lg:w-1/2 p-2 border border-gray-600 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                    Search
-                                </button>
-                            </form>
-
-                            <!-- Stats Row Starts Here -->
+                 
 
                             <div class="flex flex-1 flex-col md:flex-row lg:flex-row mx-2">
                                 <!-- KHU Button with Dropdown -->

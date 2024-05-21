@@ -27,13 +27,7 @@ public class CategoryTinhTrang extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-      HttpSession session = request.getSession();
-        Accounts a = (Accounts) session.getAttribute("acc");
  
-         if (a == null || a.getRole() == 1) {
-            // Redirect to login page or show error message if account is not logged in
-            response.sendRedirect("login.jsp");
-        } else {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         String bt = request.getParameter("bt"); //edit
@@ -51,7 +45,7 @@ public class CategoryTinhTrang extends HttpServlet {
         request.setAttribute("btt", btt);
         request.setAttribute("ba", ba);
         request.getRequestDispatcher("index.jsp").forward(request, response);
-    }
+    
       
     }
 

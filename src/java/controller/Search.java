@@ -27,29 +27,21 @@ public class Search extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        HttpSession session = request.getSession();
-        session.removeAttribute("acc");
         String txtSearch = request.getParameter("txt"); // Ensure this matches the input field's name attribute
-
-        // Check for empty search text
-        if (txtSearch == null || txtSearch.trim().isEmpty()) {
-            // Handle empty search text (e.g., redirect to main page)
-            response.sendRedirect("index.jsp");
-            return;
-        }
+//        if (txtSearch == null || txtSearch.trim().isEmpty()) {       
+//            response.sendRedirect("index.jsp");
+//            return;
+//        }
         DAO dao = new DAO();
         List<Phong> ltr = dao.searchbySoPhong(txtSearch); // Pass the search text to the search method
 
-        // Check if the search result is null or empty
-        if (ltr == null || ltr.isEmpty()) {
-            // Redirect to 404.jsp or display a message on index.jsp
-            response.sendRedirect("404.html");
-            return;
-        }
-        // Set the search results as an attribute for the JSP
+//        if (ltr == null || ltr.isEmpty()) {
+//            response.sendRedirect("404.html");
+//            return;
+//        }
+
         request.setAttribute("lp", ltr);
 
-        // Forward the request to index.jsp
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
