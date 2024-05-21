@@ -863,6 +863,54 @@ List<ThietBi> ThietBis = new ArrayList<>();
         }
         return ThietBis;
     }
+    
+    
+public List<Khu> getKhuByKhuID1(int accountID) {
+        List<Khu> khus = new ArrayList<>();
+        String sql = "SELECT k.* FROM Khu k JOIN Accounts a ON a.AccountID = k.AccountID WHERE a.AccountID = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, accountID);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int KhuID = rs.getInt("KhuID");
+                String Name = rs.getString("Name");
+                int AccountID = rs.getInt("AccountID");
+                Khu khu = new Khu(KhuID, Name, AccountID);
+                khus.add(khu);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return khus;
+    }
+
+ public List<Accounts> getAccounts() {
+        List<Accounts> Account = new ArrayList<>();
+        String sql = "select * from Accounts"; // Câu lệnh SQL để lấy dữ liệu từ bảng Truyen
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int AccountID = rs.getInt("AccountID");
+                String TaiKhoan = rs.getString("TaiKhoan");
+                String Password = rs.getString("Password");
+                int Role = rs.getInt("Role");
+                String HoVaTen = rs.getString("HoVaTen");
+                String Email = rs.getString("Email");
+                int CCCD = rs.getInt("CCCD");
+                String DiaChi = rs.getString("DiaChi");
+
+                Accounts Accounts = new Accounts(AccountID, TaiKhoan, Password, Role, HoVaTen, Email, CCCD, DiaChi);
+                Account.add(Accounts);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // In ra lỗi nếu có
+        }
+        return Account;
+    }
+
+
 
      
     public static void main(String[] args) {
