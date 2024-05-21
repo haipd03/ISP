@@ -7,15 +7,25 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.Phong;
 import java.util.List;
+import model.Accounts;
 
 @WebServlet(name = "EditPhong", urlPatterns = {"/editPhong"})
 public class EditPhong extends HttpServlet {
 
    @Override
-   protected void doPost(HttpServletRequest request, HttpServletResponse response)
+   protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+       response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
+        Accounts a = (Accounts) session.getAttribute("acc");
+ 
+         if (a == null ) {
+            // Redirect to login page or show error message if account is not logged in
+            response.sendRedirect("login.jsp");
+        } else {
         // Lấy thông tin phòng từ request
         String phongIDStr = request.getParameter("phongID");
         String soPhongStr = request.getParameter("soPhong");
@@ -35,20 +45,20 @@ public class EditPhong extends HttpServlet {
                 request.getRequestDispatcher("editPhong.jsp").forward(request, response);
                 return;
             } else {
-                loaiPhong = loaiPhong.trim();  // Chuyển đổi thành chữ thường
+                loaiPhong = loaiPhong.trim();  
             }
 
             int phongConTrong = Integer.parseInt(phongConTrongStr);
             if (phongConTrong < 0) {
                 request.setAttribute("message", "Phòng Còn Trống không được nhỏ hơn 0!");
-                request.getRequestDispatcher("editPhong.jsp").forward(request, response);
+                request.getRequestDispatcher("/nhapeditphong").forward(request, response);
                 return;
             }
 
             int gia = Integer.parseInt(giaStr);
             if (gia < 0) {
                 request.setAttribute("message", "Giá không được nhỏ hơn 0!");
-                request.getRequestDispatcher("EditThongTinPhong.jsp").forward(request, response);
+                request.getRequestDispatcher("/nhapeditphong").forward(request, response);
                 return;
             }
 
@@ -69,12 +79,15 @@ public class EditPhong extends HttpServlet {
             } else {
                 // Xử lý lỗi và chuyển hướng người dùng đến trang thông báo lỗi
                 request.setAttribute("message", "Cập nhật phòng thất bại!");
-                request.getRequestDispatcher("EditThongTinPhong.jsp").forward(request, response);
+                request.getRequestDispatcher("/nhapeditphong").forward(request, response);
             }
         } catch (NumberFormatException e) {
             request.setAttribute("message", "Dữ liệu nhập vào không hợp lệ!");
-            request.getRequestDispatcher("EditThongTinPhong.jsp").forward(request, response);
+            request.getRequestDispatcher("/nhapeditphong").forward(request, response);
         }
     }
-
+   }
 }
+
+
+

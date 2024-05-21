@@ -31,10 +31,13 @@ public class ListPhong extends HttpServlet {
 protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         Accounts a = (Accounts) session.getAttribute("acc");
+
+        if (a == null) {
+            response.sendRedirect("login");
+        }else {
+            
        DAO u = new DAO();
         List<Phong> lp = u.getPhong();
        
@@ -56,6 +59,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
       
       request.getRequestDispatcher("index.jsp").forward(request, response);
     } 
+}
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 

@@ -32,27 +32,41 @@ public class EditAccount extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-       int accountID = Integer.parseInt(request.getParameter("AccountID"));
-            String taiKhoan = request.getParameter("TaiKhoan");
-            String password = request.getParameter("Password");
-            int role = Integer.parseInt(request.getParameter("Role"));
-            String hoVaTen = request.getParameter("HoVaTen");
-            String email = request.getParameter("Email");
-            int cccd = Integer.parseInt(request.getParameter("CCCD"));
-            String diaChi = request.getParameter("DiaChi");
 
-            Accounts account = new Accounts(accountID, taiKhoan, password, role, hoVaTen, email, cccd, diaChi);
-            DAO dao = new DAO();
+        int accountID = Integer.parseInt(request.getParameter("AccountID"));
+        String taiKhoan = request.getParameter("TaiKhoan");
+        String password = request.getParameter("Password");
+        String roleParam = request.getParameter("Role");
+        String hoVaTen = request.getParameter("HoVaTen");
+        String email = request.getParameter("Email");
+        int cccd = Integer.parseInt(request.getParameter("CCCD"));
+        String diaChi = request.getParameter("DiaChi");
+
+        int role;
+        try {
+            role = Integer.parseInt(roleParam);
+            if (role != 0 && role != 1) {
+                throw new NumberFormatException("Invalid role value");
+            }
+        } catch (NumberFormatException e) {
+            request.setAttribute("errorMessage", "Role must be  0 or 1");
+            request.setAttribute("listA", new Accounts(accountID, taiKhoan, password, 0, hoVaTen, email, cccd, diaChi)); // Maintain input data
+            request.getRequestDispatcher("EditAccount.jsp").forward(request, response);
+            return;
+        }
+
+        Accounts account = new Accounts(accountID, taiKhoan, password, role, hoVaTen, email, cccd, diaChi);
+        DAO dao = new DAO();
         try {
             dao.updateAccount(account);
         } catch (SQLException ex) {
             Logger.getLogger(EditAccount.class.getName()).log(Level.SEVERE, null, ex);
         }
         response.sendRedirect("listaccount");
-    } 
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
