@@ -31,21 +31,35 @@ public class ListPhong extends HttpServlet {
 protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         Accounts a = (Accounts) session.getAttribute("acc");
+
+        if (a == null) {
+            response.sendRedirect("login");
+        }else {
+            
        DAO u = new DAO();
         List<Phong> lp = u.getPhong();
        
         List<Phong> lp1 = u.getPhongDetailsByAccountID(a.getAccountID());
+        List<Khu> lk = u.getKhu2();
+        List<Phong> bp = u.getPhongForLoaiPhong();
+        List<Phong> ba = u.getPhongForGia();
+        List<Phong> btt = u.getPhongForTinhTrang();
+        
+        
         
       request.setAttribute("lp", lp);
       
       request.setAttribute("lp1", lp1);
+      request.setAttribute("lk", lk);
+        request.setAttribute("bp", bp);
+        request.setAttribute("ba", ba);
+        request.setAttribute("btt", btt);
       
       request.getRequestDispatcher("index.jsp").forward(request, response);
     } 
+}
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
