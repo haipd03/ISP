@@ -397,6 +397,22 @@ public class DAO extends MyDAO {
         }
     }
 
+    public boolean checkExistingKhuID(String khuID) {
+        String query = "SELECT KhuID FROM [dbo].[Khu] WHERE KhuID = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, khuID);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Xử lý ngoại lệ
+        }
+        return false; // Nếu không tìm thấy khuID
+    }
+
     public int CountPhongInKhu(String kid) {
         String sql = "SELECT COUNT(*) AS SoPhong FROM Phong P INNER JOIN Khu K ON P.KhuID = K.KhuID WHERE P.KhuID = ?;";
         try {
@@ -816,6 +832,21 @@ public class DAO extends MyDAO {
         }
     }
 
+    public boolean checkExistingThietBiID(String tbid) {
+        String query = "SELECT ThietBiID FROM ThietBi WHERE ThietBiID = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, tbid);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public List<ThietBi> getThietBibyIDandAccID1(String id, int aid) {
         List<ThietBi> ThietBis = new ArrayList<>();
         String sql = "SELECT Tb.* \n"
@@ -871,7 +902,7 @@ public class DAO extends MyDAO {
         }
         return Account;
     }
-    
+
     public List<Phong> getPhongByPhongID(String id) {
         List<Phong> Phongs = new ArrayList<>();
         String sql = "SELECT * FROM Phong WHERE PhongID = ?";   // edit

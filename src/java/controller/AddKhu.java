@@ -5,6 +5,7 @@
 package controller;
 
 import dal.DAO;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -29,15 +30,27 @@ public class AddKhu extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String khuID = request.getParameter("khuID");
         String name = request.getParameter("name");
         String accountID = request.getParameter("accountID");
         DAO dao = new DAO();
-        dao.InsertKhu(khuID, name, accountID);
-        response.sendRedirect("khu");
+
+        if (khuID == null || khuID.isEmpty() || name == null || name.isEmpty()) {
+            request.setAttribute("error", "Vui lòng nhập đầy đủ thông tin KhuID và Tên Khu!");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("khu"); // Điều hướng trở lại trang khi có lỗi
+            dispatcher.forward(request, response);
+        } else {
+            if (dao.checkExistingKhuID(khuID)) {
+                request.setAttribute("error", "Đã tồn tại KhuID trong cơ sở dữ liệu! Vui lòng chọn KhuID khác!");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("khu");
+                dispatcher.forward(request, response);
+            } else {
+                dao.InsertKhu(khuID, name, accountID);
+            }
+            response.sendRedirect("khu");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

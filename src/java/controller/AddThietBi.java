@@ -5,6 +5,7 @@
 package controller;
 
 import dal.DAO;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -43,7 +44,13 @@ public class AddThietBi extends HttpServlet {
         String tbtinhtrang = request.getParameter("TinhTrang");
         String tbgia = request.getParameter("Gia");
         DAO dao = new DAO();
-        dao.insertThietBi(tbid, tbpid, tbname, tbsoluong, tbtinhtrang, tbgia);
+        if (dao.checkExistingThietBiID(tbid)) {
+            request.setAttribute("error", "Đã tồn tại ThietBiID trong cơ sở dữ liệu! Vui lòng chọn ThietBiID khác!");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("listthietbi?id=" + tbpid);
+            dispatcher.forward(request, response);
+        } else {
+            dao.insertThietBi(tbid, tbpid, tbname, tbsoluong, tbtinhtrang, tbgia);
+        }
         response.sendRedirect("listthietbi?id=" + tbpid);
     }
 

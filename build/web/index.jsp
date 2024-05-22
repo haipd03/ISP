@@ -56,12 +56,12 @@
                             <c:if test="${sessionScope.acc.role == 0}">
 
 
-                                 <form class="searchform cf flex justify-center items-center mt-8 mb-8" action="search" method="post">
-                                                            <input id="roomNumberInput" name="txt" type="text" placeholder="Nhập số phòng" class="w-full md:w-3/4 lg:w-1/2 p-2 border border-gray-600 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r-lg focus:outline-none focus:ring-2 focus:ring-blue-500" type="submit">
-                                                                Search
-                                                            </button>
-                                                        </form>
+                                <form class="searchform cf flex justify-center items-center mt-8 mb-8" action="search" method="post">
+                                    <input id="roomNumberInput" name="txt" type="text" placeholder="Nhập số phòng" class="w-full md:w-3/4 lg:w-1/2 p-2 border border-gray-600 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r-lg focus:outline-none focus:ring-2 focus:ring-blue-500" type="submit">
+                                        Search
+                                    </button>
+                                </form>
 
 
                                 <!-- Stats Row Starts Here -->
@@ -190,7 +190,7 @@
                                                 </p>
                                             </div>
                                             <div class="flex justify-center pb-3 text-grey-dark">
-                                                  <div class="text-center mr-3 border-r pr-3">
+                                                <div class="text-center mr-3 border-r pr-3">
                                                     <a href="listthietbi?id=${o.phongID}" class="button-link">Thiết bị</a>
                                                 </div>
                                                 <c:if test="${o.phongConTrong == 0}">
@@ -232,10 +232,10 @@
                                                         </c:otherwise>
                                                     </c:choose>
                                                 </p>
-                                            </div>
+                                            </div>                                                
                                             <div class="flex justify-center pb-3 text-grey-dark">
-                                                  <div class="text-center mr-3 border-r pr-3">
-                                                    <a href="listthietbi?id=${o.phongID}" class="button-link">Thiết bị</a>
+                                                <div class="text-center mr-3 border-r pr-3">
+                                                    <a href="listthietbi?id=${p.phongID}" class="button-link">Thiết bị</a>
                                                 </div>
                                                 <c:if test="${p.phongConTrong == 0}">
                                                     <a class="text-center mr-3 border-r pr-3" href="listNguoiThue?lntid=${p.phongID}">
