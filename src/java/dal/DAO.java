@@ -412,6 +412,21 @@ public class DAO extends MyDAO {
         }
         return false; // Nếu không tìm thấy khuID
     }
+    
+    public boolean checkKhuIDcoPhongID(String kid) {
+        String query = "select distinct k.* from Khu k join Phong p on p.KhuID = k.KhuID where k.KhuID = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, kid);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
     public int CountPhongInKhu(String kid) {
         String sql = "SELECT COUNT(*) AS SoPhong FROM Phong P INNER JOIN Khu K ON P.KhuID = K.KhuID WHERE P.KhuID = ?;";
