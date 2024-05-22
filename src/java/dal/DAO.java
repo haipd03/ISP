@@ -21,7 +21,7 @@ import model.ThietBi;
  * @author admin
  */
 public class DAO extends MyDAO {
-    
+
     private List<KhachThue> kt;
     private String status = "ok";
 
@@ -41,10 +41,7 @@ public class DAO extends MyDAO {
         this.status = status;
     }
 
-    
-    
-    
-     public List<Phong> getPhong() {
+    public List<Phong> getPhong() {
         List<Phong> Phongs = new ArrayList<>();
         String sql = "SELECT * FROM Phong"; // Câu lệnh SQL để lấy dữ liệu từ bảng Truyen
         try {
@@ -58,7 +55,6 @@ public class DAO extends MyDAO {
                 String LoaiPhong = rs.getString("LoaiPhong");
                 int PhongConTrong = rs.getInt("PhongConTrong");
                 int Gia = rs.getInt("Gia");
-                
 
                 // Tạo đối tượng Truyen từ thông tin lấy được
                 Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, Gia);
@@ -70,34 +66,31 @@ public class DAO extends MyDAO {
         }
         return Phongs;
     }
-     
-   
-   
-   
+
     public List<Phong> getPhongDetailsByAccountID(int accountID) {
         List<Phong> phongDetailsList = new ArrayList<>();
-        String sql = "SELECT p.* " +
-                     "FROM Phong p " +
-                     "JOIN Khu k ON p.KhuID = k.KhuID " +
-                     "JOIN Accounts a ON a.AccountID = k.AccountID " +
-                     "WHERE a.AccountID = ?";
-        
+        String sql = "SELECT p.* "
+                + "FROM Phong p "
+                + "JOIN Khu k ON p.KhuID = k.KhuID "
+                + "JOIN Accounts a ON a.AccountID = k.AccountID "
+                + "WHERE a.AccountID = ?";
+
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, accountID);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     // Extract data from result set
                     int phongID = rs.getInt("PhongID");
-            int soPhong = rs.getInt("SoPhong");
-            int khuId = rs.getInt("KhuID");
-            String loaiPhong = rs.getString("LoaiPhong");
-            int phongConTrong = rs.getInt("PhongConTrong");
-            int gia = rs.getInt("Gia");
-            
-            // Create a Phong object from the retrieved information
-            Phong phong = new Phong(phongID, soPhong, khuId, loaiPhong, phongConTrong, gia);
-            // Add the Phong object to the list
-            phongDetailsList.add(phong);
+                    int soPhong = rs.getInt("SoPhong");
+                    int khuId = rs.getInt("KhuID");
+                    String loaiPhong = rs.getString("LoaiPhong");
+                    int phongConTrong = rs.getInt("PhongConTrong");
+                    int gia = rs.getInt("Gia");
+
+                    // Create a Phong object from the retrieved information
+                    Phong phong = new Phong(phongID, soPhong, khuId, loaiPhong, phongConTrong, gia);
+                    // Add the Phong object to the list
+                    phongDetailsList.add(phong);
                 }
             }
         } catch (SQLException e) {
@@ -107,90 +100,81 @@ public class DAO extends MyDAO {
         return phongDetailsList;
     }
 
-
-     
-
-    
-     
-     
-     public Accounts login(String username, String password) {
-    String query = "SELECT * FROM Accounts WHERE TaiKhoan = ? AND Password = ?";
-    try {
-        PreparedStatement ps = connection.prepareStatement(query);
-        ps.setString(1, username);
-        ps.setString(2, password);
-        ResultSet rs = ps.executeQuery();
-        if (rs.next()) {
-            return new Accounts(
-                rs.getInt("AccountID"),
-                rs.getString("TaiKhoan"),
-                rs.getString("Password"),
-                rs.getInt("Role"),
-                rs.getString("HoVaTen"),
-                rs.getString("Email"),
-                rs.getInt("CCCD"),
-                rs.getString("DiaChi")
-            );
+    public Accounts login(String username, String password) {
+        String query = "SELECT * FROM Accounts WHERE TaiKhoan = ? AND Password = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, username);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return new Accounts(
+                        rs.getInt("AccountID"),
+                        rs.getString("TaiKhoan"),
+                        rs.getString("Password"),
+                        rs.getInt("Role"),
+                        rs.getString("HoVaTen"),
+                        rs.getString("Email"),
+                        rs.getInt("CCCD"),
+                        rs.getString("DiaChi")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return null;
     }
-    return null;
-}
-     
-     public Accounts getAccountsByID(int id) {
-    String sql = "SELECT * FROM Accounts WHERE AccountID = ?";
-    try {
-        ps = con.prepareStatement(sql);
-        ps.setInt(1, id);
-        rs = ps.executeQuery();
-        if (rs.next()) {
-            int accountId = rs.getInt("AccountID");
-            String taiKhoan = rs.getString("TaiKhoan");
-            String password = rs.getString("Password");
-            int role = rs.getInt("Role");
-            String hoVaTen = rs.getString("HoVaTen");
-            String email = rs.getString("Email");
-            int cccd = rs.getInt("CCCD");
-            String diaChi = rs.getString("DiaChi");
 
-            // Creating an Accounts object with retrieved data
-            Accounts account = new Accounts(accountId, taiKhoan, password, role, hoVaTen, email, cccd, diaChi);
-            return account;
+    public Accounts getAccountsByID(int id) {
+        String sql = "SELECT * FROM Accounts WHERE AccountID = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                int accountId = rs.getInt("AccountID");
+                String taiKhoan = rs.getString("TaiKhoan");
+                String password = rs.getString("Password");
+                int role = rs.getInt("Role");
+                String hoVaTen = rs.getString("HoVaTen");
+                String email = rs.getString("Email");
+                int cccd = rs.getInt("CCCD");
+                String diaChi = rs.getString("DiaChi");
+
+                // Creating an Accounts object with retrieved data
+                Accounts account = new Accounts(accountId, taiKhoan, password, role, hoVaTen, email, cccd, diaChi);
+                return account;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return null;
     }
-    return null;
-}
-     
-     
-
 
     public void editMyAccount(String accountID, String hoVaTen, String email, int cccd, String diaChi) {
-    String query = "UPDATE Accounts\n"
-            + "SET HoVaTen = ?,\n"
-            + "Email = ?,\n"
-            + "CCCD = ?,\n"
-            + "DiaChi = ?\n"
-            + "WHERE AccountID = ?";
-    try {
-        PreparedStatement ps = connection.prepareStatement(query);
-        ps.setString(1, hoVaTen);
-        ps.setString(2, email);
-        ps.setInt(3, cccd);
-        ps.setString(4, diaChi);
-        ps.setString(5, accountID);  // Use the correct parameter index
-        ps.executeUpdate();
-    } catch (SQLException e) {
-        e.printStackTrace();
-        // Handle exceptions
+        String query = "UPDATE Accounts\n"
+                + "SET HoVaTen = ?,\n"
+                + "Email = ?,\n"
+                + "CCCD = ?,\n"
+                + "DiaChi = ?\n"
+                + "WHERE AccountID = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, hoVaTen);
+            ps.setString(2, email);
+            ps.setInt(3, cccd);
+            ps.setString(4, diaChi);
+            ps.setString(5, accountID);  // Use the correct parameter index
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle exceptions
+        }
     }
-}
-    
+
     public List<Accounts> getAllAccounts() {
         List<Accounts> accounts = new ArrayList<>();
-        String sql = "SELECT * FROM Accounts"; 
+        String sql = "SELECT * FROM Accounts";
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -208,11 +192,11 @@ public class DAO extends MyDAO {
                 accounts.add(account);
             }
         } catch (SQLException e) {
-        } 
+        }
         return accounts;
     }
-    
-     public void addAccount(Accounts account) {
+
+    public void addAccount(Accounts account) {
         String sql = "INSERT INTO Accounts (AccountID, TaiKhoan, Password, Role, HoVaTen, Email, CCCD, DiaChi) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, account.getAccountID());
@@ -228,16 +212,16 @@ public class DAO extends MyDAO {
             e.printStackTrace();
         }
     }
-     
-     public void deleteAccount(String accountID) throws SQLException  {
+
+    public void deleteAccount(String accountID) throws SQLException {
         String sql = "DELETE FROM Accounts WHERE AccountID = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, accountID);
             ps.executeUpdate();
         }
     }
-     
-     public void updateAccount(Accounts account) throws SQLException {
+
+    public void updateAccount(Accounts account) throws SQLException {
         String sql = "UPDATE Accounts SET TaiKhoan = ?, Password = ?, Role = ?, HoVaTen = ?, Email = ?, CCCD = ?, DiaChi = ? WHERE AccountID = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, account.getTaiKhoan());
@@ -251,14 +235,40 @@ public class DAO extends MyDAO {
             ps.executeUpdate();
         }
     }
-     
-    
-     public List<KhachThue> getKhachThueByPhongID(String id) {
+
+    public List<KhachThue> getKhachThueByPhongID(String id) {
         List<KhachThue> KhachThues = new ArrayList<>();
         String sql = "Select * from khachthue k where k.PhongID=?";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int KhachID = rs.getInt("KhachID");
+                String HoVaTen = rs.getString("HoVaTen");
+                String CCCD = rs.getString("CCCD");
+                String SDT = rs.getString("SDT");
+                String QueQuan = rs.getString("QueQuan");
+                String TenNguoiThan = rs.getString("TenNguoiThan");
+                String SDTNguoiThan = rs.getString("SDTNguoiThan");
+                String QuanHeVoiNguoiThan = rs.getString("QuanHeVoiNguoiThan");
+                int PhongID = rs.getInt("PhongID");
+                KhachThue khachThue = new KhachThue(KhachID, HoVaTen, CCCD, SDT, QueQuan, TenNguoiThan, SDTNguoiThan, QuanHeVoiNguoiThan, PhongID);
+                KhachThues.add(khachThue);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return KhachThues;
+    }
+
+    public List<KhachThue> getKhachThueByPhongIDByAccountID(String id, int aid) {
+        List<KhachThue> KhachThues = new ArrayList<>();
+        String sql = "SELECT Kh.* FROM KhachThue Kh JOIN Phong P ON P.PhongID = Kh.PhongID JOIN Khu K ON K.KhuID = P.KhuID JOIN Accounts a ON a.AccountID = k.AccountID WHERE Kh.PhongID = ? and a.AccountID =?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, id);
+            ps.setInt(2, aid);
             rs = ps.executeQuery();
             while (rs.next()) {
                 int KhachID = rs.getInt("KhachID");
@@ -303,7 +313,7 @@ public class DAO extends MyDAO {
         }
         return null;
     }
-    
+
     public void Updatekhachthue(String KhachID, String HoVaTen, String CCCD, String SDT, String QueQuan, String TenNguoiThan, String SDTNguoiThan, String QuanHeVoiNguoiThan, String PhongID) {
         String sql = "UPDATE khachthue SET KhachID=?, HoVaTen=?, CCCD=?, SDT=?, QueQuan=?, TenNguoiThan=?, SDTNguoiThan=?, QuanHeVoiNguoiThan=?, PhongID=? WHERE KhachID=?";
         try {
@@ -324,7 +334,6 @@ public class DAO extends MyDAO {
         }
     }
 
-    
     public List<Khu> getKhuByKhuID() {
         List<Khu> khus = new ArrayList<>();
         String sql = "select * from Khu";
@@ -344,11 +353,12 @@ public class DAO extends MyDAO {
         return khus;
     }
 
-    public List<Khu> getKhuByKhuID1() {
+    public List<Khu> getKhuByKhuID1(int accountID) {
         List<Khu> khus = new ArrayList<>();
-        String sql = "select * from Khu Where KhuID= 1";
+        String sql = "SELECT k.* FROM Khu k JOIN Accounts a ON a.AccountID = k.AccountID WHERE a.AccountID = ?";
         try {
             ps = con.prepareStatement(sql);
+            ps.setInt(1, accountID);
             rs = ps.executeQuery();
             while (rs.next()) {
                 int KhuID = rs.getInt("KhuID");
@@ -363,27 +373,7 @@ public class DAO extends MyDAO {
         return khus;
     }
 
-    public List<Khu> getKhuByKhuID2() {
-        List<Khu> khus = new ArrayList<>();
-        String sql = "select * from Khu Where KhuID= 2";
-        try {
-            ps = con.prepareStatement(sql);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                int KhuID = rs.getInt("KhuID");
-                String Name = rs.getString("Name");
-                int AccountID = rs.getInt("AccountID");
-                Khu khu = new Khu(KhuID, Name, AccountID);
-                khus.add(khu);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return khus;
-    }
-
-    
-     public void DeleteKhu(String kid) {
+    public void DeleteKhu(String kid) {
         String sql = "delete from Khu where KhuID = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -406,11 +396,7 @@ public class DAO extends MyDAO {
             e.printStackTrace();
         }
     }
-    
-    
 
-    
-    
     public int CountPhongInKhu(String kid) {
         String sql = "SELECT COUNT(*) AS SoPhong FROM Phong P INNER JOIN Khu K ON P.KhuID = K.KhuID WHERE P.KhuID = ?;";
         try {
@@ -457,8 +443,8 @@ public class DAO extends MyDAO {
             e.printStackTrace();
         }
     }
-    
-public List<Phong> searchbySoPhong(String soPhong) {
+
+    public List<Phong> searchbySoPhong(String soPhong) {
         List<Phong> Phongs = new ArrayList<>();
         String sql = "SELECT * FROM Phong WHERE SoPhong LIKE ?";
         try {
@@ -485,8 +471,7 @@ public List<Phong> searchbySoPhong(String soPhong) {
         return Phongs; // Return the list of Phong objects
     }
 
- 
-  public List<Khu> getKhu2() {
+    public List<Khu> getKhu2() {
         List<Khu> khus = new ArrayList<>();
         String sql = "SELECT * FROM khu";
         try {
@@ -508,8 +493,8 @@ public List<Phong> searchbySoPhong(String soPhong) {
         }
         return khus;
     }
-  
-   public List<Phong> getPhongByKhuID(String ck) {
+
+    public List<Phong> getPhongByKhuID(String ck) {
         List<Phong> Phongs = new ArrayList<>();
         String sql = "SELECT * FROM Phong Where KhuID= ?";   // edit
         try {
@@ -605,59 +590,58 @@ public List<Phong> searchbySoPhong(String soPhong) {
         }
         return Phongs;
     }
-    
+
     public List<Phong> getPhongForLoaiPhong() {
-    List<Phong> Phongs = new ArrayList<>();
-    String sql = "SELECT DISTINCT LoaiPhong FROM Phong";
-    try {
-        ps = con.prepareStatement(sql);
-        rs = ps.executeQuery();
-        while (rs.next()) {
-            String LoaiPhong = rs.getString("LoaiPhong");
-            Phong phong = new Phong(LoaiPhong);
-            Phongs.add(phong);
+        List<Phong> Phongs = new ArrayList<>();
+        String sql = "SELECT DISTINCT LoaiPhong FROM Phong";
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                String LoaiPhong = rs.getString("LoaiPhong");
+                Phong phong = new Phong(LoaiPhong);
+                Phongs.add(phong);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return Phongs;
     }
-    return Phongs;
-}
-    
+
     public List<Phong> getPhongForGia() {
-    List<Phong> Phongs = new ArrayList<>();
-    String sql = "SELECT DISTINCT Gia FROM Phong";
-    try {
-        ps = con.prepareStatement(sql);
-        rs = ps.executeQuery();
-        while (rs.next()) {
-            int Gia = rs.getInt("Gia");
-            Phong phong = new Phong(Gia);
-            Phongs.add(phong);
+        List<Phong> Phongs = new ArrayList<>();
+        String sql = "SELECT DISTINCT Gia FROM Phong";
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int Gia = rs.getInt("Gia");
+                Phong phong = new Phong(Gia);
+                Phongs.add(phong);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return Phongs;
     }
-    return Phongs;
-}
-    
-     public List<Phong> getPhongForTinhTrang() {
-    List<Phong> Phongs = new ArrayList<>();
-    String sql = "SELECT DISTINCT PhongConTrong FROM Phong";
-    try {
-        ps = con.prepareStatement(sql);
-        rs = ps.executeQuery();
-        while (rs.next()) {
-            int PhongConTrong = rs.getInt("PhongConTrong");
-            Phong phong = new Phong(PhongConTrong, true);
-            Phongs.add(phong);
+
+    public List<Phong> getPhongForTinhTrang() {
+        List<Phong> Phongs = new ArrayList<>();
+        String sql = "SELECT DISTINCT PhongConTrong FROM Phong";
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int PhongConTrong = rs.getInt("PhongConTrong");
+                Phong phong = new Phong(PhongConTrong, true);
+                Phongs.add(phong);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return Phongs;
     }
-    return Phongs;
-}
-     
-     
+
     public List<ThietBi> getThietBi(String id) {
         List<ThietBi> ThietBi = new ArrayList<>();
         String sql = "select * from ThietBi where PhongID = ? "; // Câu lệnh SQL để lấy dữ liệu từ bảng Truyen
@@ -738,7 +722,6 @@ public List<Phong> searchbySoPhong(String soPhong) {
         }
         return null;
     }
-    
 
     public ThietBi getThietBibypID(String id) {
         String sql = "select * from ThietBi\n"
@@ -764,8 +747,8 @@ public List<Phong> searchbySoPhong(String soPhong) {
         }
         return null;
     }
-    
-     public List<ThietBi> getPhongByID(String tbid) {
+
+    public List<ThietBi> getPhongByID(String tbid) {
         List<ThietBi> ThietBis = new ArrayList<>();
         String sql = "select distinct PhongID\n"
                 + "from ThietBi\n"
@@ -834,7 +817,7 @@ public List<Phong> searchbySoPhong(String soPhong) {
     }
 
     public List<ThietBi> getThietBibyIDandAccID1(String id, int aid) {
-List<ThietBi> ThietBis = new ArrayList<>();
+        List<ThietBi> ThietBis = new ArrayList<>();
         String sql = "SELECT Tb.* \n"
                 + "FROM ThietBi Tb\n"
                 + "JOIN Phong P ON P.PhongID = Tb.PhongID\n"
@@ -863,29 +846,8 @@ List<ThietBi> ThietBis = new ArrayList<>();
         }
         return ThietBis;
     }
-    
-    
-public List<Khu> getKhuByKhuID1(int accountID) {
-        List<Khu> khus = new ArrayList<>();
-        String sql = "SELECT k.* FROM Khu k JOIN Accounts a ON a.AccountID = k.AccountID WHERE a.AccountID = ?";
-        try {
-            ps = con.prepareStatement(sql);
-            ps.setInt(1, accountID);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                int KhuID = rs.getInt("KhuID");
-                String Name = rs.getString("Name");
-                int AccountID = rs.getInt("AccountID");
-                Khu khu = new Khu(KhuID, Name, AccountID);
-                khus.add(khu);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return khus;
-    }
 
- public List<Accounts> getAccounts() {
+    public List<Accounts> getAccounts() {
         List<Accounts> Account = new ArrayList<>();
         String sql = "select * from Accounts"; // Câu lệnh SQL để lấy dữ liệu từ bảng Truyen
         try {
@@ -909,23 +871,43 @@ public List<Khu> getKhuByKhuID1(int accountID) {
         }
         return Account;
     }
+    
+    public List<Phong> getPhongByPhongID(String id) {
+        List<Phong> Phongs = new ArrayList<>();
+        String sql = "SELECT * FROM Phong WHERE PhongID = ?";   // edit
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int PhongID = rs.getInt("PhongID");   //edit dua vao thuoc tinh
+                int SoPhong = rs.getInt("SoPhong");
+                int KhuID = rs.getInt("KhuID");
+                String LoaiPhong = rs.getString("LoaiPhong");
+                int PhongConTrong = rs.getInt("PhongConTrong");
 
+                int Gia = rs.getInt("Gia");
 
+                Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, Gia);
+                Phongs.add(phong);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // In ra lỗi nếu có
+        }
+        return Phongs;
+    }
 
-     
     public static void main(String[] args) {
-    DAO dao = new DAO();
-  
+        DAO dao = new DAO();
+
 //    Accounts account = dao.getAccountsByID(1);
 //    
 //        System.out.println( account);
-  
-
-List<Accounts> listC = dao.getAllAccounts();
+        List<Accounts> listC = dao.getAllAccounts();
 
         for (Accounts category : listC) {
             System.out.println(category);
         }
-}
+    }
 
 }

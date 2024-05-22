@@ -36,6 +36,7 @@ public class ListNguoiThue extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         Accounts a = (Accounts) session.getAttribute("acc");
 
@@ -44,8 +45,13 @@ public class ListNguoiThue extends HttpServlet {
         } else {
             String id = request.getParameter("lntid");
             DAO dao = new DAO();
-            List<KhachThue> kt = dao.getKhachThueByPhongID(id);
-            request.setAttribute("listNguoiThue", kt);
+            if (a.getRole() == 1) {
+                List<KhachThue> kt = dao.getKhachThueByPhongIDByAccountID(id, a.getAccountID());
+                request.setAttribute("listNguoiThue", kt);
+            } else {
+                List<KhachThue> kt = dao.getKhachThueByPhongID(id);
+                request.setAttribute("listNguoiThue", kt);
+            }
             request.getRequestDispatcher("form.jsp").forward(request, response);
         }
     }

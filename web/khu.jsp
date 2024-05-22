@@ -73,7 +73,7 @@
                                         </c:forEach>
 
                                         <c:forEach items="${listK1}" var="o">
-                                            <c:if test="${sessionScope.acc.accountID == 2}">
+                                            <c:if test="${sessionScope.acc.role == 1}">
                                                 <tr class="bg-white border-b">
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.khuID}</td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.name}</td>
@@ -88,21 +88,6 @@
                                             </c:if>
                                         </c:forEach>
 
-                                        <c:forEach items="${listK2}" var="o">
-                                            <c:if test="${sessionScope.acc.accountID == 3}">
-                                                <tr class="bg-white border-b">
-                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.khuID}</td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.name}</td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">
-                                                        <c:forEach items="${listK3}" var="a">
-                                                            <c:if test="${a.accountID == o.accountID}">
-                                                                ${a.hoVaTen}
-                                                            </c:if>
-                                                        </c:forEach>
-                                                    </td>
-                                                </tr>
-                                            </c:if>
-                                        </c:forEach>
                                     </tbody>
                                 </table>
                             </form>
