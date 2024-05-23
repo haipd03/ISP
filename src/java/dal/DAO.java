@@ -150,7 +150,35 @@ public class DAO extends MyDAO {
         }
         return null;
     }
+    
+   public Accounts getAccountByTaiKhoan(String taiKhoan) throws SQLException {
+    String sql = "SELECT * FROM Accounts WHERE TaiKhoan = ?";
+    try (PreparedStatement ps = connection.prepareStatement(sql)) {
+        ps.setString(1, taiKhoan);
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                int accountId = rs.getInt("AccountID");
+                String retrievedTaiKhoan = rs.getString("TaiKhoan"); // Renamed to avoid shadowing
+                String password = rs.getString("Password");
+                int role = rs.getInt("Role");
+                String hoVaTen = rs.getString("HoVaTen");
+                String email = rs.getString("Email");
+                int cccd = rs.getInt("CCCD");
+                String diaChi = rs.getString("DiaChi");
 
+                // Creating an Accounts object with retrieved data
+                Accounts account = new Accounts(accountId, retrievedTaiKhoan, password, role, hoVaTen, email, cccd, diaChi);
+                return account;
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        throw e; // Rethrow the exception to indicate failure
+    }
+    return null;
+}
+
+    
     public void editMyAccount(String accountID, String hoVaTen, String email, int cccd, String diaChi) {
         String query = "UPDATE Accounts\n"
                 + "SET HoVaTen = ?,\n"
@@ -897,17 +925,17 @@ public class DAO extends MyDAO {
         return Phongs;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         DAO dao = new DAO();
 
-//    Accounts account = dao.getAccountsByID(1);
-//    
-//        System.out.println( account);
-        List<Accounts> listC = dao.getAllAccounts();
-
-        for (Accounts category : listC) {
-            System.out.println(category);
-        }
+    Accounts account = dao.getAccountByTaiKhoan("loan");
+    
+        System.out.println( account);
+//        List<Accounts> listC = dao.getAllAccounts();
+//
+//        for (Accounts category : listC) {
+//            System.out.println(category);
+//        }
     }
 
 }

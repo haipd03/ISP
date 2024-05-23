@@ -37,6 +37,11 @@
                             List Accounts
                         </div>
                         <div class="p-3">
+                            <% if (request.getAttribute("errorMessage") != null) { %>
+                                        <div class="error" style="color: red;">
+                                            <%= request.getAttribute("errorMessage") %>
+                                        </div>
+                                        <% } %>
                             <form action="listaccount" method="post">
                                 <table class="min-w-full leading-normal">
                                     <thead>
@@ -93,6 +98,7 @@
                             Thêm Tài Khoản
                         </div>
                         <div class="p-6 bg-white">
+                             
                             <form action="addacc" method="post">
                                 <div class="space-y-4">
                                     <div class="flex items-center">

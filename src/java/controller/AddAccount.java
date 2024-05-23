@@ -1,87 +1,95 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
-
 package controller;
 
 import dal.DAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import model.Accounts;
 
 /**
  *
  * @author admin
  */
-@WebServlet(name="AddAccount", urlPatterns={"/addacc"})
+@WebServlet(name = "AddAccount", urlPatterns = {"/addacc"})
 public class AddAccount extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
+    private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-         int accountID = Integer.parseInt(request.getParameter("ID"));
-            String taiKhoan = request.getParameter("taikhoan");
-            String password = request.getParameter("password");
-            int role = 1;
-            String hoVaTen = request.getParameter("hovaten");
-            String email = request.getParameter("email");
-            int cccd = Integer.parseInt(request.getParameter("cccd"));
-            String diaChi = request.getParameter("diachi");
 
-            Accounts account = new Accounts(accountID, taiKhoan, password, role, hoVaTen, email, cccd, diaChi);
+        int accountID = Integer.parseInt(request.getParameter("ID"));
+        String taiKhoan = request.getParameter("taikhoan");
+        String password = request.getParameter("password");
+        int role = 1; // Assuming role is set to 1 for all new accounts
+        String hoVaTen = request.getParameter("hovaten");
+        String email = request.getParameter("email");
+        int cccd = Integer.parseInt(request.getParameter("cccd"));
+        String diaChi = request.getParameter("diachi");
+
+        Pattern pattern = Pattern.compile(EMAIL_REGEX);
+        Matcher matcher = pattern.matcher(email);
+        if (!matcher.matches()) {
+            // Email is invalid, set an error message and return
+            request.setAttribute("errorMessage", "Invalid email format.");
+            request.getRequestDispatcher("listaccount").forward(request, response);
+            return;
+        }
+
+        try {
             DAO dao = new DAO();
+
+            // Check if AccountID already exists
+            Accounts existingAccountByID = dao.getAccountsByID(accountID);
+            if (existingAccountByID != null) {
+                request.setAttribute("errorMessage", "Account ID already exists");
+                request.setAttribute("listA", new Accounts(accountID, taiKhoan, password, role, hoVaTen, email, cccd, diaChi)); // Maintain input data
+                request.getRequestDispatcher("listaccount").forward(request, response);
+                return;
+            }
+
+            // Check if TaiKhoan already exists
+            Accounts existingAccountByTaiKhoan = dao.getAccountByTaiKhoan(taiKhoan);
+            if (existingAccountByTaiKhoan != null) {
+                request.setAttribute("errorMessage", "Account username already exists");
+                request.setAttribute("listA", new Accounts(accountID, taiKhoan, password, role, hoVaTen, email, cccd, diaChi)); // Maintain input data
+                request.getRequestDispatcher("listaccount").forward(request, response);
+                return;
+            }
+
+            // Create and add new account
+            Accounts account = new Accounts(accountID, taiKhoan, password, role, hoVaTen, email, cccd, diaChi);
             dao.addAccount(account);
+        } catch (SQLException ex) {
+            Logger.getLogger(AddAccount.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-            response.sendRedirect("listaccount");
-    } 
+        response.sendRedirect("listaccount");
+    }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
-     * Handles the HTTP <code>GET</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        processRequest(request, response);
-    } 
-
-    /** 
-     * Handles the HTTP <code>POST</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /** 
-     * Returns a short description of the servlet.
-     * @return a String containing servlet description
-     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
-
+    }
 }

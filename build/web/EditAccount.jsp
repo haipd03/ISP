@@ -36,6 +36,7 @@
                         Sửa Tài Khoản
                     </div>
                     <div class="p-6 bg-white">
+                        
                         <c:if test="${not empty errorMessage}">
                             <div class="bg-red-500 text-white p-2 mb-4 rounded">
                                 ${errorMessage}
@@ -78,6 +79,9 @@
                             </div>
                             <div class="mt-6 flex justify-end">
                                 <input type="submit" value="Update" class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 transition-colors duration-200">
+                                <a href="listaccount" class="bg-red-500 hover:bg-red-800 text-white font-bold py-2 px-4 rounded">
+                                        Back
+                                    </a>
                             </div>
                         </form>
                     </div>

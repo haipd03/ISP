@@ -41,8 +41,14 @@
                                         Thông Tin
                                     </div>
                                     <div class="p-3">
+                                        <% if (request.getAttribute("errorMessage") != null) { %>
+                                        <div class="error" style="color: red;">
+                                            <%= request.getAttribute("errorMessage") %>
+                                        </div>
+                                        <% } %>
+
                                         <form class="w-full" action="myaccount" method="post">
-            <input type="hidden" name="accountID" value="${account.accountID}">
+                                            <input type="hidden" name="accountID" value="${account.accountID}">
 
                                             <div class="flex flex-wrap -mx-3 mb-6">
                                                 <div class="w-full px-3">
@@ -55,14 +61,15 @@
 
                                                     <label class="block uppercase tracking-wide text-grey-darker text-xs font-light mb-1"
                                                            for="grid-password">
-                                                        CCCD:
+
+                                                        Email:
                                                     </label>
                                                     <input class="appearance-none block w-full bg-grey-200 text-grey-darker border border-grey-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-grey"
                                                            value="${account.email}" name="email" type="text">
 
                                                     <label class="block uppercase tracking-wide text-grey-darker text-xs font-light mb-1"
                                                            for="grid-password">
-                                                        Email:
+                                                        CCCD:
                                                     </label>
                                                     <input class="appearance-none block w-full bg-grey-200 text-grey-darker border border-grey-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-grey"
                                                            value="${account.CCCD}" name="CCCD" type="text">
