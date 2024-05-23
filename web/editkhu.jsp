@@ -22,12 +22,12 @@
             <!--Screen-->
             <div class="min-h-screen flex flex-col">
                 <!--Header Section Starts Here-->
-                 <jsp:include page="menu1.jsp" />
+                <jsp:include page="menu1.jsp" />
                 <!--/Header-->
 
                 <div class="flex flex-1">
                     <!--Sidebar-->
-                     <jsp:include page="menu2.jsp" />
+                    <jsp:include page="menu2.jsp" />
                     <!--/Sidebar-->
 
                     <!-- Underline form -->
@@ -64,6 +64,9 @@
                                 </div>
                                 <div class="mt-6 flex justify-end">
                                     <input type="submit" value="Update" class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 transition-colors duration-200">
+                                    <a href="khu" class="bg-red-500 hover:bg-red-800 text-white font-bold py-2 px-4 rounded">
+                                        Back
+                                    </a>
                                 </div>
                             </form>
                         </div>
