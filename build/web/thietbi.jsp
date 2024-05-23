@@ -28,13 +28,13 @@
         <!--Screen-->
         <div class="min-h-screen flex flex-col">
             <!--Header Section Starts Here-->
-                           <jsp:include page="menu1.jsp" />
+            <jsp:include page="menu1.jsp" />
 
             <!--/Header-->
 
             <div class="flex flex-1">
                 <!--Sidebar-->
-                                <jsp:include page="menu2.jsp" />
+                <jsp:include page="menu2.jsp" />
                 <!-- Thêm phần hiển thị danh sách thiết bị -->
                 <div class="p-4">
                     <h4 class="text-lg font-semibold mb-2">Danh sách thiết bị:</h4>
@@ -67,7 +67,10 @@
                                     </tr>
                                 </c:forEach>
                             </tbody>
-                        </table>
+                        </table><br>
+                        <c:if test="${not empty error}">
+                            <p style="color: red; font-size: 1.2em; font-weight: bold;">${error}</p>
+                        </c:if>
                         <div class="mt-4">
                             <a href="inserttb?ib=${phongID}">
                                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Thêm thiết bị</button>

@@ -22,12 +22,12 @@
             <!--Screen-->
             <div class="min-h-screen flex flex-col">
                 <!--Header Section Starts Here-->
-                 <jsp:include page="menu1.jsp" />
+                <jsp:include page="menu1.jsp" />
                 <!--/Header-->
 
                 <div class="flex flex-1">
                     <!--Sidebar-->
-                     <jsp:include page="menu2.jsp" />
+                    <jsp:include page="menu2.jsp" />
                     <!--/Sidebar-->
 
                     <!-- Underline form -->
@@ -35,6 +35,9 @@
                         <div class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b font-bold">
                             Khu
                         </div>
+                        <c:if test="${not empty error}">
+                            <p style="color: red; font-size: 1.2em; font-weight: bold;">${error}</p>
+                        </c:if>
                         <div class="p-3">
                             <form action="khu" method="post">
                                 <table class="min-w-full leading-normal">
@@ -98,7 +101,6 @@
                             </c:if>
                         </div>
                     </div>
-
                     <div id="addKhuForm" class="hidden mb-4 md:mx-2 lg:mx-2 border border-gray-300 rounded-lg shadow-lg max-w-lg">
                         <div class="bg-gray-400 text-black px-4 py-3 rounded-t-lg">
                             Thêm Khu
@@ -128,7 +130,6 @@
                                 </div>
                             </form>
                         </div>
-
                     </div>
                 </div>
 

@@ -5,6 +5,7 @@
 package controller;
 
 import dal.DAO;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -34,7 +35,13 @@ public class DeleteKhu extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String kid = request.getParameter("kid");
         DAO dao = new DAO();
-        dao.DeleteKhu(kid);
+        if (dao.checkKhuIDcoPhongID(kid)) {
+            request.setAttribute("error", "Khu đang có phòng không thể xóa!");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("khu");
+            dispatcher.forward(request, response);
+        } else {
+            dao.DeleteKhu(kid);
+        }
         response.sendRedirect("khu");
     }
 
