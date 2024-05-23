@@ -179,12 +179,13 @@ public class DAO extends MyDAO {
 }
 
     
-    public void editMyAccount(String accountID, String hoVaTen, String email, int cccd, String diaChi) {
+    public void editMyAccount(String accountID, String hoVaTen, String email, int cccd, String diaChi,String password) {
         String query = "UPDATE Accounts\n"
                 + "SET HoVaTen = ?,\n"
                 + "Email = ?,\n"
                 + "CCCD = ?,\n"
-                + "DiaChi = ?\n"
+                + "DiaChi = ?,\n"
+                + "Password = ?\n"
                 + "WHERE AccountID = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
@@ -192,7 +193,8 @@ public class DAO extends MyDAO {
             ps.setString(2, email);
             ps.setInt(3, cccd);
             ps.setString(4, diaChi);
-            ps.setString(5, accountID);  // Use the correct parameter index
+            ps.setString(5, password);
+            ps.setString(6, accountID);  // Use the correct parameter index
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -928,9 +930,11 @@ public class DAO extends MyDAO {
     public static void main(String[] args) throws SQLException {
         DAO dao = new DAO();
 
-    Accounts account = dao.getAccountByTaiKhoan("loan");
+        dao.editMyAccount("4", "Loan Nguyen", "loan@example.com", 123456789, "123 Main St", "newpassword123");
     
-        System.out.println( account);
+//        System.out.println( account);
+                System.out.println("Account details updated successfully.");
+
 //        List<Accounts> listC = dao.getAllAccounts();
 //
 //        for (Accounts category : listC) {

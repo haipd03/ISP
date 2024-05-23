@@ -25,6 +25,8 @@ public class MyAccount extends HttpServlet {
         String cccdStr = request.getParameter("CCCD");
         String email = request.getParameter("email");
         String diaChi = request.getParameter("diaChi");
+              String password = request.getParameter("password");
+
 
         // Validate email format
         Pattern pattern = Pattern.compile(EMAIL_REGEX);
@@ -47,7 +49,7 @@ public class MyAccount extends HttpServlet {
         }
 
         DAO dao = new DAO();
-        dao.editMyAccount(accountID, hoVaTen, email, cccd, diaChi);
+        dao.editMyAccount(accountID, hoVaTen, email, cccd, diaChi, password);
 
         response.sendRedirect("loadmyaccount?id=" + accountID);
     }

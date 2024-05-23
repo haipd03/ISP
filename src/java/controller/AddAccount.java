@@ -15,8 +15,7 @@ import java.util.regex.Pattern;
 import model.Accounts;
 
 /**
- *
- * @author admin
+ * Servlet implementation class AddAccount
  */
 @WebServlet(name = "AddAccount", urlPatterns = {"/addacc"})
 public class AddAccount extends HttpServlet {
@@ -27,7 +26,17 @@ public class AddAccount extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        int accountID = Integer.parseInt(request.getParameter("ID"));
+        String idParameter = request.getParameter("ID");
+        int accountID;
+        try {
+            accountID = Integer.parseInt(idParameter);
+        } catch (NumberFormatException e) {
+            // Handle the case where the ID parameter is not a valid integer
+            request.setAttribute("errorMessage", "Invalid account ID format.");
+            request.getRequestDispatcher("listaccount").forward(request, response);
+            return;
+        }
+
         String taiKhoan = request.getParameter("taikhoan");
         String password = request.getParameter("password");
         int role = 1; // Assuming role is set to 1 for all new accounts

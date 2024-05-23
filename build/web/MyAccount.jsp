@@ -80,6 +80,12 @@
                                                     </label>
                                                     <input class="appearance-none block w-full bg-grey-200 text-grey-darker border border-grey-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-grey"
                                                            value="${account.diaChi}" name="diaChi" type="text">
+                                                    <label class="block uppercase tracking-wide text-grey-darker text-xs font-light mb-1"
+                                                           for="grid-password">
+                                                        Password:
+                                                    </label>
+                                                    <input class="appearance-none block w-full bg-grey-200 text-grey-darker border border-grey-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-grey"
+                                                           value="${account.password}" name="password" type="text">
 
 
                                                     <button class="bg-green-500 hover:bg-green-800 text-white font-bold py-2 px-4 rounded"  type="submit">
