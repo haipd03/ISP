@@ -3,9 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/ISP392/PhongTroNew/ISP/ISP/src/java/controller/ListThietBi.java</file>
-            <file>file:/D:/ISP392/PhongTroNew/ISP/ISP/src/java/controller/InsertTB.java</file>
-            <file>file:/D:/ISP392/PhongTroNew/ISP/ISP/src/java/dal/DAO.java</file>
+            <file>file:/D:/Hoc_Tap/Ky5/ISP/QuanLytro1/ISP/src/java/controller/EditAccount.java</file>
+            <file>file:/D:/Hoc_Tap/Ky5/ISP/QuanLytro1/ISP/src/java/dal/DAO.java</file>
+            <file>file:/D:/Hoc_Tap/Ky5/ISP/QuanLytro1/ISP/src/java/controller/AddAccount.java</file>
+            <file>file:/D:/Hoc_Tap/Ky5/ISP/QuanLytro1/ISP/src/java/controller/ListAccount.java</file>
         </group>
     </open-files>
 </project-private>

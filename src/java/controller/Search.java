@@ -41,10 +41,10 @@ public class Search extends HttpServlet {
         List<Phong> bp = dao.getPhongForLoaiPhong();
         List<Phong> btt = dao.getPhongForTinhTrang();
         List<Phong> ba = dao.getPhongForGia();
-//        if (ltr == null || ltr.isEmpty()) {
-//            response.sendRedirect("404.html");
-//            return;
-//        }
+        if (ltr == null || ltr.isEmpty()) {
+            response.sendRedirect("404.jsp");
+            return;
+        }
 
         request.setAttribute("lp", ltr);
         request.setAttribute("lk", lk); //edit
