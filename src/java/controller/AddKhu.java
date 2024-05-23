@@ -37,9 +37,15 @@ public class AddKhu extends HttpServlet {
         String accountID = request.getParameter("accountID");
         DAO dao = new DAO();
 
+        String khuIDPattern = "^[0-9]+$";
+        String namePattern = "^[a-zA-Z0-9 ]+$";
         if (khuID == null || khuID.isEmpty() || name == null || name.isEmpty()) {
             request.setAttribute("error", "Vui lòng nhập đầy đủ thông tin KhuID và Tên Khu!");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("khu"); // Điều hướng trở lại trang khi có lỗi
+            RequestDispatcher dispatcher = request.getRequestDispatcher("khu");
+            dispatcher.forward(request, response);
+        } else if (!khuID.matches(khuIDPattern) || !name.matches(namePattern)) {
+            request.setAttribute("error", "Dữ liệu nhập vào không hợp lệ!");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("khu");
             dispatcher.forward(request, response);
         } else {
             if (dao.checkExistingKhuID(khuID)) {
@@ -48,8 +54,8 @@ public class AddKhu extends HttpServlet {
                 dispatcher.forward(request, response);
             } else {
                 dao.InsertKhu(khuID, name, accountID);
+                response.sendRedirect("khu");
             }
-            response.sendRedirect("khu");
         }
     }
 

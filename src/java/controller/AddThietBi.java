@@ -44,14 +44,25 @@ public class AddThietBi extends HttpServlet {
         String tbtinhtrang = request.getParameter("TinhTrang");
         String tbgia = request.getParameter("Gia");
         DAO dao = new DAO();
-        if (dao.checkExistingThietBiID(tbid)) {
-            request.setAttribute("error", "Đã tồn tại ThietBiID trong cơ sở dữ liệu! Vui lòng chọn ThietBiID khác!");
+        String ThietBiIDPattern = "^[0-9]+$";
+        String namePattern = "^[a-zA-Z0-9 ]+$";
+        String SoLuongPattern = "^[0-9]+$";
+        String TinhTrangPattern = "^[a-zA-Z0-9 ]+$";
+        String GiaPattern = "^[0-9]+$";
+        if (!tbid.matches(ThietBiIDPattern) || !tbname.matches(namePattern) || !tbsoluong.matches(SoLuongPattern) || !tbtinhtrang.matches(TinhTrangPattern) || !tbgia.matches(GiaPattern)) {
+            request.setAttribute("error", "Dữ liệu nhập vào không hợp lệ!");
             RequestDispatcher dispatcher = request.getRequestDispatcher("listthietbi?id=" + tbpid);
             dispatcher.forward(request, response);
         } else {
-            dao.insertThietBi(tbid, tbpid, tbname, tbsoluong, tbtinhtrang, tbgia);
+            if (dao.checkExistingThietBiID(tbid)) {
+                request.setAttribute("error", "Đã tồn tại ThietBiID trong cơ sở dữ liệu! Vui lòng chọn ThietBiID khác!");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("listthietbi?id=" + tbpid);
+                dispatcher.forward(request, response);
+            } else {
+                dao.insertThietBi(tbid, tbpid, tbname, tbsoluong, tbtinhtrang, tbgia);
+            }
+            response.sendRedirect("listthietbi?id=" + tbpid);
         }
-        response.sendRedirect("listthietbi?id=" + tbpid);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
