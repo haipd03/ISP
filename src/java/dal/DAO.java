@@ -150,36 +150,35 @@ public class DAO extends MyDAO {
         }
         return null;
     }
-    
-   public Accounts getAccountByTaiKhoan(String taiKhoan) throws SQLException {
-    String sql = "SELECT * FROM Accounts WHERE TaiKhoan = ?";
-    try (PreparedStatement ps = connection.prepareStatement(sql)) {
-        ps.setString(1, taiKhoan);
-        try (ResultSet rs = ps.executeQuery()) {
-            if (rs.next()) {
-                int accountId = rs.getInt("AccountID");
-                String retrievedTaiKhoan = rs.getString("TaiKhoan"); // Renamed to avoid shadowing
-                String password = rs.getString("Password");
-                int role = rs.getInt("Role");
-                String hoVaTen = rs.getString("HoVaTen");
-                String email = rs.getString("Email");
-                int cccd = rs.getInt("CCCD");
-                String diaChi = rs.getString("DiaChi");
 
-                // Creating an Accounts object with retrieved data
-                Accounts account = new Accounts(accountId, retrievedTaiKhoan, password, role, hoVaTen, email, cccd, diaChi);
-                return account;
+    public Accounts getAccountByTaiKhoan(String taiKhoan) throws SQLException {
+        String sql = "SELECT * FROM Accounts WHERE TaiKhoan = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, taiKhoan);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    int accountId = rs.getInt("AccountID");
+                    String retrievedTaiKhoan = rs.getString("TaiKhoan"); // Renamed to avoid shadowing
+                    String password = rs.getString("Password");
+                    int role = rs.getInt("Role");
+                    String hoVaTen = rs.getString("HoVaTen");
+                    String email = rs.getString("Email");
+                    int cccd = rs.getInt("CCCD");
+                    String diaChi = rs.getString("DiaChi");
+
+                    // Creating an Accounts object with retrieved data
+                    Accounts account = new Accounts(accountId, retrievedTaiKhoan, password, role, hoVaTen, email, cccd, diaChi);
+                    return account;
+                }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e; // Rethrow the exception to indicate failure
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
-        throw e; // Rethrow the exception to indicate failure
+        return null;
     }
-    return null;
-}
 
-    
-    public void editMyAccount(String accountID, String hoVaTen, String email, int cccd, String diaChi,String password) {
+    public void editMyAccount(String accountID, String hoVaTen, String email, int cccd, String diaChi, String password) {
         String query = "UPDATE Accounts\n"
                 + "SET HoVaTen = ?,\n"
                 + "Email = ?,\n"
@@ -249,6 +248,21 @@ public class DAO extends MyDAO {
             ps.setString(1, accountID);
             ps.executeUpdate();
         }
+    }
+
+    public boolean checkAccIDcoKhu(String aid) {
+        String query = "select distinct A.* from Accounts A join Khu k on k.AccountID = A.AccountID where A.AccountID = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, aid);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public void updateAccount(Accounts account) throws SQLException {
@@ -442,8 +456,8 @@ public class DAO extends MyDAO {
         }
         return false; // Nếu không tìm thấy khuID
     }
-    
-    public boolean checkKhuIDcoPhongID(String kid) {
+
+    public boolean checkKhuIDcoPhong(String kid) {
         String query = "select distinct k.* from Khu k join Phong p on p.KhuID = k.KhuID where k.KhuID = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
@@ -973,19 +987,13 @@ public class DAO extends MyDAO {
         return Phongs;
     }
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
         DAO dao = new DAO();
 
-        dao.editMyAccount("4", "Loan Nguyen", "loan@example.com", 123456789, "123 Main St", "newpassword123");
-    
-//        System.out.println( account);
-                System.out.println("Account details updated successfully.");
+        boolean result = dao.checkAccIDcoKhu("2");
 
-//        List<Accounts> listC = dao.getAllAccounts();
-//
-//        for (Accounts category : listC) {
-//            System.out.println(category);
-//        }
+        // Print the result
+        System.out.println(result);
     }
 
 }

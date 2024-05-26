@@ -35,7 +35,7 @@ public class DeleteKhu extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String kid = request.getParameter("kid");
         DAO dao = new DAO();
-        if (dao.checkKhuIDcoPhongID(kid)) {
+        if (dao.checkKhuIDcoPhong(kid)) {
             request.setAttribute("error", "Khu đang có phòng không thể xóa!");
             RequestDispatcher dispatcher = request.getRequestDispatcher("khu");
             dispatcher.forward(request, response);
