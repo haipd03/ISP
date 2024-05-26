@@ -14,6 +14,24 @@
         <link rel="stylesheet" href="./dist/all.css">
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i,700,700i" rel="stylesheet">
         <title>Forms | Tailwind Admin</title>
+        <script>
+            function confirmDelete(event, url) {
+                if (confirm("Bạn có chắc muốn xóa khu này không?")) {
+                    window.location.href = url;
+                } else {
+                    event.preventDefault();
+                }
+            }
+
+            function showAddKhuForm() {
+                var addKhuForm = document.getElementById("addKhuForm");
+                if (addKhuForm.style.display === "none" || addKhuForm.style.display === "") {
+                    addKhuForm.style.display = "block";
+                } else {
+                    addKhuForm.style.display = "none";
+                }
+            }
+        </script>
     </head>
 
     <body>
@@ -69,7 +87,7 @@
                                                     </td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">
                                                         <a href='loadkhu?lkid=${o.khuID}' class="text-indigo-600 hover:text-indigo-900">Update</a>
-                                                        <a href='deletekhu?kid=${o.khuID}' class="text-red-600 hover:text-red-900 ml-2">Delete</a>
+                                                        <a href='#' class="text-red-600 hover:text-red-900 ml-2" onclick="confirmDelete(event, 'deletekhu?kid=${o.khuID}')">Delete</a>
                                                     </td>
                                                 </tr>
                                             </c:if>
@@ -90,7 +108,6 @@
                                                 </tr>
                                             </c:if>
                                         </c:forEach>
-
                                     </tbody>
                                 </table>
                             </form>
@@ -132,28 +149,14 @@
                         </div>
                     </div>
                 </div>
-
-                <script>
-                    function showAddKhuForm() {
-                        var addKhuForm = document.getElementById("addKhuForm");
-                        if (addKhuForm.style.display === "none" || addKhuForm.style.display === "") {
-                            addKhuForm.style.display = "block";
-                        } else {
-                            addKhuForm.style.display = "none";
-                        }
-                    }
-                </script>
-
-
                 <!--/Underline form-->
-                <!--/Main-->                                
+                <!--/Main-->
             </div>
             <!--Footer-->
             <footer class="bg-grey-darkest text-white p-2">
                 <div class="flex flex-1 mx-auto">&copy; My Design</div>
             </footer>
             <!--/footer-->
-
         </div>
 
     </div>

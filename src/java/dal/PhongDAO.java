@@ -114,6 +114,21 @@ public class PhongDAO extends MyDAO {
         }
     }
 
+    public boolean checkPhongIDcoThietBi(int phongID) {
+        String query = "select distinct p.* from Phong p join ThietBi tb on tb.PhongID = p.PhongID where p.PhongID = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, phongID);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public List<Phong> getPhongByPhongID(int phongID) {
         List<Phong> phongs = new ArrayList<>();
         String sql = "SELECT * FROM Phong WHERE PhongID = ?";
@@ -292,6 +307,3 @@ public class PhongDAO extends MyDAO {
     }
 
 }
-
-
-
