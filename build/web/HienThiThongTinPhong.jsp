@@ -34,7 +34,7 @@
             <!--Screen-->
             <div class="min-h-screen flex flex-col">
                 <!--Header Section Starts Here-->
-                 <jsp:include page="menu1.jsp" />
+                <jsp:include page="menu1.jsp" />
                 <!--/Header-->
 
                 <div class="flex flex-1">
@@ -43,6 +43,9 @@
                     <!--/Sidebar-->
                     <!--Main-->
                     <main class="bg-gray-100 flex-1 p-6 overflow-hidden ">
+                        <c:if test="${not empty error}">
+                            <p style="color: red; font-size: 1.2em; font-weight: bold;">${error}</p>
+                        </c:if>
                         <div class="flex flex-col space-y-4" >
                             <c:forEach items="${danhSachPhong}" var="phong">
                                 <!-- Card Section Starts Here -->
