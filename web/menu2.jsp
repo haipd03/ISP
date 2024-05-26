@@ -14,9 +14,8 @@
     </head>
     <body>
         <aside id="sidebar" class="bg-side-nav w-1/2 md:w-1/6 lg:w-1/6 border-r border-side-nav hidden md:block lg:block">
-
             <ul class="list-reset flex flex-col">
-                <li class=" w-full h-full py-3 px-2 border-b border-light-border bg-white" >
+                <li class=" w-full h-full py-3 px-2 border-b border-light-border " >
                     <a href="listphong"
                        class="font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
                         <i class="fas fa-tachometer-alt float-left mx-2"></i>
@@ -42,6 +41,46 @@
                         </a>
                     </li>
                 </c:if>
+                    <c:if test="${sessionScope.acc.role == 0}">
+                    <li class="w-full h-full py-3 px-2 border-b border-light-border">
+                        <a href=""
+                           class="font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
+                            <i class="fab fa-wpforms float-left mx-2"></i>
+                            Khách Thuê
+                            <span><i class="fa fa-angle-right float-right"></i></span>
+                        </a>
+                    </li>
+                    </c:if>
+                    <c:if test="${sessionScope.acc.role == 0}">
+                    <li class="w-full h-full py-3 px-2 border-b border-light-border">
+                        <a href=""
+                           class="font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
+                            <i class="fab fa-wpforms float-left mx-2"></i>
+                            Hợp Đồng
+                            <span><i class="fa fa-angle-right float-right"></i></span>
+                        </a>
+                    </li>
+                    </c:if>
+                    <c:if test="${sessionScope.acc.role == 0}">
+                    <li class="w-full h-full py-3 px-2 border-b border-light-border">
+                        <a href="listhoadon"
+                           class="font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
+                            <i class="fab fa-wpforms float-left mx-2"></i>
+                            Hóa Đơn
+                            <span><i class="fa fa-angle-right float-right"></i></span>
+                        </a>
+                    </li>
+                    </c:if>
+                    <c:if test="${sessionScope.acc.role == 0}">
+                    <li class="w-full h-full py-3 px-2 border-b border-light-border">
+                        <a href=""
+                           class="font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
+                            <i class="fab fa-wpforms float-left mx-2"></i>
+                            Dịch vụ
+                            <span><i class="fa fa-angle-right float-right"></i></span>
+                        </a>
+                    </li>
+                    </c:if>
 
                 <li class="w-full h-full py-3 px-2 border-b border-light-border">
                     <a href="forms.html"
@@ -113,8 +152,8 @@
                         </li>
                     </ul>
                 </li>
-            </ul>
 
+            </ul>
         </aside>
     </body>
 </html>
