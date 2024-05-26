@@ -43,12 +43,11 @@ public class DAO extends MyDAO {
 
     public List<Phong> getPhong() {
         List<Phong> Phongs = new ArrayList<>();
-        String sql = "SELECT * FROM Phong"; // Câu lệnh SQL để lấy dữ liệu từ bảng Truyen
+        String sql = "SELECT * FROM Phong"; 
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                // Lấy thông tin từ cơ sở dữ liệu
                 int PhongID = rs.getInt("PhongID");
                 int SoPhong = rs.getInt("SoPhong");
                 int KhuID = rs.getInt("KhuID");
@@ -56,13 +55,11 @@ public class DAO extends MyDAO {
                 int PhongConTrong = rs.getInt("PhongConTrong");
                 int Gia = rs.getInt("Gia");
 
-                // Tạo đối tượng Truyen từ thông tin lấy được
                 Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, Gia);
-                // Thêm đối tượng Truyen vào danh sách truyens
                 Phongs.add(phong);
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // In ra lỗi nếu có
+            e.printStackTrace(); 
         }
         return Phongs;
     }
@@ -79,7 +76,6 @@ public class DAO extends MyDAO {
             ps.setInt(1, accountID);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    // Extract data from result set
                     int phongID = rs.getInt("PhongID");
                     int soPhong = rs.getInt("SoPhong");
                     int khuId = rs.getInt("KhuID");
@@ -87,9 +83,7 @@ public class DAO extends MyDAO {
                     int phongConTrong = rs.getInt("PhongConTrong");
                     int gia = rs.getInt("Gia");
 
-                    // Create a Phong object from the retrieved information
                     Phong phong = new Phong(phongID, soPhong, khuId, loaiPhong, phongConTrong, gia);
-                    // Add the Phong object to the list
                     phongDetailsList.add(phong);
                 }
             }
