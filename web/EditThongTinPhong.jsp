@@ -14,6 +14,11 @@
         <link rel="stylesheet" href="./dist/styles.css">
         <link rel="stylesheet" href="./dist/all.css">
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i,700,700i" rel="stylesheet">
+        <script>
+    function confirmUpdate() {
+        return confirm("Bạn có chắc chắn muốn update phòng này?");
+    }
+</script>
         <title>Forms | Tailwind Admin</title>
     </head>
 
@@ -23,7 +28,7 @@
             <!--Screen-->
             <div class="min-h-screen flex flex-col">
                 <!--Header Section Starts Here-->
-                 <jsp:include page="menu1.jsp" />
+                <jsp:include page="menu1.jsp" />
                 <!--/Header-->
 
                 <div class="flex flex-1">
@@ -37,7 +42,7 @@
                             Sửa Thông Tin Phòng
                         </div>
                         <div class="p-6 bg-white">
-                            <form action="editPhong" method="get">
+                            <form action="editPhong" method="get" onsubmit="return confirmUpdate()">
                                 <div class="space-y-4">
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Phòng ID:</label>
@@ -55,16 +60,21 @@
                                         <label class="w-1/3 text-gray-700 font-semibold">Loại Phòng:</label>
                                         <select name="loaiPhong" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                             <c:forEach items="${lp1}" var="o1">
-                                                <option value="${o1.loaiPhong}">${o1.loaiPhong}</option>
+                                                <option value="${o1.loaiPhong}" <c:if test="${p.loaiPhong eq o1.loaiPhong}">selected</c:if>>${o1.loaiPhong}</option>
                                             </c:forEach>
                                         </select>
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Phòng:</label>
-                                        <select name="phongConTrong" id="phongConTrong"  class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
-                                            <option value="1" selected>Trống</option>
-                                            <option value="0">Có người thuê</option>
-                                        </select>
+                                        <select name="phongConTrong" id="phongConTrong" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                            <option value="1" <c:if test="${p.phongConTrong eq 1}">selected</c:if>>Trống</option>
+                                            <option value="0" <c:if test="${p.phongConTrong eq 0}">selected</c:if>>Có người thuê</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="flex items-center">
+                                            <label class="w-1/3 text-gray-700 font-semibold">Ghi Chú:</label>
+                                            <input type="text" name="ghiChu" value="${p.ghiChu}" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Giá:</label>

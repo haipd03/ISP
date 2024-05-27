@@ -41,6 +41,7 @@ public class ThemPhong extends HttpServlet {
         String khuIDString = request.getParameter("KhuID");
         String loaiPhong = request.getParameter("LoaiPhong");
         String phongConTrongString = request.getParameter("PhongConTrong");
+        String ghiChu = request.getParameter("GhiChu");
         String giaString = request.getParameter("Gia");
 
         try {
@@ -48,6 +49,7 @@ public class ThemPhong extends HttpServlet {
             int soPhong = Integer.parseInt(soPhongString);
             int khuID = Integer.parseInt(khuIDString);
             int phongConTrong = Integer.parseInt(phongConTrongString);
+            
             int gia = Integer.parseInt(giaString);
 
             if (phongID <= 0 || soPhong <= 0 || khuID <= 0 || phongConTrong < 0 || gia < 0) {
@@ -63,7 +65,7 @@ public class ThemPhong extends HttpServlet {
                 return;
             }
 
-            Phong phong = new Phong(phongID, soPhong, khuID, loaiPhong, phongConTrong, gia);
+            Phong phong = new Phong(phongID, soPhong, khuID, loaiPhong, phongConTrong, ghiChu, gia);
             List<Phong> phongList = phongDAO.addPhong(phong);
 
             if (phongList != null && !phongList.isEmpty()) {
