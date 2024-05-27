@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import model.DichVu;
 import model.HoaDon;
 import model.HopDong;
 import model.Phong;
@@ -69,6 +70,32 @@ public class HaiDao extends MyDAO {
         return hoaDonList;
     }
 
+    
+  public List<DichVu> getAllDichVu() {
+    List<DichVu> dichVuList = new ArrayList<>();
+    String sql = "SELECT * FROM DichVu"; // Giả sử bảng trong cơ sở dữ liệu là "DichVu"
+    try {
+        ps = con.prepareStatement(sql);
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            int dichVuID = rs.getInt("DichVuID");
+            int soPhong = rs.getInt("SoPhong");
+            String name = rs.getString("Name");
+            int giaTien = rs.getInt("GiaTien");
+            Date tuNgay = rs.getDate("TuNgay");
+            Date denNgay = rs.getDate("DenNgay");
+            int chiSoCu = rs.getInt("ChiSoCu");
+            int chiSoMoi = rs.getInt("ChiSoMoi");
+
+            DichVu dichVu = new DichVu(dichVuID, soPhong, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi);
+            dichVuList.add(dichVu);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace(); // In ra lỗi nếu có
+    }
+    return dichVuList;
+}
+
 
 public static void main(String[] args) throws SQLException {
         HaiDao dao = new HaiDao();
@@ -78,9 +105,9 @@ public static void main(String[] args) throws SQLException {
 //       System.out.println( account);
               
 
-        List<HoaDon> listC = dao.getAllHoaDon();
+        List<DichVu> listC = dao.getAllDichVu();
 
-        for (HoaDon category : listC) {
+        for (DichVu category : listC) {
             System.out.println(category);
         }
     }
