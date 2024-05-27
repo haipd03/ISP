@@ -22,12 +22,12 @@
             <!--Screen-->
             <div class="min-h-screen flex flex-col">
                 <!--Header Section Starts Here-->
-                 <jsp:include page="menu1.jsp" />
+                <jsp:include page="menu1.jsp" />
                 <!--/Header-->
 
                 <div class="flex flex-1">
                     <!--Sidebar-->
-                     <jsp:include page="menu2.jsp" />
+                    <jsp:include page="menu2.jsp" />
                     <!--/Sidebar-->
                     <!--Main-->
                     <main class="bg-gray-100 flex-1 p-6 overflow-hidden">
@@ -50,6 +50,16 @@
                                             <p class="text-gray-700"><strong>SDT Người Thân:</strong> ${o.SDTNguoiThan}</p>
                                             <p class="text-gray-700"><strong>Quan Hệ Với Người Thân:</strong> ${o.quanHeVoiNguoiThan}</p>
                                             <p class="text-gray-700"><strong>ID Phòng:</strong> ${o.phongID}</p>
+                                            <p class="text-gray-700"><strong>Tình Trạng:</strong>
+                                                <c:choose>
+                                                    <c:when test="${o.tinhTrang == 1}">
+                                                        Đang Thuê
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        Không còn Thuê
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </p>
                                             <div class="mt-4">
                                                 <a class="inline-block bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
                                                    href="listEdit?lntt=${o.khachID}">Update
@@ -63,8 +73,6 @@
                             </c:forEach>
                         </div>
                     </main>
-
-
                     <!-- Underline form -->
 
                     <!--/Underline form-->

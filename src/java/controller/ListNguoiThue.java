@@ -52,7 +52,7 @@ public class ListNguoiThue extends HttpServlet {
                 List<KhachThue> kt = dao.getKhachThueByPhongID(id);
                 request.setAttribute("listNguoiThue", kt);
             }
-            request.getRequestDispatcher("form.jsp").forward(request, response);
+            request.getRequestDispatcher("ListKhachThue.jsp").forward(request, response);
         }
     }
 

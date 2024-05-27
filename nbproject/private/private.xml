@@ -3,10 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Hoc_Tap/Ky5/ISP/QuanLytro/ISP/src/java/model/HoaDon.java</file>
-            <file>file:/D:/Hoc_Tap/Ky5/ISP/QuanLytro/ISP/src/java/controller/ListPhong.java</file>
-            <file>file:/D:/Hoc_Tap/Ky5/ISP/QuanLytro/ISP/src/java/dal/HaiDao.java</file>
-            <file>file:/D:/Hoc_Tap/Ky5/ISP/QuanLytro/ISP/src/java/controller/ListHoaDon.java</file>
+            <file>file:/D:/ISP392/PhongTroNew/ISP/ISP/src/java/dal/DAO.java</file>
+            <file>file:/D:/ISP392/PhongTroNew/ISP/ISP/src/java/controller/ListEdit.java</file>
+            <file>file:/D:/ISP392/PhongTroNew/ISP/ISP/src/java/model/KhachThue.java</file>
+            <file>file:/D:/ISP392/PhongTroNew/ISP/ISP/src/java/controller/EditKhachThue.java</file>
+            <file>file:/D:/ISP392/PhongTroNew/ISP/ISP/src/java/controller/ListNguoiThue.java</file>
+            <file>file:/D:/ISP392/PhongTroNew/ISP/ISP/src/java/dal/DBContext.java</file>
         </group>
     </open-files>
 </project-private>

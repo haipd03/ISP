@@ -43,7 +43,7 @@ public class DAO extends MyDAO {
 
     public List<Phong> getPhong() {
         List<Phong> Phongs = new ArrayList<>();
-        String sql = "SELECT * FROM Phong"; 
+        String sql = "SELECT * FROM Phong";
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -59,7 +59,7 @@ public class DAO extends MyDAO {
                 Phongs.add(phong);
             }
         } catch (SQLException e) {
-            e.printStackTrace(); 
+            e.printStackTrace();
         }
         return Phongs;
     }
@@ -291,7 +291,8 @@ public class DAO extends MyDAO {
                 String SDTNguoiThan = rs.getString("SDTNguoiThan");
                 String QuanHeVoiNguoiThan = rs.getString("QuanHeVoiNguoiThan");
                 int PhongID = rs.getInt("PhongID");
-                KhachThue khachThue = new KhachThue(KhachID, HoVaTen, CCCD, SDT, QueQuan, TenNguoiThan, SDTNguoiThan, QuanHeVoiNguoiThan, PhongID);
+                int TinhTrang = rs.getInt("TinhTrang");
+                KhachThue khachThue = new KhachThue(KhachID, HoVaTen, CCCD, SDT, QueQuan, TenNguoiThan, SDTNguoiThan, QuanHeVoiNguoiThan, PhongID, TinhTrang);
                 KhachThues.add(khachThue);
             }
         } catch (SQLException e) {
@@ -318,7 +319,8 @@ public class DAO extends MyDAO {
                 String SDTNguoiThan = rs.getString("SDTNguoiThan");
                 String QuanHeVoiNguoiThan = rs.getString("QuanHeVoiNguoiThan");
                 int PhongID = rs.getInt("PhongID");
-                KhachThue khachThue = new KhachThue(KhachID, HoVaTen, CCCD, SDT, QueQuan, TenNguoiThan, SDTNguoiThan, QuanHeVoiNguoiThan, PhongID);
+                int TinhTrang = rs.getInt("TinhTrang");
+                KhachThue khachThue = new KhachThue(KhachID, HoVaTen, CCCD, SDT, QueQuan, TenNguoiThan, SDTNguoiThan, QuanHeVoiNguoiThan, PhongID, TinhTrang);
                 KhachThues.add(khachThue);
             }
         } catch (SQLException e) {
@@ -343,7 +345,8 @@ public class DAO extends MyDAO {
                 String SDTNguoiThan = rs.getString("SDTNguoiThan");
                 String QuanHeVoiNguoiThan = rs.getString("QuanHeVoiNguoiThan");
                 int PhongID = rs.getInt("PhongID");
-                KhachThue khachThue = new KhachThue(KhachID, HoVaTen, CCCD, SDT, QueQuan, TenNguoiThan, SDTNguoiThan, QuanHeVoiNguoiThan, PhongID);
+                int TinhTrang = rs.getInt("TinhTrang");
+                KhachThue khachThue = new KhachThue(KhachID, HoVaTen, CCCD, SDT, QueQuan, TenNguoiThan, SDTNguoiThan, QuanHeVoiNguoiThan, PhongID, TinhTrang);
                 return khachThue;
             }
         } catch (SQLException e) {
@@ -352,8 +355,8 @@ public class DAO extends MyDAO {
         return null;
     }
 
-    public void Updatekhachthue(String KhachID, String HoVaTen, String CCCD, String SDT, String QueQuan, String TenNguoiThan, String SDTNguoiThan, String QuanHeVoiNguoiThan, String PhongID) {
-        String sql = "UPDATE khachthue SET KhachID=?, HoVaTen=?, CCCD=?, SDT=?, QueQuan=?, TenNguoiThan=?, SDTNguoiThan=?, QuanHeVoiNguoiThan=?, PhongID=? WHERE KhachID=?";
+    public void Updatekhachthue(String KhachID, String HoVaTen, String CCCD, String SDT, String QueQuan, String TenNguoiThan, String SDTNguoiThan, String QuanHeVoiNguoiThan, String PhongID, String TinhTrang) {
+        String sql = "UPDATE khachthue SET KhachID=?, HoVaTen=?, CCCD=?, SDT=?, QueQuan=?, TenNguoiThan=?, SDTNguoiThan=?, QuanHeVoiNguoiThan=?, PhongID=?, TinhTrang=? WHERE KhachID=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, KhachID);
@@ -365,7 +368,8 @@ public class DAO extends MyDAO {
             ps.setString(7, SDTNguoiThan);
             ps.setString(8, QuanHeVoiNguoiThan);
             ps.setString(9, PhongID);
-            ps.setString(10, KhachID);
+            ps.setString(10, TinhTrang);
+            ps.setString(11, KhachID);
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

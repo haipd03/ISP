@@ -41,9 +41,14 @@ public class EditKhachThue extends HttpServlet {
         String SDTNguoiThan = request.getParameter("SDTNguoiThan");
         String QuanHeVoiNguoiThan = request.getParameter("QuanHeVoiNguoiThan");
         String PhongID = request.getParameter("PhongID");
+        String TinhTrang = request.getParameter("TinhTrang");
+        if (!("0".equals(TinhTrang) || "1".equals(TinhTrang))) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid Tình Trạng value");
+            return;
+        }
         DAO dao = new DAO();
-        dao.Updatekhachthue(KhachID, HoVaTen, CCCD, SDT, QueQuan, TenNguoiThan, SDTNguoiThan, QuanHeVoiNguoiThan, PhongID);
-        response.sendRedirect("listNguoiThue?lntid=" +PhongID);
+        dao.Updatekhachthue(KhachID, HoVaTen, CCCD, SDT, QueQuan, TenNguoiThan, SDTNguoiThan, QuanHeVoiNguoiThan, PhongID, TinhTrang);
+        response.sendRedirect("listNguoiThue?lntid=" + PhongID);
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
