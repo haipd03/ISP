@@ -9,8 +9,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import model.Accounts;
+import model.HoaDonDetail;
 import model.KhachThue;
 import model.Khu;
 import model.Phong;
@@ -937,6 +939,32 @@ public class DAO extends MyDAO {
             e.printStackTrace();
         }
         return ThietBis;
+    }
+    public List<HoaDonDetail> getHoaDonDetail(String id) {
+        List<HoaDonDetail> hoaDonDetail = new ArrayList<>();
+        String query = "SELECT * FROM HoaDonDetail\n"
+                + "where HoaDonID = ?";
+        try {
+            ps = con.prepareStatement(query);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int hoaDonDetailID = rs.getInt("HoaDonDetailID");
+                int hoaDonID = rs.getInt("HoaDonID");
+                Date tuNgay = rs.getDate("TuNgay");
+                Date denNgay = rs.getDate("DenNgay");
+                int tongSoDien = rs.getInt("TongSoDien");
+                int tongSoNuoc = rs.getInt("TongSoNuoc");
+                int thanhTien = rs.getInt("ThanhTien");
+                int dichVuID = rs.getInt("DichVuID");
+
+                HoaDonDetail hoaDonDetails = new HoaDonDetail(hoaDonDetailID, hoaDonID, tuNgay, denNgay, tongSoDien, tongSoNuoc, thanhTien, dichVuID);
+                hoaDonDetail.add(hoaDonDetails);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // In ra lỗi nếu có
+        }
+        return hoaDonDetail;
     }
 
     public List<Accounts> getAccounts() {

@@ -62,7 +62,7 @@
                                         </td>
                                         <td class="px-4 py-2">
 
-                                            <a href="" class="text-blue-500 hover:text-red-700">Chi tiết</a>
+                                            <a href="listhoadondetail?id=${o.hoaDon.hoaDonID}" class="text-blue-500 hover:text-red-700">Chi tiết</a>
                                         </td>
                                     </tr>
                                 </c:forEach>
