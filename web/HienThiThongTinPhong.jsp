@@ -21,11 +21,7 @@
         <link rel="stylesheet" href="./dist/all.css">
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i,700,700i" rel="stylesheet">
         <title>HienThiPhong</title>
-        <script>
-            function confirmDelete() {
-                return confirm("Bạn có chắc chắn muốn xóa phòng này?");
-            }
-        </script>
+        
     </head>
 
     <body>
@@ -69,16 +65,9 @@
                                                     <span>Có khách thuê</span><br>
                                                 </c:if>
                                             </p>
+                                            <p class="text-gray-700"><strong>Ghi Chú:</strong> ${phong.ghiChu}</p>
                                             <p class="text-gray-700"><strong>Giá:</strong> ${phong.gia}</p>
                                             <div class="mt-4 flex space-x-2">
-                                                <c:if test="${sessionScope.acc.role == 0}">
-                                                    <c:if test="${phong.phongConTrong eq 1}">
-                                                        <form action="deletePhong" method="get" style="display: inline;" onsubmit="return confirmDelete();">
-                                                            <input type="hidden" name="phongID" value="${phong.phongID}">
-                                                            <button type="submit" class="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200">Xóa</button>
-                                                        </form>
-                                                    </c:if>
-                                                </c:if>
                                                 <a class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200" href="nhapeditphong?phongID=${phong.phongID}">Sửa</a>
                                                 <a class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200" href="/quanlytro/listphong">Home</a>
                                             </div>
