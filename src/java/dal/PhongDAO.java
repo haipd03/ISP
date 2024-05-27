@@ -1,6 +1,5 @@
 package dal;
 
-import com.oracle.wls.shaded.org.apache.bcel.generic.AALOAD;
 import com.sun.jdi.connect.spi.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
