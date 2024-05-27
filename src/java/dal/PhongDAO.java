@@ -23,9 +23,10 @@ public class PhongDAO extends MyDAO {
                 int KhuID = rs.getInt("KhuID");
                 String LoaiPhong = rs.getString("LoaiPhong");
                 int PhongConTrong = rs.getInt("PhongConTrong");
+                String GhiChu = rs.getString("GhiChu");
                 int Gia = rs.getInt("Gia");
 
-                Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, Gia);
+                Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, GhiChu, Gia);
                 phongs.add(phong);
             }
         } catch (SQLException e) {
@@ -47,9 +48,10 @@ public class PhongDAO extends MyDAO {
                 int KhuID = rs.getInt("KhuID");
                 String LoaiPhong = rs.getString("LoaiPhong");
                 int PhongConTrong = rs.getInt("PhongConTrong");
+                String GhiChu = rs.getString("GhiChu");
                 int Gia = rs.getInt("Gia");
 
-                Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, Gia);
+                Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, GhiChu, Gia);
                 phongs.add(phong);
             }
         } catch (SQLException e) {
@@ -67,13 +69,14 @@ public class PhongDAO extends MyDAO {
             rs = ps.executeQuery();
             while (rs.next()) {
                 int PhongID = rs.getInt("PhongID");
-                int SoPhongResult = rs.getInt("SoPhong");
+                int SoPhong = rs.getInt("SoPhong");
                 int KhuID = rs.getInt("KhuID");
                 String LoaiPhong = rs.getString("LoaiPhong");
                 int PhongConTrong = rs.getInt("PhongConTrong");
+                String GhiChu = rs.getString("GhiChu");
                 int Gia = rs.getInt("Gia");
 
-                Phong phong = new Phong(PhongID, SoPhongResult, KhuID, LoaiPhong, PhongConTrong, Gia);
+                Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, GhiChu, Gia);
                 phongs.add(phong);
             }
         } catch (SQLException e) {
@@ -84,7 +87,7 @@ public class PhongDAO extends MyDAO {
     }
 
     public List<Phong> addPhong(Phong phong) {
-        String sql = "INSERT INTO Phong (PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, Gia) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Phong (PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong,GhiChu, Gia) VALUES (?, ?, ?, ?, ?, ?, ?)";
         List<Phong> phongList = new ArrayList<>();
         try {
             ps = con.prepareStatement(sql);
@@ -93,7 +96,8 @@ public class PhongDAO extends MyDAO {
             ps.setInt(3, phong.getKhuID());
             ps.setString(4, phong.getLoaiPhong());
             ps.setInt(5, phong.getPhongConTrong());
-            ps.setInt(6, phong.getGia());
+            ps.setString(6, phong.getGhiChu());
+            ps.setInt(7, phong.getGia());
             ps.executeUpdate();
             phongList = getAllPhong();
         } catch (SQLException e) {
@@ -103,17 +107,7 @@ public class PhongDAO extends MyDAO {
         return phongList;
     }
 
-    public void deletePhongByPhongID(int phongID) {
-        String sql = "DELETE FROM Phong WHERE PhongID = ?";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, phongID);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
+    
     public boolean checkPhongIDcoThietBi(int phongID) {
         String query = "select distinct p.* from Phong p join ThietBi tb on tb.PhongID = p.PhongID where p.PhongID = ?";
         try {
@@ -142,9 +136,10 @@ public class PhongDAO extends MyDAO {
                 int KhuID = rs.getInt("KhuID");
                 String LoaiPhong = rs.getString("LoaiPhong");
                 int PhongConTrong = rs.getInt("PhongConTrong");
+                String GhiChu = rs.getString("GhiChu");
                 int Gia = rs.getInt("Gia");
 
-                Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, Gia);
+                Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, GhiChu, Gia);
                 phongs.add(phong);
             }
         } catch (SQLException e) {
@@ -153,25 +148,48 @@ public class PhongDAO extends MyDAO {
         return phongs;
     }
 
+//    public List<Phong> updatePhong(Phong phong) {
+//        String sql = "UPDATE Phong SET SoPhong = ?, KhuID = ?, LoaiPhong = ?, PhongConTrong = ?,GhiChu = ?, Gia = ? WHERE PhongID = ?";
+//        List<Phong> phongList = new ArrayList<>();
+//        try {
+//            PreparedStatement ps = con.prepareStatement(sql);
+//            ps.setInt(1, phong.getSoPhong());
+//            ps.setInt(2, phong.getKhuID());
+//            ps.setString(3, phong.getLoaiPhong());
+//            ps.setInt(4, phong.getPhongConTrong());
+//            ps.setInt(5, phong.getGia());
+//            ps.setString(6, phong.getGhiChu());
+//            ps.setInt(7, phong.getPhongID());
+//            ps.executeUpdate();
+//            phongList = getAllPhong();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            // Handle the exception appropriately
+//        }
+//        return phongList;
+//    }
+    
     public List<Phong> updatePhong(Phong phong) {
-        String sql = "UPDATE Phong SET SoPhong = ?, KhuID = ?, LoaiPhong = ?, PhongConTrong = ?, Gia = ? WHERE PhongID = ?";
-        List<Phong> phongList = new ArrayList<>();
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, phong.getSoPhong());
-            ps.setInt(2, phong.getKhuID());
-            ps.setString(3, phong.getLoaiPhong());
-            ps.setInt(4, phong.getPhongConTrong());
-            ps.setInt(5, phong.getGia());
-            ps.setInt(6, phong.getPhongID());
-            ps.executeUpdate();
-            phongList = getAllPhong();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle the exception appropriately
-        }
-        return phongList;
+    String sql = "UPDATE Phong SET SoPhong = ?, KhuID = ?, LoaiPhong = ?, PhongConTrong = ?, GhiChu = ?, Gia = ? WHERE PhongID = ?";
+    List<Phong> phongList = new ArrayList<>();
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, phong.getSoPhong());
+        ps.setInt(2, phong.getKhuID());
+        ps.setString(3, phong.getLoaiPhong());
+        ps.setInt(4, phong.getPhongConTrong());
+        ps.setString(5, phong.getGhiChu());
+        ps.setInt(6, phong.getGia());
+        ps.setInt(7, phong.getPhongID());
+        ps.executeUpdate();
+        phongList = getAllPhong(); // Assuming getAllPhong() returns a List<Phong>
+    } catch (SQLException e) {
+        e.printStackTrace();
+        // Handle the exception appropriately
     }
+    return phongList;
+}
+
 
     public Phong getPhongByID(int phongID) {
         Phong phong = null;
@@ -181,13 +199,17 @@ public class PhongDAO extends MyDAO {
             ps.setInt(1, phongID);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
+                int PhongID = rs.getInt("PhongID");
                 int SoPhong = rs.getInt("SoPhong");
                 int KhuID = rs.getInt("KhuID");
                 String LoaiPhong = rs.getString("LoaiPhong");
                 int PhongConTrong = rs.getInt("PhongConTrong");
+                String GhiChu = rs.getString("GhiChu");
                 int Gia = rs.getInt("Gia");
 
-                phong = new Phong(phongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, Gia);
+                 phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, GhiChu, Gia);
+           
+          
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -279,7 +301,7 @@ public class PhongDAO extends MyDAO {
 
     public List<Phong> getPhongByKhuByAccountID(int soPhong, int accountID) {
         List<Phong> phongs = new ArrayList<>();
-        String sql = "SELECT p.PhongID, p.SoPhong, p.KhuID, p.LoaiPhong, p.PhongConTrong, p.Gia\n"
+        String sql = "SELECT p.PhongID, p.SoPhong, p.KhuID, p.LoaiPhong, p.PhongConTrong, p.GhiChu, p.Gia\n"
                 + "FROM Phong p\n"
                 + "JOIN Khu k ON k.KhuID = p.KhuID\n"
                 + "JOIN Accounts a ON k.AccountID = a.AccountID\n"
@@ -292,12 +314,13 @@ public class PhongDAO extends MyDAO {
             while (rs.next()) {
                 int PhongID = rs.getInt("PhongID");
                 int SoPhong = rs.getInt("SoPhong");
-                int KhuIDResult = rs.getInt("KhuID");
+                int KhuID = rs.getInt("KhuID");
                 String LoaiPhong = rs.getString("LoaiPhong");
                 int PhongConTrong = rs.getInt("PhongConTrong");
+                String GhiChu = rs.getString("GhiChu");
                 int Gia = rs.getInt("Gia");
 
-                Phong phong = new Phong(PhongID, SoPhong, KhuIDResult, LoaiPhong, PhongConTrong, Gia);
+                Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, GhiChu, Gia);
                 phongs.add(phong);
             }
         } catch (SQLException e) {

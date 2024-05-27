@@ -32,6 +32,7 @@ public class EditPhong extends HttpServlet {
         String khuIDStr = request.getParameter("khuID");
         String loaiPhong = request.getParameter("loaiPhong");
         String phongConTrongStr = request.getParameter("phongConTrong");
+        String ghiChu = request.getParameter("ghiChu");
         String giaStr = request.getParameter("gia");
 
         // Kiểm tra và chuyển đổi các giá trị đầu vào
@@ -63,7 +64,7 @@ public class EditPhong extends HttpServlet {
             }
 
             // Tạo đối tượng Phong mới với thông tin vừa nhận được
-            Phong phong = new Phong(phongID, soPhong, khuID, loaiPhong, phongConTrong, gia);
+            Phong phong = new Phong(phongID, soPhong, khuID, loaiPhong, phongConTrong, ghiChu, gia);
 
             // Cập nhật thông tin phòng trong cơ sở dữ liệu
             PhongDAO phongDAO = new PhongDAO();

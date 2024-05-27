@@ -64,6 +64,7 @@
                                                     <span>Trống</span><br>
                                                 </c:if>
                                             </p>
+                                            <p class="text-gray-700"><strong>Ghi Chú:</strong> ${Phong.ghiChu}</p>
                                             <p class="text-gray-700"><strong>Giá:</strong> ${Phong.gia}VND</p>
                                             <!-- Add any additional actions/buttons here -->
                                             <div class="mt-4 flex space-x-2">

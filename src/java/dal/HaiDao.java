@@ -29,9 +29,10 @@ public class HaiDao extends MyDAO {
                 int KhuID = rs.getInt("KhuID");
                 String LoaiPhong = rs.getString("LoaiPhong");
                 int PhongConTrong = rs.getInt("PhongConTrong");
+                String GhiChu = rs.getString("GhiChu");
                 int Gia = rs.getInt("Gia");
 
-                Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, Gia);
+                Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, GhiChu, Gia);
                 Phongs.add(phong);
             }
         } catch (SQLException e) {

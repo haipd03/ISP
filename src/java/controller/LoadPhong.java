@@ -23,7 +23,6 @@ public class LoadPhong extends HttpServlet {
         Accounts a = (Accounts) session.getAttribute("acc");
 
         if (a == null) {
-            // Redirect to login page or show error message if account is not logged in
             response.sendRedirect("login.jsp");
         } else {
             String soPhongParam = request.getParameter("soPhong");
@@ -34,7 +33,6 @@ public class LoadPhong extends HttpServlet {
                     soPhong = Integer.parseInt(soPhongParam);
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
-                    // Handle the error according to your requirement
                 }
                 if (a.getRole() == 1) {
                     List<Phong> danhSachPhong = phongDAO.getPhongByKhuByAccountID(soPhong, a.getAccountID());
