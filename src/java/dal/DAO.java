@@ -53,9 +53,10 @@ public class DAO extends MyDAO {
                 int KhuID = rs.getInt("KhuID");
                 String LoaiPhong = rs.getString("LoaiPhong");
                 int PhongConTrong = rs.getInt("PhongConTrong");
+                String GhiChu = rs.getString("GhiChu");
                 int Gia = rs.getInt("Gia");
 
-                Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, Gia);
+                Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, GhiChu, Gia);
                 Phongs.add(phong);
             }
         } catch (SQLException e) {
@@ -76,14 +77,15 @@ public class DAO extends MyDAO {
             ps.setInt(1, accountID);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    int phongID = rs.getInt("PhongID");
-                    int soPhong = rs.getInt("SoPhong");
-                    int khuId = rs.getInt("KhuID");
-                    String loaiPhong = rs.getString("LoaiPhong");
-                    int phongConTrong = rs.getInt("PhongConTrong");
-                    int gia = rs.getInt("Gia");
+                    int PhongID = rs.getInt("PhongID");
+                int SoPhong = rs.getInt("SoPhong");
+                int KhuID = rs.getInt("KhuID");
+                String LoaiPhong = rs.getString("LoaiPhong");
+                int PhongConTrong = rs.getInt("PhongConTrong");
+                String GhiChu = rs.getString("GhiChu");
+                int Gia = rs.getInt("Gia");
 
-                    Phong phong = new Phong(phongID, soPhong, khuId, loaiPhong, phongConTrong, gia);
+                Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, GhiChu, Gia);
                     phongDetailsList.add(phong);
                 }
             }
@@ -521,16 +523,15 @@ public class DAO extends MyDAO {
             ps.setString(1, "%" + soPhong + "%");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                // Retrieve data from the result set
-                int PhongID = rs.getInt("PhongID");
+               int PhongID = rs.getInt("PhongID");
                 int SoPhong = rs.getInt("SoPhong");
                 int KhuID = rs.getInt("KhuID");
                 String LoaiPhong = rs.getString("LoaiPhong");
                 int PhongConTrong = rs.getInt("PhongConTrong");
+                String GhiChu = rs.getString("GhiChu");
                 int Gia = rs.getInt("Gia");
 
-                // Create a Phong object from the retrieved data
-                Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, Gia);
+                Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, GhiChu, Gia);
                 // Add the Phong object to the list
                 Phongs.add(phong);
             }
@@ -571,14 +572,15 @@ public class DAO extends MyDAO {
             ps.setString(1, ck);
             rs = ps.executeQuery();
             while (rs.next()) {
-                int PhongID = rs.getInt("PhongID");   //edit dua vao thuoc tinh
+                int PhongID = rs.getInt("PhongID");
                 int SoPhong = rs.getInt("SoPhong");
                 int KhuID = rs.getInt("KhuID");
-
                 String LoaiPhong = rs.getString("LoaiPhong");
                 int PhongConTrong = rs.getInt("PhongConTrong");
+                String GhiChu = rs.getString("GhiChu");
                 int Gia = rs.getInt("Gia");
-                Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, Gia);
+
+                Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, GhiChu, Gia);
                 Phongs.add(phong);
             }
         } catch (SQLException e) {
@@ -595,13 +597,15 @@ public class DAO extends MyDAO {
             ps.setString(1, "%" + bl + "%"); // Concatenate the wildcard characters around the parameter value
             rs = ps.executeQuery();
             while (rs.next()) {
-                int PhongID = rs.getInt("PhongID");
+               int PhongID = rs.getInt("PhongID");
                 int SoPhong = rs.getInt("SoPhong");
                 int KhuID = rs.getInt("KhuID");
                 String LoaiPhong = rs.getString("LoaiPhong");
                 int PhongConTrong = rs.getInt("PhongConTrong");
+                String GhiChu = rs.getString("GhiChu");
                 int Gia = rs.getInt("Gia");
-                Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, Gia);
+
+                Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, GhiChu, Gia);
                 Phongs.add(phong);
             }
         } catch (SQLException e) {
@@ -618,15 +622,15 @@ public class DAO extends MyDAO {
             ps.setString(1, bg);
             rs = ps.executeQuery();
             while (rs.next()) {
-                int PhongID = rs.getInt("PhongID");   //edit dua vao thuoc tinh
+                int PhongID = rs.getInt("PhongID");
                 int SoPhong = rs.getInt("SoPhong");
                 int KhuID = rs.getInt("KhuID");
                 String LoaiPhong = rs.getString("LoaiPhong");
                 int PhongConTrong = rs.getInt("PhongConTrong");
-
+                String GhiChu = rs.getString("GhiChu");
                 int Gia = rs.getInt("Gia");
 
-                Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, Gia);
+                Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, GhiChu, Gia);
                 Phongs.add(phong);
             }
         } catch (SQLException e) {
@@ -643,15 +647,15 @@ public class DAO extends MyDAO {
             ps.setString(1, bt);
             rs = ps.executeQuery();
             while (rs.next()) {
-                int PhongID = rs.getInt("PhongID");   //edit dua vao thuoc tinh
+                int PhongID = rs.getInt("PhongID");
                 int SoPhong = rs.getInt("SoPhong");
                 int KhuID = rs.getInt("KhuID");
                 String LoaiPhong = rs.getString("LoaiPhong");
                 int PhongConTrong = rs.getInt("PhongConTrong");
-
+                String GhiChu = rs.getString("GhiChu");
                 int Gia = rs.getInt("Gia");
 
-                Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, Gia);
+                Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, GhiChu, Gia);
                 Phongs.add(phong);
             }
         } catch (SQLException e) {
@@ -964,15 +968,15 @@ public class DAO extends MyDAO {
             ps.setString(1, id);
             rs = ps.executeQuery();
             while (rs.next()) {
-                int PhongID = rs.getInt("PhongID");   //edit dua vao thuoc tinh
+                int PhongID = rs.getInt("PhongID");
                 int SoPhong = rs.getInt("SoPhong");
                 int KhuID = rs.getInt("KhuID");
                 String LoaiPhong = rs.getString("LoaiPhong");
                 int PhongConTrong = rs.getInt("PhongConTrong");
-
+                String GhiChu = rs.getString("GhiChu");
                 int Gia = rs.getInt("Gia");
 
-                Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, Gia);
+                Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, GhiChu, Gia);
                 Phongs.add(phong);
             }
         } catch (SQLException e) {

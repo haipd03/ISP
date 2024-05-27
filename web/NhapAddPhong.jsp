@@ -71,6 +71,10 @@
                                         <input type="text" value="Trống" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
+                                        <label class="w-1/3 text-gray-700 font-semibold">Ghi Chú:</label>
+                                        <input type="text" name="GhiChu" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                    </div>
+                                    <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Giá:</label>
                                         <input type="text" name="Gia" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>

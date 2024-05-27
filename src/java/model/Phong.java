@@ -15,6 +15,7 @@ public class Phong {
     private int KhuID;
     private String LoaiPhong;
     private int PhongConTrong;
+    private String GhiChu;
     private int Gia;
 
     public Phong() {
@@ -32,12 +33,13 @@ public class Phong {
          this.PhongConTrong = PhongConTrong;
     }
 
-    public Phong(int PhongID, int SoPhong, int KhuID, String LoaiPhong, int PhongConTrong, int Gia) {
+    public Phong(int PhongID, int SoPhong, int KhuID, String LoaiPhong, int PhongConTrong, String GhiChu, int Gia) {
         this.PhongID = PhongID;
         this.SoPhong = SoPhong;
         this.KhuID = KhuID;
         this.LoaiPhong = LoaiPhong;
         this.PhongConTrong = PhongConTrong;
+        this.GhiChu = GhiChu;
         this.Gia = Gia;
     }
 
@@ -81,6 +83,14 @@ public class Phong {
         this.PhongConTrong = PhongConTrong;
     }
 
+    public String getGhiChu() {
+        return GhiChu;
+    }
+
+    public void setGhiChu(String GhiChu) {
+        this.GhiChu = GhiChu;
+    }
+
     public int getGia() {
         return Gia;
     }
@@ -91,7 +101,9 @@ public class Phong {
 
     @Override
     public String toString() {
-        return "Phong{" + "PhongID=" + PhongID + ", SoPhong=" + SoPhong + ", KhuID=" + KhuID + ", LoaiPhong=" + LoaiPhong + ", PhongConTrong=" + PhongConTrong + ", Gia=" + Gia + '}';
+        return "Phong{" + "PhongID=" + PhongID + ", SoPhong=" + SoPhong + ", KhuID=" + KhuID + ", LoaiPhong=" + LoaiPhong + ", PhongConTrong=" + PhongConTrong + ", GhiChu=" + GhiChu + ", Gia=" + Gia + '}';
     }
+
+   
     
 }
