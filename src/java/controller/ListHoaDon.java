@@ -5,10 +5,8 @@
 
 package controller;
 
-import dal.DAO;
 import dal.HaiDao;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -18,8 +16,6 @@ import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Accounts;
 import model.HoaDon;
-import model.Khu;
-import model.Phong;
 
 /**
  *
@@ -45,7 +41,7 @@ public class ListHoaDon extends HttpServlet {
         }else {
             
        HaiDao u = new HaiDao();
-        List<HoaDon> lhd = u.getAllHoaDon();
+        List<HaiDao.HoaDonWithSoPhong> lhd = u.getAllHoaDon();
        
 
         
