@@ -36,7 +36,7 @@
                             Thêm Hợp Đồng
                         </div>
                         <div class="p-6 bg-white">
-                            <form action="themphong" method="get">
+                            <form action="addhopdong" method="get">
                                 <div class="space-y-4">
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Hợp Đồng ID:</label>
@@ -49,8 +49,10 @@
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Phòng ID:</label>
                                         <select name="PhongID" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
-                                            <c:forEach items="${lp2}" var="o2">
-                                                <option value="${o2.khuID}">${o2.khuID}</option>
+                                            <c:forEach items="${lp1}" var="o2">
+                                                <c:if test="${o2.phongConTrong == 1}">
+                                                    <option value="${o2.phongID}">${o2.phongID}</option>
+                                                </c:if>
                                             </c:forEach>
                                         </select>
                                     </div>
@@ -60,11 +62,11 @@
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Ngày Thuê:</label>
-                                        <input type="text" name="NgayThue" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <input type="date" name="NgayThue" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Ngày Trả:</label>
-                                        <input type="text" name="NgayTra" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <input type="date" name="NgayTra" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Số Khách Thuê Phòng:</label>
@@ -89,12 +91,10 @@
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Tình Trạng:</label>
                                         <select name="TinhTrang" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
-                                            <c:forEach items="${lp1}" var="o1">
-                                                <option value="${o1.loaiPhong}">${o1.loaiPhong}</option>
-                                            </c:forEach>
+                                            <option value="1" ${listNguoiThue1.tinhTrang == 1 ? 'selected' : ''}>Đang Thuê</option>
+                                            <option value="0" ${listNguoiThue1.tinhTrang == 0 ? 'selected' : ''}>Không còn Thuê</option>
                                         </select>
                                     </div>
-                                    <p style="color: red">${message}</p>
                                 </div>
                                 <div class="mt-6 flex justify-end">
                                     <input type="submit" value="Update" class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 transition-colors duration-200">

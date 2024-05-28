@@ -31,6 +31,26 @@
                     <!--/Sidebar-->
                     <!--Main-->
                     <main class="bg-gray-100 flex-1 p-6 overflow-hidden">
+                        <table border="0">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="flex justify-end">
+                                            <form action="nhapaddhopdong" method="post">
+                                                <button type="submit"  class="bg-green-500 hover:bg-green-800 text-white font-bold py-2 px-4 rounded">Thêm Khách Thuê</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="flex justify-end">
+                                            <form action="nhapaddhopdong" method="post">
+                                                <button type="submit"  class="bg-green-500 hover:bg-green-800 text-white font-bold py-2 px-4 rounded">Thêm Hợp Đồng</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>    
+                            </tbody>
+                        </table>
                         <div class="flex flex-col space-y-4">
                             <c:forEach items="${listNguoiThue}" var="o">
                                 <!-- Card Section Starts Here -->
