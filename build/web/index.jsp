@@ -150,15 +150,14 @@
                             <table border="0">
                                 <tbody>
                                     <tr>
-
                                         <td><h1>List </h1></td>
                                         <td><div class="flex justify-end">
                                                 <form action="nhapaddphong" method="post">
-                                                    <button type="submit"  class="bg-green-500 hover:bg-green-800 text-white font-bold py-2 px-4 rounded"">ADD</button>
+                                                    <button type="submit"  class="bg-green-500 hover:bg-green-800 text-white font-bold py-2 px-4 rounded">ADD</button>
                                                 </form>
                                             </div>
                                         </td>
-                                    </tr>                                
+                                    </tr>                                    
                                 </tbody>
                             </table>
 
@@ -170,7 +169,7 @@
                                                 <h3 class="text-black text-sm bold font-sans">
                                                     <form action="loadphong" method="get">
                                                         <input type="hidden" name="soPhong" value="${o.soPhong}" />
-                                                        <button type="submit" formtarget="_blank">
+                                                        <button type="submit">
                                                             Loại Phòng: ${o.loaiPhong} - Số Phòng: ${o.soPhong}
                                                         </button>
                                                     </form></a></h3>
@@ -200,20 +199,6 @@
                                                     </a>
                                                 </c:if>
                                             </div>
-                                            <c:if test="${o.phongConTrong == 1}">
-                                                <table border="0">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td><div class="flex justify-end">
-                                                                    <form action="addhopdong" method="post">
-                                                                        <button type="submit"  class="bg-green-500 hover:bg-green-800 text-white font-bold py-2 px-4 rounded"">Thêm Hợp Đồng</button>
-                                                                    </form>
-                                                                </div>
-                                                            </td>
-                                                        </tr>                                
-                                                    </tbody>
-                                                </table>
-                                            </c:if>
                                         </div>
                                     </c:if>
                                 </c:forEach> 

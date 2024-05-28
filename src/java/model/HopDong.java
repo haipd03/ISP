@@ -13,7 +13,7 @@ import java.util.Date;
 public class HopDong {
 
     private int HopDongID;
-    private int KhanhID;
+    private int KhachID;
     private int PhongID;
     private int TienCoc;
     private Date NgayThue;
@@ -28,9 +28,9 @@ public class HopDong {
     public HopDong() {
     }
 
-    public HopDong(int HopDongID, int KhanhID, int PhongID, int TienCoc, Date NgayThue, Date NgayTra, int SoKhachThue, String GhiChu, int CCCD, int SDT, String HoVaTen, int TinhTrang) {
+    public HopDong(int HopDongID, int KhachID, int PhongID, int TienCoc, Date NgayThue, Date NgayTra, int SoKhachThue, String GhiChu, int CCCD, int SDT, String HoVaTen, int TinhTrang) {
         this.HopDongID = HopDongID;
-        this.KhanhID = KhanhID;
+        this.KhachID = KhachID;
         this.PhongID = PhongID;
         this.TienCoc = TienCoc;
         this.NgayThue = NgayThue;
@@ -51,12 +51,12 @@ public class HopDong {
         this.HopDongID = HopDongID;
     }
 
-    public int getKhanhID() {
-        return KhanhID;
+    public int getKhachID() {
+        return KhachID;
     }
 
-    public void setKhanhID(int KhanhID) {
-        this.KhanhID = KhanhID;
+    public void setKhachID(int KhanhID) {
+        this.KhachID = KhanhID;
     }
 
     public int getPhongID() {
@@ -141,7 +141,7 @@ public class HopDong {
 
     @Override
     public String toString() {
-        return "HopDong{" + "HopDongID=" + HopDongID + ", KhanhID=" + KhanhID + ", PhongID=" + PhongID + ", TienCoc=" + TienCoc + ", NgayThue=" + NgayThue + ", NgayTra=" + NgayTra + ", SoKhachThue=" + SoKhachThue + ", GhiChu=" + GhiChu + ", CCCD=" + CCCD + ", SDT=" + SDT + ", HoVaTen=" + HoVaTen + ", TinhTrang=" + TinhTrang + '}';
+        return "HopDong{" + "HopDongID=" + HopDongID + ", KhanhID=" + KhachID + ", PhongID=" + PhongID + ", TienCoc=" + TienCoc + ", NgayThue=" + NgayThue + ", NgayTra=" + NgayTra + ", SoKhachThue=" + SoKhachThue + ", GhiChu=" + GhiChu + ", CCCD=" + CCCD + ", SDT=" + SDT + ", HoVaTen=" + HoVaTen + ", TinhTrang=" + TinhTrang + '}';
     }
 
 }
