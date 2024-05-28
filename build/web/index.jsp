@@ -150,15 +150,15 @@
                             <table border="0">
                                 <tbody>
                                     <tr>
-
                                         <td><h1>List </h1></td>
                                         <td><div class="flex justify-end">
                                                 <form action="nhapaddphong" method="post">
-                                                    <button type="submit"  class="bg-green-500 hover:bg-green-800 text-white font-bold py-2 px-4 rounded"">ADD</button>
+                                                    <button type="submit"  class="bg-green-500 hover:bg-green-800 text-white font-bold py-2 px-4 rounded">ADD</button>
                                                 </form>
                                             </div>
                                         </td>
-                                    </tr>                                </tbody>
+                                    </tr>                                    
+                                </tbody>
                             </table>
 
                             <div class="flex flex-1 flex-wrap mx-2 p-1 mt-2 mx-auto lg:mx-2 md:mx-2" style="gap: 10px">
@@ -199,7 +199,6 @@
                                                         Người Thuê
                                                     </a>
                                                 </c:if>
-
                                             </div>
                                         </div>
                                     </c:if>

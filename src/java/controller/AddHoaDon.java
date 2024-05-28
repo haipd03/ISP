@@ -4,26 +4,26 @@
  */
 package controller;
 
-import dal.DAO;
+import dal.HaiDao;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.util.List;
-import model.Accounts;
-import model.KhachThue;
-import model.Phong;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.HoaDon;
 
 /**
  *
- * @author THANH SON
+ * @author admin
  */
-@WebServlet(name = "ListNguoiThue", urlPatterns = {"/listNguoiThue"})
-public class ListNguoiThue extends HttpServlet {
+@WebServlet(name = "AddHoaDon", urlPatterns = {"/addhoadon"})
+public class AddHoaDon extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,25 +35,42 @@ public class ListNguoiThue extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ParseException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        Accounts a = (Accounts) session.getAttribute("acc");
+        request.setCharacterEncoding("UTF-8");
+        String hoaDonID = request.getParameter("HoaDonID");
+        String hopDongID = request.getParameter("HopDongID");
+        String tinhTrangThanhToan = request.getParameter("TinhTrangThanhToan");
+        String tuNgay = request.getParameter("TuNgay");
+        String denNgay = request.getParameter("DenNgay");
+        String tongTien = request.getParameter("TongTien");
 
-        if (a == null) {
-            response.sendRedirect("login");
-        } else {
-            String id = request.getParameter("lntid");
-            DAO dao = new DAO();
-            if (a.getRole() == 1) {
-                List<KhachThue> kt = dao.getKhachThueByPhongIDByAccountID(id, a.getAccountID());
-                request.setAttribute("listNguoiThue", kt);
-            } else {
-                List<KhachThue> kt = dao.getKhachThueByPhongID(id);
-                request.setAttribute("listNguoiThue", kt);
-            }
-            request.getRequestDispatcher("ListKhachThue.jsp").forward(request, response);
+        HaiDao dao = new HaiDao(); // Initialize your DAO
+
+       
+
+        // Inside your processRequest method
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date fromDate = null;
+        Date toDate = null;
+        try {
+            fromDate = sdf.parse(tuNgay);
+            toDate = sdf.parse(denNgay);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
+
+// Create a new HoaDon object with parsed dates
+        HoaDon hoaDon = new HoaDon(Integer.parseInt(hoaDonID), Integer.parseInt(hopDongID),
+                tinhTrangThanhToan, fromDate, toDate,
+                Integer.parseInt(tongTien));
+
+        // Add the HoaDon to the database
+        dao.addHoaDon(hoaDon);
+
+        // Redirect to the listhoadon page
+        response.sendRedirect("listhoadon");
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -68,7 +85,11 @@ public class ListNguoiThue extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(AddHoaDon.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -82,7 +103,11 @@ public class ListNguoiThue extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(AddHoaDon.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

@@ -37,6 +37,7 @@
                                 <tr class="bg-gray-200 text-gray-800">
                                     <th class="px-4 py-2">HoaDonID</th>
                                     <th class="px-4 py-2">HopDongID</th>
+                                    <th class="px-4 py-2">SoPhong</th>
                                     <th class="px-4 py-2">TinhTrangThanhToan</th>
                                     <th class="px-4 py-2">TuNgay</th>
                                     <th class="px-4 py-2">DenNgay</th>
@@ -48,19 +49,20 @@
                             <tbody>
                                 <c:forEach items="${lhd}" var="o">
                                     <tr class="transition-colors hover:bg-gray-100">
-                                        <td class="px-4 py-2">${o.hoaDonID}</td>
-                                        <td class="px-4 py-2">${o.hopDongID}</td>
-                                        <td class="px-4 py-2">${o.tinhTrangThanhToan}</td>
-                                        <td class="px-4 py-2">${o.tuNgay}</td>
-                                        <td class="px-4 py-2">${o.denNgay}</td>
-                                        <td class="px-4 py-2">${o.tongTien}</td>
+                                              <td class="px-4 py-2">${o.hoaDon.hoaDonID}</td>
+                                        <td class="px-4 py-2">${o.hoaDon.hopDongID}</td>
+                                        <td class="px-4 py-2">${o.soPhong}</td>
+                                        <td class="px-4 py-2">${o.hoaDon.tinhTrangThanhToan}</td>
+                                        <td class="px-4 py-2">${o.hoaDon.tuNgay}</td>
+                                        <td class="px-4 py-2">${o.hoaDon.denNgay}</td>
+                                        <td class="px-4 py-2">${o.hoaDon.tongTien}</td>
                                         <td class="px-4 py-2">
                                             <a href="" class="text-blue-500 hover:text-blue-700 mr-2">Sửa</a>
-                                            <a href="" class="text-red-500 hover:text-red-700">Xóa</a>
+<!--                                            <a href="" class="text-red-500 hover:text-red-700">Xóa</a>-->
                                         </td>
                                         <td class="px-4 py-2">
 
-                                            <a href="" class="text-blue-500 hover:text-red-700">Chi tiết</a>
+                                            <a href="listhoadondetail?id=${o.hoaDon.hoaDonID}" class="text-blue-500 hover:text-red-700">Chi tiết</a>
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -70,8 +72,8 @@
                             <p style="color: red; font-size: 1.2em; font-weight: bold;">${error}</p>
                         </c:if>
                         <div class="mt-4">
-                            <a href="">
-                                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Thêm thiết bị</button>
+                            <a href="AddHoaDon.jsp">
+                                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Thêm hóa đơn</button>
                             </a>
                         </div>
                     </div>

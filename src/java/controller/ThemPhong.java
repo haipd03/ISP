@@ -21,7 +21,7 @@ import model.Phong;
  *
  * @author Admin
  */
-@WebServlet(name="ThemPhong", urlPatterns={"/themphong"})
+@WebServlet(name = "ThemPhong", urlPatterns = {"/themphong"})
 
 public class ThemPhong extends HttpServlet {
 
@@ -31,58 +31,53 @@ public class ThemPhong extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         Accounts a = (Accounts) session.getAttribute("acc");
- 
-         if (a == null ) {
-            // Redirect to login page or show error message if account is not logged in
+
+        if (a == null) {
             response.sendRedirect("login.jsp");
         } else {
-      String phongIDString = request.getParameter("PhongID");
-        String soPhongString = request.getParameter("SoPhong");
-        String khuIDString = request.getParameter("KhuID");
-        String loaiPhong = request.getParameter("LoaiPhong");
-        String phongConTrongString = request.getParameter("PhongConTrong");
-        String ghiChu = request.getParameter("GhiChu");
-        String giaString = request.getParameter("Gia");
+            String phongIDString = request.getParameter("PhongID");
+            String soPhongString = request.getParameter("SoPhong");
+            String khuIDString = request.getParameter("KhuID");
+            String loaiPhong = request.getParameter("LoaiPhong");
+            String phongConTrongString = request.getParameter("PhongConTrong");
+            String ghiChu = request.getParameter("GhiChu");
+            String giaString = request.getParameter("Gia");
 
-        try {
-            int phongID = Integer.parseInt(phongIDString);
-            int soPhong = Integer.parseInt(soPhongString);
-            int khuID = Integer.parseInt(khuIDString);
-            int phongConTrong = Integer.parseInt(phongConTrongString);
-            
-            int gia = Integer.parseInt(giaString);
+            try {
+                int phongID = Integer.parseInt(phongIDString);
+                int soPhong = Integer.parseInt(soPhongString);
+                int khuID = Integer.parseInt(khuIDString);
+                int phongConTrong = Integer.parseInt(phongConTrongString);
+                int gia = Integer.parseInt(giaString);
 
-            if (phongID <= 0 || soPhong <= 0 || khuID <= 0 || phongConTrong < 0 || gia < 0) {
+                if (phongID <= 0 || soPhong <= 0 || khuID <= 0 || phongConTrong < 0 || gia < 0) {
+                    request.setAttribute("message", "Dữ liệu nhập vào không hợp lệ!");
+                    request.getRequestDispatcher("/nhapaddphong").forward(request, response);
+                    return;
+                }
+
+                PhongDAO phongDAO = new PhongDAO();
+                if (phongDAO.isPhongIDExists(phongID) || phongDAO.isSoPhongExists(soPhong)) {
+                    request.setAttribute("message", "Phòng ID hoặc Số Phòng đã tồn tại trong cơ sở dữ liệu! Vui lòng chọn một Phòng ID hoặc Số Phòng khác.");
+                    request.getRequestDispatcher("/nhapaddphong").forward(request, response);
+                    return;
+                }
+
+                Phong phong = new Phong(phongID, soPhong, khuID, loaiPhong, phongConTrong, ghiChu, gia);
+                List<Phong> phongList = phongDAO.addPhong(phong);
+
+                if (phongList != null && !phongList.isEmpty()) {
+                    request.setAttribute("success", "Thêm phòng thành công!");
+                    request.setAttribute("Phong", phong);
+                    request.getRequestDispatcher("HienThiPhongThem.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("message", "Thêm phòng thất bại!");
+                    request.getRequestDispatcher("/nhapaddphong").forward(request, response);
+                }
+            } catch (NumberFormatException e) {
                 request.setAttribute("message", "Dữ liệu nhập vào không hợp lệ!");
                 request.getRequestDispatcher("/nhapaddphong").forward(request, response);
-                return;
             }
-
-            PhongDAO phongDAO = new PhongDAO();
-            if (phongDAO.isPhongIDExists(phongID) || phongDAO.isSoPhongExists(soPhong)) {
-                request.setAttribute("message", "Phòng ID hoặc Số Phòng đã tồn tại trong cơ sở dữ liệu! Vui lòng chọn một Phòng ID hoặc Số Phòng khác.");
-                request.getRequestDispatcher("/nhapaddphong").forward(request, response);
-                return;
-            }
-
-            Phong phong = new Phong(phongID, soPhong, khuID, loaiPhong, phongConTrong, ghiChu, gia);
-            List<Phong> phongList = phongDAO.addPhong(phong);
-
-            if (phongList != null && !phongList.isEmpty()) {
-                request.setAttribute("success", "Thêm phòng thành công!");
-                request.setAttribute("Phong", phong);
-                request.getRequestDispatcher("HienThiPhongThem.jsp").forward(request, response);
-            } else {
-                request.setAttribute("message", "Thêm phòng thất bại!");
-                request.getRequestDispatcher("/nhapaddphong").forward(request, response);
-            }
-        } catch (NumberFormatException e) {
-            request.setAttribute("message", "Dữ liệu nhập vào không hợp lệ!");
-            request.getRequestDispatcher("/nhapaddphong").forward(request, response);
         }
     }
-    }
 }
-
-
-

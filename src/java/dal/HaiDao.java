@@ -1,53 +1,58 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dal;
 
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import model.HoaDon;
-import model.HopDong;
-import model.Phong;
 
 /**
  *
  * @author admin
  */
 public class HaiDao extends MyDAO {
-     public List<Phong> getPhong() {
-        List<Phong> Phongs = new ArrayList<>();
-        String sql = "SELECT * FROM HoaDon"; 
-        try {
-            ps = con.prepareStatement(sql);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                int PhongID = rs.getInt("PhongID");
-                int SoPhong = rs.getInt("SoPhong");
-                int KhuID = rs.getInt("KhuID");
-                String LoaiPhong = rs.getString("LoaiPhong");
-                int PhongConTrong = rs.getInt("PhongConTrong");
-                String GhiChu = rs.getString("GhiChu");
-                int Gia = rs.getInt("Gia");
 
-                Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, GhiChu, Gia);
-                Phongs.add(phong);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace(); // In ra lỗi nếu có
+    public class HoaDonWithSoPhong {
+        private HoaDon hoaDon;
+        private int soPhong;
+
+        public HoaDonWithSoPhong(HoaDon hoaDon, int soPhong) {
+            this.hoaDon = hoaDon;
+            this.soPhong = soPhong;
         }
-        return Phongs;
+
+        public HoaDon getHoaDon() {
+            return hoaDon;
+        }
+
+        public void setHoaDon(HoaDon hoaDon) {
+            this.hoaDon = hoaDon;
+        }
+
+        public int getSoPhong() {
+            return soPhong;
+        }
+
+        public void setSoPhong(int soPhong) {
+            this.soPhong = soPhong;
+        }
+
+        @Override
+        public String toString() {
+            return "HoaDonWithSoPhong{" +
+                    "hoaDon=" + hoaDon +
+                    ", soPhong=" + soPhong +
+                    '}';
+        }
     }
-     
- 
 
-
-
-    public List<HoaDon> getAllHoaDon() {
-        List<HoaDon> hoaDonList = new ArrayList<>();
-        String sql = "SELECT * FROM HoaDon";
+    public List<HoaDonWithSoPhong> getAllHoaDon() {
+        List<HoaDonWithSoPhong> hoaDonWithSoPhongList = new ArrayList<>();
+        String sql = "SELECT DISTINCT hd.*, dv.SoPhong " +
+                     "FROM HoaDon hd " +
+                     "JOIN HoaDonDetail hdd ON hdd.HoaDonID = hd.HoaDonID " +
+                     "JOIN DichVu dv ON dv.DichVuID = hdd.DichVuID";
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -58,32 +63,52 @@ public class HaiDao extends MyDAO {
                 Date tuNgay = rs.getDate("TuNgay");
                 Date denNgay = rs.getDate("DenNgay");
                 int tongTien = rs.getInt("TongTien");
+                int soPhong = rs.getInt("SoPhong"); // Lấy thông tin SoPhong từ bảng DichVu
 
-              
-
+                // Tạo đối tượng HoaDon
                 HoaDon hoaDon = new HoaDon(hoaDonID, hopDongID, tinhTrangThanhToan, tuNgay, denNgay, tongTien);
-                hoaDonList.add(hoaDon);
+
+                // Tạo đối tượng HoaDonWithSoPhong
+                HoaDonWithSoPhong hoaDonWithSoPhong = new HoaDonWithSoPhong(hoaDon, soPhong);
+                hoaDonWithSoPhongList.add(hoaDonWithSoPhong);
             }
         } catch (SQLException e) {
             e.printStackTrace(); // In ra lỗi nếu có
         }
-        return hoaDonList;
+        return hoaDonWithSoPhongList;
     }
 
-
-public static void main(String[] args) throws SQLException {
-        HaiDao dao = new HaiDao();
-
-//        dao.editMyAccount("4", "Loan Nguyen", "loan@example.com", 123456789, "123 Main St", "newpassword123");
-//    
-//       System.out.println( account);
-              
-
-        List<HoaDon> listC = dao.getAllHoaDon();
-
-        for (HoaDon category : listC) {
-            System.out.println(category);
+    public void addHoaDon(HoaDon hoaDon) {
+        String sql = "INSERT INTO HoaDon (HoaDonID, HopDongID, TinhTrangThanhToan, TuNgay, DenNgay, TongTien) VALUES (?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, hoaDon.getHoaDonID());
+            ps.setInt(2, hoaDon.getHopDongID());
+            ps.setString(3, hoaDon.getTinhTrangThanhToan());
+            ps.setDate(4, new java.sql.Date(hoaDon.getTuNgay().getTime()));
+            ps.setDate(5, new java.sql.Date(hoaDon.getDenNgay().getTime()));
+            ps.setInt(6, hoaDon.getTongTien());
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Successfully added HoaDon: " + hoaDon);
+            } else {
+                System.out.println("Failed to add HoaDon: " + hoaDon);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
+    public static void main(String[] args) throws SQLException {
+        HaiDao dao = new HaiDao();
+//
+//        HoaDon hoaDon = new HoaDon(21, 9, "Paid", new java.util.Date(), new java.util.Date(), 1000);
+//        
+//        dao.addHoaDon(hoaDon);
+        
+     
+        List<HoaDonWithSoPhong> listC = dao.getAllHoaDon();
+        for (HoaDonWithSoPhong category : listC) {
+            System.out.println(category);
+        }
+    }
 }

@@ -19,11 +19,12 @@ public class KhachThue {
     private String SDTNguoiThan;
     private String QuanHeVoiNguoiThan;
     private int PhongID;
+    private int TinhTrang;
 
     public KhachThue() {
     }
 
-    public KhachThue(int KhachID, String HoVaTen, String CCCD, String SDT, String QueQuan, String TenNguoiThan, String SDTNguoiThan, String QuanHeVoiNguoiThan, int PhongID) {
+    public KhachThue(int KhachID, String HoVaTen, String CCCD, String SDT, String QueQuan, String TenNguoiThan, String SDTNguoiThan, String QuanHeVoiNguoiThan, int PhongID, int TinhTrang) {
         this.KhachID = KhachID;
         this.HoVaTen = HoVaTen;
         this.CCCD = CCCD;
@@ -33,6 +34,7 @@ public class KhachThue {
         this.SDTNguoiThan = SDTNguoiThan;
         this.QuanHeVoiNguoiThan = QuanHeVoiNguoiThan;
         this.PhongID = PhongID;
+        this.TinhTrang = TinhTrang;
     }
 
     public int getKhachID() {
@@ -107,9 +109,17 @@ public class KhachThue {
         this.PhongID = PhongID;
     }
 
+    public int getTinhTrang() {
+        return TinhTrang;
+    }
+
+    public void setTinhTrang(int TinhTrang) {
+        this.TinhTrang = TinhTrang;
+    }
+
     @Override
     public String toString() {
-        return "KhachThue{" + "KhachID=" + KhachID + ", HoVaTen=" + HoVaTen + ", CCCD=" + CCCD + ", SDT=" + SDT + ", QueQuan=" + QueQuan + ", TenNguoiThan=" + TenNguoiThan + ", SDTNguoiThan=" + SDTNguoiThan + ", QuanHeVoiNguoiThan=" + QuanHeVoiNguoiThan + ", PhongID=" + PhongID + '}';
+        return "KhachThue{" + "KhachID=" + KhachID + ", HoVaTen=" + HoVaTen + ", CCCD=" + CCCD + ", SDT=" + SDT + ", QueQuan=" + QueQuan + ", TenNguoiThan=" + TenNguoiThan + ", SDTNguoiThan=" + SDTNguoiThan + ", QuanHeVoiNguoiThan=" + QuanHeVoiNguoiThan + ", PhongID=" + PhongID + ", TinhTrang=" + TinhTrang + '}';
     }
-    
+
 }

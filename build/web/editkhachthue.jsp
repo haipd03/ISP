@@ -27,7 +27,7 @@
 
                 <div class="flex flex-1">
                     <!--Sidebar-->
-                     <jsp:include page="menu2.jsp" />
+                    <jsp:include page="menu2.jsp" />
                     </aside>
                     <!--/Sidebar-->
 
@@ -74,6 +74,13 @@
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">ID Phòng</label>
                                         <input type="text" name="PhongID" readonly value="${listNguoiThue1.phongID}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                    </div>
+                                    <div class="flex items-center">
+                                        <label class="w-1/3 text-gray-700 font-semibold">Tình Trạng</label>
+                                        <select name="TinhTrang" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                            <option value="1" ${listNguoiThue1.tinhTrang == 1 ? 'selected' : ''}>Đang Thuê</option>
+                                            <option value="0" ${listNguoiThue1.tinhTrang == 0 ? 'selected' : ''}>Không còn Thuê</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="mt-6 flex justify-end">

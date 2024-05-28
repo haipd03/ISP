@@ -5,20 +5,24 @@
 package controller;
 
 import dal.DAO;
+import dal.SonDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.List;
+import model.Accounts;
+import model.HopDong;
 
 /**
  *
  * @author THANH SON
  */
-@WebServlet(name = "EditKhachThue", urlPatterns = {"/editKhachThue"})
-public class EditKhachThue extends HttpServlet {
+@WebServlet(name = "ListHopDong", urlPatterns = {"/listhopdong"})
+public class ListHopDong extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,22 +36,21 @@ public class EditKhachThue extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String KhachID = request.getParameter("KhachID");
-        String HoVaTen = request.getParameter("HoVaTen");
-        String CCCD = request.getParameter("CCCD");
-        String SDT = request.getParameter("SDT");
-        String QueQuan = request.getParameter("QueQuan");
-        String TenNguoiThan = request.getParameter("TenNguoiThan");
-        String SDTNguoiThan = request.getParameter("SDTNguoiThan");
-        String QuanHeVoiNguoiThan = request.getParameter("QuanHeVoiNguoiThan");
-        String PhongID = request.getParameter("PhongID");
-        String TinhTrang = request.getParameter("TinhTrang");
-        DAO dao = new DAO();
-        dao.Updatekhachthue(KhachID, HoVaTen, CCCD, SDT, QueQuan, TenNguoiThan, SDTNguoiThan, QuanHeVoiNguoiThan, PhongID, TinhTrang);
-        response.sendRedirect("listNguoiThue?lntid=" + PhongID);
+
+        HttpSession session = request.getSession();
+        Accounts a = (Accounts) session.getAttribute("acc");
+
+        SonDAO sondao = new SonDAO();
+        List<HopDong> list = sondao.getHopDong();
+        List<HopDong> list1 = sondao.getHopDong1(a.getAccountID());
+
+        request.setAttribute("listK", list);
+        request.setAttribute("listK1", list1);
+
+        request.getRequestDispatcher("HopDong.jsp").forward(request, response);
     }
 
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
