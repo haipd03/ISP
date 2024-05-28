@@ -5,8 +5,9 @@
 
 package controller;
 
-import dal.HaiDao;
+import dal.DAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -15,14 +16,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Accounts;
-import model.HoaDon;
+import model.HoaDonDetail;
 
 /**
  *
- * @author admin
+ * @author Ngoc Lan
  */
-@WebServlet(name="ListHoaDon", urlPatterns={"/listhoadon"})
-public class ListHoaDon extends HttpServlet {
+@WebServlet(name="ListHoaDonDetail", urlPatterns={"/listhoadondetail"})
+public class ListHoaDonDetail extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -34,24 +35,21 @@ public class ListHoaDon extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-         HttpSession session = request.getSession();
+        HttpSession session = request.getSession();
         Accounts a = (Accounts) session.getAttribute("acc");
-         if (a == null) {
+        if (a == null) {
             response.sendRedirect("login");
-        }else {
-            
-       HaiDao u = new HaiDao();
-        List<HaiDao.HoaDonWithSoPhong> lhd = u.getAllHoaDon();
-       
+        } else {
+            String id = request.getParameter("id");
+            DAO dao = new DAO();
+            List<HoaDonDetail> lhdd = dao.getHoaDonDetail(id);
 
+            request.setAttribute("lhdd", lhdd);
+
+            request.getRequestDispatcher("HoaDonDetail.jsp").forward(request, response);
+        }
         
-      request.setAttribute("lhd", lhd);
-      
-      
-      
-      request.getRequestDispatcher("HoaDon.jsp").forward(request, response);
     } 
-    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
