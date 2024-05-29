@@ -33,19 +33,8 @@ public class Login extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        DAO dao = new DAO();
-        Accounts a = dao.login(username, password);
-        if (a == null) {
-            request.setAttribute("mess", "Wrong user or pass");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        } else {
-            HttpSession session = request.getSession();
-            session.setAttribute("acc", a);
-            session.setMaxInactiveInterval(10000);
-            response.sendRedirect("listphong");
-        }
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+
         
     } 
 
@@ -73,7 +62,19 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        DAO dao = new DAO();
+        Accounts a = dao.login(username, password);
+        if (a == null) {
+            request.setAttribute("mess", "Wrong user or pass");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        } else {
+            HttpSession session = request.getSession();
+            session.setAttribute("acc", a);
+            session.setMaxInactiveInterval(10000);
+            response.sendRedirect("listphong");
+        }
     }
 
     /** 

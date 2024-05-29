@@ -80,14 +80,14 @@ public class DAO extends MyDAO {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     int PhongID = rs.getInt("PhongID");
-                int SoPhong = rs.getInt("SoPhong");
-                int KhuID = rs.getInt("KhuID");
-                String LoaiPhong = rs.getString("LoaiPhong");
-                int PhongConTrong = rs.getInt("PhongConTrong");
-                String GhiChu = rs.getString("GhiChu");
-                int Gia = rs.getInt("Gia");
+                    int SoPhong = rs.getInt("SoPhong");
+                    int KhuID = rs.getInt("KhuID");
+                    String LoaiPhong = rs.getString("LoaiPhong");
+                    int PhongConTrong = rs.getInt("PhongConTrong");
+                    String GhiChu = rs.getString("GhiChu");
+                    int Gia = rs.getInt("Gia");
 
-                Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, GhiChu, Gia);
+                    Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, GhiChu, Gia);
                     phongDetailsList.add(phong);
                 }
             }
@@ -523,13 +523,14 @@ public class DAO extends MyDAO {
 
     public List<Phong> searchbySoPhong(String soPhong) {
         List<Phong> Phongs = new ArrayList<>();
-        String sql = "SELECT * FROM Phong WHERE SoPhong LIKE ?";
+        String sql = "SELECT * FROM Phong WHERE SoPhong = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, "%" + soPhong + "%");
+//            ps.setString(1, "%" + soPhong + "%");
+            ps.setString(1, soPhong);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-               int PhongID = rs.getInt("PhongID");
+                int PhongID = rs.getInt("PhongID");
                 int SoPhong = rs.getInt("SoPhong");
                 int KhuID = rs.getInt("KhuID");
                 String LoaiPhong = rs.getString("LoaiPhong");
@@ -603,7 +604,7 @@ public class DAO extends MyDAO {
             ps.setString(1, "%" + bl + "%"); // Concatenate the wildcard characters around the parameter value
             rs = ps.executeQuery();
             while (rs.next()) {
-               int PhongID = rs.getInt("PhongID");
+                int PhongID = rs.getInt("PhongID");
                 int SoPhong = rs.getInt("SoPhong");
                 int KhuID = rs.getInt("KhuID");
                 String LoaiPhong = rs.getString("LoaiPhong");
@@ -940,6 +941,7 @@ public class DAO extends MyDAO {
         }
         return ThietBis;
     }
+
     public List<HoaDonDetail> getHoaDonDetail(String id) {
         List<HoaDonDetail> hoaDonDetail = new ArrayList<>();
         String query = "SELECT * FROM HoaDonDetail\n"

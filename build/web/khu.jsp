@@ -110,12 +110,11 @@
                                         </c:forEach>
                                     </tbody>
                                 </table>
-                            </form>
+                            </form
                             <c:if test="${sessionScope.acc.accountID == 1}">
                                 <div class="mb-2 md:mx-2 lg:mx-2">
-                                    <button onclick="showAddKhuForm()" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">Thêm khu mới</button>
-                                </div>
-                            </c:if>
+                                    <a href="NhapAddKhu" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">Thêm khu mới</a>                                </div>
+                                </c:if>
                         </div>
                     </div>
                     <div id="addKhuForm" class="hidden mb-4 md:mx-2 lg:mx-2 border border-gray-300 rounded-lg shadow-lg max-w-lg">

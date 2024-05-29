@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+
 package controller;
 
 import dal.DAO;
-import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,56 +13,48 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.List;
+import model.Accounts;
+import model.Khu;
 
 /**
  *
- * @author THANH SON
+ * @author Admin
  */
-@WebServlet(name = "AddKhu", urlPatterns = {"/addkhu"})
-public class AddKhu extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
+@WebServlet(name="NhapAddKhu", urlPatterns={"/NhapAddKhu"})
+public class NhapAddKhu extends HttpServlet {
+   
+    /** 
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        PrintWriter out = response.getWriter();
         response.setContentType("text/html;charset=UTF-8");
-        String khuID = request.getParameter("khuID");
-        String name = request.getParameter("name");
-        String accountID = request.getParameter("accountID");
+        HttpSession session = request.getSession();
+        Accounts a = (Accounts) session.getAttribute("acc");
         DAO dao = new DAO();
+        List<Khu> list = dao.getKhuByKhuID();
+        List<Khu> list1 = dao.getKhuByKhuID1(a.getAccountID());
+        List<Accounts> acc = dao.getAccounts();
 
-        String khuIDPattern = "^[0-9]+$";
-        String namePattern = "^[a-zA-Z0-9 ]+$";
-        if (khuID == null || khuID.isEmpty() || name == null || name.isEmpty()) {
-            request.setAttribute("error", "Vui lòng nhập đầy đủ thông tin KhuID và Tên Khu!");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("NhapAddKhu.jsp");
-            dispatcher.forward(request, response);
-        } else if (!khuID.matches(khuIDPattern) || !name.matches(namePattern)) {
-            request.setAttribute("error", "Dữ liệu nhập vào không hợp lệ!");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("NhapAddKhu.jsp");
-            dispatcher.forward(request, response);
-        } else {
-            if (dao.checkExistingKhuID(khuID)) {
-                request.setAttribute("error", "Đã tồn tại KhuID trong cơ sở dữ liệu! Vui lòng chọn KhuID khác!");
-                RequestDispatcher dispatcher = request.getRequestDispatcher("NhapAddKhu.jsp");
-                dispatcher.forward(request, response);
-            } else {
-                dao.InsertKhu(khuID, name, accountID);
-                response.sendRedirect("khu");
-            }
+        request.setAttribute("listK", list);
+        request.setAttribute("listK1", list1);
+        request.setAttribute("listK3", acc);
+
+        request.getRequestDispatcher("NhapAddKhu.jsp").forward(request, response);
         }
-    }
+    
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
+    /** 
      * Handles the HTTP <code>GET</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -70,13 +62,12 @@ public class AddKhu extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         processRequest(request, response);
-    }
+    } 
 
-    /**
+    /** 
      * Handles the HTTP <code>POST</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -84,13 +75,12 @@ public class AddKhu extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
+    /** 
      * Returns a short description of the servlet.
-     *
      * @return a String containing servlet description
      */
     @Override
