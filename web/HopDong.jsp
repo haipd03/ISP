@@ -75,7 +75,19 @@
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.CCCD}</td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.SDT}</td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.hoVaTen}</td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.tinhTrang}</td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">
+                                                        <c:choose>
+                                                            <c:when test="${o.tinhTrang == 0}">
+                                                                Không còn Thuê
+                                                            </c:when>
+                                                            <c:when test="${o.tinhTrang == 1}">
+                                                                Đang Thuê
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                Không rõ tình trạng
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">
                                                         <a href='' class="text-indigo-600 hover:text-indigo-900">Update</a>
                                                     </td>
@@ -97,7 +109,19 @@
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.CCCD}</td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.SDT}</td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.hoVaTen}</td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.tinhTrang}</td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">
+                                                        <c:choose>
+                                                            <c:when test="${o.tinhTrang == 0}">
+                                                                Không còn Thuê
+                                                            </c:when>
+                                                            <c:when test="${o.tinhTrang == 1}">
+                                                                Đang Thuê
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                Không rõ tình trạng
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </td>
                                                 </tr>
                                             </c:if>
                                         </c:forEach>

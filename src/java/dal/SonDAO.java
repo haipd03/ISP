@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 import model.HoaDon;
 import model.HopDong;
+import model.KhachThue;
 import model.Phong;
 
 public class SonDAO extends MyDAO {
@@ -32,6 +33,58 @@ public class SonDAO extends MyDAO {
             e.printStackTrace();
         }
         return Phongs;
+    }
+
+    public List<Phong> getPhongByPhongID(String id) {
+        List<Phong> Phongs = new ArrayList<>();
+        String sql = "SELECT * FROM Phong WHERE PhongID = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int PhongID = rs.getInt("PhongID");
+                int SoPhong = rs.getInt("SoPhong");
+                int KhuID = rs.getInt("KhuID");
+                String LoaiPhong = rs.getString("LoaiPhong");
+                int PhongConTrong = rs.getInt("PhongConTrong");
+                String GhiChu = rs.getString("GhiChu");
+                int Gia = rs.getInt("Gia");
+
+                Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, GhiChu, Gia);
+                Phongs.add(phong);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Phongs;
+    }
+
+    public List<KhachThue> getKhachThueByPhongID(String id) {
+        List<KhachThue> KhachThues = new ArrayList<>();
+        String sql = "Select * from khachthue k where k.PhongID=?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int KhachID = rs.getInt("KhachID");
+                String HoVaTen = rs.getString("HoVaTen");
+                String CCCD = rs.getString("CCCD");
+                String SDT = rs.getString("SDT");
+                String QueQuan = rs.getString("QueQuan");
+                String TenNguoiThan = rs.getString("TenNguoiThan");
+                String SDTNguoiThan = rs.getString("SDTNguoiThan");
+                String QuanHeVoiNguoiThan = rs.getString("QuanHeVoiNguoiThan");
+                int PhongID = rs.getInt("PhongID");
+                int TinhTrang = rs.getInt("TinhTrang");
+                KhachThue khachThue = new KhachThue(KhachID, HoVaTen, CCCD, SDT, QueQuan, TenNguoiThan, SDTNguoiThan, QuanHeVoiNguoiThan, PhongID, TinhTrang);
+                KhachThues.add(khachThue);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return KhachThues;
     }
 
     public List<HopDong> getHopDong() {
@@ -114,11 +167,47 @@ public class SonDAO extends MyDAO {
         }
     }
 
+    public void insertkhachthue(String KhachID, String HoVaTen, String CCCD, String SDT, String QueQuan, String TenNguoiThan, String SDTNguoiThan, String QuanHeVoiNguoiThan, String PhongID, String TinhTrang) {
+        String sql = "INSERT INTO [dbo].[KhachThue]([KhachID],[HoVaTen],[CCCD],[SDT],[QueQuan],[TenNguoiThan],[SDTNguoiThan],[QuanHeVoiNguoiThan],[PhongID],[TinhTrang]) VALUES(?,?,?,?,?,?,?,?,?,?)";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, KhachID);
+            ps.setString(2, HoVaTen);
+            ps.setString(3, CCCD);
+            ps.setString(4, SDT);
+            ps.setString(5, QueQuan);
+            ps.setString(6, TenNguoiThan);
+            ps.setString(7, SDTNguoiThan);
+            ps.setString(8, QuanHeVoiNguoiThan);
+            ps.setString(9, PhongID);
+            ps.setString(10, TinhTrang);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) throws SQLException {
-
         SonDAO dao = new SonDAO();
-        List<HopDong> listC = dao.getHopDong();
 
+        // Test the insertHopDong method
+        String hopDongID = "885454";
+        String khachID = "66688";
+        String phongID = "1111112";
+        String tienCoc = "1000000";
+        String ngayThue = "2024-01-01";
+        String ngayTra = "2024-12-31";
+        String soKhachThue = "2";
+        String ghiChu = "Ghi chú";
+        String cccd = "1126484355";
+        String sdt = "79430258";
+        String hoVaTen = "Nguyen Van A";
+        String tinhTrang = "1";
+
+        dao.insertHopDong(hopDongID, khachID, phongID, tienCoc, ngayThue, ngayTra, soKhachThue, ghiChu, cccd, sdt, hoVaTen, tinhTrang);
+
+        // Retrieve and print the list of contracts to verify insertion
+        List<HopDong> listC = dao.getHopDong();
         for (HopDong category : listC) {
             System.out.println(category);
         }

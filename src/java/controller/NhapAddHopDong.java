@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Accounts;
 import model.HopDong;
+import model.KhachThue;
 import model.Phong;
 
 /**
@@ -43,13 +44,16 @@ public class NhapAddHopDong extends HttpServlet {
         if (a == null || a.getRole() == 1) {
             response.sendRedirect("login.jsp");
         } else {
+            String hdid = request.getParameter("nahdpid");
             SonDAO sondao = new SonDAO();
 
-            List<Phong> loaiPhongList = sondao.getPhong();
+            List<Phong> loaiPhongList = sondao.getPhongByPhongID(hdid);
             List<HopDong> hopDongList = sondao.getHopDong();
+            List<KhachThue> khachThueList = sondao.getKhachThueByPhongID(hdid);
 
             request.setAttribute("lp1", loaiPhongList);
             request.setAttribute("lp2", hopDongList);
+            request.setAttribute("lp3", khachThueList);
 
             request.getRequestDispatcher("FormAddHopDong.jsp").forward(request, response);
         }

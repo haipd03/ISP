@@ -33,54 +33,46 @@
                     <!-- Underline form -->
                     <div class="mb-4 mx-auto border border-gray-300 rounded-lg shadow-lg w-full md:w-1/2 lg:w-1/3">
                         <div class="bg-purple-600 text-white px-4 py-3 rounded-t-lg w-full ">
-                            Thêm Hợp Đồng
+                            Thêm Khách Thuê
                         </div>
                         <div class="p-6 bg-white">
-                            <form action="addhopdong" method="get">
+                            <form action="addkhachthue" method="get">
                                 <div class="space-y-4">
                                     <div class="flex items-center">
-                                        <label class="w-1/3 text-gray-700 font-semibold">Hợp Đồng ID:</label>
-                                        <input type="text" name="HopDongID" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <label class="w-1/3 text-gray-700 font-semibold">Khách ID:</label>
+                                        <input type="text" name="KhachID" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
-                                        <label class="w-1/3 text-gray-700 font-semibold">Khách ID:</label>
-                                        <input type="text" name="KhachID" value="${lp3[0].khachID}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" readonly>
+                                        <label class="w-1/3 text-gray-700 font-semibold">Tên Khách:</label>
+                                        <input type="text" name="HoVaTen" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                    </div>
+                                    <div class="flex items-center">
+                                        <label class="w-1/3 text-gray-700 font-semibold">CCCD:</label>
+                                        <input type="text" name="CCCD" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                    </div>
+                                    <div class="flex items-center">
+                                        <label class="w-1/3 text-gray-700 font-semibold">SDT:</label>
+                                        <input type="text" name="SDT" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                    </div>
+                                    <div class="flex items-center">
+                                        <label class="w-1/3 text-gray-700 font-semibold">Quê Quán:</label>
+                                        <input type="text" name="QueQuan" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                    </div>
+                                    <div class="flex items-center">
+                                        <label class="w-1/3 text-gray-700 font-semibold">Tên Người Thân:</label>
+                                        <input type="text" name="TenNguoiThan" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                    </div>
+                                    <div class="flex items-center">
+                                        <label class="w-1/3 text-gray-700 font-semibold">SDT Người Thân:</label>
+                                        <input type="text" name="SDTNguoiThan" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                    </div>
+                                    <div class="flex items-center">
+                                        <label class="w-1/3 text-gray-700 font-semibold">Quan Hệ Với Người Thân:</label>
+                                        <input type="text" name="QuanHeVoiNguoiThan" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Phòng ID:</label>
                                         <input type="text" name="PhongID" value="${lp1[0].phongID}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" readonly>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <label class="w-1/3 text-gray-700 font-semibold">Tiền Cọc:</label>
-                                        <input type="text" name="TienCoc" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
-                                    </div>
-                                    <div class="flex items-center">
-                                        <label class="w-1/3 text-gray-700 font-semibold">Ngày Thuê:</label>
-                                        <input type="date" name="NgayThue" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
-                                    </div>
-                                    <div class="flex items-center">
-                                        <label class="w-1/3 text-gray-700 font-semibold">Ngày Trả:</label>
-                                        <input type="date" name="NgayTra" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
-                                    </div>
-                                    <div class="flex items-center">
-                                        <label class="w-1/3 text-gray-700 font-semibold">Số Khách Thuê Phòng:</label>
-                                        <input type="text" name="SoKhachThue" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
-                                    </div>
-                                    <div class="flex items-center">
-                                        <label class="w-1/3 text-gray-700 font-semibold">Ghi Chú:</label>
-                                        <input type="text" name="GhiChu" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
-                                    </div>
-                                    <div class="flex items-center">
-                                        <label class="w-1/3 text-gray-700 font-semibold">CCCD:</label>
-                                        <input type="text" name="CCCD" value="${lp3[0].CCCD}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" readonly>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <label class="w-1/3 text-gray-700 font-semibold">Số Điện Thoại:</label>
-                                        <input type="text" name="SDT" value="${lp3[0].SDT}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" readonly>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <label class="w-1/3 text-gray-700 font-semibold">Họ Và Tên Đại Diện Phòng:</label>
-                                        <input type="text" name="HoVaTen" value="${lp3[0].hoVaTen}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" readonly>
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Tình Trạng:</label>

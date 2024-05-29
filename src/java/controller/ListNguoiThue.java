@@ -5,6 +5,7 @@
 package controller;
 
 import dal.DAO;
+import dal.SonDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -15,6 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Accounts;
+import model.HopDong;
 import model.KhachThue;
 import model.Phong;
 
@@ -44,12 +46,17 @@ public class ListNguoiThue extends HttpServlet {
             response.sendRedirect("login");
         } else {
             String id = request.getParameter("lntid");
+            request.setAttribute("phongID", id);
             DAO dao = new DAO();
+            SonDAO sondao = new SonDAO();
             if (a.getRole() == 1) {
                 List<KhachThue> kt = dao.getKhachThueByPhongIDByAccountID(id, a.getAccountID());
                 request.setAttribute("listNguoiThue", kt);
             } else {
+                List<HopDong> hd = sondao.getHopDong();
                 List<KhachThue> kt = dao.getKhachThueByPhongID(id);
+                
+                request.setAttribute("listHopDong", hd);
                 request.setAttribute("listNguoiThue", kt);
             }
             request.getRequestDispatcher("ListKhachThue.jsp").forward(request, response);
