@@ -5,7 +5,6 @@
 package controller;
 
 import dal.DAO;
-import dal.HaiDao;
 import dal.LinhDao;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,43 +13,28 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.util.List;
-import model.Accounts;
 import model.DichVu;
 
 /**
  *
  * @author vulin
  */
-@WebServlet(name = "ListDichVu", urlPatterns = {"/listdichvu"})
-public class ListDichVu extends HttpServlet {
+@WebServlet(name = "InsertDichVu", urlPatterns = {"/insertdichvu"})
+public class InsertDichVu extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-    response.setContentType("text/html;charset=UTF-8");
-    HttpSession session = request.getSession();
-    Accounts a = (Accounts) session.getAttribute("acc");
-    if (a == null) {
-        response.sendRedirect("login");
-    } else {
-        LinhDao u = new LinhDao();
-        List<DichVu> ldv = u.getAllDichVu();
-        request.setAttribute("ldv", ldv);
-        request.getRequestDispatcher("DichVu.jsp").forward(request, response);
-    }
-}
-
-
+        response.setContentType("text/html;charset=UTF-8");
+        String dvid = request.getParameter("ib");
+        LinhDao dao = new LinhDao();
+         DichVu dv = dao.getDichVubyID(dvid);
+        request.setAttribute("detail", dv);
+        //ThietBi tb = dao.getThietBibypID(tbpid);
+        request.getRequestDispatcher("AddDichVu.jsp" ).forward(request, response);
+    } 
+   
+   
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

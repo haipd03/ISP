@@ -95,9 +95,7 @@
                                                 </div>
                                                 <div class="modal-footer">                            
                                                     <input type="submit" class="btn btn-success" value="Add">
-                                                    <c:forEach items="${pid}" var="thietbi">
-                                                        <a href="listthietbi?id=${thietbi.phongID}" class="btn btn-danger">Back</a>
-                                                    </c:forEach>
+                                                    <a href="listdichvu?id=${detail.dichVuID}" class="btn btn-danger">Back</a>
                                                 </div>
                                             </form>
                                         </div>

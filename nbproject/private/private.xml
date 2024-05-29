@@ -4,8 +4,8 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/ISP392/Quanlitro/ISP/src/java/model/DichVu.java</file>
-            <file>file:/D:/ISP392/Quanlitro/ISP/src/java/dal/HaiDao.java</file>
-            <file>file:/D:/ISP392/Quanlitro/ISP/src/java/controller/ListDichVu.java</file>
+            <file>file:/D:/ISP392/Quanlitro/ISP/src/java/dal/LinhDao.java</file>
+            <file>file:/D:/ISP392/Quanlitro/ISP/src/java/controller/DeleteDichVu.java</file>
         </group>
     </open-files>
 </project-private>
