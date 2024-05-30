@@ -30,6 +30,14 @@
                 <jsp:include page="menu2.jsp" />
                 <!-- Thêm phần hiển thị hóa đon chi tiết -->
                 <div class="flex-1 p-4">
+
+                    <form class="searchform cf flex justify-center items-center mt-2 mb-2" action="" method="post">
+                        <input id="roomNumberInput" name="txt" type="text" placeholder="Nhập ID" class="w-full md:w-3/4 lg:w-1/2 p-2 border border-gray-600 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r-lg focus:outline-none focus:ring-2 focus:ring-blue-500" type="submit">
+                            Search
+                        </button>
+                    </form>
+
                     <h4 class="text-lg font-semibold mb-2">Danh sách hóa đơn chi tiết:</h4>
                     <div class="overflow-x-auto">
                         <table class="table-auto w-full border-collapse">
@@ -41,6 +49,7 @@
                                     <th class="px-2 py-2 text-center">DenNgay</th>
                                     <th class="px-2 py-2 text-center">TongSoDien</th>
                                     <th class="px-2 py-2 text-center">TongSoNuoc</th>
+                                    <th class="px-2 py-2 text-center">HeSo</th>
                                     <th class="px-2 py-2 text-center">ThanhTien</th>
                                     <th class="px-2 py-2 text-center">DichVuID</th>
                                     <th class="px-2 py-2 text-center">Thao tác</th>
@@ -55,16 +64,22 @@
                                         <td class="px-2 py-2 text-center">${o.denNgay}</td>
                                         <td class="px-2 py-2 text-center">${o.tongSoDien}</td>
                                         <td class="px-2 py-2 text-center">${o.tongSoNuoc}</td>
+                                        <td class="px-2 py-2 text-center">${o.heSo}</td>
                                         <td class="px-2 py-2 text-center">${o.thanhTien}</td>
                                         <td class="px-2 py-2 text-center">${o.dichVuID}</td>
                                         <td class="px-2 py-2 text-center">
-                                            <a href="#" class="text-blue-500 hover:text-blue-700 mr-2">Sửa</a>
-                                            <a href="#" class="text-red-500 hover:text-red-700">Xóa</a>
+                                            <a href="loadhoadondetail?id=${o.hoaDonDetailID}" class="text-blue-500 hover:text-blue-700 mr-2">Sửa</a>
+
                                         </td>
                                     </tr>
                                 </c:forEach>
                             </tbody>
                         </table>
+                    </div>
+                    <div class="mt-4">
+                        <a href="">
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Thêm hóa đơn chi tiết</button>
+                        </a>
                     </div>
                 </div>
             </div>

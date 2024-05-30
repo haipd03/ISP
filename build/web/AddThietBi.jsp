@@ -86,8 +86,13 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label>TinhTrang:</label>
-                                                        <input name="TinhTrang" type="text" class="form-control" required>
+                                                        <select name="TinhTrang" class="form-control" required>
+                                                            <option value="Tốt">Tốt</option>
+                                                            <option value="Bảo trì">Bảo trì</option>
+                                                            <option value="Vô hiệu hóa">Vô hiệu hóa</option>
+                                                        </select>
                                                     </div>
+
                                                     <div class="form-group">
                                                         <label>Gia:</label>
                                                         <input name="Gia" type="text" class="form-control" required>

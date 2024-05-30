@@ -80,14 +80,14 @@ public class DAO extends MyDAO {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     int PhongID = rs.getInt("PhongID");
-                int SoPhong = rs.getInt("SoPhong");
-                int KhuID = rs.getInt("KhuID");
-                String LoaiPhong = rs.getString("LoaiPhong");
-                int PhongConTrong = rs.getInt("PhongConTrong");
-                String GhiChu = rs.getString("GhiChu");
-                int Gia = rs.getInt("Gia");
+                    int SoPhong = rs.getInt("SoPhong");
+                    int KhuID = rs.getInt("KhuID");
+                    String LoaiPhong = rs.getString("LoaiPhong");
+                    int PhongConTrong = rs.getInt("PhongConTrong");
+                    String GhiChu = rs.getString("GhiChu");
+                    int Gia = rs.getInt("Gia");
 
-                Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, GhiChu, Gia);
+                    Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, GhiChu, Gia);
                     phongDetailsList.add(phong);
                 }
             }
@@ -529,7 +529,7 @@ public class DAO extends MyDAO {
             ps.setString(1, "%" + soPhong + "%");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-               int PhongID = rs.getInt("PhongID");
+                int PhongID = rs.getInt("PhongID");
                 int SoPhong = rs.getInt("SoPhong");
                 int KhuID = rs.getInt("KhuID");
                 String LoaiPhong = rs.getString("LoaiPhong");
@@ -603,7 +603,7 @@ public class DAO extends MyDAO {
             ps.setString(1, "%" + bl + "%"); // Concatenate the wildcard characters around the parameter value
             rs = ps.executeQuery();
             while (rs.next()) {
-               int PhongID = rs.getInt("PhongID");
+                int PhongID = rs.getInt("PhongID");
                 int SoPhong = rs.getInt("SoPhong");
                 int KhuID = rs.getInt("KhuID");
                 String LoaiPhong = rs.getString("LoaiPhong");
@@ -940,6 +940,7 @@ public class DAO extends MyDAO {
         }
         return ThietBis;
     }
+
     public List<HoaDonDetail> getHoaDonDetail(String id) {
         List<HoaDonDetail> hoaDonDetail = new ArrayList<>();
         String query = "SELECT * FROM HoaDonDetail\n"
@@ -955,17 +956,72 @@ public class DAO extends MyDAO {
                 Date denNgay = rs.getDate("DenNgay");
                 int tongSoDien = rs.getInt("TongSoDien");
                 int tongSoNuoc = rs.getInt("TongSoNuoc");
+                int heSo = rs.getInt("HeSo");
                 int thanhTien = rs.getInt("ThanhTien");
                 int dichVuID = rs.getInt("DichVuID");
 
-                HoaDonDetail hoaDonDetails = new HoaDonDetail(hoaDonDetailID, hoaDonID, tuNgay, denNgay, tongSoDien, tongSoNuoc, thanhTien, dichVuID);
+                HoaDonDetail hoaDonDetails = new HoaDonDetail(hoaDonDetailID, hoaDonID, tuNgay, denNgay, tongSoDien, tongSoNuoc, heSo, thanhTien, dichVuID);
                 hoaDonDetail.add(hoaDonDetails);
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // In ra lỗi nếu có
+            e.printStackTrace();
         }
         return hoaDonDetail;
     }
+
+    public HoaDonDetail getHoaDonDetailByID(String id) {
+        String sql = "select * from HoaDonDetail where HoaDonDetailID = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                int hoaDonDetailID = rs.getInt("HoaDonDetailID");
+                int hoaDonID = rs.getInt("HoaDonID");
+                Date tuNgay = rs.getDate("TuNgay");
+                Date denNgay = rs.getDate("DenNgay");
+                int tongSoDien = rs.getInt("TongSoDien");
+                int tongSoNuoc = rs.getInt("TongSoNuoc");
+                int heSo = rs.getInt("HeSo");
+                int thanhTien = rs.getInt("ThanhTien");
+                int dichVuID = rs.getInt("DichVuID");
+
+                // Assuming Truyen is your custom class
+                HoaDonDetail hoadondetails = new HoaDonDetail(hoaDonDetailID, hoaDonID, tuNgay, denNgay, tongSoDien, tongSoNuoc, heSo, thanhTien, dichVuID);
+                return hoadondetails;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void editHoaDonDetail( String tungay, String denngay, String tongsodien, String tongsonuoc, String heso, String thanhtien, String dichvuid, String id) {
+        String query = "update HoaDonDetail\n"
+                + "set TuNgay = '?',\n"
+                + "DenNgay = '?',\n"
+                + "TongSoDien = ?,\n"
+                + "TongSoNuoc = ?,\n"
+                + "HeSo = ?,\n"
+                + "ThanhTien = ?,\n"
+                + "DichVuID = ?\n"
+                + "where HoaDonDetailID = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, tungay);
+            ps.setString(2, denngay);
+            ps.setString(3, tongsodien);
+            ps.setString(4, tongsonuoc);
+            ps.setString(5, heso);
+            ps.setString(6, thanhtien);
+            ps.setString(7, dichvuid);
+            ps.setString(8, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
 
     public List<Accounts> getAccounts() {
         List<Accounts> Account = new ArrayList<>();
