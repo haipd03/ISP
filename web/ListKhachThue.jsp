@@ -14,6 +14,15 @@
         <link rel="stylesheet" href="./dist/all.css">
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i,700,700i" rel="stylesheet">
         <title>Forms | Tailwind Admin</title>
+        <script>
+            function confirmDelete(event, url) {
+                if (confirm("Bạn có chắc muốn xóa Khách Thuê này không?")) {
+                    window.location.href = url;
+                } else {
+                    event.preventDefault();
+                }
+            }
+        </script>
     </head>
 
     <body>
@@ -96,9 +105,9 @@
                                                     </c:choose>
                                                 </p>
                                                 <div class="mt-4">
-                                                    <a class="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
-                                                       href="deletekhachthue?ktid=${o.khachID}">Xóa
-                                                    </a>
+                                                    <a href='#' class="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200" 
+                                                       onclick="confirmDelete(event, 'deletekhachthue?ktid=${o.khachID}')">Delete
+                                                    </a>  
                                                     <a class="inline-block bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
                                                        href="listEdit?lntt=${o.khachID}">Update
                                                     </a>

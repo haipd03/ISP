@@ -3,9 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/ISP392/PhongTroNew/ISP/ISP/src/java/controller/EditHopDong.java</file>
+            <file>file:/D:/ISP392/PhongTroNew/ISP/ISP/src/java/controller/ListEdit.java</file>
+            <file>file:/D:/ISP392/PhongTroNew/ISP/ISP/src/java/dal/DAO.java</file>
+            <file>file:/D:/ISP392/PhongTroNew/ISP/ISP/src/java/controller/DeleteHopDong.java</file>
             <file>file:/D:/ISP392/PhongTroNew/ISP/ISP/src/java/dal/SonDAO.java</file>
-            <file>file:/D:/ISP392/PhongTroNew/ISP/ISP/src/java/controller/LoadHopDong.java</file>
+            <file>file:/D:/ISP392/PhongTroNew/ISP/ISP/src/java/controller/EditKhachThue.java</file>
+            <file>file:/D:/ISP392/PhongTroNew/ISP/ISP/src/java/controller/ListNguoiThue.java</file>
+            <file>file:/D:/ISP392/PhongTroNew/ISP/ISP/src/java/controller/DeleteKhachThue.java</file>
         </group>
     </open-files>
 </project-private>

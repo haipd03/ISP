@@ -14,6 +14,11 @@
         <link rel="stylesheet" href="./dist/all.css">
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i,700,700i" rel="stylesheet">
         <title>Forms | Tailwind Admin</title>
+        <script>
+            function confirmUpdate() {
+                return confirm("Bạn có chắc chắn muốn thay đổi thông tin hợp đồng này không?");
+            }
+        </script>
     </head>
 
     <body>
@@ -41,7 +46,7 @@
                             Sửa Hợp Đồng
                         </div>
                         <div class="p-6 bg-white">
-                            <form action="edithopdong" method="post">
+                            <form id="editHopDongForm" action="edithopdong" method="post">
                                 <div class="space-y-4">
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Hợp Đồng ID:</label>
@@ -97,7 +102,7 @@
                                     </div>
                                 </div>
                                 <div class="mt-6 flex justify-end">
-                                    <input type="submit" value="Update" class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 transition-colors duration-200">
+                                    <input type="submit" value="Update" onclick="return confirmUpdate()" class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 transition-colors duration-200">
                                     <a href="listhopdong" class="bg-red-500 hover:bg-red-800 text-white font-bold py-2 px-4 rounded">
                                         Back
                                     </a>
