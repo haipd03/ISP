@@ -96,6 +96,9 @@
                                                     </c:choose>
                                                 </p>
                                                 <div class="mt-4">
+                                                    <a class="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
+                                                       href="deletekhachthue?ktid=${o.khachID}">Xóa
+                                                    </a>
                                                     <a class="inline-block bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
                                                        href="listEdit?lntt=${o.khachID}">Update
                                                     </a>

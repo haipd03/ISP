@@ -14,6 +14,15 @@
         <link rel="stylesheet" href="./dist/all.css">
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i,700,700i" rel="stylesheet">
         <title>Forms | Tailwind Admin</title>
+        <script>
+            function confirmDelete(event, url) {
+                if (confirm("Bạn có chắc muốn xóa khu này không?")) {
+                    window.location.href = url;
+                } else {
+                    event.preventDefault();
+                }
+            }
+        </script>
     </head>
 
     <body>
@@ -89,7 +98,8 @@
                                                         </c:choose>
                                                     </td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">
-                                                        <a href='loadhopdong?lhdid=${o.hopDongID}&?lpid=${o.phongID}' class="text-indigo-600 hover:text-indigo-900">Update</a>
+                                                        <a href='loadhopdong?lhdid=${o.hopDongID}&lpid=${o.phongID}' class="text-indigo-600 hover:text-indigo-900">Update</a>
+                                                        <a href='#' class="text-red-600 hover:text-red-900 ml-2" onclick="confirmDelete(event, 'deletehopdong?hdid=${o.hopDongID}')">Delete</a>
                                                     </td>
                                                 </tr>
                                             </c:if>
