@@ -87,6 +87,33 @@ public class SonDAO extends MyDAO {
         }
         return KhachThues;
     }
+    
+    public List<KhachThue> getKhachThueByPhongIDAndTinhTrangLa1(String id) {
+        List<KhachThue> KhachThues = new ArrayList<>();
+        String sql = "Select * from khachthue k where k.PhongID= ? and k.TinhTrang = 1";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int KhachID = rs.getInt("KhachID");
+                String HoVaTen = rs.getString("HoVaTen");
+                String CCCD = rs.getString("CCCD");
+                String SDT = rs.getString("SDT");
+                String QueQuan = rs.getString("QueQuan");
+                String TenNguoiThan = rs.getString("TenNguoiThan");
+                String SDTNguoiThan = rs.getString("SDTNguoiThan");
+                String QuanHeVoiNguoiThan = rs.getString("QuanHeVoiNguoiThan");
+                int PhongID = rs.getInt("PhongID");
+                int TinhTrang = rs.getInt("TinhTrang");
+                KhachThue khachThue = new KhachThue(KhachID, HoVaTen, CCCD, SDT, QueQuan, TenNguoiThan, SDTNguoiThan, QuanHeVoiNguoiThan, PhongID, TinhTrang);
+                KhachThues.add(khachThue);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return KhachThues;
+    }
 
     public List<HopDong> getHopDong() {
         List<HopDong> HopDongs = new ArrayList<>();
@@ -371,6 +398,32 @@ public class SonDAO extends MyDAO {
         for (HopDong category : listC) {
             System.out.println(category);
         }
+    }
+
+    public boolean checkKhachIDExists(String KhachID) {
+        String sql = "SELECT * FROM KhachThue WHERE KhachID = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, KhachID);
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean checkHopDongIDExists(String HopDongID) {
+        String sql = "SELECT * FROM HopDong hp WHERE hp.HopDongID = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, HopDongID);
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }

@@ -20,6 +20,7 @@ public class AddKhachThue extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+
         String KhachID = request.getParameter("KhachID");
         String HoVaTen = request.getParameter("HoVaTen");
         String CCCD = request.getParameter("CCCD");
@@ -31,10 +32,37 @@ public class AddKhachThue extends HttpServlet {
         String PhongID = request.getParameter("PhongID");
         String TinhTrang = request.getParameter("TinhTrang");
 
+        // Validation
+        String errorMsg = null;
+
+        if (KhachID == null || !KhachID.matches("\\d+")) {
+            errorMsg = "KhachID không hợp lệ.";
+        } else if (HoVaTen == null || HoVaTen.trim().isEmpty() || HoVaTen.length() > 50) {
+            errorMsg = "Họ và tên không hợp lệ.";
+        } else if (CCCD == null || !CCCD.matches("\\d{10}")) {
+            errorMsg = "CCCD không hợp lệ.";
+        } else if (SDT == null || !SDT.matches("\\d{10}")) {
+            errorMsg = "Số điện thoại không hợp lệ.";
+        } else if (QueQuan == null || QueQuan.trim().isEmpty() || QueQuan.length() > 100) {
+            errorMsg = "Quê quán không hợp lệ.";
+        } else if (TenNguoiThan != null && TenNguoiThan.length() > 50) {
+            errorMsg = "Tên người thân không hợp lệ.";
+        } else if (SDTNguoiThan != null && !SDTNguoiThan.matches("\\d{10}")) {
+            errorMsg = "Số điện thoại người thân không hợp lệ.";
+        } else if (QuanHeVoiNguoiThan != null && QuanHeVoiNguoiThan.length() > 50) {
+            errorMsg = "Quan hệ với người thân không hợp lệ.";
+        }
+
         SonDAO sondao = new SonDAO();
-
-        sondao.insertkhachthue(KhachID, HoVaTen, CCCD, SDT, QueQuan, TenNguoiThan, SDTNguoiThan, QuanHeVoiNguoiThan, PhongID, TinhTrang);
-        response.sendRedirect("listNguoiThue?lntid=" + PhongID);
+        if (errorMsg == null && sondao.checkKhachIDExists(KhachID)) {
+            errorMsg = "KhachID đã tồn tại.";
+        }
+        if (errorMsg != null) {
+            request.setAttribute("error", errorMsg);
+            request.getRequestDispatcher("listNguoiThue?lntid=" + PhongID).forward(request, response);
+        } else {
+            sondao.insertkhachthue(KhachID, HoVaTen, CCCD, SDT, QueQuan, TenNguoiThan, SDTNguoiThan, QuanHeVoiNguoiThan, PhongID, TinhTrang);
+            response.sendRedirect("listNguoiThue?lntid=" + PhongID);
+        }
     }
-
 }

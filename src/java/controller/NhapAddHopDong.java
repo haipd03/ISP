@@ -49,7 +49,8 @@ public class NhapAddHopDong extends HttpServlet {
 
             List<Phong> loaiPhongList = sondao.getPhongByPhongID(hdid);
             List<HopDong> hopDongList = sondao.getHopDong();
-            List<KhachThue> khachThueList = sondao.getKhachThueByPhongID(hdid);
+            
+            List<KhachThue> khachThueList = sondao.getKhachThueByPhongIDAndTinhTrangLa1(hdid);
 
             request.setAttribute("lp1", loaiPhongList);
             request.setAttribute("lp2", hopDongList);
