@@ -39,7 +39,7 @@
                             <p style="color: red; font-size: 1.2em; font-weight: bold;">${error}</p>
                         </c:if>
                         <div class="p-3">
-                            <form action="khu" method="post">
+                            <form action="listhopdong" method="post">
                                 <table class="min-w-full leading-normal">
                                     <thead>
                                         <tr>
@@ -89,7 +89,7 @@
                                                         </c:choose>
                                                     </td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">
-                                                        <a href='' class="text-indigo-600 hover:text-indigo-900">Update</a>
+                                                        <a href='loadhopdong?lhdid=${o.hopDongID}&?lpid=${o.phongID}' class="text-indigo-600 hover:text-indigo-900">Update</a>
                                                     </td>
                                                 </tr>
                                             </c:if>
