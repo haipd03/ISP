@@ -57,9 +57,11 @@ public class NhapEditPhong extends HttpServlet {
             List<Phong> loaiPhongList = phongDAO.getAllLoaiPhong();
 //        List<Phong> phongConTrong = phongDAO.getAllPhongConTrong();
             List<Phong> phongConTrong = phongDAO.getPhongConTrongbyHopDong();
+            List<Phong> ghiChu = phongDAO.getAllGhiChu();
             request.setAttribute("p", thongtinphong);
             request.setAttribute("lp1", loaiPhongList);
             request.setAttribute("lp2", phongConTrong);
+            request.setAttribute("lp3", ghiChu);
             request.getRequestDispatcher("EditThongTinPhong.jsp").forward(request, response);
         }
     }

@@ -48,6 +48,11 @@ public class deletePhong extends HttpServlet {
                         request.setAttribute("deleted", true);
                     }
                 }
+            }if (phongDAO.checkPhongIDcoHopDong(phongID) && phongDAO.checkPhongIDcoTinTrangHopDong(phongID)) {
+                List<Phong> phongs = phongDAO.getPhongByPhongID(phongID);
+                request.setAttribute("error", "Phòng đang có thiết bị không thể xóa phòng hợp đồng của khách còn hiệu lực!");
+                request.setAttribute("danhSachPhong", phongs);
+                request.getRequestDispatcher("HienThiThongTinPhong.jsp").forward(request, response);
             }
         }
         response.sendRedirect(request.getContextPath() + "/listphong");

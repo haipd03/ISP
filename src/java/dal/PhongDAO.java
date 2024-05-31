@@ -108,9 +108,26 @@ public class PhongDAO extends MyDAO {
     }
 
     public boolean checkPhongIDcoHopDong(int phongID) {
-        String query = "select distinct p.*  from Phong p\n"
-                + "join HopDong h on h.PhongID = p.PhongID \n"
-                + "where p.PhongID = ? and h.TinhTrang = ?";
+        String query = "select p.* from Phong p\n"
+                + "join HopDong h on h.PhongID = p.PhongID\n"
+                + "where p.PhongID = ? ";
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, phongID);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean checkPhongIDcoTinTrangHopDong(int phongID) {
+        String query = "select p.* from Phong p\n"
+                + "join HopDong h on h.PhongID = p.PhongID\n"
+                + "where p.PhongID = ? and h.TinhTrang = 1 ";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, phongID);
@@ -293,10 +310,49 @@ public class PhongDAO extends MyDAO {
         return Phongs;
     }
 
+    public List<Phong> getAllGhiChu() {
+        List<Phong> Phongs = new ArrayList<>();
+        String sql = "SELECT GhiChu FROM Phong GROUP BY GhiChu";
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                String GhiChu = rs.getString("GhiChu");
+                Phong phong = new Phong();
+                phong.setGhiChu(GhiChu);
+                Phongs.add(phong);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Phongs;
+    }
+
     public List<Phong> getAllPhongConTrong() {
         List<Phong> phongs = new ArrayList<>();
 
         String sql = "SELECT DISTINCT PhongConTrong FROM Phong";
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                String phongConTrong = rs.getString("PhongConTrong");
+                // Tạo một đối tượng Phong và truyền giá trị PhongConTrong vào phương thức khởi tạo
+                Phong phong = new Phong(phongConTrong);
+                phongs.add(phong); // Thêm đối tượng Phong vào danh sách
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return phongs;
+    }
+
+    public List<Phong> getPhongConTrongbyHopDong1() {
+        List<Phong> phongs = new ArrayList<>();
+
+        String sql = "SELECT DISTINCT p.PhongConTrong FROM Phong p\n"
+                + "join HopDong h on h.PhongID = p.PhongID\n"
+                + "where p.PhongConTrong = ? and h.TinhTrang = ?";
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -374,3 +430,11 @@ public class PhongDAO extends MyDAO {
         }
     }
 }
+//    public static void main(String[] args) {
+//        PhongDAO phongDAO = new PhongDAO();
+//        List<Phong> ghiChuList = phongDAO.getAllGhiChu();
+//
+//        for (Phong phong : ghiChuList) {
+//            System.out.println(phong.getGhiChu());
+//        }
+//    }

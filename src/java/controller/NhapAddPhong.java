@@ -19,22 +19,9 @@ import model.Accounts;
 import model.Khu;
 import model.Phong;
 
-/**
- *
- * @author Admin
- */
 @WebServlet(name = "NhapAddPhong", urlPatterns = {"/nhapaddphong"})
 public class NhapAddPhong extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -42,15 +29,16 @@ public class NhapAddPhong extends HttpServlet {
         Accounts a = (Accounts) session.getAttribute("acc");
 
         if (a == null || a.getRole() == 1) {
-            // Redirect to login page or show error message if account is not logged in
             response.sendRedirect("login.jsp");
         } else {
             PhongDAO phongDAO = new PhongDAO();
             List<Phong> loaiPhongList = phongDAO.getAllLoaiPhong();
+            List<Phong> ghiChuList1 = phongDAO.getAllGhiChu();
             List<Khu> khuIDList = phongDAO.getAllKhuID();
+            
             request.setAttribute("lp1", loaiPhongList);
             request.setAttribute("lp2", khuIDList);
-//            request.getRequestDispatcher("EditThongTinPhong.jsp").forward(request, response);
+            request.setAttribute("lp3", ghiChuList1);
             request.getRequestDispatcher("NhapAddPhong.jsp").forward(request, response);
         }
     }
