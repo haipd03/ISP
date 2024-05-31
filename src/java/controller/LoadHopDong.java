@@ -4,7 +4,6 @@
  */
 package controller;
 
-import dal.PhongDAO;
 import dal.SonDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,14 +16,15 @@ import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Accounts;
 import model.HopDong;
-import model.Phong;
+import model.KhachThue;
+import model.Khu;
 
 /**
  *
- * @author Admin
+ * @author THANH SON
  */
-@WebServlet(name = "NhapEditPhong", urlPatterns = {"/nhapeditphong"})
-public class NhapEditPhong extends HttpServlet {
+@WebServlet(name = "LoadHopDong", urlPatterns = {"/loadhopdong"})
+public class LoadHopDong extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,41 +40,39 @@ public class NhapEditPhong extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         Accounts a = (Accounts) session.getAttribute("acc");
-        String phongIDStr = request.getParameter("phongID");
-
-        int phongID = 0;
-        try {
-            phongID = Integer.parseInt(phongIDStr);
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
 
         if (a == null || a.getRole() == 1) {
-            // Redirect to login page or show error message if account is not logged in
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("listhopdong");
         } else {
-            PhongDAO phongDAO = new PhongDAO();
+            String lpid = request.getParameter("lpid");
+            String lhdid = request.getParameter("lhdid");
             SonDAO sondao = new SonDAO();
 
-            List<HopDong> hp = sondao.getHopDongByPhongID(phongIDStr);
-            Phong thongtinphong = phongDAO.getPhongByID(phongID);
-            List<Phong> loaiPhongList = phongDAO.getAllLoaiPhong();
-            List<Phong> phongConTrong = phongDAO.getAllPhongConTrong();
+            HopDong hd = sondao.getHopDongByHopDongID(lhdid);
+            List<KhachThue> kt = sondao.getKhachThueByPhongID(lpid);
 
-            request.setAttribute("p", thongtinphong);
-            request.setAttribute("lp1", loaiPhongList);
-            request.setAttribute("lp2", phongConTrong);
+            request.setAttribute("listhd", hd);
+            request.setAttribute("listkt", kt);
 
-            boolean hasTenant = hp.stream().anyMatch(k -> k.getTinhTrang() == 1);
+            // Check if any tenant is still in the room
+            boolean hasTenant = kt.stream().anyMatch(k -> k.getTinhTrang() == 1);
             if (hasTenant) {
-                request.setAttribute("errorMessage", "Vì đang có Hợp Đồng trong phòng không thể đổi trạng thái phòng");
+                request.setAttribute("errorMessage", "Vì đang có khách thuê trong phòng không thể đổi trạng thái hợp đồng");
             }
 
-            request.setAttribute("canChangeStatus", !hasTenant);
-            request.getRequestDispatcher("EditThongTinPhong.jsp").forward(request, response);
+            request.getRequestDispatcher("EditHopDong.jsp").forward(request, response);
         }
     }
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -103,5 +101,6 @@ public class NhapEditPhong extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }
+    }// </editor-fold>
+
 }

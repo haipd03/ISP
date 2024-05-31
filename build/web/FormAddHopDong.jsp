@@ -44,17 +44,11 @@
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Khách ID:</label>
-                                        <input type="text" name="KhachID" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <input type="text" name="KhachID" value="${lp3[0].khachID}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" readonly>
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Phòng ID:</label>
-                                        <select name="PhongID" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
-                                            <c:forEach items="${lp1}" var="o2">
-                                                <c:if test="${o2.phongConTrong == 1}">
-                                                    <option value="${o2.phongID}">${o2.phongID}</option>
-                                                </c:if>
-                                            </c:forEach>
-                                        </select>
+                                        <input type="text" name="PhongID" value="${lp1[0].phongID}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" readonly>
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Tiền Cọc:</label>
@@ -78,15 +72,15 @@
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">CCCD:</label>
-                                        <input type="text" name="CCCD" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <input type="text" name="CCCD" value="${lp3[0].CCCD}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" readonly>
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Số Điện Thoại:</label>
-                                        <input type="text" name="SDT" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <input type="text" name="SDT" value="${lp3[0].SDT}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" readonly>
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Họ Và Tên Đại Diện Phòng:</label>
-                                        <input type="text" name="HoVaTen" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <input type="text" name="HoVaTen" value="${lp3[0].hoVaTen}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" readonly>
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Tình Trạng:</label>

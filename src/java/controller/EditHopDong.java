@@ -6,6 +6,7 @@ package controller;
 
 import dal.SonDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,21 +15,25 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author THANH SON
  */
-@WebServlet(name = "AddHopDong", urlPatterns = {"/addhopdong"})
-public class AddHopDong extends HttpServlet {
+@WebServlet(name = "EditHopDong", urlPatterns = {"/edithopdong"})
+public class EditHopDong extends HttpServlet {
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-
         String HopDongID = request.getParameter("HopDongID");
         String KhachID = request.getParameter("KhachID");
         String PhongID = request.getParameter("PhongID");
@@ -49,7 +54,7 @@ public class AddHopDong extends HttpServlet {
             errorMsg = "HopDongID không hợp lệ.";
         } else if (TienCoc != null && !TienCoc.matches("\\d+")) {
             errorMsg = "TienCoc không hợp lệ.";
-        }  else if (SoKhachThue == null || !SoKhachThue.matches("\\d+")) {
+        } else if (SoKhachThue == null || !SoKhachThue.matches("\\d+")) {
             errorMsg = "Số khách thuê không hợp lệ.";
         } else {
             try {
@@ -64,17 +69,53 @@ public class AddHopDong extends HttpServlet {
         }
 
         SonDAO sondao = new SonDAO();
-        if (errorMsg == null && sondao.checkHopDongIDExists(HopDongID)) {
-            errorMsg = "HopDongID đã tồn tại.";
-        }
 
         if (errorMsg != null) {
             request.setAttribute("error", errorMsg);
             request.getRequestDispatcher("listhopdong").forward(request, response);
         } else {
-            sondao.insertHopDong(HopDongID, KhachID, PhongID, TienCoc, NgayThue, NgayTra, SoKhachThue, GhiChu, CCCD, SDT, HoVaTen, TinhTrang);
+            sondao.updateHopDong(HopDongID, KhachID, PhongID, TienCoc, NgayThue, NgayTra, SoKhachThue, GhiChu, CCCD, SDT, HoVaTen, TinhTrang);
             response.sendRedirect("listhopdong");
         }
     }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
 
 }

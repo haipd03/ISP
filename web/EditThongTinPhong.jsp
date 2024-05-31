@@ -15,10 +15,10 @@
         <link rel="stylesheet" href="./dist/all.css">
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i,700,700i" rel="stylesheet">
         <script>
-    function confirmUpdate() {
-        return confirm("Bạn có chắc chắn muốn update phòng này?");
-    }
-</script>
+            function confirmUpdate() {
+                return confirm("Bạn có chắc chắn muốn update phòng này?");
+            }
+        </script>
         <title>Forms | Tailwind Admin</title>
     </head>
 
@@ -38,6 +38,11 @@
 
                     <!-- Underline form -->
                     <div class="mb-4 mx-auto border border-gray-300 rounded-lg shadow-lg w-full md:w-1/2 lg:w-1/3">
+                        <c:if test="${not empty errorMessage}">
+                            <div class="bg-red-500 text-white p-3 rounded-lg mb-4">
+                                ${errorMessage}
+                            </div>
+                        </c:if>
                         <div class="bg-purple-600 text-white px-4 py-3 rounded-t-lg w-full ">
                             Sửa Thông Tin Phòng
                         </div>
@@ -66,12 +71,12 @@
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Phòng:</label>
-                                        <select name="phongConTrong" id="phongConTrong" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <select name="phongConTrong" id="phongConTrong" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600"
+                                                <c:if test="${not canChangeStatus}">disabled</c:if>>
                                             <option value="1" <c:if test="${p.phongConTrong eq 1}">selected</c:if>>Trống</option>
                                             <option value="0" <c:if test="${p.phongConTrong eq 0}">selected</c:if>>Có người thuê</option>
                                             </select>
                                         </div>
-
                                         <div class="flex items-center">
                                             <label class="w-1/3 text-gray-700 font-semibold">Ghi Chú:</label>
                                             <input type="text" name="ghiChu" value="${p.ghiChu}" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">

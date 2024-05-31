@@ -4,7 +4,6 @@
  */
 package controller;
 
-import dal.PhongDAO;
 import dal.SonDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,10 +20,10 @@ import model.Phong;
 
 /**
  *
- * @author Admin
+ * @author THANH SON
  */
-@WebServlet(name = "NhapEditPhong", urlPatterns = {"/nhapeditphong"})
-public class NhapEditPhong extends HttpServlet {
+@WebServlet(name = "NhapAddKhachThue", urlPatterns = {"/nhapaddkhachthue"})
+public class NhapAddKhachThue extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,41 +39,32 @@ public class NhapEditPhong extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         Accounts a = (Accounts) session.getAttribute("acc");
-        String phongIDStr = request.getParameter("phongID");
-
-        int phongID = 0;
-        try {
-            phongID = Integer.parseInt(phongIDStr);
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
 
         if (a == null || a.getRole() == 1) {
-            // Redirect to login page or show error message if account is not logged in
             response.sendRedirect("login.jsp");
         } else {
-            PhongDAO phongDAO = new PhongDAO();
+            String ktid = request.getParameter("naktpid");
             SonDAO sondao = new SonDAO();
 
-            List<HopDong> hp = sondao.getHopDongByPhongID(phongIDStr);
-            Phong thongtinphong = phongDAO.getPhongByID(phongID);
-            List<Phong> loaiPhongList = phongDAO.getAllLoaiPhong();
-            List<Phong> phongConTrong = phongDAO.getAllPhongConTrong();
+            List<Phong> loaiPhongList = sondao.getPhongByPhongID(ktid);
+            List<HopDong> hopDongList = sondao.getHopDong();
 
-            request.setAttribute("p", thongtinphong);
             request.setAttribute("lp1", loaiPhongList);
-            request.setAttribute("lp2", phongConTrong);
+            request.setAttribute("lp2", hopDongList);
 
-            boolean hasTenant = hp.stream().anyMatch(k -> k.getTinhTrang() == 1);
-            if (hasTenant) {
-                request.setAttribute("errorMessage", "Vì đang có Hợp Đồng trong phòng không thể đổi trạng thái phòng");
-            }
-
-            request.setAttribute("canChangeStatus", !hasTenant);
-            request.getRequestDispatcher("EditThongTinPhong.jsp").forward(request, response);
+            request.getRequestDispatcher("NhapAddKhachThue.jsp").forward(request, response);
         }
     }
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -103,5 +93,6 @@ public class NhapEditPhong extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }
+    }// </editor-fold>
+
 }

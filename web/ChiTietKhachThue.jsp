@@ -42,48 +42,39 @@
                     <!-- Underline form -->
                     <div class="mb-2 md:mx-2 lg:mx-2 border-solid border-gray-200 rounded border shadow-sm w-full md:w-1/2 lg:w-4/5">
                         <div class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b font-bold">
-                            Hợp Đồng
+                            Chi Tiết Khách Thuê
                         </div>
-                        <c:if test="${not empty error}">
-                            <p style="color: red; font-size: 1.2em; font-weight: bold;">${error}</p>
-                        </c:if>
                         <div class="p-3">
-                            <form action="listhopdong" method="post">
+                            <form action="listchitietkhachthue" method="post">
                                 <table class="min-w-full leading-normal">
                                     <thead>
                                         <tr>
-                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Hợp Đồng ID</th>
                                             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Khách ID</th>
-                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Phòng ID</th>
-                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Tiền Cọc</th>
-                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Ngày Thuê</th>
-                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Ngày Trả</th>
-                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Số Khách Thuê Phòng</th>
-                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Ghi Chú</th>
+                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Họ Và Tên</th>
                                             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">CCCD</th>
                                             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Số Điện Thoại</th>
-                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Họ Và Tên Đại Diện Phòng</th>
+                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Quê Quán</th>
+                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Tên Người Thân</th>
+                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Số Điện Thoại Người Thân</th>
+                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Quan Hệ Với Người Thân</th>
+                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Phòng ID</th>
                                             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Tình Trạng</th>
-                                                <c:if test="${sessionScope.acc.accountID == 1}">
-                                                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Tùy Chọn</th>
-                                                </c:if>
+
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <c:forEach items="${listK}" var="o">
                                             <c:if test="${sessionScope.acc.accountID == 1}">
                                                 <tr class="bg-white border-b">
-                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.hopDongID}</td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.khachID}</td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.phongID}</td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.tienCoc}</td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.ngayThue}</td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.ngayTra}</td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.soKhachThue}</td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.ghiChu}</td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.hoVaTen}</td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.CCCD}</td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.SDT}</td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.hoVaTen}</td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.queQuan}</td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.tenNguoiThan}</td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.SDTNguoiThan}</td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.quanHeVoiNguoiThan}</td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.phongID}</td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">
                                                         <c:choose>
                                                             <c:when test="${o.tinhTrang == 0}">
@@ -94,12 +85,6 @@
                                                             </c:when>
                                                         </c:choose>
                                                     </td>
-                                                    <c:if test="${o.tinhTrang == 1}">
-                                                        <td class="px-5 py-5 border-b border-gray-200 text-sm">
-                                                            <a href='loadhopdong?lhdid=${o.hopDongID}&lpid=${o.phongID}' class="text-indigo-600 hover:text-indigo-900">Update</a>
-                                                            <a href='#' class="text-red-600 hover:text-red-900 ml-2" onclick="confirmDelete(event, 'deletehopdong?hdid=${o.hopDongID}')">Delete</a>
-                                                        </td>
-                                                    </c:if>
                                                 </tr>
                                             </c:if>
                                         </c:forEach>
@@ -107,17 +92,15 @@
                                         <c:forEach items="${listK1}" var="o">
                                             <c:if test="${sessionScope.acc.role == 1}">
                                                 <tr class="bg-white border-b">
-                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.hopDongID}</td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.khachID}</td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.phongID}</td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.tienCoc}</td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.ngayThue}</td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.ngayTra}</td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.soKhachThue}</td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.ghiChu}</td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.hoVaTen}</td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.CCCD}</td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.SDT}</td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.hoVaTen}</td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.queQuan}</td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.tenNguoiThan}</td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.SDTNguoiThan}</td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.quanHeVoiNguoiThan}</td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.phongID}</td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">
                                                         <c:choose>
                                                             <c:when test="${o.tinhTrang == 0}">

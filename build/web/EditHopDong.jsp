@@ -14,6 +14,11 @@
         <link rel="stylesheet" href="./dist/all.css">
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i,700,700i" rel="stylesheet">
         <title>Forms | Tailwind Admin</title>
+        <script>
+            function confirmUpdate() {
+                return confirm("Bạn có chắc chắn muốn thay đổi thông tin hợp đồng này không?");
+            }
+        </script>
     </head>
 
     <body>
@@ -31,71 +36,81 @@
                     <!--/Sidebar-->
 
                     <!-- Underline form -->
-                    <div class="mb-4 mx-auto border border-gray-300 rounded-lg shadow-lg w-full md:w-1/2 lg:w-1/3">
-                        <div class="bg-purple-600 text-white px-4 py-3 rounded-t-lg w-full ">
-                            Thêm Hợp Đồng
+                    <div class="mb-4 md:mx-2 lg:mx-2 border border-gray-300 rounded-lg shadow-lg w-full md:w-1/2 lg:w-1/3">
+                        <c:if test="${not empty errorMessage}">
+                            <div class="bg-red-500 text-white p-3 rounded-lg mb-4">
+                                ${errorMessage}
+                            </div>
+                        </c:if>
+                        <div class="bg-purple-600 text-white px-4 py-3 rounded-t-lg">
+                            Sửa Hợp Đồng
                         </div>
                         <div class="p-6 bg-white">
-                            <form action="addhopdong" method="get">
+                            <form id="editHopDongForm" action="edithopdong" method="post">
                                 <div class="space-y-4">
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Hợp Đồng ID:</label>
-                                        <input type="text" name="HopDongID" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <input type="text" name="HopDongID" value="${listhd.hopDongID}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" readonly>
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Khách ID:</label>
-                                        <input type="text" name="KhachID" value="${lp3[0].khachID}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" readonly>
+                                        <input type="text" name="KhachID" value="${listhd.khachID}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" readonly>
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Phòng ID:</label>
-                                        <input type="text" name="PhongID" value="${lp1[0].phongID}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" readonly>
+                                        <input type="text" name="PhongID" value="${listhd.phongID}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" readonly>
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Tiền Cọc:</label>
-                                        <input type="text" name="TienCoc" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <input type="text" name="TienCoc" value="${listhd.tienCoc}" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Ngày Thuê:</label>
-                                        <input type="date" name="NgayThue" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <input type="date" name="NgayThue" value="${listhd.ngayThue}" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Ngày Trả:</label>
-                                        <input type="date" name="NgayTra" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <input type="date" name="NgayTra" value="${listhd.ngayTra}" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Số Khách Thuê Phòng:</label>
-                                        <input type="text" name="SoKhachThue" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <input type="text" name="SoKhachThue" value="${listhd.soKhachThue}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" readonly>
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Ghi Chú:</label>
-                                        <input type="text" name="GhiChu" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <input type="text" name="GhiChu" value="${listhd.ghiChu}" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">CCCD:</label>
-                                        <input type="text" name="CCCD" value="${lp3[0].CCCD}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" readonly>
+                                        <input type="text" name="CCCD" value="${listhd.CCCD}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" readonly>
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Số Điện Thoại:</label>
-                                        <input type="text" name="SDT" value="${lp3[0].SDT}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" readonly>
+                                        <input type="text" name="SDT" value="${listhd.SDT}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" readonly>
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Họ Và Tên Đại Diện Phòng:</label>
-                                        <input type="text" name="HoVaTen" value="${lp3[0].hoVaTen}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" readonly>
+                                        <input type="text" name="HoVaTen" value="${listhd.hoVaTen}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" readonly>
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Tình Trạng:</label>
-                                        <select name="TinhTrang" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
-                                            <option value="1" ${listNguoiThue1.tinhTrang == 1 ? 'selected' : ''}>Đang Thuê</option>
-                                            <option value="0" ${listNguoiThue1.tinhTrang == 0 ? 'selected' : ''}>Không còn Thuê</option>
+                                        <select name="TinhTrang" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" 
+                                                <c:if test="${not empty errorMessage}">disabled</c:if>>
+                                            <option value="1" ${listhd.tinhTrang == 1 ? 'selected' : ''}>Đang Thuê</option>
+                                            <option value="0" ${listhd.tinhTrang == 0 ? 'selected' : ''}>Không còn Thuê</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="mt-6 flex justify-end">
-                                    <input type="submit" value="Update" class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 transition-colors duration-200">
+                                    <input type="submit" value="Update" onclick="return confirmUpdate()" class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 transition-colors duration-200">
+                                    <a href="listhopdong" class="bg-red-500 hover:bg-red-800 text-white font-bold py-2 px-4 rounded">
+                                        Back
+                                    </a>
                                 </div>
                             </form>
                         </div>
                     </div>
+
                     <!--/Underline form-->
                     <!--/Main-->                                
                 </div>
@@ -104,8 +119,13 @@
                     <div class="flex flex-1 mx-auto">&copy; My Design</div>
                 </footer>
                 <!--/footer-->
+
             </div>
+
         </div>
+
         <script src="./main.js"></script>
+
     </body>
+
 </html>
