@@ -5,7 +5,7 @@
 
 package controller;
 
-import dal.DAO;
+import dal.HaiDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,53 +14,39 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.List;
 import model.Accounts;
-import model.Khu;
-import model.Phong;
+import model.HoaDon;
 
 /**
  *
  * @author admin
  */
-@WebServlet(name="ListPhong", urlPatterns={"/listphong"})
-public class ListPhong extends HttpServlet {
+@WebServlet(name="LoadHoaDon", urlPatterns={"/loadhoadon"})
+public class LoadHoaDon extends HttpServlet {
    
-
-
-protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    /** 
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
+        int id = Integer.parseInt(request.getParameter("id"));
         Accounts a = (Accounts) session.getAttribute("acc");
-
-        if (a == null) {
+        if (a == null || a.getRole() == 1) {
             response.sendRedirect("login");
-        }else {
-            
-       DAO u = new DAO();
-        List<Phong> lp = u.getPhong();
-       
-        List<Phong> lp1 = u.getPhongDetailsByAccountID(a.getAccountID());
-        List<Khu> lk = u.getKhu2();
-        List<Phong> bp = u.getPhongForLoaiPhong();
-        List<Phong> ba = u.getPhongForGia();
-        List<Phong> btt = u.getPhongForTinhTrang();
-        
-        
-        
-      request.setAttribute("lp", lp);
-      
-      request.setAttribute("lp1", lp1);
-      request.setAttribute("lk", lk);
-        request.setAttribute("bp", bp);
-        request.setAttribute("ba", ba);
-        request.setAttribute("btt", btt);
-      
-      request.getRequestDispatcher("index.jsp").forward(request, response);
+        } else {
+            HaiDao dao = new HaiDao();
+            HoaDon hoadon = dao.getHoaDonById(id);
+
+            request.setAttribute("hoadon", hoadon);
+            request.getRequestDispatcher("EditHoaDon.jsp").forward(request, response);
+        }
     } 
- 
-}
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
@@ -99,4 +85,3 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
     }// </editor-fold>
 
 }
-
