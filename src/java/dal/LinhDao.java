@@ -95,31 +95,32 @@ public class LinhDao extends MyDAO {
         return null;
     }
 
-    public void editDichVu(String id, int soPhong, String name, int giaTien, Date tuNgay, Date denNgay, int chiSoCu, int chiSoMoi) {
-        String query = "UPDATE DichVu\n"
-                + "SET SoPhong = ?,\n"
-                + "    Name = ?,\n"
-                + "    GiaTien = ?,\n"
-                + "    TuNgay = ?,\n"
-                + "    DenNgay = ?,\n"
-                + "    ChiSoCu = ?,\n"
-                + "    ChiSoMoi = ?\n"
-                + "WHERE DichVuID = ?;";
-        try {
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setInt(1, soPhong);
-            ps.setString(2, name);
-            ps.setInt(3, giaTien);
-            ps.setDate(4, new java.sql.Date(tuNgay.getTime())); // Convert java.util.Date to java.sql.Date
-            ps.setDate(5, new java.sql.Date(denNgay.getTime())); // Convert java.util.Date to java.sql.Date
-            ps.setInt(6, chiSoCu);
-            ps.setInt(7, chiSoMoi);
-            ps.setString(8, id);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public void editDichVu(String id, String soPhong, String name, String giaTien, Date tuNgay, Date denNgay, String chiSoCu, String chiSoMoi) {
+    String query = "UPDATE DichVu\n"
+            + "SET SoPhong = ?,\n"
+            + "    Name = ?,\n"
+            + "    GiaTien = ?,\n"
+            + "    TuNgay = ?,\n"
+            + "    DenNgay = ?,\n"
+            + "    ChiSoCu = ?,\n"
+            + "    ChiSoMoi = ?\n"
+            + "WHERE DichVuID = ?;";
+    try {
+        PreparedStatement ps = connection.prepareStatement(query);
+        ps.setString(1, soPhong);
+        ps.setString(2, name);
+        ps.setString(3, giaTien); // Use setString for String parameters
+        ps.setDate(4, new java.sql.Date(tuNgay.getTime())); // Convert java.util.Date to java.sql.Date
+        ps.setDate(5, new java.sql.Date(denNgay.getTime())); // Convert java.util.Date to java.sql.Date
+        ps.setString(6, chiSoCu); // Use setString for String parameters
+        ps.setString(7, chiSoMoi); // Use setString for String parameters
+        ps.setString(8, id);
+        ps.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+}
+
 
     public void insertDichVu(String dvid, String phongid, String name, String giaTien, String tuNgay, String denNgay, String chiSoCu, String chiSoMoi) {
         String sql = "INSERT INTO DichVu (DichVuID, SoPhong, Name, GiaTien, TuNgay, DenNgay, ChiSoCu, ChiSoMoi) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -139,25 +140,38 @@ public class LinhDao extends MyDAO {
         }
     }
 
-   public void deleteDichVu(int dichVuID) throws SQLException {
-    String sql = "DELETE FROM DichVu WHERE dichVuID = ?";
-    try (PreparedStatement ps = con.prepareStatement(sql)) {
-        ps.setInt(1, dichVuID);
-        int affectedRows = ps.executeUpdate();
-        if (affectedRows == 0) {
-            throw new SQLException("Deleting dich vu failed, no rows affected.");
+    public void deleteDichVu(int dichVuID) throws SQLException {
+        String sql = "DELETE FROM DichVu WHERE dichVuID = ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, dichVuID);
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Deleting dich vu failed, no rows affected.");
+            }
+        } catch (SQLException e) {
+            throw new SQLException("Error deleting dich vu: " + e.getMessage(), e);
         }
-    } catch (SQLException e) {
-        throw new SQLException("Error deleting dich vu: " + e.getMessage(), e);
     }
-}
-
+    
+    public boolean dichVuIdExists(String dvid) {
+        String query = "SELECT COUNT(*) FROM DichVu WHERE DichVuID = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, dvid);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
     public static void main(String[] args) throws SQLException {
         LinhDao u = new LinhDao();
         Date tuNgay = new Date(2024, 1, 1); // Constructing Date objects, the first parameter is the year minus 1900
         Date denNgay = new Date(2024, 1, 31); // Constructing Date objects, the first parameter is the year minus 1900
 
-        u.editDichVu("1", 1, "Nước", 11000, tuNgay, denNgay, 0, 0); // Passing id as String
+ //       u.editDichVu("1", 1, "Nước", 11000, tuNgay, denNgay, 0, 0); // Passing id as String
     }
 }

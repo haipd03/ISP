@@ -32,7 +32,7 @@ public class AddDichVu extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         String dvid = request.getParameter("DichVuID");
-        String phongid = request.getParameter("SoPhong");
+        String soPhong = request.getParameter("SoPhong");
         String name = request.getParameter("Name");
         String giaTien = request.getParameter("GiaTien");
         String tuNgay = request.getParameter("TuNgay");
@@ -43,14 +43,21 @@ public class AddDichVu extends HttpServlet {
         LinhDao dao = new LinhDao();
         String giaTienPattern = "^[0-9]+$";
         String datePattern = "\\d{4}-\\d{2}-\\d{2}";
+        
+        if (dao.dichVuIdExists(dvid)) {
+            request.setAttribute("errorMessage", "DichVuID đã có. Vui lòng nhập lại.");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("AddDichVu.jsp");
+            dispatcher.forward(request, response);
+            return;
+        }
 
-        if (!giaTien.matches(giaTienPattern) || !tuNgay.matches(datePattern) || !denNgay.matches(datePattern) 
+        if (!dvid.matches(giaTienPattern) || !soPhong.matches(giaTienPattern) || !giaTien.matches(giaTienPattern) || !tuNgay.matches(datePattern) || !denNgay.matches(datePattern) 
                 || !chiSoCu.matches(giaTienPattern) || !chiSoMoi.matches(giaTienPattern)) {
             request.setAttribute("errorMessage", "Dữ liệu nhập vào không hợp lệ!");
             RequestDispatcher dispatcher = request.getRequestDispatcher("AddDichVu.jsp");
             dispatcher.forward(request, response);
         } else {
-            dao.insertDichVu(dvid, phongid, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi);
+            dao.insertDichVu(dvid, soPhong, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi);
             response.sendRedirect("listdichvu?id=" + dvid);
         }
     }

@@ -7,6 +7,7 @@ package controller;
 import dal.DAO;
 import dal.HaiDao;
 import dal.LinhDao;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -25,29 +26,39 @@ import model.DichVu;
 @WebServlet(name = "SearchDichVuBySoPhong", urlPatterns = {"/searchdichvubysophong"})
 public class SearchDichVuBySoPhong extends HttpServlet {
 
-  protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+ protected void processRequest(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
     response.setContentType("text/html;charset=UTF-8");
     request.setCharacterEncoding("UTF-8");
     String soPhongStr = request.getParameter("soPhong"); // Lấy tham số từ trường input
     LinhDao dao = new LinhDao();
     List<DichVu> sdv;
-    
+
     // Thiết lập danh sách dịch vụ ban đầu
     List<DichVu> ldv = dao.getAllDichVu();
-    request.setAttribute("ldv", ldv);
-    
+
     if (soPhongStr != null && !soPhongStr.trim().isEmpty()) {
         try {
             sdv = dao.getDichVuBySoPhong(soPhongStr); // Truyền chuỗi soPhongStr vào thay vì biến soPhong
-            request.setAttribute("ldv", sdv); // Cập nhật ldv thành kết quả tìm kiếm
+            if (sdv.isEmpty()) {
+                // Nếu không tìm thấy dịch vụ của số phòng này
+                request.setAttribute("error", "Không tìm thấy số phòng hợp lệ! Vui lòng nhập lại số phòng");
+                request.setAttribute("ldv", ldv); // Gán lại danh sách dịch vụ ban đầu
+            } else {
+                request.setAttribute("ldv", sdv); // Cập nhật ldv thành kết quả tìm kiếm
+            }
         } catch (NumberFormatException e) {
             // Xử lý nếu số phòng không hợp lệ
             request.setAttribute("error", "Số phòng phải là số nguyên.");
+            request.setAttribute("ldv", ldv); // Gán lại danh sách dịch vụ ban đầu
         }
+    } else {
+        request.setAttribute("ldv", ldv); // Gán lại danh sách dịch vụ ban đầu
+        request.setAttribute("error", "Vui lòng nhập số phòng để tìm kiếm.");
     }
-    
-    request.getRequestDispatcher("DichVu.jsp").forward(request, response); // Chuyển hướng sang trang JSP để hiển thị kết quả
+
+    RequestDispatcher dispatcher = request.getRequestDispatcher("DichVu.jsp");
+    dispatcher.include(request, response); // Chuyển hướng sang trang JSP để hiển thị kết quả
 }
 
 
