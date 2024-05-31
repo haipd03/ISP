@@ -99,12 +99,9 @@ public class DichVu {
         this.chiSoMoi = chiSoMoi;
     }
 
-   
-
-    
     @Override
     public String toString() {
-        return "DichVu{" + "dichVuID=" + dichVuID + ", soPhong=" + soPhong + ", name=" + name + ", giaTien=" + giaTien + ", tuNgay=" + tuNgay + ", denNgay=" + denNgay + ", chiSoCu=" + chiSoCu + ", chiSoMoi=" + chiSoMoi +'}';
+        return "DichVu{" + "dichVuID=" + dichVuID + ", soPhong=" + soPhong + ", name=" + name + ", giaTien=" + giaTien + ", tuNgay=" + tuNgay + ", denNgay=" + denNgay + ", chiSoCu=" + chiSoCu + ", chiSoMoi=" + chiSoMoi + '}';
     }
 
 }
