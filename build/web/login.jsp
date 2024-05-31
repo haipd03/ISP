@@ -38,7 +38,9 @@
                     <div class="mt-2">
                         <label class="block text-sm text-gray-600" for="password">Password</label>
                         <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="password" name="password"
-                            type="password" required="" placeholder="*****" aria-label="password">
+
+                            type="password" required="" placeholder="*******" aria-label="password">
+
                     </div>
                     <div class="mt-4 items-center justify-between">
                         <button class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded"

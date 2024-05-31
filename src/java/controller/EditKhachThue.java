@@ -5,6 +5,8 @@
 package controller;
 
 import dal.DAO;
+import dal.SonDAO;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -42,12 +44,35 @@ public class EditKhachThue extends HttpServlet {
         String QuanHeVoiNguoiThan = request.getParameter("QuanHeVoiNguoiThan");
         String PhongID = request.getParameter("PhongID");
         String TinhTrang = request.getParameter("TinhTrang");
-        DAO dao = new DAO();
-        dao.Updatekhachthue(KhachID, HoVaTen, CCCD, SDT, QueQuan, TenNguoiThan, SDTNguoiThan, QuanHeVoiNguoiThan, PhongID, TinhTrang);
-        response.sendRedirect("listNguoiThue?lntid=" + PhongID);
-    }
 
+        String errorMsg = null;
+        if (HoVaTen == null || HoVaTen.trim().isEmpty() || HoVaTen.length() > 50) {
+            errorMsg = "Họ và tên không hợp lệ.";
+        } else if (CCCD == null || !CCCD.matches("\\d{10}")) {
+            errorMsg = "CCCD không hợp lệ.";
+        } else if (SDT == null || !SDT.matches("\\d{10}")) {
+            errorMsg = "Số điện thoại không hợp lệ.";
+        } else if (QueQuan == null || QueQuan.trim().isEmpty() || QueQuan.length() > 100) {
+            errorMsg = "Quê quán không hợp lệ.";
+        } else if (TenNguoiThan != null && TenNguoiThan.length() > 50) {
+            errorMsg = "Tên người thân không hợp lệ.";
+        } else if (SDTNguoiThan != null && !SDTNguoiThan.matches("\\d{10}")) {
+            errorMsg = "Số điện thoại người thân không hợp lệ.";
+        } else if (QuanHeVoiNguoiThan != null && QuanHeVoiNguoiThan.length() > 50) {
+            errorMsg = "Quan hệ với người thân không hợp lệ.";
+        }
+
+        DAO dao = new DAO();
+        if (errorMsg != null) {
+            request.setAttribute("error", errorMsg);
+            request.getRequestDispatcher("listNguoiThue?lntid=" + PhongID).forward(request, response);
+        } else {
+            dao.Updatekhachthue(KhachID, HoVaTen, CCCD, SDT, QueQuan, TenNguoiThan, SDTNguoiThan, QuanHeVoiNguoiThan, PhongID, TinhTrang);
+            response.sendRedirect("listNguoiThue?lntid=" + PhongID);
+        }
+    }
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+
     /**
      * Handles the HTTP <code>GET</code> method.
      *

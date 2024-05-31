@@ -14,6 +14,15 @@
         <link rel="stylesheet" href="./dist/all.css">
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i,700,700i" rel="stylesheet">
         <title>Forms | Tailwind Admin</title>
+        <script>
+            function confirmDelete(event, url) {
+                if (confirm("Bạn có chắc muốn xóa khu này không?")) {
+                    window.location.href = url;
+                } else {
+                    event.preventDefault();
+                }
+            }
+        </script>
     </head>
 
     <body>
@@ -39,7 +48,7 @@
                             <p style="color: red; font-size: 1.2em; font-weight: bold;">${error}</p>
                         </c:if>
                         <div class="p-3">
-                            <form action="khu" method="post">
+                            <form action="listhopdong" method="post">
                                 <table class="min-w-full leading-normal">
                                     <thead>
                                         <tr>
@@ -75,10 +84,22 @@
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.CCCD}</td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.SDT}</td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.hoVaTen}</td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.tinhTrang}</td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">
-                                                        <a href='' class="text-indigo-600 hover:text-indigo-900">Update</a>
+                                                        <c:choose>
+                                                            <c:when test="${o.tinhTrang == 0}">
+                                                                Không còn Thuê
+                                                            </c:when>
+                                                            <c:when test="${o.tinhTrang == 1}">
+                                                                Đang Thuê
+                                                            </c:when>
+                                                        </c:choose>
                                                     </td>
+                                                    <c:if test="${o.tinhTrang == 1}">
+                                                        <td class="px-5 py-5 border-b border-gray-200 text-sm">
+                                                            <a href='loadhopdong?lhdid=${o.hopDongID}&lpid=${o.phongID}' class="text-indigo-600 hover:text-indigo-900">Update</a>
+                                                            <a href='#' class="text-red-600 hover:text-red-900 ml-2" onclick="confirmDelete(event, 'deletehopdong?hdid=${o.hopDongID}')">Delete</a>
+                                                        </td>
+                                                    </c:if>
                                                 </tr>
                                             </c:if>
                                         </c:forEach>
@@ -97,7 +118,16 @@
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.CCCD}</td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.SDT}</td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.hoVaTen}</td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.tinhTrang}</td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">
+                                                        <c:choose>
+                                                            <c:when test="${o.tinhTrang == 0}">
+                                                                Không còn Thuê
+                                                            </c:when>
+                                                            <c:when test="${o.tinhTrang == 1}">
+                                                                Đang Thuê
+                                                            </c:when>
+                                                        </c:choose>
+                                                    </td>
                                                 </tr>
                                             </c:if>
                                         </c:forEach>

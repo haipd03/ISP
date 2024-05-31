@@ -4,8 +4,6 @@ package controller;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
-
 import dal.PhongDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -23,9 +21,10 @@ import model.Phong;
  *
  * @author Admin
  */
-@WebServlet(urlPatterns={"/deletePhong"})
+@WebServlet(urlPatterns = {"/deletePhong"})
 public class deletePhong extends HttpServlet {
- protected void doGet(HttpServletRequest request, HttpServletResponse response)
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         Accounts a = (Accounts) session.getAttribute("acc");
@@ -34,27 +33,28 @@ public class deletePhong extends HttpServlet {
         } else {
             int phongID = Integer.parseInt(request.getParameter("phongID"));
             PhongDAO phongDAO = new PhongDAO();
-            if (phongDAO.checkPhongIDcoThietBi(phongID) ) {
+            if (phongDAO.checkPhongIDcoThietBi(phongID)) {
                 List<Phong> phongs = phongDAO.getPhongByPhongID(phongID);
                 request.setAttribute("error", "Phòng đang có thiết bị không thể xóa phòng!");
                 request.setAttribute("danhSachPhong", phongs);
                 request.getRequestDispatcher("HienThiThongTinPhong.jsp").forward(request, response);
-            } else {
+            } else if (phongDAO.checkPhongIDcoHopDong(phongID)) {
                 List<Phong> phongs = phongDAO.getPhongByPhongID(phongID);
-                if (phongs.size() > 0) {
-                    Phong phong = phongs.get(0);
-                    if (phong.getPhongConTrong() == 1) {
-                        phongDAO.deletePhongByPhongID(phongID);
-                        request.setAttribute("deleted", true);
-                    }
-                }
-            }if (phongDAO.checkPhongIDcoHopDong(phongID) && phongDAO.checkPhongIDcoTinTrangHopDong(phongID)) {
-                List<Phong> phongs = phongDAO.getPhongByPhongID(phongID);
-                request.setAttribute("error", "Phòng đang có thiết bị không thể xóa phòng hợp đồng của khách còn hiệu lực!");
+                request.setAttribute("error", "Phòng đã tồn tại hợp đồng của khách không thể xóa!");
                 request.setAttribute("danhSachPhong", phongs);
                 request.getRequestDispatcher("HienThiThongTinPhong.jsp").forward(request, response);
+            }else {
+            List<Phong> phongs = phongDAO.getPhongByPhongID(phongID);
+            if (phongs.size() > 0) {
+                Phong phong = phongs.get(0);
+                if (phong.getPhongConTrong() == 1) {
+                    phongDAO.deletePhongByPhongID(phongID);
+                    request.setAttribute("deleted", true);
+                }
             }
+            response.sendRedirect(request.getContextPath() + "/listphong");
         }
-        response.sendRedirect(request.getContextPath() + "/listphong");
+        
+    }
     }
 }

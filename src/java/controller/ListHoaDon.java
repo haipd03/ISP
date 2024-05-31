@@ -33,24 +33,36 @@ public class ListHoaDon extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-         HttpSession session = request.getSession();
+         response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
         Accounts a = (Accounts) session.getAttribute("acc");
-         if (a == null) {
-            response.sendRedirect("login");
-        }else {
-            
-       HaiDao u = new HaiDao();
-        List<HaiDao.HoaDonWithSoPhong> lhd = u.getAllHoaDon();
-       
 
-        
-      request.setAttribute("lhd", lhd);
-      
-      
-      
-      request.getRequestDispatcher("HoaDon.jsp").forward(request, response);
-    } 
+        if (a == null) {
+            response.sendRedirect("login");
+        } else {
+            HaiDao u = new HaiDao();
+
+            // Get pagination parameters from request
+            int page = 1;
+            int pageSize = 10; // Number of records per page
+
+            if (request.getParameter("page") != null) {
+                page = Integer.parseInt(request.getParameter("page"));
+            }
+
+            int offset = (page - 1) * pageSize;
+            List<HaiDao.HoaDonWithSoPhong> lhd = u.getHoaDonWithPagination(pageSize, offset);
+            int totalRecords = u.getTotalHoaDonRecords();
+            int totalPages = (int) Math.ceil((double) totalRecords / pageSize);
+
+            request.setAttribute("currentPage", page);
+            request.setAttribute("pageSize", pageSize);
+            request.setAttribute("totalRecords", totalRecords);
+            request.setAttribute("totalPages", totalPages);
+            request.setAttribute("lhd", lhd);
+
+            request.getRequestDispatcher("HoaDon.jsp").forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -11,6 +11,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -23,6 +28,7 @@ public class AddHopDong extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+
         String HopDongID = request.getParameter("HopDongID");
         String KhachID = request.getParameter("KhachID");
         String PhongID = request.getParameter("PhongID");
@@ -35,8 +41,40 @@ public class AddHopDong extends HttpServlet {
         String SDT = request.getParameter("SDT");
         String HoVaTen = request.getParameter("HoVaTen");
         String TinhTrang = request.getParameter("TinhTrang");
+
+        String errorMsg = null;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        if (HopDongID == null || !HopDongID.matches("\\d+")) {
+            errorMsg = "HopDongID không hợp lệ.";
+        } else if (TienCoc != null && !TienCoc.matches("\\d+")) {
+            errorMsg = "TienCoc không hợp lệ.";
+        }  else if (SoKhachThue == null || !SoKhachThue.matches("\\d+")) {
+            errorMsg = "Số khách thuê không hợp lệ.";
+        } else {
+            try {
+                Date dateNgayThue = dateFormat.parse(NgayThue);
+                Date dateNgayTra = dateFormat.parse(NgayTra);
+                if (!dateNgayTra.after(dateNgayThue)) {
+                    errorMsg = "Ngày trả phải lớn hơn ngày thuê.";
+                }
+            } catch (ParseException e) {
+                errorMsg = "Định dạng ngày không hợp lệ.";
+            }
+        }
+
         SonDAO sondao = new SonDAO();
-        sondao.insertHopDong(HopDongID, KhachID, PhongID, TienCoc, NgayThue, NgayTra, SoKhachThue, GhiChu, CCCD, SDT, HoVaTen, TinhTrang);
-        response.sendRedirect("listphong");
+        if (errorMsg == null && sondao.checkHopDongIDExists(HopDongID)) {
+            errorMsg = "HopDongID đã tồn tại.";
+        }
+
+        if (errorMsg != null) {
+            request.setAttribute("error", errorMsg);
+            request.getRequestDispatcher("listhopdong").forward(request, response);
+        } else {
+            sondao.insertHopDong(HopDongID, KhachID, PhongID, TienCoc, NgayThue, NgayTra, SoKhachThue, GhiChu, CCCD, SDT, HoVaTen, TinhTrang);
+            response.sendRedirect("listhopdong");
+        }
     }
+
 }
