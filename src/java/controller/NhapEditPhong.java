@@ -54,16 +54,19 @@ public class NhapEditPhong extends HttpServlet {
             response.sendRedirect("login.jsp");
         } else {
             PhongDAO phongDAO = new PhongDAO();
-            SonDAO sondao = new SonDAO();
+//<<<<<<< HEAD
+         SonDAO sondao = new SonDAO();
 
             List<HopDong> hp = sondao.getHopDongByPhongID(phongIDStr);
             Phong thongtinphong = phongDAO.getPhongByID(phongID);
             List<Phong> loaiPhongList = phongDAO.getAllLoaiPhong();
             List<Phong> phongConTrong = phongDAO.getAllPhongConTrong();
+            List<Phong> ghiChu = phongDAO.getAllGhiChu();
 
             request.setAttribute("p", thongtinphong);
             request.setAttribute("lp1", loaiPhongList);
             request.setAttribute("lp2", phongConTrong);
+            request.setAttribute("lp3", ghiChu);
 
             boolean hasTenant = hp.stream().anyMatch(k -> k.getTinhTrang() == 1);
             if (hasTenant) {
@@ -71,6 +74,17 @@ public class NhapEditPhong extends HttpServlet {
             }
 
             request.setAttribute("canChangeStatus", !hasTenant);
+//=======
+//            Phong thongtinphong = phongDAO.getPhongByID(phongID); // Truyền phongID vào phương thức getPhongByID()
+//            List<Phong> loaiPhongList = phongDAO.getAllLoaiPhong();
+////        List<Phong> phongConTrong = phongDAO.getAllPhongConTrong();
+//            List<Phong> phongConTrong = phongDAO.getPhongConTrongbyHopDong();
+//            List<Phong> ghiChu = phongDAO.getAllGhiChu();
+//            request.setAttribute("p", thongtinphong);
+//            request.setAttribute("lp1", loaiPhongList);
+//            request.setAttribute("lp2", phongConTrong);
+//            request.setAttribute("lp3", ghiChu);
+//>>>>>>> datnt
             request.getRequestDispatcher("EditThongTinPhong.jsp").forward(request, response);
         }
     }

@@ -38,12 +38,14 @@
 
                     <!-- Underline form -->
                     <div class="mb-4 mx-auto border border-gray-300 rounded-lg shadow-lg w-full md:w-1/2 lg:w-1/3">
+
                         <c:if test="${not empty errorMessage}">
                             <div class="bg-red-500 text-white p-3 rounded-lg mb-4">
                                 ${errorMessage}
                             </div>
                         </c:if>
                         <div class="bg-purple-600 text-white px-4 py-3 rounded-t-lg w-full ">
+
                             Sửa Thông Tin Phòng
                         </div>
                         <div class="p-6 bg-white">
@@ -55,7 +57,7 @@
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Số Phòng:</label>
-                                        <input type="text" name="soPhong" value="${p.soPhong}"  readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <input type="text" name="soPhong" value="${p.soPhong}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Khu ID:</label>
@@ -74,13 +76,30 @@
                                         <select name="phongConTrong" id="phongConTrong" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600"
                                                 <c:if test="${not canChangeStatus}">disabled</c:if>>
                                             <option value="1" <c:if test="${p.phongConTrong eq 1}">selected</c:if>>Trống</option>
-                                            <option value="0" <c:if test="${p.phongConTrong eq 0}">selected</c:if>>Có người thuê</option>
+                                            <option value="0" <c:if test="${p.phongConTrong eq 0}">selected</c:if>>Có khách thuê</option>
                                             </select>
                                         </div>
-                                        <div class="flex items-center">
-                                            <label class="w-1/3 text-gray-700 font-semibold">Ghi Chú:</label>
-                                            <input type="text" name="ghiChu" value="${p.ghiChu}" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
-                                    </div>
+
+
+                                    <c:choose>
+                                        <c:when test="${p.phongConTrong eq 1}">
+                                            <div class="flex items-center">
+                                                <label class="w-1/3 text-gray-700 font-semibold">Ghi Chú:</label>
+                                                <select name="ghiChu" id="ghiChu" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                                    <option value="Bảo trì" <c:if test="${p.ghiChu eq 'Bảo trì'}">selected</c:if>>Bảo trì</option>
+                                                    <option value="Tốt" <c:if test="${p.ghiChu eq 'Tốt'}">selected</c:if>>Tốt</option>
+                                                    <option value="Vô hiệu hóa" <c:if test="${p.ghiChu eq 'Vô hiệu hóa'}">selected</c:if>>Vô hiệu hóa</option>
+                                                    </select>
+                                                </div>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <div class="flex items-center">
+                                                <label class="w-1/3 text-gray-700 font-semibold">Ghi Chú:</label>
+                                                <input type="text" name="ghiChu" value="Tốt" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                            </div>
+                                        </c:otherwise>
+                                    </c:choose>
+
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Giá:</label>
                                         <input type="text" name="gia" value="${p.gia}" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
@@ -95,6 +114,7 @@
                             </form>
                         </div>
                     </div>
+
 
 
                     <!--/Underline form-->

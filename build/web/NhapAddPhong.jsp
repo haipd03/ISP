@@ -27,7 +27,7 @@
 
                 <div class="flex flex-1">
                     <!--Sidebar-->
-                     <jsp:include page="menu2.jsp" />
+                    <jsp:include page="menu2.jsp" />
                     <!--/Sidebar-->
 
                     <!-- Underline form -->
@@ -49,7 +49,7 @@
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Khu ID:</label>
                                         <select name="KhuID" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
-                                             <c:forEach items="${lp2}" var="o2">
+                                            <c:forEach items="${lp2}" var="o2">
                                                 <option value="${o2.khuID}">${o2.khuID}</option>
                                             </c:forEach>
 
@@ -72,7 +72,12 @@
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Ghi Chú:</label>
-                                        <input type="text" name="GhiChu" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <select name="GhiChu" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                            <c:forEach items="${lp3}" var="o3">
+                                                <option value="${o3.ghiChu}">${o3.ghiChu}</option>
+                                            </c:forEach>
+                                        </select>
+                                        <!--<input type="text" name="GhiChu" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">-->
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Giá:</label>

@@ -172,7 +172,8 @@
                                                         <button type="submit">
                                                             Loại Phòng: ${o.loaiPhong} - Số Phòng: ${o.soPhong}
                                                         </button>
-                                                    </form></a></h3>
+                                                    </form>
+                                                    </a></h3>
                                                 <p class="mt-2 font-sans font-light text-grey-700">Giá ${o.gia}</p>
                                                 <p class="mt-2 font-sans font-light text-grey-700">
                                                     Tình trạng: 
@@ -212,7 +213,7 @@
                                             <div class="text-center px-3 pb-6 pt-2">
                                                 <h3 class="text-black text-sm bold font-sans"><form action="loadphong" method="get">
                                                         <input type="hidden" name="soPhong" value="${p.soPhong}" />
-                                                        <button type="submit" formtarget="_blank">
+                                                        <button type="submit">
                                                             Loại Phòng: ${p.loaiPhong} - Số Phòng: ${p.soPhong}
                                                         </button>
                                                     </form></h3>

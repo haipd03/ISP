@@ -49,7 +49,7 @@
                                 <!-- Display room information -->
                                 <div class="flex flex-col md:flex-row lg:flex-row mx-2">
                                     <div class="mb-4 bg-white border border-gray-200 rounded-lg shadow-lg w-full md:w-1/2 lg:w-1/3">
-<!--                                      <p>${success}</p>  -->
+<!--                                      <p>${message}</p>  -->
                                       <div class="bg-purple-600 text-white px-4 py-3 rounded-t-lg">
                                             Thông Tin Phòng Thêm
                                         </div>

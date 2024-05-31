@@ -41,16 +41,16 @@ public class AddKhu extends HttpServlet {
         String namePattern = "^[a-zA-Z0-9 ]+$";
         if (khuID == null || khuID.isEmpty() || name == null || name.isEmpty()) {
             request.setAttribute("error", "Vui lòng nhập đầy đủ thông tin KhuID và Tên Khu!");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("khu");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("NhapAddKhu.jsp");
             dispatcher.forward(request, response);
         } else if (!khuID.matches(khuIDPattern) || !name.matches(namePattern)) {
             request.setAttribute("error", "Dữ liệu nhập vào không hợp lệ!");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("khu");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("NhapAddKhu.jsp");
             dispatcher.forward(request, response);
         } else {
             if (dao.checkExistingKhuID(khuID)) {
                 request.setAttribute("error", "Đã tồn tại KhuID trong cơ sở dữ liệu! Vui lòng chọn KhuID khác!");
-                RequestDispatcher dispatcher = request.getRequestDispatcher("khu");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("NhapAddKhu.jsp");
                 dispatcher.forward(request, response);
             } else {
                 dao.InsertKhu(khuID, name, accountID);
