@@ -66,6 +66,10 @@ public class DAO extends MyDAO {
         }
         return Phongs;
     }
+    
+    
+   
+    
 
     public List<Phong> getPhongDetailsByAccountID(int accountID) {
         List<Phong> phongDetailsList = new ArrayList<>();
@@ -1019,11 +1023,7 @@ public class DAO extends MyDAO {
 
     public static void main(String[] args) {
         DAO dao = new DAO();
-
-        boolean result = dao.checkAccIDcoKhu("2");
-
-        // Print the result
-        System.out.println(result);
+        
     }
 
 }
