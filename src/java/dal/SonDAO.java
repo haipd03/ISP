@@ -87,7 +87,7 @@ public class SonDAO extends MyDAO {
         }
         return KhachThues;
     }
-    
+
     public List<KhachThue> getKhachThueByPhongIDAndTinhTrangLa1(String id) {
         List<KhachThue> KhachThues = new ArrayList<>();
         String sql = "Select * from khachthue k where k.PhongID= ? and k.TinhTrang = 1";
@@ -141,6 +141,59 @@ public class SonDAO extends MyDAO {
             e.printStackTrace();
         }
         return HopDongs;
+    }
+
+    public List<KhachThue> getKhachThue() {
+        List<KhachThue> KhachThues = new ArrayList<>();
+        String sql = "Select * from khachthue";
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int KhachID = rs.getInt("KhachID");
+                String HoVaTen = rs.getString("HoVaTen");
+                String CCCD = rs.getString("CCCD");
+                String SDT = rs.getString("SDT");
+                String QueQuan = rs.getString("QueQuan");
+                String TenNguoiThan = rs.getString("TenNguoiThan");
+                String SDTNguoiThan = rs.getString("SDTNguoiThan");
+                String QuanHeVoiNguoiThan = rs.getString("QuanHeVoiNguoiThan");
+                int PhongID = rs.getInt("PhongID");
+                int TinhTrang = rs.getInt("TinhTrang");
+                KhachThue khachThue = new KhachThue(KhachID, HoVaTen, CCCD, SDT, QueQuan, TenNguoiThan, SDTNguoiThan, QuanHeVoiNguoiThan, PhongID, TinhTrang);
+                KhachThues.add(khachThue);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return KhachThues;
+    }
+
+    public List<KhachThue> getKhachThueByAccountID(int aid) {
+        List<KhachThue> KhachThues = new ArrayList<>();
+        String sql = "SELECT Kh.* FROM KhachThue Kh JOIN Phong P ON P.PhongID = Kh.PhongID JOIN Khu K ON K.KhuID = P.KhuID JOIN Accounts a ON a.AccountID = k.AccountID WHERE a.AccountID = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, aid);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int KhachID = rs.getInt("KhachID");
+                String HoVaTen = rs.getString("HoVaTen");
+                String CCCD = rs.getString("CCCD");
+                String SDT = rs.getString("SDT");
+                String QueQuan = rs.getString("QueQuan");
+                String TenNguoiThan = rs.getString("TenNguoiThan");
+                String SDTNguoiThan = rs.getString("SDTNguoiThan");
+                String QuanHeVoiNguoiThan = rs.getString("QuanHeVoiNguoiThan");
+                int PhongID = rs.getInt("PhongID");
+                int TinhTrang = rs.getInt("TinhTrang");
+                KhachThue khachThue = new KhachThue(KhachID, HoVaTen, CCCD, SDT, QueQuan, TenNguoiThan, SDTNguoiThan, QuanHeVoiNguoiThan, PhongID, TinhTrang);
+                KhachThues.add(khachThue);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return KhachThues;
     }
 
     public HopDong getHopDongByHopDongID(String id) {
@@ -374,32 +427,6 @@ public class SonDAO extends MyDAO {
         }
     }
 
-    public static void main(String[] args) throws SQLException {
-        SonDAO dao = new SonDAO();
-
-        // Test the insertHopDong method
-        String hopDongID = "885454";
-        String khachID = "66688";
-        String phongID = "1111112";
-        String tienCoc = "1000000";
-        String ngayThue = "2024-01-01";
-        String ngayTra = "2024-12-31";
-        String soKhachThue = "2";
-        String ghiChu = "Ghi chú";
-        String cccd = "1126484355";
-        String sdt = "79430258";
-        String hoVaTen = "Nguyen Van A";
-        String tinhTrang = "1";
-
-        dao.insertHopDong(hopDongID, khachID, phongID, tienCoc, ngayThue, ngayTra, soKhachThue, ghiChu, cccd, sdt, hoVaTen, tinhTrang);
-
-        // Retrieve and print the list of contracts to verify insertion
-        List<HopDong> listC = dao.getHopDong();
-        for (HopDong category : listC) {
-            System.out.println(category);
-        }
-    }
-
     public boolean checkKhachIDExists(String KhachID) {
         String sql = "SELECT * FROM KhachThue WHERE KhachID = ?";
         try {
@@ -426,4 +453,12 @@ public class SonDAO extends MyDAO {
         return false;
     }
 
+    public static void main(String[] args) throws SQLException {
+        SonDAO dao = new SonDAO();
+
+        List<KhachThue> listC = dao.getKhachThueByAccountID(3);
+        for (KhachThue category : listC) {
+            System.out.println(category);
+        }
+    }
 }
