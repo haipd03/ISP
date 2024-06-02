@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import = "model.Phong" %>
-<%@page import = "model.ThietBi" %>
+<%@page import = "model.DichVu" %>
 <%@page import = "java.util.*" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
