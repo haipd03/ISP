@@ -1,15 +1,3 @@
-<%-- 
-    Document   : EditHoaDonDetail
-    Created on : May 28, 2024, 11:30:07 PM
-    Author     : Ngoc Lan
---%>
-
-<%-- 
-    Document   : EditThietBi.jsp
-    Created on : May 19, 2024, 2:05:30 PM
-    Author     : Ngoc Lan
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import = "model.HoaDon" %>
 <%@page import = "model.HoaDonDetail" %>
@@ -17,12 +5,10 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- Css -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="./dist/styles.css">
     <link rel="stylesheet" href="./dist/all.css">
@@ -32,22 +18,12 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <title>Edit Thiết Bị</title>
 </head>
-
 <body>
-    <!--Container -->
     <div class="mx-auto bg-grey-lightest">
-        <!--Screen-->
         <div class="min-h-screen flex flex-col">
-            <!--Header Section Starts Here-->
             <jsp:include page="menu1.jsp" />
-            <!--/Header-->
-
             <div class="flex flex-1">
-                <!--Sidebar-->
                 <jsp:include page="menu2.jsp" />
-                <!--/Sidebar-->
-
-                <!-- Main Content -->
                 <div class="mb-4 md:mx-2 lg:mx-2 border border-gray-300 rounded-lg shadow-lg w-full md:w-1/2 lg:w-4/5">
                     <div class="bg-gray-600 text-white px-4 py-3 rounded-t-lg">
                         Chỉnh sửa hóa đơn chi tiết
@@ -63,7 +39,7 @@
                                             <form action="edithoadondetail" method="post">
                                                 <div class="form-group">
                                                     <label>HoaDonDetailID:</label>
-                                                    <input value="${detail.hoaDonDetailID}" name="HoaDonDetailID:" type="text" class="form-control" readonly required>
+                                                    <input value="${detail.hoaDonDetailID}" name="HoaDonChiTietID" type="text" class="form-control" readonly required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>HoaDonID</label>
@@ -95,7 +71,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label>DichVuID</label>
-                                                    <input value="${detail.dichVuID}" name="DichVuID" type="text" class="form-control" required>
+                                                    <input value="${detail.dichVuID}" name="DichVuID" type="text" class="form-control" readonly required>
                                                 </div>
                                                 <button type="submit" class="btn btn-primary">Save Changes</button>
                                                 <a href="listhoadondetail?id=${detail.hoaDonID}" class="btn btn-danger">Back</a>
@@ -107,17 +83,12 @@
                         </div>
                     </div>
                 </div>
-                <!--/Main-->
             </div>
-            <!--Footer-->
             <footer class="bg-grey-darkest text-white p-2">
                 <div class="flex flex-1 mx-auto">&copy; My Design</div>
             </footer>
-            <!--/footer-->
         </div>
     </div>
     <script src="./main.js"></script>
 </body>
-
 </html>
-

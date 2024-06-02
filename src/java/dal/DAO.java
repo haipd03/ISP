@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import model.Accounts;
+import model.HoaDon;
 import model.HoaDonDetail;
 import model.KhachThue;
 import model.Khu;
@@ -996,32 +997,66 @@ public class DAO extends MyDAO {
         return null;
     }
 
-    public void editHoaDonDetail( String tungay, String denngay, String tongsodien, String tongsonuoc, String heso, String thanhtien, String dichvuid, String id) {
-        String query = "update HoaDonDetail\n"
-                + "set TuNgay = '?',\n"
-                + "DenNgay = '?',\n"
-                + "TongSoDien = ?,\n"
-                + "TongSoNuoc = ?,\n"
-                + "HeSo = ?,\n"
-                + "ThanhTien = ?,\n"
-                + "DichVuID = ?\n"
-                + "where HoaDonDetailID = ?";
+    public void editHoaDonDetail(String TuNgay, String DenNgay, String TongSoDien, String TongSoNuoc, String HeSo, String ThanhTien, String DichVuID, String HoaDonChiTietID) {
+        String query = "UPDATE HoaDonDetail SET TuNgay = ?, DenNgay = ?, TongSoDien = ?, TongSoNuoc = ?, HeSo = ?, ThanhTien = ?, DichVuID = ? WHERE HoaDonDetailID = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, tungay);
-            ps.setString(2, denngay);
-            ps.setString(3, tongsodien);
-            ps.setString(4, tongsonuoc);
-            ps.setString(5, heso);
-            ps.setString(6, thanhtien);
-            ps.setString(7, dichvuid);
-            ps.setString(8, id);
+            ps.setString(1, TuNgay);
+            ps.setString(2, DenNgay);
+            ps.setString(3, TongSoDien);
+            ps.setString(4, TongSoNuoc);
+            ps.setString(5, HeSo);
+            ps.setString(6, ThanhTien);
+            ps.setString(7, DichVuID);
+            ps.setString(8, HoaDonChiTietID);
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    
+
+    public List<HoaDon> getIDByHoaDonID(String hdid) {
+        List<HoaDon> hoaDon = new ArrayList<>();
+        String query = "SELECT * FROM HoaDonDetail WHERE HoaDonID = ?";
+        try {
+            ps = con.prepareStatement(query);
+            ps.setString(1, hdid);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int hoaDonID = rs.getInt("HoaDonID");
+                int hopDongID = rs.getInt("HopDongID");
+                String tinhTrangThanhToan = rs.getString("TinhTrangThanhToan");
+                Date tuNgay = rs.getDate("TuNgay");
+                Date denNgay = rs.getDate("DenNgay");
+                int tongTien = rs.getInt("TongTien");
+                HoaDon hoaDons = new HoaDon(hoaDonID, hopDongID, tinhTrangThanhToan, tuNgay, denNgay, tongTien);
+                hoaDon.add(hoaDons);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return hoaDon;
+    }
+
+    public void insertHoaDonDetail(String hddid, String hdid, String tungay, String denngay, String tongsodien, String tongsonuoc, String heso, String thanhtien, String dichvuid) {
+        String query = "insert into HoaDonDetail values(?,?,?,?,?,?,?,?,?)";
+        try {
+           ps = con.prepareStatement(query);
+            ps.setString(1, hddid);
+            ps.setString(2, hdid);
+            ps.setString(3, tungay);
+            ps.setString(4, denngay);
+            ps.setString(5, tongsodien);
+            ps.setString(6, tongsonuoc);
+            ps.setString(7, heso);
+            ps.setString(8, thanhtien);
+            ps.setString(9, dichvuid);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle exceptions
+        }
+    }
 
     public List<Accounts> getAccounts() {
         List<Accounts> Account = new ArrayList<>();
@@ -1076,10 +1111,17 @@ public class DAO extends MyDAO {
     public static void main(String[] args) {
         DAO dao = new DAO();
 
-        boolean result = dao.checkAccIDcoKhu("2");
+        String TuNgay = "2023-05-01";
+        String DenNgay = "2023-05-31";
+        String TongSoDien = "0";
+        String TongSoNuoc = "5";
+        String HeSo = "1";
+        String ThanhTien = "500000";
+        String DichVuID = "1";
+        String HoaDonChiTietID = "263";
+        String HoaDonID = "1";
 
-        // Print the result
-        System.out.println(result);
+        dao.insertHoaDonDetail(HoaDonChiTietID, HoaDonID, TuNgay, DenNgay, TongSoDien, TongSoNuoc, HeSo, ThanhTien, DichVuID);
     }
 
 }
