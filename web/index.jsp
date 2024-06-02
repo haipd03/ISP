@@ -71,7 +71,7 @@
                                     <div class="shadow-lg bg-red-vibrant border-l-8 hover:bg-red-vibrant-dark border-red-vibrant-dark mb-2 p-2 md:w-1/4 mx-2 relative">
                                         <div class="p-4 flex flex-col items-center justify-center">
                                             <button class="no-underline text-white text-2xl focus:outline-none" id="khuDropdownButton">
-                                                KHU
+                                                KHU <i class="fas fa-chevron-down ml-2"></i>
                                             </button>
                                         </div>
                                         <div id="khuDropdownMenu" class="hidden absolute bg-red-vibrant-dark text-white right-0 mt-2 py-2 w-48 border border-red-vibrant-dark">
@@ -89,7 +89,7 @@
                                     <div class="shadow bg-info border-l-8 hover:bg-info-dark border-info-dark mb-2 p-2 md:w-1/4 mx-2 relative">
                                         <div class="p-4 flex flex-col items-center justify-center">
                                             <button class="no-underline text-white text-2xl focus:outline-none" id="loaiPhongDropdownButton">
-                                                LOẠI PHÒNG
+                                                LOẠI PHÒNG <i class="fas fa-chevron-down ml-2"></i>
                                             </button>
                                         </div>
                                         <div id="loaiPhongDropdownMenu" class="hidden absolute bg-info-dark text-white right-0 mt-2 py-2 w-48 border border-red-vibrant-dark">
@@ -107,9 +107,9 @@
                                     <div class="shadow bg-warning border-l-8 hover:bg-warning-dark border-warning-dark mb-2 p-2 md:w-1/4 mx-2 relative">
                                         <div class="p-4 flex flex-col items-center justify-center">
                                             <button class="no-underline text-white text-2xl focus:outline-none" id="giaDropdownButton">
-                                                GIÁ
+                                                GIÁ <i class="fas fa-chevron-down ml-2"></i>
                                             </button>
-                                        </div>                         
+                                        </div>
                                         <div id="giaDropdownMenu" class="hidden absolute bg-warning-dark text-white right-0 mt-2 py-2 w-48 border border-red-vibrant-dark">
                                             <c:forEach items="${ba}" var="c">
                                                 <li>
@@ -125,7 +125,7 @@
                                     <div class="shadow bg-success border-l-8 hover:bg-success-dark border-success-dark mb-2 p-2 md:w-1/4 mx-2 relative">
                                         <div class="p-4 flex flex-col items-center justify-center">
                                             <button class="no-underline text-white text-2xl focus:outline-none" id="tinhTrangDropdownButton">
-                                                TÌNH TRẠNG
+                                                TÌNH TRẠNG <i class="fas fa-chevron-down ml-2"></i>
                                             </button>
                                         </div>
                                         <div id="tinhTrangDropdownMenu" class="hidden absolute bg-success-dark text-white right-0 mt-2 py-2 w-48 border border-red-vibrant-dark">
@@ -144,7 +144,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </c:if>
 
                             <table border="0">

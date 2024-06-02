@@ -17,19 +17,21 @@ public class HoaDonDetail {
     private Date denNgay;
     private int tongSoDien;
     private int tongSoNuoc;
+    private int heSo;
     private int thanhTien;
     private int dichVuID;
 
     public HoaDonDetail() {
     }
 
-    public HoaDonDetail(int hoaDonDetailID, int hoaDonID, Date tuNgay, Date denNgay, int tongSoDien, int tongSoNuoc, int thanhTien, int dichVuID) {
+    public HoaDonDetail(int hoaDonDetailID, int hoaDonID, Date tuNgay, Date denNgay, int tongSoDien, int tongSoNuoc, int heSo, int thanhTien, int dichVuID) {
         this.hoaDonDetailID = hoaDonDetailID;
         this.hoaDonID = hoaDonID;
         this.tuNgay = tuNgay;
         this.denNgay = denNgay;
         this.tongSoDien = tongSoDien;
         this.tongSoNuoc = tongSoNuoc;
+        this.heSo = heSo;
         this.thanhTien = thanhTien;
         this.dichVuID = dichVuID;
     }
@@ -82,6 +84,14 @@ public class HoaDonDetail {
         this.tongSoNuoc = tongSoNuoc;
     }
 
+    public int getHeSo() {
+        return heSo;
+    }
+
+    public void setHeSo(int heSo) {
+        this.heSo = heSo;
+    }
+
     public int getThanhTien() {
         return thanhTien;
     }
@@ -100,10 +110,10 @@ public class HoaDonDetail {
 
     @Override
     public String toString() {
-        return "HoaDonDetail{" + "hoaDonDetailID=" + hoaDonDetailID + ", hoaDonID=" + hoaDonID + ", tuNgay=" + tuNgay + ", denNgay=" + denNgay + ", tongSoDien=" + tongSoDien + ", tongSoNuoc=" + tongSoNuoc + ", thanhTien=" + thanhTien + ", dichVuID=" + dichVuID + '}';
+        return "HoaDonDetail{" + "hoaDonDetailID=" + hoaDonDetailID + ", hoaDonID=" + hoaDonID + ", tuNgay=" + tuNgay + ", denNgay=" + denNgay + ", tongSoDien=" + tongSoDien + ", tongSoNuoc=" + tongSoNuoc + ", heSo=" + heSo + ", thanhTien=" + thanhTien + ", dichVuID=" + dichVuID + '}';
     }
-    
-    
+
+   
     
     
 }

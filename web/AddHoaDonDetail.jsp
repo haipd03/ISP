@@ -1,12 +1,13 @@
 <%-- 
-    Document   : AddThietBi.jsp
-    Created on : May 19, 2024, 6:48:54 PM
+    Document   : AddHoaDonDetail
+    Created on : May 30, 2024, 6:59:37 PM
     Author     : Ngoc Lan
 --%>
 
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import = "model.Phong" %>
-<%@page import = "model.ThietBi" %>
+<%@page import = "model.HoaDon" %>
+<%@page import = "model.HoaDonDetail" %>
 <%@page import = "java.util.*" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -24,7 +25,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <title>Add Thiet Bi</title>
+        <title></title>
     </head>
 
     <body>
@@ -44,7 +45,7 @@
                     <!-- Main Content -->
                     <div class="mb-4 md:mx-2 lg:mx-2 border border-gray-300 rounded-lg shadow-lg w-full md:w-1/2 lg:w-4/5">
                         <div class="bg-gray-600 text-white px-4 py-3 rounded-t-lg">
-                            Thêm Thiết Bị
+                            Thêm hóa đơn chi tiết
                         </div>
                         <div class="p-6 bg-white">
                             <div class="container">
@@ -52,7 +53,7 @@
                                     <div class="table-title">
                                         <div class="row">
                                             <div class="col-sm-6">
-                                                <h2>Thêm thiết bị</h2>
+                                                <h2>Thêm hóa đơn chi tiết</h2>
                                             </div>
                                             <div class="col-sm-6"></div>
                                         </div>
@@ -61,46 +62,55 @@
                                 <div id="editEmployeeModal">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
-                                            <form action="addthietbi" method="post">
+                                            <form action="addhoadondetail" method="post">
                                                 <div class="modal-header">						
                                                     <h4 class="modal-title">Chi tiết</h4>
                                                 </div>
                                                 <div class="modal-body">					
                                                     <div class="form-group">
-                                                        <label>ThietBiID:</label>
-                                                        <input name="ThietBiID" type="text" class="form-control" required>
+                                                        <label>HoaDonDetailID</label>
+                                                        <input name="HoaDonDetailID" type="text" class="form-control" required>
                                                     </div>
-                                                    <c:forEach items="${pid}" var="thietbi">
+                                                    
                                                         <div class="form-group">
-                                                            <label>PhongID:</label>
-                                                            <input value="${thietbi.phongID}" name="PhongID" type="text" class="form-control" readonly required>                                    
+                                                            <label>HoaDonID</label>
+                                                            <input value="${hdid1}" name="HoaDonID" type="text" class="form-control" readonly required>                                    
                                                         </div>
-                                                    </c:forEach>
+                                                    
                                                     <div class="form-group">
-                                                        <label>Name:</label>
-                                                        <input name="Name" type="text" class="form-control" required>
+                                                        <label>TuNgay</label>
+                                                        <input name="TuNgay" type="date" class="form-control" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>SoLuong:</label>
-                                                        <input name="SoLuong" type="text" class="form-control" required>
+                                                        <label>DenNgay</label>
+                                                        <input name="DenNgay" type="date" class="form-control" required>
+                                                    </div> 
+                                                    <div class="form-group">
+                                                        <label>TongSoDien</label>
+                                                        <input name="TongSoDien" type="text" class="form-control" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>TinhTrang:</label>
-                                                        <select name="TinhTrang" class="form-control" required>
-                                                            <option value="Tốt">Tốt</option>
-                                                            <option value="Bảo trì">Bảo trì</option>
-                                                            <option value="Vô hiệu hóa">Vô hiệu hóa</option>
-                                                        </select>
+                                                        <label>TongSoNuoc</label>
+                                                        <input name="TongSoNuoc" type="text" class="form-control" required>
                                                     </div>
-
                                                     <div class="form-group">
-                                                        <label>Gia:</label>
-                                                        <input name="Gia" type="text" class="form-control" required>
+                                                        <label>HeSo</label>
+                                                        <input name="HeSo" type="text" class="form-control" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>ThanhTien</label>
+                                                        <input name="ThanhTien" type="text" class="form-control" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>DichVuID</label>
+                                                        <input name="DichVuID" type="text" class="form-control" required>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">                            
                                                     <input type="submit" class="btn btn-success" value="Add">
-                                                    <a href="listdichvu?id=${detail.dichVuID}" class="btn btn-danger">Back</a>
+                                                    <c:forEach items="${hdid}" var="o">
+                                                        <a href="listhoadondetail?id=${o.hoaDonID}" class="btn btn-danger">Back</a>
+                                                    </c:forEach>
                                                 </div>
                                             </form>
                                         </div>
@@ -122,3 +132,4 @@
     </body>
 
 </html>
+

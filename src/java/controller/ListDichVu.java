@@ -5,6 +5,8 @@
 package controller;
 
 import dal.DAO;
+import dal.HaiDao;
+import dal.LinhDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,46 +16,40 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
-import model.Khu;
-import model.Phong;
+import model.Accounts;
+import model.DichVu;
 
 /**
  *
  * @author vulin
  */
-@WebServlet(name="Search", urlPatterns={"/search"})
-public class Search extends HttpServlet {
+@WebServlet(name = "ListDichVu", urlPatterns = {"/listdichvu"})
+public class ListDichVu extends HttpServlet {
 
-    
-
-   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        String txtSearch = request.getParameter("txt"); // Ensure this matches the input field's name attribute
-//        if (txtSearch == null || txtSearch.trim().isEmpty()) {       
-//            response.sendRedirect("index.jsp");
-//            return;
-//        }
-        DAO dao = new DAO();
-        List<Phong> ltr = dao.searchbySoPhong(txtSearch); // Pass the search text to the search method
-        List<Khu> lk = dao.getKhu2();   //edit
-        List<Phong> bp = dao.getPhongForLoaiPhong();
-        List<Phong> btt = dao.getPhongForTinhTrang();
-        List<Phong> ba = dao.getPhongForGia();
-        if (ltr == null || ltr.isEmpty()) {
-            response.sendRedirect("404.jsp");
-            return;
-        }
- 
-        request.setAttribute("lp", ltr);
-        request.setAttribute("lk", lk); //edit
-        request.setAttribute("bp", bp);
-        request.setAttribute("btt", btt);
-        request.setAttribute("ba", ba);
-
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+    response.setContentType("text/html;charset=UTF-8");
+    HttpSession session = request.getSession();
+    Accounts a = (Accounts) session.getAttribute("acc");
+    if (a == null) {
+        response.sendRedirect("login");
+    } else {
+        LinhDao u = new LinhDao();
+        List<DichVu> ldv = u.getAllDichVu();
+        request.setAttribute("ldv", ldv);
+        request.getRequestDispatcher("DichVu.jsp").forward(request, response);
     }
+}
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
