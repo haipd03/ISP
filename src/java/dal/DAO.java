@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import model.Accounts;
+import model.HoaDon;
 import model.HoaDonDetail;
 import model.KhachThue;
 import model.Khu;
@@ -960,16 +961,105 @@ public class DAO extends MyDAO {
                 Date denNgay = rs.getDate("DenNgay");
                 int tongSoDien = rs.getInt("TongSoDien");
                 int tongSoNuoc = rs.getInt("TongSoNuoc");
+                int heSo = rs.getInt("HeSo");
                 int thanhTien = rs.getInt("ThanhTien");
                 int dichVuID = rs.getInt("DichVuID");
 
-                HoaDonDetail hoaDonDetails = new HoaDonDetail(hoaDonDetailID, hoaDonID, tuNgay, denNgay, tongSoDien, tongSoNuoc, thanhTien, dichVuID);
+                HoaDonDetail hoaDonDetails = new HoaDonDetail(hoaDonDetailID, hoaDonID, tuNgay, denNgay, tongSoDien, tongSoNuoc, heSo, thanhTien, dichVuID);
                 hoaDonDetail.add(hoaDonDetails);
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // In ra lỗi nếu có
+            e.printStackTrace();
         }
         return hoaDonDetail;
+    }
+
+    public HoaDonDetail getHoaDonDetailByID(String id) {
+        String sql = "select * from HoaDonDetail where HoaDonDetailID = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                int hoaDonDetailID = rs.getInt("HoaDonDetailID");
+                int hoaDonID = rs.getInt("HoaDonID");
+                Date tuNgay = rs.getDate("TuNgay");
+                Date denNgay = rs.getDate("DenNgay");
+                int tongSoDien = rs.getInt("TongSoDien");
+                int tongSoNuoc = rs.getInt("TongSoNuoc");
+                int heSo = rs.getInt("HeSo");
+                int thanhTien = rs.getInt("ThanhTien");
+                int dichVuID = rs.getInt("DichVuID");
+
+                // Assuming Truyen is your custom class
+                HoaDonDetail hoadondetails = new HoaDonDetail(hoaDonDetailID, hoaDonID, tuNgay, denNgay, tongSoDien, tongSoNuoc, heSo, thanhTien, dichVuID);
+                return hoadondetails;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void editHoaDonDetail(String TuNgay, String DenNgay, String TongSoDien, String TongSoNuoc, String HeSo, String ThanhTien, String DichVuID, String HoaDonChiTietID) {
+        String query = "UPDATE HoaDonDetail SET TuNgay = ?, DenNgay = ?, TongSoDien = ?, TongSoNuoc = ?, HeSo = ?, ThanhTien = ?, DichVuID = ? WHERE HoaDonDetailID = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, TuNgay);
+            ps.setString(2, DenNgay);
+            ps.setString(3, TongSoDien);
+            ps.setString(4, TongSoNuoc);
+            ps.setString(5, HeSo);
+            ps.setString(6, ThanhTien);
+            ps.setString(7, DichVuID);
+            ps.setString(8, HoaDonChiTietID);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<HoaDon> getIDByHoaDonID(String hdid) {
+        List<HoaDon> hoaDon = new ArrayList<>();
+        String query = "SELECT * FROM HoaDonDetail WHERE HoaDonID = ?";
+        try {
+            ps = con.prepareStatement(query);
+            ps.setString(1, hdid);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int hoaDonID = rs.getInt("HoaDonID");
+                int hopDongID = rs.getInt("HopDongID");
+                String tinhTrangThanhToan = rs.getString("TinhTrangThanhToan");
+                Date tuNgay = rs.getDate("TuNgay");
+                Date denNgay = rs.getDate("DenNgay");
+                int tongTien = rs.getInt("TongTien");
+                HoaDon hoaDons = new HoaDon(hoaDonID, hopDongID, tinhTrangThanhToan, tuNgay, denNgay, tongTien);
+                hoaDon.add(hoaDons);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return hoaDon;
+    }
+
+    public void insertHoaDonDetail(String hddid, String hdid, String tungay, String denngay, String tongsodien, String tongsonuoc, String heso, String thanhtien, String dichvuid) {
+        String query = "insert into HoaDonDetail values(?,?,?,?,?,?,?,?,?)";
+        try {
+           ps = con.prepareStatement(query);
+            ps.setString(1, hddid);
+            ps.setString(2, hdid);
+            ps.setString(3, tungay);
+            ps.setString(4, denngay);
+            ps.setString(5, tongsodien);
+            ps.setString(6, tongsonuoc);
+            ps.setString(7, heso);
+            ps.setString(8, thanhtien);
+            ps.setString(9, dichvuid);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle exceptions
+        }
     }
 
     public List<Accounts> getAccounts() {
@@ -1024,7 +1114,19 @@ public class DAO extends MyDAO {
 
     public static void main(String[] args) {
         DAO dao = new DAO();
-        
+
+        String TuNgay = "2023-05-01";
+        String DenNgay = "2023-05-31";
+        String TongSoDien = "0";
+        String TongSoNuoc = "5";
+        String HeSo = "1";
+        String ThanhTien = "500000";
+        String DichVuID = "1";
+        String HoaDonChiTietID = "263";
+        String HoaDonID = "1";
+
+        dao.insertHoaDonDetail(HoaDonChiTietID, HoaDonID, TuNgay, DenNgay, TongSoDien, TongSoNuoc, HeSo, ThanhTien, DichVuID);
+
     }
 
 }

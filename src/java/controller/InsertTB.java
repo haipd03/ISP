@@ -37,8 +37,7 @@ public class InsertTB extends HttpServlet {
         String pid = request.getParameter("ib");
         DAO dao = new DAO();
         List<Phong> p = dao.getPhongByPhongID(pid);
-        request.setAttribute("pid", p);
-        //ThietBi tb = dao.getThietBibypID(tbpid);
+        request.setAttribute("pid", p);        
         request.getRequestDispatcher("AddThietBi.jsp" ).forward(request, response);
     } 
 
