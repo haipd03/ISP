@@ -86,8 +86,13 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label>TinhTrang:</label>
-                                                        <input name="TinhTrang" type="text" class="form-control" required>
+                                                        <select name="TinhTrang" class="form-control" required>
+                                                            <option value="Tốt">Tốt</option>
+                                                            <option value="Bảo trì">Bảo trì</option>
+                                                            <option value="Vô hiệu hóa">Vô hiệu hóa</option>
+                                                        </select>
                                                     </div>
+
                                                     <div class="form-group">
                                                         <label>Gia:</label>
                                                         <input name="Gia" type="text" class="form-control" required>
@@ -95,9 +100,7 @@
                                                 </div>
                                                 <div class="modal-footer">                            
                                                     <input type="submit" class="btn btn-success" value="Add">
-                                                    <c:forEach items="${pid}" var="thietbi">
-                                                        <a href="listthietbi?id=${thietbi.phongID}" class="btn btn-danger">Back</a>
-                                                    </c:forEach>
+                                                    <a href="listdichvu?id=${detail.dichVuID}" class="btn btn-danger">Back</a>
                                                 </div>
                                             </form>
                                         </div>

@@ -45,6 +45,7 @@ public class ListHoaDonDetail extends HttpServlet {
             List<HoaDonDetail> lhdd = dao.getHoaDonDetail(id);
 
             request.setAttribute("lhdd", lhdd);
+            request.setAttribute("hdid1", id);
 
             request.getRequestDispatcher("HoaDonDetail.jsp").forward(request, response);
         }
