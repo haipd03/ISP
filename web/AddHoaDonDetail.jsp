@@ -87,7 +87,7 @@
                                                     </div> 
                                                     <div class="form-group">
                                                         <label>TongSo</label>
-                                                        <input name="TongSoDien" type="text" class="form-control" required>
+                                                        <input name="TongSo" type="text" class="form-control" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>HeSo</label>
@@ -128,4 +128,3 @@
     </body>
 
 </html>
-

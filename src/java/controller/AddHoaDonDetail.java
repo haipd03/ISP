@@ -37,7 +37,7 @@ public class AddHoaDonDetail extends HttpServlet {
         String hdid = request.getParameter("HoaDonID");
         String tn = request.getParameter("TuNgay");
         String dn = request.getParameter("DenNgay");
-        String ts = request.getParameter("TongSoDie");
+        String ts = request.getParameter("TongSo");
         String hs = request.getParameter("HeSo");
         String tt = request.getParameter("ThanhTien");
         String dvid = request.getParameter("DichVuID");
