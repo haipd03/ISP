@@ -15,8 +15,7 @@ public class HoaDonDetail {
     private int hoaDonID;
     private Date tuNgay;
     private Date denNgay;
-    private int tongSoDien;
-    private int tongSoNuoc;
+    private int tongSo;
     private int heSo;
     private int thanhTien;
     private int dichVuID;
@@ -24,17 +23,18 @@ public class HoaDonDetail {
     public HoaDonDetail() {
     }
 
-    public HoaDonDetail(int hoaDonDetailID, int hoaDonID, Date tuNgay, Date denNgay, int tongSoDien, int tongSoNuoc, int heSo, int thanhTien, int dichVuID) {
+    public HoaDonDetail(int hoaDonDetailID, int hoaDonID, Date tuNgay, Date denNgay, int tongSo, int heSo, int thanhTien, int dichVuID) {
         this.hoaDonDetailID = hoaDonDetailID;
         this.hoaDonID = hoaDonID;
         this.tuNgay = tuNgay;
         this.denNgay = denNgay;
-        this.tongSoDien = tongSoDien;
-        this.tongSoNuoc = tongSoNuoc;
+        this.tongSo = tongSo;
         this.heSo = heSo;
         this.thanhTien = thanhTien;
         this.dichVuID = dichVuID;
     }
+    
+    
 
     public int getHoaDonDetailID() {
         return hoaDonDetailID;
@@ -68,20 +68,12 @@ public class HoaDonDetail {
         this.denNgay = denNgay;
     }
 
-    public int getTongSoDien() {
-        return tongSoDien;
+    public int getTongSo() {
+        return tongSo;
     }
 
-    public void setTongSoDien(int tongSoDien) {
-        this.tongSoDien = tongSoDien;
-    }
-
-    public int getTongSoNuoc() {
-        return tongSoNuoc;
-    }
-
-    public void setTongSoNuoc(int tongSoNuoc) {
-        this.tongSoNuoc = tongSoNuoc;
+    public void setTongSo(int tongSo) {
+        this.tongSo = tongSo;
     }
 
     public int getHeSo() {
@@ -110,7 +102,7 @@ public class HoaDonDetail {
 
     @Override
     public String toString() {
-        return "HoaDonDetail{" + "hoaDonDetailID=" + hoaDonDetailID + ", hoaDonID=" + hoaDonID + ", tuNgay=" + tuNgay + ", denNgay=" + denNgay + ", tongSoDien=" + tongSoDien + ", tongSoNuoc=" + tongSoNuoc + ", heSo=" + heSo + ", thanhTien=" + thanhTien + ", dichVuID=" + dichVuID + '}';
+        return "HoaDonDetail{" + "hoaDonDetailID=" + hoaDonDetailID + ", hoaDonID=" + hoaDonID + ", tuNgay=" + tuNgay + ", denNgay=" + denNgay + ", tongSo=" + tongSo + ", heSo=" + heSo + ", thanhTien=" + thanhTien + ", dichVuID=" + dichVuID + '}';
     }
 
    

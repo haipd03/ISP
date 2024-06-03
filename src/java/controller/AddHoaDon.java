@@ -35,43 +35,52 @@ public class AddHoaDon extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ParseException {
-        response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        String hoaDonID = request.getParameter("HoaDonID");
-        String hopDongID = request.getParameter("HopDongID");
+        throws ServletException, IOException {
+    response.setContentType("text/html;charset=UTF-8");
+
+    try {
+        // Get the form data
+        int hoaDonID = Integer.parseInt(request.getParameter("HoaDonID"));
+        int hopDongID = Integer.parseInt(request.getParameter("HopDongID"));
         String tinhTrangThanhToan = request.getParameter("TinhTrangThanhToan");
-        String tuNgay = request.getParameter("TuNgay");
-        String denNgay = request.getParameter("DenNgay");
-        String tongTien = request.getParameter("TongTien");
 
-        HaiDao dao = new HaiDao(); // Initialize your DAO
+        String ngayThanhToanStr = request.getParameter("NgayThanhToan");
+        String tuNgayStr = request.getParameter("TuNgay");
+        String denNgayStr = request.getParameter("DenNgay");
 
-       
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date tuNgay = null;
+        Date denNgay = null;
+        Date ngayThanhToan = null;
 
-        // Inside your processRequest method
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date fromDate = null;
-        Date toDate = null;
-        try {
-            fromDate = sdf.parse(tuNgay);
-            toDate = sdf.parse(denNgay);
-        } catch (ParseException e) {
-            e.printStackTrace();
+        if (ngayThanhToanStr != null && !ngayThanhToanStr.isEmpty()) {
+            ngayThanhToan = dateFormat.parse(ngayThanhToanStr);
+        }
+        if (tuNgayStr != null && !tuNgayStr.isEmpty()) {
+            tuNgay = dateFormat.parse(tuNgayStr);
+        }
+        if (denNgayStr != null && !denNgayStr.isEmpty()) {
+            denNgay = dateFormat.parse(denNgayStr);
         }
 
-// Create a new HoaDon object with parsed dates
-        HoaDon hoaDon = new HoaDon(Integer.parseInt(hoaDonID), Integer.parseInt(hopDongID),
-                tinhTrangThanhToan, fromDate, toDate,
-                Integer.parseInt(tongTien));
+        int tongTien = Integer.parseInt(request.getParameter("TongTien"));
 
-        // Add the HoaDon to the database
-        dao.addHoaDon(hoaDon);
+        // Create a HoaDon object with the updated details
+        HoaDon hoadon = new HoaDon(hoaDonID, hopDongID, ngayThanhToan, tinhTrangThanhToan, tuNgay, denNgay, tongTien);
 
-        // Redirect to the listhoadon page
+        // Update the HoaDon in the database
+        HaiDao dao = new HaiDao();
+        dao.addHoaDon(hoadon);
+
+        // Redirect to the list of invoices
         response.sendRedirect("listhoadon");
 
+    } catch (NumberFormatException | ParseException e) {
+        e.printStackTrace();
+        response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid input");
     }
+}
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -85,11 +94,7 @@ public class AddHoaDon extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ParseException ex) {
-            Logger.getLogger(AddHoaDon.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -103,11 +108,7 @@ public class AddHoaDon extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ParseException ex) {
-            Logger.getLogger(AddHoaDon.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**

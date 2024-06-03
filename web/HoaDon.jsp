@@ -38,6 +38,7 @@
                                     <th class="px-4 py-2">HoaDonID</th>
                                     <th class="px-4 py-2">HopDongID</th>
                                     <th class="px-4 py-2">SoPhong</th>
+                                    <th class="px-4 py-2">NgayThanhToan</th>
                                     <th class="px-4 py-2">TinhTrangThanhToan</th>
                                     <th class="px-4 py-2">TuNgay</th>
                                     <th class="px-4 py-2">DenNgay</th>
@@ -52,6 +53,7 @@
                                         <td class="px-4 py-2">${o.hoaDon.hoaDonID}</td>
                                         <td class="px-4 py-2">${o.hoaDon.hopDongID}</td>
                                         <td class="px-4 py-2">${o.soPhong}</td>
+                                        <td class="px-4 py-2">${o.hoaDon.ngayThanhToan}</td>
                                         <td class="px-4 py-2">${o.hoaDon.tinhTrangThanhToan}</td>
                                         <td class="px-4 py-2">${o.hoaDon.tuNgay}</td>
                                         <td class="px-4 py-2">${o.hoaDon.denNgay}</td>
