@@ -59,6 +59,10 @@
                                                         <input value="${hoadon.hopDongID}" name="HopDongID" type="text" class="form-control" readonly required>
                                                     </div>
                                                     <div class="form-group">
+                                                        <label>NgayThanhToan:</label>
+                                                        <input value="${hoadon.ngayThanhToan}" name="NgayThanhToan" type="date" class="form-control" required>
+                                                    </div>
+                                                    <div class="form-group">
                                                         <label>TinhTrangThanhToan:</label>
                                                         <input value="${hoadon.tinhTrangThanhToan}" name="TinhTrangThanhToan" type="text" class="form-control" required>
                                                     </div>

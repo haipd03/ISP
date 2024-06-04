@@ -45,7 +45,9 @@ public class EditHoaDon extends HttpServlet {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date tuNgay = null;
         Date denNgay = null;
+        Date ngayThanhToan=null;
         try {
+            ngayThanhToan = new Date(dateFormat.parse(request.getParameter("NgayThanhToan")).getTime());
             tuNgay = new Date(dateFormat.parse(request.getParameter("TuNgay")).getTime());
             denNgay = new Date(dateFormat.parse(request.getParameter("DenNgay")).getTime());
         } catch (ParseException e) {
@@ -54,7 +56,7 @@ public class EditHoaDon extends HttpServlet {
         int tongTien = Integer.parseInt(request.getParameter("TongTien"));
 
         // Create a HoaDon object with the updated details
-        HoaDon hoadon = new HoaDon(hoaDonID, hopDongID, tinhTrangThanhToan, tuNgay, denNgay, tongTien);
+        HoaDon hoadon = new HoaDon(hoaDonID, hopDongID,ngayThanhToan, tinhTrangThanhToan, tuNgay, denNgay, tongTien);
 
         // Update the HoaDon in the database
         HaiDao dao = new HaiDao();

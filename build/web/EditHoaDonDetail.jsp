@@ -54,12 +54,8 @@
                                                     <input value="${detail.denNgay}" name="DenNgay" type="date" class="form-control" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>TongSoDien</label>
-                                                    <input value="${detail.tongSoDien}" name="TongSoDien" type="text" class="form-control" required>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>TongSoNuoc</label>
-                                                    <input value="${detail.tongSoNuoc}" name="TongSoNuoc" type="text" class="form-control" required>
+                                                    <label>TongSo</label>
+                                                    <input value="${detail.tongSo}" name="TongSo" type="text" class="form-control" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>HeSo</label>
