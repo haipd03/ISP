@@ -1041,7 +1041,7 @@ public class DAO extends MyDAO {
         return hoaDon;
     }
 
-    public void insertHoaDonDetail(String hddid, String hdid, String tungay, String denngay, String tongso, String heso, String thanhtien, String dichvuid) {
+   public void insertHoaDonDetail(String hddid, String hdid, String tungay, String denngay, String tongso, String heso, String thanhtien, String dichvuid) {
         String query = "insert into HoaDonDetail values(?,?,?,?,?,?,?,?)";
         try {
            ps = con.prepareStatement(query);
@@ -1059,6 +1059,7 @@ public class DAO extends MyDAO {
             // Handle exceptions
         }
     }
+
 
     public List<Accounts> getAccounts() {
         List<Accounts> Account = new ArrayList<>();
@@ -1148,10 +1149,10 @@ public class DAO extends MyDAO {
 //        String HoaDonID = "1";
 //
 //        dao.insertHoaDonDetail(HoaDonChiTietID, HoaDonID, TuNgay, DenNgay, TongSo, HeSo, ThanhTien, DichVuID);
-        List<HoaDonDetail> listC = dao.getHoaDonDetail("1");
-        for (HoaDonDetail category : listC) {
-            System.out.println(category);
-        }
+ DichVu dichVu = dao.getDichVubyID("1");
+ 
+            System.out.println(dichVu);
+        
     }
 
 }
