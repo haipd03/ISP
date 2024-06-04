@@ -14,6 +14,7 @@ public class HoaDon {
 
     private int HoaDonID;
     private int HopDongID;
+    private Date NgayThanhToan;
     private String TinhTrangThanhToan;
     private Date tuNgay;
     private Date denNgay;
@@ -22,9 +23,10 @@ public class HoaDon {
     public HoaDon() {
     }
 
-    public HoaDon(int HoaDonID, int HopDongID, String TinhTrangThanhToan, Date tuNgay, Date denNgay, int TongTien) {
+    public HoaDon(int HoaDonID, int HopDongID, Date NgayThanhToan, String TinhTrangThanhToan, Date tuNgay, Date denNgay, int TongTien) {
         this.HoaDonID = HoaDonID;
         this.HopDongID = HopDongID;
+        this.NgayThanhToan = NgayThanhToan;
         this.TinhTrangThanhToan = TinhTrangThanhToan;
         this.tuNgay = tuNgay;
         this.denNgay = denNgay;
@@ -45,6 +47,14 @@ public class HoaDon {
 
     public void setHopDongID(int HopDongID) {
         this.HopDongID = HopDongID;
+    }
+
+    public Date getNgayThanhToan() {
+        return NgayThanhToan;
+    }
+
+    public void setNgayThanhToan(Date NgayThanhToan) {
+        this.NgayThanhToan = NgayThanhToan;
     }
 
     public String getTinhTrangThanhToan() {
@@ -81,9 +91,8 @@ public class HoaDon {
 
     @Override
     public String toString() {
-        return "HoaDon{" + "HoaDonID=" + HoaDonID + ", HopDongID=" + HopDongID + ", TinhTrangThanhToan=" + TinhTrangThanhToan + ", tuNgay=" + tuNgay + ", denNgay=" + denNgay + ", TongTien=" + TongTien + '}';
+        return "HoaDon{" + "HoaDonID=" + HoaDonID + ", HopDongID=" + HopDongID + ", NgayThanhToan=" + NgayThanhToan + ", TinhTrangThanhToan=" + TinhTrangThanhToan + ", tuNgay=" + tuNgay + ", denNgay=" + denNgay + ", TongTien=" + TongTien + '}';
     }
 
-    
     
 }

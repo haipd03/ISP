@@ -42,8 +42,7 @@
                                     <th class="px-2 py-2 text-center">HoaDonID</th>
                                     <th class="px-2 py-2 text-center">TuNgay</th>
                                     <th class="px-2 py-2 text-center">DenNgay</th>
-                                    <th class="px-2 py-2 text-center">TongSoDien</th>
-                                    <th class="px-2 py-2 text-center">TongSoNuoc</th>
+                                    <th class="px-2 py-2 text-center">TongSo</th>
                                     <th class="px-2 py-2 text-center">HeSo</th>
                                     <th class="px-2 py-2 text-center">ThanhTien</th>
                                     <th class="px-2 py-2 text-center">DichVuID</th>
@@ -57,8 +56,7 @@
                                         <td class="px-2 py-2 text-center">${o.hoaDonID}</td>
                                         <td class="px-2 py-2 text-center">${o.tuNgay}</td>
                                         <td class="px-2 py-2 text-center">${o.denNgay}</td>
-                                        <td class="px-2 py-2 text-center">${o.tongSoDien}</td>
-                                        <td class="px-2 py-2 text-center">${o.tongSoNuoc}</td>
+                                        <td class="px-2 py-2 text-center">${o.tongSo}</td>
                                         <td class="px-2 py-2 text-center">${o.heSo}</td>
                                         <td class="px-2 py-2 text-center">${o.thanhTien}</td>
                                         <td class="px-2 py-2 text-center">${o.dichVuID}</td>

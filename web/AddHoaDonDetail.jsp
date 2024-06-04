@@ -86,12 +86,8 @@
                                                         <input name="DenNgay" type="date" class="form-control" required>
                                                     </div> 
                                                     <div class="form-group">
-                                                        <label>TongSoDien</label>
-                                                        <input name="TongSoDien" type="text" class="form-control" required>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>TongSoNuoc</label>
-                                                        <input name="TongSoNuoc" type="text" class="form-control" required>
+                                                        <label>TongSo</label>
+                                                        <input name="TongSo" type="text" class="form-control" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>HeSo</label>
@@ -132,4 +128,3 @@
     </body>
 
 </html>
-

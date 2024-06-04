@@ -36,14 +36,13 @@ public class EditHoaDonDetail extends HttpServlet {
         String hdid = request.getParameter("HoaDonID");
         String tn = request.getParameter("TuNgay");
         String dn = request.getParameter("DenNgay");
-        String tsd = request.getParameter("TongSoDien");
-        String tsn = request.getParameter("TongSoNuoc");
+        String ts = request.getParameter("TongSo");
         String hs = request.getParameter("HeSo");
         String tt = request.getParameter("ThanhTien");
         String dvid = request.getParameter("DichVuID");
         
         DAO dao = new DAO();
-        dao.editHoaDonDetail(tn, dn, tsd, tsn, hs, tt, dvid, hddid);
+        dao.editHoaDonDetail(tn, dn, ts, hs, tt, dvid, hddid);
         response.sendRedirect("listhoadondetail?id=" + hdid);
         
     } 

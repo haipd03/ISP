@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import model.DichVu;
 import model.HoaDon;
 
 /**
@@ -59,6 +60,7 @@ public class HaiDao extends MyDAO {
             while (rs.next()) {
                 int hoaDonID = rs.getInt("HoaDonID");
                 int hopDongID = rs.getInt("HopDongID");
+                                Date NgayThanhToan = rs.getDate("NgayThanhToan");
                 String tinhTrangThanhToan = rs.getString("TinhTrangThanhToan");
                 Date tuNgay = rs.getDate("TuNgay");
                 Date denNgay = rs.getDate("DenNgay");
@@ -66,7 +68,7 @@ public class HaiDao extends MyDAO {
                 int soPhong = rs.getInt("SoPhong"); // Lấy thông tin SoPhong từ bảng Phong
 
                 // Tạo đối tượng HoaDon
-                HoaDon hoaDon = new HoaDon(hoaDonID, hopDongID, tinhTrangThanhToan, tuNgay, denNgay, tongTien);
+                HoaDon hoaDon = new HoaDon(hoaDonID, hopDongID, NgayThanhToan, tinhTrangThanhToan, tuNgay, denNgay, tongTien);
 
                 // Tạo đối tượng HoaDonWithSoPhong
                 HoaDonWithSoPhong hoaDonWithSoPhong = new HoaDonWithSoPhong(hoaDon, soPhong);
@@ -102,13 +104,14 @@ public class HaiDao extends MyDAO {
                 while (rs.next()) {
                     int hoaDonID = rs.getInt("HoaDonID");
                     int hopDongID = rs.getInt("HopDongID");
+                                    Date NgayThanhToan = rs.getDate("NgayThanhToan");
                     String tinhTrangThanhToan = rs.getString("TinhTrangThanhToan");
                     Date tuNgay = rs.getDate("TuNgay");
                     Date denNgay = rs.getDate("DenNgay");
                     int tongTien = rs.getInt("TongTien");
                     int soPhong = rs.getInt("SoPhong");
 
-                    HoaDon hoaDon = new HoaDon(hoaDonID, hopDongID, tinhTrangThanhToan, tuNgay, denNgay, tongTien);
+                    HoaDon hoaDon = new HoaDon(hoaDonID, hopDongID, NgayThanhToan, tinhTrangThanhToan, tuNgay, denNgay, tongTien);
                     HoaDonWithSoPhong hoaDonWithSoPhong = new HoaDonWithSoPhong(hoaDon, soPhong);
                     hoaDonWithSoPhongList.add(hoaDonWithSoPhong);
                 }
@@ -135,20 +138,17 @@ public class HaiDao extends MyDAO {
 
     
     public void addHoaDon(HoaDon hoaDon) {
-        String sql = "INSERT INTO HoaDon (HoaDonID, HopDongID, TinhTrangThanhToan, TuNgay, DenNgay, TongTien) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO HoaDon (HoaDonID, HopDongID,NgayThanhToan, TinhTrangThanhToan, TuNgay, DenNgay, TongTien) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, hoaDon.getHoaDonID());
-            ps.setInt(2, hoaDon.getHopDongID());
-            ps.setString(3, hoaDon.getTinhTrangThanhToan());
-            ps.setDate(4, new java.sql.Date(hoaDon.getTuNgay().getTime()));
-            ps.setDate(5, new java.sql.Date(hoaDon.getDenNgay().getTime()));
-            ps.setInt(6, hoaDon.getTongTien());
+        ps.setInt(2, hoaDon.getHopDongID());
+        ps.setDate(3, hoaDon.getNgayThanhToan() != null ? new java.sql.Date(hoaDon.getNgayThanhToan().getTime()) : null);
+        ps.setString(4, hoaDon.getTinhTrangThanhToan());
+        ps.setDate(5, hoaDon.getTuNgay() != null ? new java.sql.Date(hoaDon.getTuNgay().getTime()) : null);
+        ps.setDate(6, hoaDon.getDenNgay() != null ? new java.sql.Date(hoaDon.getDenNgay().getTime()) : null);
+        ps.setInt(7, hoaDon.getTongTien());
             int rowsAffected = ps.executeUpdate();
-            if (rowsAffected > 0) {
-                System.out.println("Successfully added HoaDon: " + hoaDon);
-            } else {
-                System.out.println("Failed to add HoaDon: " + hoaDon);
-            }
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -162,12 +162,14 @@ public class HaiDao extends MyDAO {
         try (ResultSet rs = ps.executeQuery()) {
             if (rs.next()) {
                 int hopDongID = rs.getInt("HopDongID");
+                                Date NgayThanhToan = rs.getDate("NgayThanhToan");
+
                 String tinhTrangThanhToan = rs.getString("TinhTrangThanhToan");
                 Date tuNgay = rs.getDate("TuNgay");
                 Date denNgay = rs.getDate("DenNgay");
                 int tongTien = rs.getInt("TongTien");
 
-                hoaDon = new HoaDon(hoaDonID, hopDongID, tinhTrangThanhToan, tuNgay, denNgay, tongTien);
+                hoaDon = new HoaDon(hoaDonID, hopDongID, NgayThanhToan, tinhTrangThanhToan, tuNgay, denNgay, tongTien);
             }
         }
     } catch (SQLException e) {
@@ -178,14 +180,15 @@ public class HaiDao extends MyDAO {
 }
 
     public void updateHoaDon(HoaDon hoadon) {
-        String sql = "UPDATE HoaDon SET HopDongID = ?, TinhTrangThanhToan = ?, TuNgay = ?, DenNgay = ?, TongTien = ? WHERE HoaDonID = ?";
+        String sql = "UPDATE HoaDon SET HopDongID = ?,NgayThanhToan= ?, TinhTrangThanhToan = ?, TuNgay = ?, DenNgay = ?, TongTien = ? WHERE HoaDonID = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, hoadon.getHopDongID());
-            ps.setString(2, hoadon.getTinhTrangThanhToan());
-            ps.setDate(3, new java.sql.Date(hoadon.getTuNgay().getTime()));
-            ps.setDate(4, new java.sql.Date(hoadon.getDenNgay().getTime()));
-            ps.setInt(5, hoadon.getTongTien());
-            ps.setInt(6, hoadon.getHoaDonID());
+             ps.setDate(2, new java.sql.Date(hoadon.getNgayThanhToan().getTime()));
+            ps.setString(3, hoadon.getTinhTrangThanhToan());
+            ps.setDate(4, new java.sql.Date(hoadon.getTuNgay().getTime()));
+            ps.setDate(5, new java.sql.Date(hoadon.getDenNgay().getTime()));
+            ps.setInt(6, hoadon.getTongTien());
+            ps.setInt(7, hoadon.getHoaDonID());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -199,13 +202,15 @@ public class HaiDao extends MyDAO {
         ps.executeUpdate();
     }
 }
+    
+    
 
     public static void main(String[] args) throws SQLException {
         HaiDao dao = new HaiDao();
-//
-//        HoaDon hoaDon = new HoaDon(21, 9, "Paid", new java.util.Date(), new java.util.Date(), 1000);
-//        
-//        dao.addHoaDon(hoaDon);
+
+        HoaDon hoaDon = new HoaDon(21, 9, new java.util.Date(), "Paid", new java.util.Date(), new java.util.Date(), 1000);
+        
+        dao.addHoaDon(hoaDon);
         
 //     
 //        List<HoaDonWithSoPhong> listC = dao.getAllHoaDon();
@@ -213,5 +218,6 @@ public class HaiDao extends MyDAO {
 //            System.out.println(category);
 //        }
 
-System.out.println(dao.getHoaDonById(1));    }
+//System.out.println(dao.getHoaDonById(1));   
+    }
 }
