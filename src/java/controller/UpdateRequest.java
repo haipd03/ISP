@@ -19,20 +19,9 @@ import java.util.List;
 import model.Accounts;
 import model.Request;
 
-/**
- *
- * @author Admin
- */
 @WebServlet(name="UpdateRequest", urlPatterns={"/UpdateRequest"})
 public class UpdateRequest extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -40,15 +29,11 @@ public class UpdateRequest extends HttpServlet {
         Accounts a = (Accounts) session.getAttribute("acc");
 
         if (a == null) {
-            // Nếu chưa đăng nhập, trả về mã lỗi 403 - Forbidden
             response.sendError(HttpServletResponse.SC_FORBIDDEN, "Bạn chưa đăng nhập.");
             return;
         }
-
-        // Lấy thông tin từ request
         String requestIDStr = request.getParameter("requestID");
         String tinhTrang = request.getParameter("tinhTrang");
-
         try {
             int requestID = Integer.parseInt(requestIDStr);
             RequestDao dao = new RequestDao();
@@ -58,8 +43,6 @@ public class UpdateRequest extends HttpServlet {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Request ID không hợp lệ.");
         }
     }
-     
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
      * Handles the HTTP <code>GET</code> method.

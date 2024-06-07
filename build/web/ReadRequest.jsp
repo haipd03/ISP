@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="./dist/all.css">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i,700,700i" rel="stylesheet">
     <title>Forms | Tailwind Admin</title>
-    
 </head>
 
 <body>
@@ -24,13 +23,9 @@
             <!--Header Section Starts Here-->
             <jsp:include page="menu1.jsp" />
             <!--/Header-->
-
             <div class="flex flex-1">
                 <!--Sidebar-->
                 <jsp:include page="menu2.jsp" />
-                <!--/Sidebar-->
-                <!--Main-->
-                <!--Main-->
                 <!--Main-->
                 <h1><p style="color: green;">${Message}</p></h1>
                 <main class="bg-white-500 flex-1 p-6 overflow-hidden rounded-lg">

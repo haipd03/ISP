@@ -19,26 +19,13 @@ import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Accounts;
 
-/**
- *
- * @author Admin
- */
 @WebServlet(name="ListRequest", urlPatterns={"/ListRequest"})
 public class ListRequest extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         Accounts a = (Accounts) session.getAttribute("acc");
-
         if (a == null) {
             response.sendRedirect("login");
         } else {
@@ -46,7 +33,6 @@ public class ListRequest extends HttpServlet {
         DAO dao = new DAO();
         List<Request> requests = dao1.getAllRequestNhan(a.getAccountID());
         List<Request> gui = dao1.getAllRequestGui(a.getAccountID());
-//          List<Request>requests = dao1.getAllRequests();
         List<Accounts> acc = dao.getAccounts();
         request.setAttribute("requests", requests);
         request.setAttribute("gui", gui);

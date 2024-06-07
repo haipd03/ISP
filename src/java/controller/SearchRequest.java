@@ -14,26 +14,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import model.Accounts;
 import model.Request;
 
-/**
- *
- * @author Admin
- */
 @WebServlet(name = "SearchRequest", urlPatterns = {"/SearchRequest"})
 public class SearchRequest extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -52,63 +40,54 @@ public class SearchRequest extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        Accounts a = (Accounts) session.getAttribute("acc");
-
-// Kiểm tra nếu a bằng null, chuyển hướng đến trang login
-        if (a == null) {
-            response.sendRedirect("login.jsp");
-            return;
-        }
-
-        int accountID = 0;
-        String title = request.getParameter("title");
-        String submittedAtStr = request.getParameter("submittedAt");
-        String accountNhanStr = request.getParameter("accountNhan");
-        java.sql.Date submittedAt = null;
-        int accountNhan = 0;
-
-        if (request.getParameter("accountID") != null) {
-            accountID = Integer.parseInt(request.getParameter("accountID"));
-        }
-
-        if (submittedAtStr != null && !submittedAtStr.isEmpty()) {
-            submittedAt = java.sql.Date.valueOf(submittedAtStr);
-        }
-
-        if (accountNhanStr != null && !accountNhanStr.isEmpty()) {
-            accountNhan = Integer.parseInt(accountNhanStr);
-        }
-
-        RequestDao dao1 = new RequestDao();
-        DAO dao = new DAO();
-        List<Accounts> acc = dao.getAccounts();
-        List<Request> results = dao1.searchRequests(accountID, title, submittedAt);
-
-        if (results.isEmpty()) {
-            request.setAttribute("error", "Không tìm thấy kết quả!");
-            request.setAttribute("listK3", acc);
-            request.setAttribute("requests", results);
-        } else {
-            request.setAttribute("listK3", acc);
-            request.setAttribute("requests", results);
-        }
-
-        request.setAttribute("accountNhan", accountNhan);
-        request.getRequestDispatcher("ListRequest.jsp").forward(request, response);
+protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    response.setContentType("text/html;charset=UTF-8");
+    HttpSession session = request.getSession();
+    Accounts a = (Accounts) session.getAttribute("acc");
+    if (a == null) {
+        response.sendRedirect("login.jsp");
+        return;
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    int accountID = 0;
+    String title = request.getParameter("title");
+    String submittedAtStr = request.getParameter("submittedAt");
+    String accountNhanStr = request.getParameter("accountNhan");
+    java.sql.Date submittedAt = null;
+    int accountNhan = 0;
+    if (request.getParameter("accountID") != null) {
+        accountID = Integer.parseInt(request.getParameter("accountID"));
+    }
+    if (submittedAtStr != null && !submittedAtStr.isEmpty()) {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            java.util.Date parsedDate = dateFormat.parse(submittedAtStr);
+            submittedAt = new java.sql.Date(parsedDate.getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    if (accountNhanStr != null && !accountNhanStr.isEmpty()) {
+        accountNhan = Integer.parseInt(accountNhanStr);
+    }
+
+    RequestDao dao1 = new RequestDao();
+    DAO dao = new DAO();
+    List<Accounts> acc = dao.getAccounts();
+    List<Request> results = dao1.searchRequests(accountID, title, submittedAt);
+
+    request.setAttribute("listK3", acc);
+    request.setAttribute("requests", results);
+
+    if (results.isEmpty()) {
+        request.setAttribute("error", "Không tìm thấy kết quả!");
+    }
+
+    request.setAttribute("accountNhan", accountNhan);
+    request.getRequestDispatcher("ListRequest.jsp").forward(request, response);
+}
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -116,12 +95,10 @@ public class SearchRequest extends HttpServlet {
         HttpSession session = request.getSession();
         Accounts a = (Accounts) session.getAttribute("acc");
 
-// Kiểm tra nếu a bằng null, chuyển hướng đến trang login
         if (a == null) {
             response.sendRedirect("login.jsp");
             return;
         }
-
         int accountID = 0;
         String title = request.getParameter("title");
         String submittedAtStr = request.getParameter("submittedAt");
@@ -154,16 +131,10 @@ public class SearchRequest extends HttpServlet {
             request.setAttribute("listK3", acc);
             request.setAttribute("gui", results);
         }
-
         request.setAttribute("accountNhan", accountNhan);
         request.getRequestDispatcher("ListRequest.jsp?action=gui").forward(request, response);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";

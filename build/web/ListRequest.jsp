@@ -1,6 +1,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import = "java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -108,7 +110,10 @@
                                                         </c:forEach>
                                                     </td>
                                                     <td class="px-4 py-2">${r.title}</td>
-                                                    <td class="px-4 py-2">${r.submittedAt}</td>
+                                                    <td class="px-4 py-2">
+                                                        <fmt:formatDate value="${r.submittedAt}" pattern="HH:mm - dd/MM/yyyy"/>
+                                                    </td>
+
                                                     <td class="px-4 py-2">${r.tinhTrang}</td>
                                                     <td class="px-4 py-2">
                                                         <a href="LoadRequest?id=${r.requestID}" class="text-blue-500 hover:text-blue-700 mr-2">Chi tiết</a>
@@ -181,7 +186,9 @@
                                                         </c:forEach>
                                                     </td>
                                                     <td class="px-4 py-2">${g.title}</td>
-                                                    <td class="px-4 py-2">${g.submittedAt}</td>
+                                                    <td class="px-4 py-2">
+                                                        <fmt:formatDate value="${g.submittedAt}" pattern="HH:mm - dd/MM/yyyy"/>
+                                                    </td>
                                                     <td class="px-4 py-2">${g.tinhTrang}</td>
                                                     <td class="px-4 py-2">
                                                         <a href="ReadRequestGui?id=${g.requestID}" class="text-blue-500 hover:text-blue-700 mr-2">Chi tiết</a>

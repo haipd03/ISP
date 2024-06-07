@@ -15,8 +15,8 @@
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i,700,700i" rel="stylesheet">
         <title>Forms | Tailwind Admin</title>
         <script>
-            function confirmDelete(event, url) {
-                if (confirm("Bạn có chắc muốn xóa Khách Thuê này không?")) {
+            function confirmSend(event, url) {
+                if (confirm("Bạn có chắc muốn gửi tin nhắn này?")) {
                     window.location.href = url;
                 } else {
                     event.preventDefault();
@@ -33,12 +33,10 @@
                 <!--Header Section Starts Here-->
                 <jsp:include page="menu1.jsp" />
                 <!--/Header-->
-
                 <div class="flex flex-1">
                     <!--Sidebar-->
                     <jsp:include page="menu2.jsp" />
                     <!--/Sidebar-->
-                    <!--Main-->
                     <!--Main-->
                     <main class="bg-white-500 flex-1 p-6 overflow-hidden rounded-lg">
                         <div class="flex flex-col">
@@ -93,7 +91,7 @@
                                                     Back
                                                 </button>
                                                 <button class="shadow bg-gray-700 hover:bg-gray-600 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded"
-                                                        type="submit">
+                                                        type="submit" onclick="confirmSend(event, this.href)">
                                                     Send 
                                                 </button>
                                             </div>
@@ -105,10 +103,6 @@
                             <!-- /Card Section Ends Here -->
                         </div>
                     </main>
-
-                    <!-- Underline form -->
-
-                    <!--/Underline form-->
                     <!--/Main-->                                
                 </div>
                 <!--Footer-->
@@ -116,11 +110,8 @@
                     <div class="flex flex-1 mx-auto">&copy; My Design</div>
                 </footer>
                 <!--/footer-->
-
             </div>
-
         </div>
-
         <script src="./main.js"></script>
 
     </body>

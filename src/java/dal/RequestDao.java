@@ -24,7 +24,7 @@ public class RequestDao extends MyDAO {
                         rs.getInt("RequestID"),
                         rs.getInt("AccountID"),
                         rs.getString("Title"),
-                        rs.getDate("SubmittedAt"),
+                       rs.getTimestamp("SubmittedAt"),
                         rs.getString("RequestText"),
                         rs.getString("TinhTrang"),
                         rs.getInt("AccountNhan"));
@@ -53,28 +53,28 @@ public class RequestDao extends MyDAO {
     }
 
     if (submittedAt != null) {
-        sql += " AND CONVERT(VARCHAR, SubmittedAt, 120) LIKE ?";
-        parameters.add("%" + new SimpleDateFormat("MM-dd-yyyy").format(submittedAt) + "%");
+        sql += " AND CAST(CONVERT(VARCHAR, SubmittedAt, 120) AS DATE) = ?";
+        parameters.add(new java.sql.Date(submittedAt.getTime()));
     }
 
-    try {
-        ps = con.prepareStatement(sql);
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
 
         for (int i = 0; i < parameters.size(); i++) {
             ps.setObject(i + 1, parameters.get(i));
         }
 
-        rs = ps.executeQuery();
-        while (rs.next()) {
-            Request request = new Request(
-                    rs.getInt("RequestID"),
-                    rs.getInt("AccountID"),
-                    rs.getString("Title"),
-                    rs.getDate("SubmittedAt"),
-                    rs.getString("RequestText"),
-                    rs.getString("TinhTrang"),
-                    rs.getInt("AccountNhan"));
-            requests.add(request);
+        try (ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                Request request = new Request(
+                        rs.getInt("RequestID"),
+                        rs.getInt("AccountID"),
+                        rs.getString("Title"),
+                        rs.getTimestamp("SubmittedAt"),
+                        rs.getString("RequestText"),
+                        rs.getString("TinhTrang"),
+                        rs.getInt("AccountNhan"));
+                requests.add(request);
+            }
         }
     } catch (SQLException e) {
         e.printStackTrace();
@@ -82,25 +82,7 @@ public class RequestDao extends MyDAO {
 
     return requests;
 }
-public static void main(String[] args) {
-        RequestDao requestDao = new RequestDao();
 
-        // Test the searchRequests method
-        int accountID = 2;
-        String title = "s";
-        Date submittedAt = null;
-        try {
-            submittedAt = new Date(new SimpleDateFormat("yyyy-MM-dd").parse("2024").getTime());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        List<Request> requests = requestDao.searchRequests(accountID, title, submittedAt);
-        System.out.println("Search results:");
-        for (Request request : requests) {
-            System.out.println(request);
-        }
-    }
-    
 public List<Request> searchRequestsGui(int accountNhan, String title, Date submittedAt) {
     List<Request> requests = new ArrayList<>();
     String sql = "SELECT * FROM Request WHERE 1=1";
@@ -118,8 +100,8 @@ public List<Request> searchRequestsGui(int accountNhan, String title, Date submi
     }
 
     if (submittedAt != null) {
-        sql += " AND SubmittedAt = ?";
-        parameters.add(submittedAt);
+        sql += " AND CAST(CONVERT(VARCHAR, SubmittedAt, 120) AS DATE) = ?";
+        parameters.add(new java.sql.Date(submittedAt.getTime()));
     }
 
     try {
@@ -135,7 +117,7 @@ public List<Request> searchRequestsGui(int accountNhan, String title, Date submi
                     rs.getInt("RequestID"),
                     rs.getInt("AccountID"),
                     rs.getString("Title"),
-                    rs.getDate("SubmittedAt"),
+                    rs.getTimestamp("SubmittedAt"),
                     rs.getString("RequestText"),
                     rs.getString("TinhTrang"),
                     rs.getInt("AccountNhan"));
@@ -147,6 +129,7 @@ public List<Request> searchRequestsGui(int accountNhan, String title, Date submi
 
     return requests;
 }
+
     public List<Request> getAllRequestNhan(int accountID) {
         List<Request> requests = new ArrayList<>();
         String sql = "SELECT r.* FROM Request r JOIN Accounts a ON a.AccountID = r.AccountNhan WHERE a.AccountID = ? ORDER BY r.RequestID DESC";
@@ -159,7 +142,8 @@ public List<Request> searchRequestsGui(int accountNhan, String title, Date submi
                         rs.getInt("RequestID"),
                         rs.getInt("AccountID"),
                         rs.getString("Title"),
-                        rs.getDate("SubmittedAt"),
+//                        rs.getDate("SubmittedAt"),
+                        rs.getTimestamp("SubmittedAt"),
                         rs.getString("RequestText"),
                         rs.getString("TinhTrang"),
                         rs.getInt("AccountNhan"));
@@ -183,7 +167,7 @@ public List<Request> searchRequestsGui(int accountNhan, String title, Date submi
                         rs.getInt("RequestID"),
                         rs.getInt("AccountID"),
                         rs.getString("Title"),
-                        rs.getDate("SubmittedAt"),
+                        rs.getTimestamp("SubmittedAt"),
                         rs.getString("RequestText"),
                         rs.getString("TinhTrang"),
                         rs.getInt("AccountNhan"));
@@ -208,7 +192,7 @@ public List<Request> searchRequestsGui(int accountNhan, String title, Date submi
                         rs.getInt("RequestID"),
                         rs.getInt("AccountID"),
                         rs.getString("Title"),
-                        rs.getDate("SubmittedAt"),
+                        rs.getTimestamp("SubmittedAt"),
                         rs.getString("RequestText"),
                         rs.getString("TinhTrang"),
                         rs.getInt("AccountNhan"));
@@ -258,59 +242,4 @@ public List<Request> searchRequestsGui(int accountNhan, String title, Date submi
         }
     }
 
-//    public static void main(String[] args) {
-//        RequestDao requestDao = new RequestDao();
-//
-//        // Test deleting a request by its ID
-//        int requestIDToDelete = 9; // Replace with the ID of the request you want to delete
-//        requestDao.deleteRequestByRequestID(requestIDToDelete);
-//        System.out.println("Deleted request with ID: " + requestIDToDelete);
-//
-//        // Display all requests after deletion to confirm
-//        System.out.println("All requests after deletion:");
-//        List<Request> allRequests = requestDao.getAllRequests();
-//        for (Request request : allRequests) {
-//            System.out.println(request);
-//        }
-//    }
-//public static void main(String[] args) {
-//    RequestDao requestDao = new RequestDao();
-//
-//    // Hiển thị tất cả các yêu cầu trước khi cập nhật
-//    System.out.println("Tất cả các yêu cầu trước khi cập nhật:");
-//    List<Request> allRequestsBeforeUpdate = requestDao.getAllRequests();
-//    for (Request request : allRequestsBeforeUpdate) {
-//        System.out.println(request);
-//    }
-//
-//    // Cập nhật trạng thái của một yêu cầu cụ thể
-//    int requestIDToUpdate = 1; // Thay thế bằng ID của yêu cầu bạn muốn cập nhật
-//    String newTinhTrang = "Đã sửa";
-//    requestDao.updateTinhTrang(requestIDToUpdate, newTinhTrang);
-//    System.out.println("Cập nhật trạng thái của yêu cầu có ID " + requestIDToUpdate + " thành công.");
-//
-//    // Hiển thị tất cả các yêu cầu sau khi cập nhật
-//    System.out.println("Tất cả các yêu cầu sau khi cập nhật:");
-//    List<Request> allRequestsAfterUpdate = requestDao.getAllRequests();
-//    for (Request request : allRequestsAfterUpdate) {
-//        System.out.println(request);
-//    }
-//}
-
-//     public static void main(String[] args) {
-//    RequestDao requestDao = new RequestDao();
-//
-//    // Testing getAllRequests
-//    List<Request> allRequests = requestDao.getAllRequests();
-//    for (Request request : allRequests) {
-//        System.out.println(request);
-//    }
-//
-//    // Testing updateTinhTrang for a specific account ID
-//    int requestID = 1; // Replace with the desired account ID
-//    String tinhTrang = "Đã sửa";
-//    requestDao.updateTinhTrang(requestID, tinhTrang);
-//    List<Request> allRequests = requestDao.getAllRequests();
-//
-//}
 }
