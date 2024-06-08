@@ -39,27 +39,27 @@
                             <form action="addhdonandnhapadddichvu" method="get">
                                 <div class="space-y-4">
                                     <div class="flex items-center">
-                                        <label class="w-2/5 text-gray-700 font-semibold">HoaDonID:</label>
-                                        <input type="text" name="HoaDonID" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <label class="w-2/5 text-gray-700 font-semibold">Hóa Đơn ID:</label>
+                                        <input type="text" name="HoaDonID" value="${nextHoaDonID}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
-                                        <label class="w-2/5 text-gray-700 font-semibold">HopDongID:</label>
+                                        <label class="w-2/5 text-gray-700 font-semibold">Hợp Đồng ID:</label>
                                         <input type="text" name="HopDongID" value="${lp1.hopDongID}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
-                                        <label class="w-2/5 text-gray-700 font-semibold">NgayThanhToan:</label>
+                                        <label class="w-2/5 text-gray-700 font-semibold">Ngày Thanh Toán:</label>
                                         <input type="date" name="NgayThanhToan" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
-                                        <label class="w-2/5 text-gray-700 font-semibold">TinhTrangThanhToan:</label>
+                                        <label class="w-2/5 text-gray-700 font-semibold">Tình Trạng Thanh Toán:</label>
                                         <input type="text" name="TinhTrangThanhToan" value="Chưa Thanh Toán" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
-                                        <label class="w-2/5 text-gray-700 font-semibold">TuNgay:</label>
-                                        <input type="date" name="TuNgay" value="${lp2[0].denNgay}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <label class="w-2/5 text-gray-700 font-semibold">Từ Ngày:</label>
+                                        <input type="date" name="TuNgay" value="${lp2.denNgay}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
-                                        <label class="w-2/5 text-gray-700 font-semibold">DenNgay:</label>
+                                        <label class="w-2/5 text-gray-700 font-semibold">Đến Ngày:</label>
                                         <input type="date" name="DenNgay" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">

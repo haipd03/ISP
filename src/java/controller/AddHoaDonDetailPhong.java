@@ -12,18 +12,17 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
-import model.Accounts;
 import model.HoaDon;
-import model.KhachThue;
+import model.HoaDonDetail;
 
 /**
  *
  * @author THANH SON
  */
-@WebServlet(name = "ListHoaDonPhong", urlPatterns = {"/listhoadonphong"})
-public class ListHoaDonPhong extends HttpServlet {
+@WebServlet(name = "AddHoaDonDetailPhong", urlPatterns = {"/addhoadondetailphong"})
+public class AddHoaDonDetailPhong extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,23 +36,55 @@ public class ListHoaDonPhong extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        String pid = request.getParameter("id");
+        String hddid = request.getParameter("HoaDonDetailID");
+        String hdid = request.getParameter("HoaDonID");
+        String tn = request.getParameter("TuNgay");
+        String dn = request.getParameter("DenNgay");
 
-        HttpSession session = request.getSession();
-        Accounts a = (Accounts) session.getAttribute("acc");
+        int csc = Integer.parseInt(request.getParameter("ChiSoCu"));
+        int csm = Integer.parseInt(request.getParameter("ChiSoMoi"));
 
-        if (a == null || a.getRole() == 1) {
-            response.sendRedirect("login.jsp");
-        } else {
+        int hs1 = Integer.parseInt(request.getParameter("HeSo"));
+        int gt = Integer.parseInt(request.getParameter("GiaTien"));
 
-            String id = request.getParameter("id");
-            SonDAO sondao = new SonDAO();
+        // Tính toán TongSo
+        int tongSo = csm - csc;
 
-            HoaDon listhdon = sondao.getIDByHoaDonIDByPhongID(id);
+        // Tính toán ThanhTien
+        int thanhTien = tongSo * hs1 * gt;
 
-            request.setAttribute("listhdon", listhdon);
-            request.setAttribute("phongid", id);
-            request.getRequestDispatcher("ListHoaDonPhong.jsp").forward(request, response);
+        // Chuyển đổi các giá trị tính toán thành chuỗi
+        String ts = String.valueOf(tongSo);
+        String hs = String.valueOf(hs1);
+        String tt = String.valueOf(thanhTien);
+
+        String dvid = request.getParameter("DichVuID");
+
+        SonDAO sondao = new SonDAO();
+        sondao.insertHoaDonDetail(hddid, hdid, tn, dn, ts, hs, tt, dvid);
+
+        HoaDon listhdon = sondao.getIDByHoaDonIDByPhongID(pid);
+
+        int hdonid = listhdon.getHoaDonID();
+        int hdongid = listhdon.getHopDongID();
+        Date NgayThanhToan = listhdon.getNgayThanhToan();
+        String tttt = listhdon.getTinhTrangThanhToan();
+        Date TuNgay = listhdon.getTuNgay();
+        Date DenNgay = listhdon.getDenNgay();
+
+        List<HoaDonDetail> listhdondetail = sondao.getHoaDonDetail(hdid);
+
+        int TongTien = 0;
+        for (HoaDonDetail detail : listhdondetail) {
+            TongTien += detail.getThanhTien();
         }
+
+        HoaDon hoadon = new HoaDon(hdonid, hdongid, NgayThanhToan, tttt, TuNgay, DenNgay, TongTien);
+        sondao.updateHoaDon(hoadon);
+
+        response.sendRedirect("listhoadonphong?id=" + pid);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

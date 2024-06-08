@@ -35,31 +35,29 @@
                             <p style="color: red; font-size: 1.2em; font-weight: bold;">${error}</p>
                         </c:if>
                         <div class="flex flex-col space-y-4">
-                            <c:forEach items="${listhdon}" var="o">
-                                    <!-- Card Section Starts Here -->
-                                    <div class="flex flex-col md:flex-row lg:flex-row mx-2">
-                                        <!-- Card -->
-                                        <div class="mb-4 bg-white border border-gray-200 rounded-lg shadow-lg w-full md:w-1/2 lg:w-1/2">
-                                            <div class="bg-purple-600 text-white px-4 py-3 rounded-t-lg">
-                                                List hóa đơn từng phòng
-                                            </div>
-                                            <div class="p-4">
-                                                <p class="text-gray-700"><strong>HoaDonID:</strong> ${o.hoaDonID}</p>
-                                                <p class="text-gray-700"><strong>HopDongID:</strong> ${o.hopDongID}</p>
-                                                <p class="text-gray-700"><strong>NgayThanhToan:</strong> ${o.ngayThanhToan}</p>
-                                                <p class="text-gray-700"><strong>TinhTrangThanhToan:</strong> ${o.tinhTrangThanhToan}</p>
-                                                <p class="text-gray-700"><strong>TuNgay:</strong> ${o.tuNgay}</p>
-                                                <p class="text-gray-700"><strong>DenNgay:</strong> ${o.denNgay}</p>
-                                                <p class="text-gray-700"><strong>TongTien:</strong> ${o.tongTien}</p>
-                                                <div class="mt-4">
-                                                    <a class="inline-block bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
-                                                       href="nhapaddhoadonphong?id=${phongid}">ADD Hóa Đơn Mới
-                                                    </a>
-                                                </div>
-                                            </div>
+                            <!-- Card Section Starts Here -->
+                            <div class="flex flex-col md:flex-row lg:flex-row mx-2">
+                                <!-- Card -->
+                                <div class="mb-4 bg-white border border-gray-200 rounded-lg shadow-lg w-full md:w-1/2 lg:w-1/2">
+                                    <div class="bg-purple-600 text-white px-4 py-3 rounded-t-lg">
+                                        List hóa đơn từng phòng
+                                    </div>
+                                    <div class="p-4">
+                                        <p class="text-gray-700"><strong>Hóa Đơn ID:</strong> ${listhdon.hoaDonID}</p>
+                                        <p class="text-gray-700"><strong>Hợp Đồng ID:</strong> ${listhdon.hopDongID}</p>
+                                        <p class="text-gray-700"><strong>Ngày Thanh Toán:</strong> ${listhdon.ngayThanhToan}</p>
+                                        <p class="text-gray-700"><strong>Tình Trạng Thanh Toán:</strong> ${listhdon.tinhTrangThanhToan}</p>
+                                        <p class="text-gray-700"><strong>Từ Ngày:</strong> ${listhdon.tuNgay}</p>
+                                        <p class="text-gray-700"><strong>Đến Ngày:</strong> ${listhdon.denNgay}</p>
+                                        <p class="text-gray-700"><strong>Tổng Tiền:</strong> ${listhdon.tongTien}</p>
+                                        <div class="mt-4">
+                                            <a class="inline-block bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
+                                               href="nhapaddhoadonphong?id=${phongid}">ADD Hóa Đơn Mới
+                                            </a>
                                         </div>
                                     </div>
-                            </c:forEach>
+                                </div>
+                            </div>
                         </div>
                     </main>
                     <!-- Underline form -->

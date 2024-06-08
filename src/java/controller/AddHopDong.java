@@ -45,11 +45,13 @@ public class AddHopDong extends HttpServlet {
         String errorMsg = null;
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-        if (HopDongID == null || !HopDongID.matches("\\d+")) {
+        if (KhachID == null) {
+            errorMsg = "Bạn Cần thêm Khách Thuê Đại diện trước khi tạo Hợp Đồng!";
+        } else if (HopDongID == null || !HopDongID.matches("\\d+")) {
             errorMsg = "HopDongID không hợp lệ.";
         } else if (TienCoc != null && !TienCoc.matches("\\d+")) {
             errorMsg = "TienCoc không hợp lệ.";
-        }  else if (SoKhachThue == null || !SoKhachThue.matches("\\d+")) {
+        } else if (SoKhachThue == null || !SoKhachThue.matches("\\d+")) {
             errorMsg = "Số khách thuê không hợp lệ.";
         } else {
             try {

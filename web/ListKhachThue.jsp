@@ -40,37 +40,40 @@
                     <!--/Sidebar-->
                     <!--Main-->
                     <main class="bg-gray-100 flex-1 p-6 overflow-hidden">
-                        <table border="0">
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="flex justify-end">
-                                            <form action="nhapaddkhachthue?naktpid=${phongID}" method="post">
-                                                <button type="submit" class="bg-green-500 hover:bg-green-800 text-white font-bold py-2 px-4 rounded">Thêm Khách Thuê</button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                    <c:set var="phongDaCoHopDong" value="false" />
-
-                                    <c:forEach var="hopDong" items="${listHopDong}">
-                                        <c:if test="${hopDong.tinhTrang == 1 && hopDong.phongID == phongID}">
-                                            <c:set var="phongDaCoHopDong" value="true" />
-                                        </c:if>
-                                    </c:forEach>
-
-                                    <c:if test="${!phongDaCoHopDong}">
+                        
+                        <c:if test="${sessionScope.acc.role == 0}">
+                            <table border="0">
+                                <tbody>
+                                    <tr>
                                         <td>
                                             <div class="flex justify-end">
-                                                <form action="nhapaddhopdong?nahdpid=${phongID}" method="post">
-                                                    <button type="submit" class="bg-green-500 hover:bg-green-800 text-white font-bold py-2 px-4 rounded">Thêm Hợp Đồng</button>
+                                                <form action="nhapaddkhachthue?naktpid=${phongID}" method="post">
+                                                    <button type="submit" class="bg-green-500 hover:bg-green-800 text-white font-bold py-2 px-4 rounded">Thêm Khách Thuê</button>
                                                 </form>
                                             </div>
                                         </td>
-                                    </c:if>
-                                </tr>    
-                            </tbody>
-                        </table>
+                                        <c:set var="phongDaCoHopDong" value="false" />
 
+                                        <c:forEach var="hopDong" items="${listHopDong}">
+                                            <c:if test="${hopDong.tinhTrang == 1 && hopDong.phongID == phongID}">
+                                                <c:set var="phongDaCoHopDong" value="true" />
+                                            </c:if>
+                                        </c:forEach>
+
+                                        <c:if test="${!phongDaCoHopDong}">
+                                            <td>
+                                                <div class="flex justify-end">
+                                                    <form action="nhapaddhopdong?nahdpid=${phongID}" method="post">
+                                                        <button type="submit" class="bg-green-500 hover:bg-green-800 text-white font-bold py-2 px-4 rounded">Thêm Hợp Đồng</button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </c:if>
+                                    </tr>    
+                                </tbody>
+                            </table>
+                        </c:if>
+                        
                         <c:if test="${not empty error}">
                             <p style="color: red; font-size: 1.2em; font-weight: bold;">${error}</p>
                         </c:if>

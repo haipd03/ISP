@@ -47,11 +47,14 @@ public class NhapAddHoaDonPhong extends HttpServlet {
             SonDAO sondao = new SonDAO();
 
             HopDong hopdongphong = sondao.getHopDongByPhongIDandTinhTrang1(pid);
-            List<HoaDon> listhdon = sondao.getIDByHoaDonIDByPhongID(pid);
+            HoaDon listhdon = sondao.getIDByHoaDonIDByPhongID(pid);
 
             request.setAttribute("lp1", hopdongphong);
             request.setAttribute("lp2", listhdon);
             request.setAttribute("lp3", pid);
+
+            int nextHoaDonID = sondao.getNextHoaDonID(); /// lấy hoadonid tự động tăng thêm 1 so với số cao nhất trước
+            request.setAttribute("nextHoaDonID", nextHoaDonID);
 
             request.getRequestDispatcher("NhapAddHoaDonPhong.jsp").forward(request, response);
         }

@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Accounts;
+import model.DichVu;
 import model.HoaDon;
 import model.HopDong;
 import model.Phong;
@@ -47,12 +48,14 @@ public class NhapAddHoaDonDetail extends HttpServlet {
             String dvid = request.getParameter("dvid");
             SonDAO sondao = new SonDAO();
 
-            List<HoaDon> listhdon = sondao.getIDByHoaDonIDByPhongID(pid);
+            HoaDon listhdon = sondao.getIDByHoaDonIDByPhongID(pid);
+            DichVu listdichvu = sondao.getDichVubyID(dvid);
 
             request.setAttribute("lp1", dvid);
             request.setAttribute("lp2", listhdon);
             request.setAttribute("lp3", pid);
-
+            request.setAttribute("lp4", listdichvu);
+            
             request.getRequestDispatcher("NhapAddHoaDonDetail.jsp").forward(request, response);
         }
     } 

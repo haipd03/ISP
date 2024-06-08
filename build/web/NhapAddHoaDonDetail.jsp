@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="./dist/styles.css">
         <link rel="stylesheet" href="./dist/all.css">
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i,700,700i" rel="stylesheet">
-        <title>Forms | Tailwind Admin</title>      
+        <title>Forms | Tailwind Admin</title>
     </head>
 
     <body>
@@ -36,50 +36,51 @@
                             Add Hóa Đơn Detail
                         </div>
                         <div class="p-6 bg-white">
-                            <form action="adddichvuandnhapaddhdondetail" method="get">
+                            <form id="hoadon-form" action="addhoadondetailphong" method="get">
                                 <div class="space-y-4">
                                     <div class="flex items-center">
-                                        <label class="w-2/5 text-gray-700 font-semibold">HoaDonChiTietID:</label>
+                                        <label class="w-2/5 text-gray-700 font-semibold">Hóa Đơn Chi Tiết ID:</label>
                                         <input type="text" name="HoaDonDetailID" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
-                                        <label class="w-2/5 text-gray-700 font-semibold">HoaDonID:</label>
-                                        <input type="text" name="HoaDonID" value="${lp2[0].hoaDonID}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <label class="w-2/5 text-gray-700 font-semibold">Hóa Đơn ID:</label>
+                                        <input type="text" name="HoaDonID" value="${lp2.hoaDonID}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
-                                        <label class="w-2/5 text-gray-700 font-semibold">TuNgay:</label>
-                                        <input type="date" name="TuNgay" value="${lp2[0].tuNgay}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <label class="w-2/5 text-gray-700 font-semibold">Từ Ngày:</label>
+                                        <input type="date" name="TuNgay" value="${lp2.tuNgay}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
-                                        <label class="w-2/5 text-gray-700 font-semibold">DenNgay:</label>
-                                        <input type="date" name="DenNgay" value="${lp2[0].denNgay}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <label class="w-2/5 text-gray-700 font-semibold">Đến Ngày:</label>
+                                        <input type="date" name="DenNgay" value="${lp2.denNgay}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
+                                    
+                                    <input type="hidden" name="ChiSoCu" value="${lp4.chiSoCu}">
+                                    <input type="hidden" name="ChiSoMoi" value="${lp4.chiSoMoi}">
+                                    
                                     <div class="flex items-center">
-                                        <label class="w-2/5 text-gray-700 font-semibold">TongSo:</label>
-                                        <input type="text" name="TongSo" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
-                                    </div>
-                                    <div class="flex items-center">
-                                        <label class="w-2/5 text-gray-700 font-semibold">HeSo:</label>
+                                        <label class="w-2/5 text-gray-700 font-semibold">Hệ Số:</label>
                                         <input type="text" name="HeSo" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
+                                    
+                                    <input type="hidden" name="GiaTien" value="${lp4.giaTien}">
+                                    
                                     <div class="flex items-center">
-                                        <label class="w-2/5 text-gray-700 font-semibold">ThanhTien:</label>
-                                        <input type="text" name="ThanhTien" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
-                                    </div>
-                                    <div class="flex items-center">
-                                        <label class="w-2/5 text-gray-700 font-semibold">DichVuID:</label>
+                                        <label class="w-2/5 text-gray-700 font-semibold">Dịch Vụ ID:</label>
                                         <input type="text" name="DichVuID" value="${lp1}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <input type="hidden" name="id" value="${lp3}">
                                 </div>
-                                <div class="mt-6 flex justify-end">
+
+                                <div class="mt-6 flex justify-between items-center">
+                                    <input type="submit" value="Thêm Dịch Vụ" id="add-dichvu-btn" class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 transition-colors duration-200">
                                     <input type="submit" value="Tiếp Tục" class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 transition-colors duration-200">
                                 </div>
                             </form>
                         </div>
                     </div>
                     <!--/Underline form-->
-                    <!--/Main-->                                
+                    <!--/Main-->
                 </div>
                 <!--Footer-->
                 <footer class="bg-grey-darkest text-white p-2">
@@ -88,6 +89,13 @@
                 <!--/footer-->
             </div>
         </div>
-        <script src="./main.js"></script>
+        <script>
+            document.getElementById('add-dichvu-btn').addEventListener('click', function (event) {
+                event.preventDefault();
+                var form = document.getElementById('hoadon-form');
+                form.action = 'addthemdichvu';
+                form.submit();
+            });
+        </script>
     </body>
 </html>

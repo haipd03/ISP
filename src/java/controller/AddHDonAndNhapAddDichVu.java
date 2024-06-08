@@ -22,7 +22,7 @@ public class AddHDonAndNhapAddDichVu extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String ktid = request.getParameter("id");
+        String pid = request.getParameter("id");
         String hoaDonID = request.getParameter("HoaDonID");
         String hopDongID = request.getParameter("HopDongID");
         String ngayThanhToan = request.getParameter("NgayThanhToan");
@@ -35,6 +35,6 @@ public class AddHDonAndNhapAddDichVu extends HttpServlet {
 
         sondao.insertHoaDon(hoaDonID, hopDongID, ngayThanhToan, tinhTrangThanhToan, tuNgay, denNgay, tongTien);
 
-        response.sendRedirect("nhapadddichvu?id=" + ktid);
+        response.sendRedirect("nhapadddichvu?id=" + pid);
     }
 }

@@ -6,7 +6,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import model.DichVu;
 import model.HoaDon;
+import model.HoaDonDetail;
 import model.HopDong;
 import model.KhachThue;
 import model.Phong;
@@ -453,8 +455,7 @@ public class SonDAO extends MyDAO {
         return false;
     }
 
-    public List<HoaDon> getIDByHoaDonIDByPhongID(String id) {
-        List<HoaDon> hoaDon = new ArrayList<>();
+    public HoaDon getIDByHoaDonIDByPhongID(String id) {
         String query = "SELECT TOP 1 hdon.*\n"
                 + "FROM HoaDon hdon\n"
                 + "JOIN HopDong hdong ON hdong.HopDongID = hdon.HopDongID\n"
@@ -472,13 +473,13 @@ public class SonDAO extends MyDAO {
                 Date tuNgay = rs.getDate("TuNgay");
                 Date denNgay = rs.getDate("DenNgay");
                 int tongTien = rs.getInt("TongTien");
-                HoaDon hoaDons = new HoaDon(hoaDonID, hopDongID, tuNgay, tinhTrangThanhToan, tuNgay, denNgay, tongTien);
-                hoaDon.add(hoaDons);
+                HoaDon hoaDons = new HoaDon(hoaDonID, hopDongID, NgayThanhToan, tinhTrangThanhToan, tuNgay, denNgay, tongTien);
+                return hoaDons;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return hoaDon;
+        return null;
     }
 
     public HopDong getHopDongByPhongIDandTinhTrang1(String id) {
@@ -508,7 +509,7 @@ public class SonDAO extends MyDAO {
         }
         return null;
     }
-    
+
     public void insertHoaDon(String HoaDonID, String HopDongID, String NgayThanhToan, String TinhTrangThanhToan, String TuNgay, String DenNgay, String TongTien) {
         String sql = "INSERT INTO [dbo].[HoaDon] ([HoaDonID],[HopDongID],[NgayThanhToan],[TinhTrangThanhToan],[TuNgay],[DenNgay],[TongTien]) VALUES (?,?,?,?,?,?,?)";
         try {
@@ -525,7 +526,7 @@ public class SonDAO extends MyDAO {
             e.printStackTrace();
         }
     }
-    
+
     public void insertDichVu(String dvid, String soPhong, String name, String giaTien, String tuNgay, String denNgay, String chiSoCu, String chiSoMoi) {
         String sql = "INSERT INTO DichVu (DichVuID, SoPhong, Name, GiaTien, TuNgay, DenNgay, ChiSoCu, ChiSoMoi) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try {
@@ -543,19 +544,126 @@ public class SonDAO extends MyDAO {
             e.printStackTrace();
         }
     }
-    
+
+    public void updateHoaDon(HoaDon hoadon) {
+        String sql = "UPDATE HoaDon SET HopDongID = ?,NgayThanhToan= ?, TinhTrangThanhToan = ?, TuNgay = ?, DenNgay = ?, TongTien = ? WHERE HoaDonID = ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, hoadon.getHopDongID());
+            ps.setDate(2, new java.sql.Date(hoadon.getNgayThanhToan().getTime()));
+            ps.setString(3, hoadon.getTinhTrangThanhToan());
+            ps.setDate(4, new java.sql.Date(hoadon.getTuNgay().getTime()));
+            ps.setDate(5, new java.sql.Date(hoadon.getDenNgay().getTime()));
+            ps.setInt(6, hoadon.getTongTien());
+            ps.setInt(7, hoadon.getHoaDonID());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<HoaDonDetail> getHoaDonDetail(String id) {
+        List<HoaDonDetail> hoaDonDetail = new ArrayList<>();
+        String query = "SELECT * FROM HoaDonDetail\n"
+                + "where HoaDonID = ?";
+        try {
+            ps = con.prepareStatement(query);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int hoaDonDetailID = rs.getInt("HoaDonDetailID");
+                int hoaDonID = rs.getInt("HoaDonID");
+                Date tuNgay = rs.getDate("TuNgay");
+                Date denNgay = rs.getDate("DenNgay");
+                int tongSo = rs.getInt("TongSo");
+                int heSo = rs.getInt("HeSo");
+                int thanhTien = rs.getInt("ThanhTien");
+                int dichVuID = rs.getInt("DichVuID");
+
+                HoaDonDetail hoaDonDetails = new HoaDonDetail(hoaDonDetailID, hoaDonID, tuNgay, denNgay, tongSo, heSo, thanhTien, dichVuID);
+                hoaDonDetail.add(hoaDonDetails);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return hoaDonDetail;
+    }
+
+    public void insertHoaDonDetail(String hddid, String hdid, String tungay, String denngay, String tongso, String heso, String thanhtien, String dichvuid) {
+        String query = "insert into HoaDonDetail values(?,?,?,?,?,?,?,?)";
+        try {
+            ps = con.prepareStatement(query);
+            ps.setString(1, hddid);
+            ps.setString(2, hdid);
+            ps.setString(3, tungay);
+            ps.setString(4, denngay);
+            ps.setString(5, tongso);
+            ps.setString(6, heso);
+            ps.setString(7, thanhtien);
+            ps.setString(8, dichvuid);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle exceptions
+        }
+    }
+
+    public DichVu getDichVubyID(String id) {
+        String sql = "select * from DichVu where DichVuID = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                int dichVuID = rs.getInt("DichVuID");
+                int soPhong = rs.getInt("SoPhong");
+                String name = rs.getString("Name");
+                int giaTien = rs.getInt("GiaTien");
+                Date tuNgay = rs.getDate("TuNgay");
+                Date denNgay = rs.getDate("DenNgay");
+                int chiSoCu = rs.getInt("ChiSoCu");
+                int chiSoMoi = rs.getInt("ChiSoMoi");
+
+                DichVu dichVu = new DichVu(dichVuID, soPhong, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi);
+                return dichVu;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public int getNextHoaDonID() {
+        String sql = "SELECT MAX(HoaDonID) FROM HoaDon";
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                int maxID = rs.getInt(1);
+                return maxID + 1;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return 1;
+    }
+
     public static void main(String[] args) throws SQLException {
         SonDAO dao = new SonDAO();
-
-        String dvid = "98";
-        String soPhong = "1";
-        String name = "ra";
-        String giaTien = "1111111";
-        String tuNgay = "2024-06-05";
-        String denNgay = "2024-07-05";
-        String chiSoCu = "50";
-        String chiSoMoi = "60";
-        
-        dao.insertDichVu(dvid, soPhong, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi);
+        int nextHoaDonID = dao.getNextHoaDonID();
+        System.out.println("Next HoaDonID: " + nextHoaDonID);
     }
 }

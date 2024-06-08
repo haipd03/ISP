@@ -39,35 +39,35 @@
                             <form action="adddichvuandnhapaddhdondetail" method="get">
                                 <div class="space-y-4">
                                     <div class="flex items-center">
-                                        <label class="w-2/5 text-gray-700 font-semibold">DichVuID:</label>
+                                        <label class="w-2/5 text-gray-700 font-semibold">Dịch Vụ ID:</label>
                                         <input type="text" name="DichVuID" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
-                                        <label class="w-2/5 text-gray-700 font-semibold">SoPhong:</label>
+                                        <label class="w-2/5 text-gray-700 font-semibold">Số Phòng:</label>
                                         <input type="text" name="SoPhong" value="${lp1[0].soPhong}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
-                                        <label class="w-2/5 text-gray-700 font-semibold">Name:</label>
+                                        <label class="w-2/5 text-gray-700 font-semibold">Tên Dịch Vụ:</label>
                                         <input type="text" name="Name" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
-                                        <label class="w-2/5 text-gray-700 font-semibold">GiaTien:</label>
+                                        <label class="w-2/5 text-gray-700 font-semibold">Giá Tiền:</label>
                                         <input type="text" name="GiaTien" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
-                                        <label class="w-2/5 text-gray-700 font-semibold">TuNgay:</label>
-                                        <input type="date" name="TuNgay" value="${lp2[0].tuNgay}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <label class="w-2/5 text-gray-700 font-semibold">Từ Ngày:</label>
+                                        <input type="date" name="TuNgay" value="${lp2.tuNgay}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
-                                        <label class="w-2/5 text-gray-700 font-semibold">DenNgay:</label>
-                                        <input type="date" name="DenNgay" value="${lp2[0].denNgay}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <label class="w-2/5 text-gray-700 font-semibold">Đến Ngày:</label>
+                                        <input type="date" name="DenNgay" value="${lp2.denNgay}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
-                                        <label class="w-2/5 text-gray-700 font-semibold">ChiSoCu:</label>
+                                        <label class="w-2/5 text-gray-700 font-semibold">Chỉ Số Cũ:</label>
                                         <input type="text" name="ChiSoCu" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
-                                        <label class="w-2/5 text-gray-700 font-semibold">ChiSoMoi:</label>
+                                        <label class="w-2/5 text-gray-700 font-semibold">Chỉ Số Mới:</label>
                                         <input type="text" name="ChiSoMoi" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <input type="hidden" name="id" value="${lp3}">
