@@ -143,31 +143,49 @@ public class SonDAO extends MyDAO {
         return HopDongs;
     }
 
-    public List<KhachThue> getKhachThue() {
-        List<KhachThue> KhachThues = new ArrayList<>();
-        String sql = "Select * from khachthue";
-        try {
-            ps = con.prepareStatement(sql);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                int KhachID = rs.getInt("KhachID");
-                String HoVaTen = rs.getString("HoVaTen");
-                String CCCD = rs.getString("CCCD");
-                String SDT = rs.getString("SDT");
-                String QueQuan = rs.getString("QueQuan");
-                String TenNguoiThan = rs.getString("TenNguoiThan");
-                String SDTNguoiThan = rs.getString("SDTNguoiThan");
-                String QuanHeVoiNguoiThan = rs.getString("QuanHeVoiNguoiThan");
-                int PhongID = rs.getInt("PhongID");
-                int TinhTrang = rs.getInt("TinhTrang");
-                KhachThue khachThue = new KhachThue(KhachID, HoVaTen, CCCD, SDT, QueQuan, TenNguoiThan, SDTNguoiThan, QuanHeVoiNguoiThan, PhongID, TinhTrang);
-                KhachThues.add(khachThue);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+   public List<KhachThue> getKhachThue(int offset, int limit) {
+    List<KhachThue> KhachThues = new ArrayList<>();
+    String sql = "SELECT * FROM khachthue ORDER BY KhachID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+    try {
+        ps = con.prepareStatement(sql);
+        ps.setInt(1, offset);
+        ps.setInt(2, limit);
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            int KhachID = rs.getInt("KhachID");
+            String HoVaTen = rs.getString("HoVaTen");
+            String CCCD = rs.getString("CCCD");
+            String SDT = rs.getString("SDT");
+            String QueQuan = rs.getString("QueQuan");
+            String TenNguoiThan = rs.getString("TenNguoiThan");
+            String SDTNguoiThan = rs.getString("SDTNguoiThan");
+            String QuanHeVoiNguoiThan = rs.getString("QuanHeVoiNguoiThan");
+            int PhongID = rs.getInt("PhongID");
+            int TinhTrang = rs.getInt("TinhTrang");
+            KhachThue khachThue = new KhachThue(KhachID, HoVaTen, CCCD, SDT, QueQuan, TenNguoiThan, SDTNguoiThan, QuanHeVoiNguoiThan, PhongID, TinhTrang);
+            KhachThues.add(khachThue);
         }
-        return KhachThues;
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+    return KhachThues;
+}
+   
+   public int getTotalKhachThueCount() {
+    int count = 0;
+    try {
+        String sql = "SELECT COUNT(*) FROM KhachThue";
+        PreparedStatement st = connection.prepareStatement(sql);
+        ResultSet rs = st.executeQuery();
+        if (rs.next()) {
+            count = rs.getInt(1);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return count;
+}
+
 
     public List<KhachThue> getKhachThueByAccountID(int aid) {
         List<KhachThue> KhachThues = new ArrayList<>();

@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.List;
 import model.DichVu;
 import model.HoaDon;
+import model.HopDong;
+import model.KhachThue;
 
 /**
  *
@@ -123,17 +125,20 @@ public class HaiDao extends MyDAO {
     }
 
     public int getTotalHoaDonRecords() {
-        String sql = "SELECT COUNT(*) AS total FROM HoaDon";
-        try (PreparedStatement ps = con.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
-            if (rs.next()) {
-                return rs.getInt("total");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+         int count = 0;
+    try {
+        String sql = "SELECT COUNT(*) FROM HoaDon";
+        PreparedStatement st = connection.prepareStatement(sql);
+        ResultSet rs = st.executeQuery();
+        if (rs.next()) {
+            count = rs.getInt(1);
         }
-        return 0;
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+    return count;
+}
+     
 
 
     
@@ -203,20 +208,237 @@ public class HaiDao extends MyDAO {
     }
 }
     
+        public void deleteHoaDonDetail(String HoaDonDetailID) throws SQLException {
+    String sql = "DELETE FROM HoaDonDetail WHERE HoaDonDetailID = ?";
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setString(1, HoaDonDetailID);
+        ps.executeUpdate();
+    }
+}
     
+      public List<KhachThue> searchKhachThueByCriteria(String name, String sdt, String cccd) {
+        List<KhachThue> list = new ArrayList<>();
+        String sql = "SELECT * FROM KhachThue WHERE 1=1";
+
+        if (name != null && !name.trim().isEmpty()) {
+            sql += " AND HoVaTen LIKE ?";
+        }
+        if (sdt != null && !sdt.trim().isEmpty()) {
+            sql += " AND SDT LIKE  ?";
+        }
+        if (cccd != null && !cccd.trim().isEmpty()) {
+            sql += " AND CCCD LIKE  ?";
+        }
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            int paramIndex = 1;
+
+            if (name != null && !name.trim().isEmpty()) {
+                ps.setString(paramIndex++, "%" + name + "%");
+            }
+            if (sdt != null && !sdt.trim().isEmpty()) {
+                ps.setString(paramIndex++, "%" + sdt + "%");
+            }
+            if (cccd != null && !cccd.trim().isEmpty()) {
+                ps.setString(paramIndex++, "%" + cccd + "%");
+            }
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                KhachThue kt = new KhachThue(
+                    rs.getInt("KhachID"),
+                    rs.getString("HoVaTen"),
+                    rs.getString("CCCD"),
+                    rs.getString("SDT"),
+                    rs.getString("QueQuan"),
+                    rs.getString("TenNguoiThan"),
+                    rs.getString("SDTNguoiThan"),
+                    rs.getString("QuanHeVoiNguoiThan"),
+                    rs.getInt("PhongID"),
+                    rs.getInt("TinhTrang")
+                );
+                list.add(kt);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+      
+      public List<KhachThue> getKhachThue() {
+        List<KhachThue> KhachThues = new ArrayList<>();
+        String sql = "Select * from khachthue";
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int KhachID = rs.getInt("KhachID");
+                String HoVaTen = rs.getString("HoVaTen");
+                String CCCD = rs.getString("CCCD");
+                String SDT = rs.getString("SDT");
+                String QueQuan = rs.getString("QueQuan");
+                String TenNguoiThan = rs.getString("TenNguoiThan");
+                String SDTNguoiThan = rs.getString("SDTNguoiThan");
+                String QuanHeVoiNguoiThan = rs.getString("QuanHeVoiNguoiThan");
+                int PhongID = rs.getInt("PhongID");
+                int TinhTrang = rs.getInt("TinhTrang");
+                KhachThue khachThue = new KhachThue(KhachID, HoVaTen, CCCD, SDT, QueQuan, TenNguoiThan, SDTNguoiThan, QuanHeVoiNguoiThan, PhongID, TinhTrang);
+                KhachThues.add(khachThue);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return KhachThues;
+    }
+      
+        public List<HopDong> getHopDongByCriteria(String soKhachThue, String hoVaTen, Date ngayThue, Date ngayTra) {
+        List<HopDong> hopDongSearch = new ArrayList<>();
+        String sql = "SELECT * FROM HopDong WHERE 1=1";
+
+        if (soKhachThue != null && !soKhachThue.trim().isEmpty()) {
+            sql += " AND SoKhachThue = ?";
+        }
+        if (hoVaTen != null && !hoVaTen.trim().isEmpty()) {
+            sql += " AND HoVaTen LIKE ?";
+        }
+        if (ngayThue != null) {
+            sql += " AND NgayThue >= ?";
+        }
+        if (ngayTra != null) {
+            sql += " AND NgayTra <= ?";
+        }
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            int paramIndex = 1;
+            if (soKhachThue != null && !soKhachThue.trim().isEmpty()) {
+                ps.setString(paramIndex++, soKhachThue);
+            }
+            if (hoVaTen != null && !hoVaTen.trim().isEmpty()) {
+                ps.setString(paramIndex++, "%" + hoVaTen + "%");
+            }
+            if (ngayThue != null) {
+                ps.setDate(paramIndex++, new java.sql.Date(ngayThue.getTime()));
+            }
+            if (ngayTra != null) {
+                ps.setDate(paramIndex++, new java.sql.Date(ngayTra.getTime()));
+            }
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                // Create HopDong object from ResultSet
+                HopDong hopDong = new HopDong(
+                    rs.getInt("HopDongID"),
+                    rs.getInt("KhachID"),
+                    rs.getInt("PhongID"),
+                    rs.getInt("TienCoc"),
+                    rs.getDate("NgayThue"),
+                    rs.getDate("NgayTra"),
+                    rs.getInt("SoKhachThue"),
+                    rs.getString("GhiChu"),
+                    rs.getInt("CCCD"),
+                    rs.getInt("SDT"),
+                    rs.getString("HoVaTen"),
+                    rs.getInt("TinhTrang")
+                );
+                // Add HopDong object to the list
+                hopDongSearch.add(hopDong);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return hopDongSearch;
+    }
+        
+        public List<HopDong> getHopDong() {
+        List<HopDong> HopDongs = new ArrayList<>();
+        String sql = "SELECT * FROM HopDong";
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int hopDongID = rs.getInt("HopDongID");
+                int khachID = rs.getInt("KhachID");
+                int phongID = rs.getInt("PhongID");
+                int tienCoc = rs.getInt("TienCoc");
+                java.sql.Date ngayThue = rs.getDate("NgayThue");
+                java.sql.Date ngayTra = rs.getDate("NgayTra");
+                int soKhachThue = rs.getInt("SoKhachThue");
+                String ghiChu = rs.getString("GhiChu");
+                int cccd = rs.getInt("CCCD");
+                int sdt = rs.getInt("SDT");
+                String hoVaTen = rs.getString("HoVaTen");
+                int tinhTrang = rs.getInt("TinhTrang");
+                HopDong hopDong = new HopDong(hopDongID, khachID, phongID, tienCoc, ngayThue, ngayTra, soKhachThue, ghiChu, cccd, sdt, hoVaTen, tinhTrang);
+                HopDongs.add(hopDong);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return HopDongs;
+    }
+        
+        public List<HopDong> getHopDong(int offset, int limit) {
+        List<HopDong> HopDongs = new ArrayList<>();
+        String sql = "SELECT * FROM HopDong ORDER BY HopDongID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        try {
+            ps = con.prepareStatement(sql);
+             ps.setInt(1, offset);
+        ps.setInt(2, limit);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int hopDongID = rs.getInt("HopDongID");
+                int khachID = rs.getInt("KhachID");
+                int phongID = rs.getInt("PhongID");
+                int tienCoc = rs.getInt("TienCoc");
+                java.sql.Date ngayThue = rs.getDate("NgayThue");
+                java.sql.Date ngayTra = rs.getDate("NgayTra");
+                int soKhachThue = rs.getInt("SoKhachThue");
+                String ghiChu = rs.getString("GhiChu");
+                int cccd = rs.getInt("CCCD");
+                int sdt = rs.getInt("SDT");
+                String hoVaTen = rs.getString("HoVaTen");
+                int tinhTrang = rs.getInt("TinhTrang");
+                HopDong hopDong = new HopDong(hopDongID, khachID, phongID, tienCoc, ngayThue, ngayTra, soKhachThue, ghiChu, cccd, sdt, hoVaTen, tinhTrang);
+                HopDongs.add(hopDong);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return HopDongs;
+    }
+    
+     public int getTotalHopDongCount() {
+    int count = 0;
+    try {
+        String sql = "SELECT COUNT(*) FROM HopDong";
+        PreparedStatement st = connection.prepareStatement(sql);
+        ResultSet rs = st.executeQuery();
+        if (rs.next()) {
+            count = rs.getInt(1);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return count;
+}
+
+
 
     public static void main(String[] args) throws SQLException {
         HaiDao dao = new HaiDao();
 
-        HoaDon hoaDon = new HoaDon(21, 9, new java.util.Date(), "Paid", new java.util.Date(), new java.util.Date(), 1000);
+//        HoaDon hoaDon = new HoaDon(21, 9, new java.util.Date(), "Paid", new java.util.Date(), new java.util.Date(), 1000);
+//        
+//        dao.addHoaDon(hoaDon);
         
-        dao.addHoaDon(hoaDon);
-        
-//     
-//        List<HoaDonWithSoPhong> listC = dao.getAllHoaDon();
-//        for (HoaDonWithSoPhong category : listC) {
-//            System.out.println(category);
-//        }
+     
+        List<HopDong> listC = dao.getHopDongByCriteria(null, "hải", null,null);
+        for (HopDong category : listC) {
+            System.out.println(category);
+        }
 
 //System.out.println(dao.getHoaDonById(1));   
     }
