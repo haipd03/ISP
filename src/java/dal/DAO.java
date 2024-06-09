@@ -66,10 +66,6 @@ public class DAO extends MyDAO {
         }
         return Phongs;
     }
-    
-    
-   
-    
 
     public List<Phong> getPhongDetailsByAccountID(int accountID) {
         List<Phong> phongDetailsList = new ArrayList<>();
@@ -753,6 +749,56 @@ public class DAO extends MyDAO {
         return ThietBi;
     }
 
+    public List<ThietBi> getAllThietBi() {
+        List<ThietBi> ThietBi = new ArrayList<>();
+        String sql = "select * from ThietBi ORDER BY PhongID ";
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int ThietBiID = rs.getInt("ThietBiID");
+                int PhongID = rs.getInt("PhongID");
+                String Name = rs.getString("Name");
+                int SoLuong = rs.getInt("SoLuong");
+                String TinhTrang = rs.getString("TinhTrang");
+                int Gia = rs.getInt("Gia");
+                ThietBi thietbi = new ThietBi(ThietBiID, PhongID, Name, SoLuong, TinhTrang, Gia);
+                ThietBi.add(thietbi);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ThietBi;
+    }
+
+    public List<ThietBi> getAllThietBiByAccountID() {
+        List<ThietBi> ThietBi = new ArrayList<>();
+        String sql = "select tb.* from ThietBi tb\n"
+                + "join Phong p on p.PhongID =  tb.PhongID\n"
+                + "join Khu k on k.KhuID = p.KhuID\n"
+                + "join Accounts a on a.AccountID = k.AccountID\n"
+                + "where a.AccountID = ?\n"
+                + "ORDER BY PhongID ";
+        try {
+            ps = con.prepareStatement(sql);
+//            ps.setString(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int ThietBiID = rs.getInt("ThietBiID");
+                int PhongID = rs.getInt("PhongID");
+                String Name = rs.getString("Name");
+                int SoLuong = rs.getInt("SoLuong");
+                String TinhTrang = rs.getString("TinhTrang");
+                int Gia = rs.getInt("Gia");
+                ThietBi thietbi = new ThietBi(ThietBiID, PhongID, Name, SoLuong, TinhTrang, Gia);
+                ThietBi.add(thietbi);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ThietBi;
+    }
+
     public ThietBi getThietBibyID(String id) {
         String sql = "select * from ThietBi where ThietBiID = ?";
         try {
@@ -1025,7 +1071,7 @@ public class DAO extends MyDAO {
 
     public static void main(String[] args) {
         DAO dao = new DAO();
-        
+
     }
 
 }

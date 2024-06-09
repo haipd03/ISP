@@ -22,22 +22,10 @@
                     event.preventDefault();
                 }
             }
-
-            function showAddAccForm() {
-                var addAccForm = document.getElementById("addAccForm");
-                if (addAccForm.style.display === "none" || addAccForm.style.display === "") {
-                    addAccForm.style.display = "block";
-                } else {
-                    addAccForm.style.display = "none";
-                }
-            }
-
             document.getElementById("backButton").onclick = function () {
                 window.location.href = "listaccount";
             };
         </script>
-
-
     </head>
 
     <body>
@@ -106,52 +94,6 @@
                             </form>
                             <div class="mb-2 md:mx-2 lg:mx-2">
                                  <a href="NhapAddAccount.jsp" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">Thêm tài khoản mới</a>
-                            </div>
-                        </div>
-
-                        <div id="addAccForm" class="hidden mb-4 md:mx-2 lg:mx-2 border border-gray-300 rounded-lg shadow-lg max-w-lg">
-                            <div class="bg-gray-400 text-black px-4 py-3 rounded-t-lg">
-                                Thêm Tài Khoản
-                            </div>
-                            <div class="p-6 bg-white">
-                                <form action="addacc" method="post">
-                                    <div class="space-y-4">
-                                        <div class="flex items-center">
-                                            <label class="w-1/3 text-gray-700 font-semibold">ID </label>
-                                            <input type="text" name="ID" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400">
-                                        </div>
-                                        <div class="flex items-center">
-                                            <label class="w-1/3 text-gray-700 font-semibold">Tài Khoản</label>
-                                            <input type="text" name="taikhoan" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400">
-                                        </div>
-                                        <div class="flex items-center">
-                                            <label class="w-1/3 text-gray-700 font-semibold">Password</label>
-                                            <input type="text" name="password" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400">
-                                        </div>
-                                        <div class="flex items-center">
-                                            <label class="w-1/3 text-gray-700 font-semibold">Họ và Tên</label>
-                                            <input type="text" name="hovaten" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400">
-                                        </div>
-                                        <div class="flex items-center">
-                                            <label class="w-1/3 text-gray-700 font-semibold">CCCD</label>
-                                            <input type="text" name="cccd" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400">
-                                        </div>
-                                        <div class="flex items-center">
-                                            <label class="w-1/3 text-gray-700 font-semibold">Email</label>
-                                            <input type="text" name="email" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400">
-                                        </div>
-                                        <div class="flex items-center">
-                                            <label class="w-1/3 text-gray-700 font-semibold">Địa chỉ</label>
-                                            <input type="text" name="diachi" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400">
-                                        </div>
-                                    </div>
-                                    <div class="mt-4">
-                                        <input type="submit" value="Add" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
-                                        <button id="backButton" type="button" class="bg-red-500 hover:bg-red-800 text-white font-bold py-2 px-4 rounded">
-                                            Back
-                                        </button>
-                                    </div>
-                                </form>
                             </div>
                         </div>
                     </div>

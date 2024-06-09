@@ -95,7 +95,7 @@
                                                 <th class="px-4 py-2">Tiêu Đề</th>
                                                 <th class="px-4 py-2">Thời Gian</th>
                                                 <th class="px-4 py-2">Tình Trạng</th>
-                                                <th class="px-4 py-2">Thao Tác </th>
+                                                <th class="px-4 py-2">Tùy Chọn </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -171,7 +171,7 @@
                                                 <th class="px-4 py-2">Tiêu Đề</th>
                                                 <th class="px-4 py-2">Thời Gian</th>
                                                 <th class="px-4 py-2">Tình Trạng</th>
-                                                <th class="px-4 py-2">Thao Tác </th>
+                                                <th class="px-4 py-2">Tùy Chọn </th>
                                             </tr>
                                         </thead>
                                         <tbody>
