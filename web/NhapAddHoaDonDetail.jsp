@@ -40,7 +40,7 @@
                                 <div class="space-y-4">
                                     <div class="flex items-center">
                                         <label class="w-2/5 text-gray-700 font-semibold">Hóa Đơn Chi Tiết ID:</label>
-                                        <input type="text" name="HoaDonDetailID" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <input type="text" name="HoaDonDetailID" value="${nextHoaDonDetailID}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-2/5 text-gray-700 font-semibold">Hóa Đơn ID:</label>
@@ -54,17 +54,17 @@
                                         <label class="w-2/5 text-gray-700 font-semibold">Đến Ngày:</label>
                                         <input type="date" name="DenNgay" value="${lp2.denNgay}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
-                                    
+
                                     <input type="hidden" name="ChiSoCu" value="${lp4.chiSoCu}">
                                     <input type="hidden" name="ChiSoMoi" value="${lp4.chiSoMoi}">
-                                    
+
                                     <div class="flex items-center">
                                         <label class="w-2/5 text-gray-700 font-semibold">Hệ Số:</label>
                                         <input type="text" name="HeSo" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
-                                    
+
                                     <input type="hidden" name="GiaTien" value="${lp4.giaTien}">
-                                    
+
                                     <div class="flex items-center">
                                         <label class="w-2/5 text-gray-700 font-semibold">Dịch Vụ ID:</label>
                                         <input type="text" name="DichVuID" value="${lp1}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">

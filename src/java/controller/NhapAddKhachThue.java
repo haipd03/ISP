@@ -48,9 +48,11 @@ public class NhapAddKhachThue extends HttpServlet {
 
             List<Phong> loaiPhongList = sondao.getPhongByPhongID(ktid);
             List<HopDong> hopDongList = sondao.getHopDong();
+            int nextKhachID = sondao.getNextKhachID();
 
             request.setAttribute("lp1", loaiPhongList);
             request.setAttribute("lp2", hopDongList);
+            request.setAttribute("nextKhachID", nextKhachID);
 
             request.getRequestDispatcher("NhapAddKhachThue.jsp").forward(request, response);
         }

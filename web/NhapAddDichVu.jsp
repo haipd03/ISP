@@ -40,7 +40,7 @@
                                 <div class="space-y-4">
                                     <div class="flex items-center">
                                         <label class="w-2/5 text-gray-700 font-semibold">Dịch Vụ ID:</label>
-                                        <input type="text" name="DichVuID" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <input type="text" name="DichVuID" value="${nextDichVuID}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-2/5 text-gray-700 font-semibold">Số Phòng:</label>

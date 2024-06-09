@@ -69,33 +69,25 @@
                                                 <div class="modal-body">					
                                                     <div class="form-group">
                                                         <label>HoaDonDetailID</label>
-                                                        <input name="HoaDonDetailID" type="text" class="form-control" required>
+                                                        <input name="HoaDonDetailID" type="text" class="form-control" value="${nextHoaDonDetailID}" readonly>
                                                     </div>
-                                                    
-                                                        <div class="form-group">
-                                                            <label>HoaDonID</label>
-                                                            <input value="${hdid1}" name="HoaDonID" type="text" class="form-control" readonly required>                                    
-                                                        </div>
-                                                    
+
+                                                    <div class="form-group">
+                                                        <label>HoaDonID</label>
+                                                        <input value="${hdid1}" name="HoaDonID" type="text" class="form-control" readonly required>                                    
+                                                    </div>
+
                                                     <div class="form-group">
                                                         <label>TuNgay</label>
-                                                        <input name="TuNgay" type="date" class="form-control" required>
+                                                        <input name="TuNgay" type="date" class="form-control" value="${hdid[0].tuNgay}" readonly>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>DenNgay</label>
-                                                        <input name="DenNgay" type="date" class="form-control" required>
-                                                    </div> 
-                                                    <div class="form-group">
-                                                        <label>TongSo</label>
-                                                        <input name="TongSo" type="text" class="form-control" required>
+                                                        <input name="DenNgay" type="date" class="form-control" value="${hdid[0].denNgay}" readonly>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>HeSo</label>
                                                         <input name="HeSo" type="text" class="form-control" required>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>ThanhTien</label>
-                                                        <input name="ThanhTien" type="text" class="form-control" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>DichVuID</label>

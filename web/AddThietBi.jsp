@@ -68,7 +68,7 @@
                                                 <div class="modal-body">					
                                                     <div class="form-group">
                                                         <label>ThietBiID:</label>
-                                                        <input name="ThietBiID" type="text" class="form-control" required>
+                                                        <input name="ThietBiID" type="text" value="${nextThietBiID}" readonly class="form-control" required>
                                                     </div>
                                                     <c:forEach items="${pid}" var="thietbi">
                                                         <div class="form-group">

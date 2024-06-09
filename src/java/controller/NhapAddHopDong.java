@@ -51,10 +51,12 @@ public class NhapAddHopDong extends HttpServlet {
             List<HopDong> hopDongList = sondao.getHopDong();
             
             List<KhachThue> khachThueList = sondao.getKhachThueByPhongIDAndTinhTrangLa1(hdid);
+            int nextHopDongID = sondao.getNextHopDongID();
 
             request.setAttribute("lp1", loaiPhongList);
             request.setAttribute("lp2", hopDongList);
             request.setAttribute("lp3", khachThueList);
+            request.setAttribute("nextHopDongID", nextHopDongID);
 
             request.getRequestDispatcher("FormAddHopDong.jsp").forward(request, response);
         }

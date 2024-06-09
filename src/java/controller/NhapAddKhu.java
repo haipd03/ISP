@@ -6,6 +6,7 @@
 package controller;
 
 import dal.DAO;
+import dal.SonDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -39,13 +40,17 @@ public class NhapAddKhu extends HttpServlet {
         HttpSession session = request.getSession();
         Accounts a = (Accounts) session.getAttribute("acc");
         DAO dao = new DAO();
+        SonDAO sondao = new SonDAO();
+        
         List<Khu> list = dao.getKhuByKhuID();
         List<Khu> list1 = dao.getKhuByKhuID1(a.getAccountID());
         List<Accounts> acc = dao.getAccounts();
+        int nextKhuID = sondao.getNextKhuID();
 
         request.setAttribute("listK", list);
         request.setAttribute("listK1", list1);
         request.setAttribute("listK3", acc);
+        request.setAttribute("nextKhuID", nextKhuID);
 
         request.getRequestDispatcher("NhapAddKhu.jsp").forward(request, response);
         }

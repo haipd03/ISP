@@ -63,7 +63,7 @@
                                                 <div class="modal-body">					
                                                     <div class="form-group">
                                                         <label>ID Khu:</label>
-                                                        <input name="khuID" type="text" class="form-control" required>
+                                                        <input name="khuID" type="text" class="form-control" value="${nextKhuID}" readonly>
                                                     </div>
 
                                                     <div class="form-group">

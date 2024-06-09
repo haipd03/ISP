@@ -6,6 +6,7 @@ package controller;
 
 import dal.DAO;
 import dal.PhongDAO;
+import dal.SonDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -32,13 +33,18 @@ public class NhapAddPhong extends HttpServlet {
             response.sendRedirect("login.jsp");
         } else {
             PhongDAO phongDAO = new PhongDAO();
+            SonDAO sondao = new SonDAO();
+            
             List<Phong> loaiPhongList = phongDAO.getAllLoaiPhong();
             List<Phong> ghiChuList1 = phongDAO.getAllGhiChu();
             List<Khu> khuIDList = phongDAO.getAllKhuID();
+            int nextPhongID = sondao.getNextPhongID();
             
             request.setAttribute("lp1", loaiPhongList);
             request.setAttribute("lp2", khuIDList);
             request.setAttribute("lp3", ghiChuList1);
+            request.setAttribute("nextPhongID", nextPhongID);
+            
             request.getRequestDispatcher("NhapAddPhong.jsp").forward(request, response);
         }
     }

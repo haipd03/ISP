@@ -35,28 +35,30 @@ public class NhapAddDichVu extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        Accounts a = (Accounts) session.getAttribute("acc");
+        throws ServletException, IOException {
+    response.setContentType("text/html;charset=UTF-8");
+    HttpSession session = request.getSession();
+    Accounts a = (Accounts) session.getAttribute("acc");
 
-        if (a == null || a.getRole() == 1) {
-            response.sendRedirect("login.jsp");
-        } else {
-            String pid = request.getParameter("id");
-            SonDAO sondao = new SonDAO();
+    if (a == null || a.getRole() == 1) {
+        response.sendRedirect("login.jsp");
+    } else {
+        String pid = request.getParameter("id");
+        SonDAO sondao = new SonDAO();
 
-            List<Phong> phong = sondao.getPhongByPhongID(pid);
-            HoaDon listhdon = sondao.getIDByHoaDonIDByPhongID(pid);
+        List<Phong> phong = sondao.getPhongByPhongID(pid);
+        HoaDon listhdon = sondao.getIDByHoaDonIDByPhongID(pid);
+        int nextDichVuID = sondao.getNextDichVuID();
 
-            request.setAttribute("lp1", phong);
-            request.setAttribute("lp2", listhdon);          
-            request.setAttribute("lp3", pid);
+        request.setAttribute("lp1", phong);
+        request.setAttribute("lp2", listhdon);
+        request.setAttribute("lp3", pid);
+        request.setAttribute("nextDichVuID", nextDichVuID);
 
-            request.getRequestDispatcher("NhapAddDichVu.jsp").forward(request, response);
-        }
-    } 
-
+        request.getRequestDispatcher("NhapAddDichVu.jsp").forward(request, response);
+    }
+}
+ 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
      * Handles the HTTP <code>GET</code> method.

@@ -6,6 +6,7 @@
 package controller;
 
 import dal.DAO;
+import dal.SonDAO;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,6 +15,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.DichVu;
 
 /**
  *
@@ -37,12 +39,25 @@ public class AddHoaDonDetail extends HttpServlet {
         String hdid = request.getParameter("HoaDonID");
         String tn = request.getParameter("TuNgay");
         String dn = request.getParameter("DenNgay");
-        String ts = request.getParameter("TongSo");
-        String hs = request.getParameter("HeSo");
-        String tt = request.getParameter("ThanhTien");
+        int hs1 = Integer.parseInt(request.getParameter("HeSo"));
         String dvid = request.getParameter("DichVuID");
         
         DAO dao = new DAO();
+        SonDAO sondao = new SonDAO();
+        DichVu listdvu = sondao.getDichVubyID(dvid);
+        
+        int giaTien = listdvu.getGiaTien();
+        int chiSoCu = listdvu.getChiSoCu();
+        int chiSoMoi = listdvu.getChiSoMoi();
+        
+        int tongSo = chiSoMoi - chiSoCu;
+        
+        int thanhTien = tongSo * hs1 * giaTien;
+        
+        String ts = String.valueOf(tongSo);
+        String hs = String.valueOf(hs1);
+        String tt = String.valueOf(thanhTien);
+        
         try {
             dao.insertHoaDonDetail(hddid, hdid, tn, dn, ts, hs, tt, dvid);
             response.sendRedirect("listhoadondetail?id=" + hdid);

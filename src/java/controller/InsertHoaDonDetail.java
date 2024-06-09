@@ -6,6 +6,7 @@
 package controller;
 
 import dal.DAO;
+import dal.SonDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -36,9 +37,15 @@ public class InsertHoaDonDetail extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String hdid = request.getParameter("id");
         DAO dao = new DAO();
+        SonDAO sondao = new SonDAO();
+        
         List<HoaDon> h = dao.getIDByHoaDonID(hdid);
+        int nextHoaDonDetailID = sondao.getNextHoaDonDetailID();
+        
         request.setAttribute("hdid", h);
         request.setAttribute("hdid1", hdid);
+        request.setAttribute("nextHoaDonDetailID", nextHoaDonDetailID);
+        
         request.getRequestDispatcher("AddHoaDonDetail.jsp").forward(request, response);
     } 
 

@@ -22,15 +22,6 @@
                     event.preventDefault();
                 }
             }
-
-            function showAddKhuForm() {
-                var addKhuForm = document.getElementById("addKhuForm");
-                if (addKhuForm.style.display === "none" || addKhuForm.style.display === "") {
-                    addKhuForm.style.display = "block";
-                } else {
-                    addKhuForm.style.display = "none";
-                }
-            }
         </script>
     </head>
 
@@ -115,36 +106,6 @@
                                 <div class="mb-2 md:mx-2 lg:mx-2">
                                     <a href="NhapAddKhu" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">Thêm khu mới</a>                                </div>
                                 </c:if>
-                        </div>
-                    </div>
-                    <div id="addKhuForm" class="hidden mb-4 md:mx-2 lg:mx-2 border border-gray-300 rounded-lg shadow-lg max-w-lg">
-                        <div class="bg-gray-400 text-black px-4 py-3 rounded-t-lg">
-                            Thêm Khu
-                        </div>
-                        <div class="p-6 bg-white">
-                            <form action="addkhu" method="post">
-                                <div class="space-y-4">
-                                    <div class="flex items-center">
-                                        <label class="w-1/3 text-gray-700 font-semibold">ID Khu</label>
-                                        <input type="text" name="khuID" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400">
-                                    </div>
-                                    <div class="flex items-center">
-                                        <label class="w-1/3 text-gray-700 font-semibold">Tên Khu</label>
-                                        <input type="text" name="name" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400">
-                                    </div>
-                                    <label class="w-1/3 text-gray-700 font-semibold">Tên Quản Lý</label>
-                                    <select name="accountID" class="form-select" aria-label="Default select example">
-                                        <c:forEach items="${listK3}" var="o">
-                                            <c:if test="${o.accountID ne 1}">
-                                                <option value="${o.accountID}">${o.hoVaTen}</option>
-                                            </c:if>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-                                <div class="mt-4">
-                                    <input type="submit" value="Add" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
-                                </div>
-                            </form>
                         </div>
                     </div>
                 </div>
