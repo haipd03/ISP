@@ -32,38 +32,48 @@
                         </c:if>
                         <h4 class="text-lg font-semibold mb-2">Danh Sách Thiết Bị</h4>
                         <div class="overflow-x-auto">
-                            <form method="post" action="#" style="display: flex; flex-wrap: wrap; gap: 15px; align-items: center; margin-bottom: 20px;">
-                                <div class="flex" style="display: flex; align-items: center;">
-                                    <label for="accountID" style="margin-right: 10px;">Quản Lý:</label>
-                                    <select id="accountID" name="accountID" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
-                                        <option value="">PhanHai</option>
-                                    </select>
-                                </div> 
-                                <div class="flex" style="display: flex; align-items: center;">
-                                    <label for="khuID" style="margin-right: 10px;">Khu: </label>
-                                    <select id="khuID" name="khuID" style="border: 1px solid black; width: 80px;" class="py-2 px-3 rounded">
-                                        <option value="">A</option>
-                                    </select>
-                                </div>
+                            <form method="post" action="ListAllThietBi" style="display: flex; flex-wrap: wrap; gap: 15px; align-items: center; margin-bottom: 20px;">
+                                <c:if test="${sessionScope.acc.role == 0}">
+                                    <div class="flex" style="display: flex; align-items: center;">
+                                        <label for="accountID" style="margin-right: 10px;">Quản Lý:</label>
+                                        <select id="accountID" name="accountID" style="border: 1px solid black; width: 120px;" class="py-2 px-3 rounded">
+                                            <option value="">Chọn Quản Lý</option>
+                                            <c:forEach items="${listK3}" var="a">
+                                                <c:if test="${a.accountID != sessionScope.acc.accountID}">
+
+                                                    <option value="${a.accountID}">${a.hoVaTen}</option>
+                                                </c:if>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                    <div class="flex" style="display: flex; align-items: center;">
+                                        <label for="khuID" style="margin-right: 10px;">Khu: </label>
+                                        <select id="khuID" name="khuID" style="border: 1px solid black; width: 80px;" class="py-2 px-3 rounded">
+                                            <option value="">Chọn Khu</option> 
+                                            <c:forEach items="${listK}" var="khu">
+                                                <option value="${khu.khuID}">${khu.name}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                </c:if>
+                                <%--<c:if test="${sessionScope.acc.role == 1}">--%>
+                                    <!--<input type="hidden" name="accountID" value="${sessionScope.acc.accountID}">-->
+                                <%--</c:if>--%>
                                 <div class="flex" style="display: flex; align-items: center;">
                                     <label for="phongID" style="margin-right: 10px;">Số Phòng: </label>
-                                    <input type="phongID" id="phongID" name="phongID" placeholder="Nhập số phòng" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
+                                    <input type="phongID" id="phongID" name="phongID" placeholder="Nhập Số phòng" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
                                 </div>
                                 <div class="flex" style="display: flex; align-items: center;">
                                     <label for="name" style="margin-right: 10px;">Tên Thiết Bị: </label>
                                     <input type="name" id="name" name="name" placeholder="Nhập tên thiết bị" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
                                 </div>
                                 <div class="flex" style="display: flex; align-items: center;">
-                                    <label for="tinhTrang" style="margin-right: 10px;">Tình Trạng: </label>
-                                    <select id="tinhTrang" name="tinhTrang" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
-                                        <option value="">Tốt</option>
-                                    </select>
+                                    <label for="tinhTrang" style="margin-right: 10px;">Tình Trạng </label>
+                                    <input type="tinhTrang" id="tinhTrang" name="tinhTrang" placeholder="Tình trạng thiết bị" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
                                 </div>
                                 <div class="flex" style="display: flex; align-items: center;">
-                                    <label for="gia" style="margin-right: 10px;">Giá: </label>
-                                    <select id="gia" name="gia" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
-                                        <option value="">250000 VND</option>
-                                    </select>
+                                    <label for="gia" style="margin-right: 10px;">Giá Thiết Bị </label>
+                                    <input type="gia" id="gia" name="gia" placeholder="Nhập giá thiết bị" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
                                 </div>
                                 <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" style="margin-left: 10px;">Tìm kiếm</button>
                             </form>
