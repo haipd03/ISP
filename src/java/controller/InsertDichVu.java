@@ -6,6 +6,7 @@ package controller;
 
 import dal.DAO;
 import dal.LinhDao;
+import dal.SonDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -23,18 +24,23 @@ import model.DichVu;
 @WebServlet(name = "InsertDichVu", urlPatterns = {"/insertdichvu"})
 public class InsertDichVu extends HttpServlet {
 
-   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String dvid = request.getParameter("ib");
+        
         LinhDao dao = new LinhDao();
-         DichVu dv = dao.getDichVubyID(dvid);
+        SonDAO sondao = new SonDAO();
+        
+        DichVu dv = dao.getDichVubyID(dvid);
+        int nextDichVuID = sondao.getNextDichVuID();
+
         request.setAttribute("detail", dv);
+        request.setAttribute("nextDichVuID", nextDichVuID);
         //ThietBi tb = dao.getThietBibypID(tbpid);
-        request.getRequestDispatcher("AddDichVu.jsp" ).forward(request, response);
-    } 
-   
-   
+        request.getRequestDispatcher("AddDichVu.jsp").forward(request, response);
+    }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

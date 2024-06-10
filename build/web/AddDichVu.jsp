@@ -59,41 +59,41 @@
                                                     <div class="form-row">
                                                         <div class="form-group col-md-6">
                                                             <label>DichVuID:</label>
-                                                            <input value="${detail.dichVuID}" name="DichVuID" type="text" class="form-control" required>
+                                                            <input name="DichVuID" type="text" class="form-control" value="${nextDichVuID}" readonly>
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label>SoPhong:</label>
-                                                            <input value="${detail.soPhong}" name="SoPhong" type="text" class="form-control" required>
+                                                            <input name="SoPhong" type="text" class="form-control" required>
                                                         </div>
                                                     </div>
                                                     <div class="form-row">
                                                         <div class="form-group col-md-6">
                                                             <label>Name:</label>
-                                                            <input value="${detail.name}" name="Name" type="text" class="form-control" required>
+                                                            <input name="Name" type="text" class="form-control" required>
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label>GiaTien:</label>
-                                                            <input value="${detail.giaTien}" name="GiaTien" type="text" class="form-control" required>
+                                                            <input name="GiaTien" type="text" class="form-control" required>
                                                         </div>
                                                     </div>
                                                     <div class="form-row">
                                                         <div class="form-group col-md-6">
                                                             <label>TuNgay:</label>
-                                                            <input value="${detail.tuNgay}" name="TuNgay" type="date" class="form-control" required>
+                                                            <input name="TuNgay" type="date" class="form-control" required>
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label>DenNgay:</label>
-                                                            <input value="${detail.denNgay}" name="DenNgay" type="date" class="form-control" required>
+                                                            <input name="DenNgay" type="date" class="form-control" required>
                                                         </div>
                                                     </div>
                                                     <div class="form-row">
                                                         <div class="form-group col-md-6">
                                                             <label>ChiSoCu:</label>
-                                                            <input value="${detail.chiSoCu}" name="ChiSoCu" type="text" class="form-control" required>
+                                                            <input name="ChiSoCu" type="text" class="form-control" required>
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label>ChiSoMoi:</label>
-                                                            <input value="${detail.chiSoMoi}" name="ChiSoMoi" type="text" class="form-control" required>
+                                                            <input name="ChiSoMoi" type="text" class="form-control" required>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
