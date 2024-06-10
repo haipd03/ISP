@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 import model.HoaDon;
 import model.HoaDonDetail;
+import model.Phong;
 
 /**
  *
@@ -63,7 +64,11 @@ public class AddHoaDonDetailPhong extends HttpServlet {
         String dvid = request.getParameter("DichVuID");
 
         SonDAO sondao = new SonDAO();
+        
         sondao.insertHoaDonDetail(hddid, hdid, tn, dn, ts, hs, tt, dvid);
+        
+        Phong listphong = sondao.getPhongByHoaDonID(hdid);
+        int giaPhong = listphong.getGia();
 
         HoaDon listhdon = sondao.getIDByHoaDonIDByPhongID(pid);
 
@@ -76,7 +81,7 @@ public class AddHoaDonDetailPhong extends HttpServlet {
 
         List<HoaDonDetail> listhdondetail = sondao.getHoaDonDetail(hdid);
 
-        int TongTien = 0;
+        int TongTien = giaPhong;
         for (HoaDonDetail detail : listhdondetail) {
             TongTien += detail.getThanhTien();
         }

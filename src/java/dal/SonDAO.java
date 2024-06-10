@@ -482,6 +482,53 @@ public class SonDAO extends MyDAO {
         return null;
     }
 
+    public HoaDon getHoaDonByHoaDonID(String id) {
+        String query = "SELECT * FROM HoaDon WHERE HoaDonID = ?";
+        try {
+            ps = con.prepareStatement(query);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int hoaDonID = rs.getInt("HoaDonID");
+                int hopDongID = rs.getInt("HopDongID");
+                Date NgayThanhToan = rs.getDate("NgayThanhToan");
+                String tinhTrangThanhToan = rs.getString("TinhTrangThanhToan");
+                Date tuNgay = rs.getDate("TuNgay");
+                Date denNgay = rs.getDate("DenNgay");
+                int tongTien = rs.getInt("TongTien");
+                HoaDon hoaDons = new HoaDon(hoaDonID, hopDongID, NgayThanhToan, tinhTrangThanhToan, tuNgay, denNgay, tongTien);
+                return hoaDons;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Phong getPhongByHoaDonID(String id) {
+        String sql = "SELECT * FROM Phong p join HopDong hdong on hdong.PhongID = p.PhongID join HoaDon hdon on hdon.HopDongID = hdong.HopDongID WHERE hdon.HoaDonID = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int PhongID = rs.getInt("PhongID");
+                int SoPhong = rs.getInt("SoPhong");
+                int KhuID = rs.getInt("KhuID");
+                String LoaiPhong = rs.getString("LoaiPhong");
+                int PhongConTrong = rs.getInt("PhongConTrong");
+                String GhiChu = rs.getString("GhiChu");
+                int Gia = rs.getInt("Gia");
+
+                Phong phongs = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, GhiChu, Gia);
+                return phongs;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public HopDong getHopDongByPhongIDandTinhTrang1(String id) {
         String sql = "select * from HopDong hd where hd.PhongID = ? and hd.TinhTrang = 1";
         try {
@@ -805,7 +852,7 @@ public class SonDAO extends MyDAO {
         }
         return 1;
     }
-    
+
     public int getNextPhongID() {
         String sql = "SELECT MAX(PhongID) FROM Phong";
         try {
@@ -834,7 +881,7 @@ public class SonDAO extends MyDAO {
         }
         return 1;
     }
-    
+
     public int getNextKhuID() {
         String sql = "SELECT MAX(KhuID) FROM Khu";
         try {
@@ -863,7 +910,7 @@ public class SonDAO extends MyDAO {
         }
         return 1;
     }
-    
+
     public int getNextAccountID() {
         String sql = "SELECT MAX(AccountID) FROM Accounts";
         try {
@@ -892,7 +939,7 @@ public class SonDAO extends MyDAO {
         }
         return 1;
     }
-    
+
     public static void main(String[] args) throws SQLException {
         SonDAO dao = new SonDAO();
         int nextHoaDonID = dao.getNextHoaDonID();

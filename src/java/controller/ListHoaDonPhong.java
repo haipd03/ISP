@@ -13,11 +13,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.Date;
-import java.util.List;
 import model.Accounts;
 import model.HoaDon;
-import model.HoaDonDetail;
 
 /**
  *
@@ -52,28 +49,6 @@ public class ListHoaDonPhong extends HttpServlet {
 
             request.setAttribute("listhdon", listhdon);
             request.setAttribute("phongid", id);
-
-            HoaDon listhdon1 = sondao.getIDByHoaDonIDByPhongID(id);
-
-            if (listhdon1 != null) { // Kiểm tra nếu phòng có HoaDon
-                int hdonid = listhdon1.getHoaDonID();
-                int hdongid = listhdon1.getHopDongID();
-                Date NgayThanhToan = listhdon1.getNgayThanhToan();
-                String tttt = listhdon1.getTinhTrangThanhToan();
-                Date TuNgay = listhdon1.getTuNgay();
-                Date DenNgay = listhdon1.getDenNgay();
-
-                List<HoaDonDetail> listhdondetail = sondao.getHoaDonDetail(String.valueOf(hdonid));
-
-                int TongTien = 0;
-                for (HoaDonDetail detail : listhdondetail) {
-                    TongTien += detail.getThanhTien();
-                }
-
-                HoaDon hoadon = new HoaDon(hdonid, hdongid, NgayThanhToan, tttt, TuNgay, DenNgay, TongTien);
-                sondao.updateHoaDon(hoadon);
-            }
-
             request.getRequestDispatcher("ListHoaDonPhong.jsp").forward(request, response);
         }
     }
