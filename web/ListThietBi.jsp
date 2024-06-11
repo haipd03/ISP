@@ -36,8 +36,8 @@
                                 <c:if test="${sessionScope.acc.role == 0}">
                                     <div class="flex" style="display: flex; align-items: center;">
                                         <label for="accountID" style="margin-right: 10px;">Quản Lý:</label>
-                                        <select id="accountID" name="accountID" style="border: 1px solid black; width: 120px;" class="py-2 px-3 rounded">
-                                            <option value="">Chọn Quản Lý</option>
+                                        <select id="accountID" name="accountID" style="border: 1px solid black; width: 105px;" class="py-2 px-3 rounded">
+                                            <option value="">Quản Lý</option>
                                             <c:forEach items="${listK3}" var="a">
                                                 <c:if test="${a.accountID != sessionScope.acc.accountID}">
 
@@ -49,7 +49,7 @@
                                     <div class="flex" style="display: flex; align-items: center;">
                                         <label for="khuID" style="margin-right: 10px;">Khu: </label>
                                         <select id="khuID" name="khuID" style="border: 1px solid black; width: 80px;" class="py-2 px-3 rounded">
-                                            <option value="">Chọn Khu</option> 
+                                            <option value="">Khu</option> 
                                             <c:forEach items="${listK}" var="khu">
                                                 <option value="${khu.khuID}">${khu.name}</option>
                                             </c:forEach>
@@ -69,11 +69,11 @@
                                 </div>
                                 <div class="flex" style="display: flex; align-items: center;">
                                     <label for="tinhTrang" style="margin-right: 10px;">Tình Trạng </label>
-                                    <input type="tinhTrang" id="tinhTrang" name="tinhTrang" placeholder="Tình trạng thiết bị" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
+                                    <input type="tinhTrang" id="tinhTrang" name="tinhTrang" placeholder="Tình trạng" style="border: 1px solid black; width: 120px;" class="py-2 px-3 rounded">
                                 </div>
                                 <div class="flex" style="display: flex; align-items: center;">
-                                    <label for="gia" style="margin-right: 10px;">Giá Thiết Bị </label>
-                                    <input type="gia" id="gia" name="gia" placeholder="Nhập giá thiết bị" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
+                                    <label for="gia" style="margin-right: 10px;">Giá </label>
+                                    <input type="gia" id="gia" name="gia" placeholder="Nhập giá" style="border: 1px solid black; width: 100px;" class="py-2 px-3 rounded">
                                 </div>
                                 <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" style="margin-left: 10px;">Tìm kiếm</button>
                             </form>

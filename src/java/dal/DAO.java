@@ -770,6 +770,7 @@ public class DAO extends MyDAO {
         }
         return ThietBi;
     }
+    
 public List<ThietBi> getAllThietBiGia() {
     List<ThietBi> thietBiList = new ArrayList<>();
     String sql = "SELECT DISTINCT Gia FROM ThietBi";

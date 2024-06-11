@@ -54,22 +54,14 @@ public class ListAllThietBi extends HttpServlet {
             DAO dao = new DAO();
             List<Accounts> acc = dao.getAccounts();
             List<ThietBi> ltb = dao.getAllThietBi();
-//            List<ThietBi> ltb;
             List<Khu> listK = dao.getKhuByKhuID();
             List<Phong> listP = dao.getPhong();
-//            if (a.getRole() == 0) {
-//                ltb = dao.getAllThietBi();
-//            } else {
-//                ltb = dao.getAllThietBiByAccountID(a.getAccountID());
-//                
-//            }
             request.setAttribute("listK", listK);
             request.setAttribute("listP", listP);
             request.setAttribute("ltb", ltb);
             request.setAttribute("listK3", acc);
             request.getRequestDispatcher("ListThietBi.jsp").forward(request, response);
         }
-
     }
 
     @Override
