@@ -81,10 +81,37 @@ public class PhongDAO extends MyDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            // Handle the exception appropriately
         }
         return phongs;
     }
+public List<Phong> getPhongBySoPhongByAccount(int soPhong, int accountID) {
+    List<Phong> phongs = new ArrayList<>();
+    String sql = "select p.* from Phong p\n" +
+"join Khu k on k.KhuID = p.KhuID\n" +
+"join Accounts a on a.AccountID =k.AccountID\n" +
+"where p.SoPhong =? and a.AccountID =?";
+    try {
+        ps = con.prepareStatement(sql);
+        ps.setInt(1, soPhong);
+        ps.setInt(2, accountID);
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            int PhongID = rs.getInt("PhongID");
+            int SoPhong = rs.getInt("SoPhong");
+            int KhuID = rs.getInt("KhuID");
+            String LoaiPhong = rs.getString("LoaiPhong");
+            int PhongConTrong = rs.getInt("PhongConTrong");
+            String GhiChu = rs.getString("GhiChu");
+            int Gia = rs.getInt("Gia");
+
+            Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, GhiChu, Gia);
+            phongs.add(phong);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return phongs;
+}
 
     public List<Phong> addPhong(Phong phong) {
         String sql = "INSERT INTO Phong (PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong,GhiChu, Gia) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -102,7 +129,6 @@ public class PhongDAO extends MyDAO {
             phongList = getAllPhong();
         } catch (SQLException e) {
             e.printStackTrace();
-            // Xử lý lỗi nếu cần thiết
         }
         return phongList;
     }
@@ -181,26 +207,6 @@ public class PhongDAO extends MyDAO {
         return phongs;
     }
 
-//    public List<Phong> updatePhong(Phong phong) {
-//        String sql = "UPDATE Phong SET SoPhong = ?, KhuID = ?, LoaiPhong = ?, PhongConTrong = ?,GhiChu = ?, Gia = ? WHERE PhongID = ?";
-//        List<Phong> phongList = new ArrayList<>();
-//        try {
-//            PreparedStatement ps = con.prepareStatement(sql);
-//            ps.setInt(1, phong.getSoPhong());
-//            ps.setInt(2, phong.getKhuID());
-//            ps.setString(3, phong.getLoaiPhong());
-//            ps.setInt(4, phong.getPhongConTrong());
-//            ps.setInt(5, phong.getGia());
-//            ps.setString(6, phong.getGhiChu());
-//            ps.setInt(7, phong.getPhongID());
-//            ps.executeUpdate();
-//            phongList = getAllPhong();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            // Handle the exception appropriately
-//        }
-//        return phongList;
-//    }
     public List<Phong> updatePhong(Phong phong) {
         String sql = "UPDATE Phong SET SoPhong = ?, KhuID = ?, LoaiPhong = ?, PhongConTrong = ?, GhiChu = ?, Gia = ? WHERE PhongID = ?";
         List<Phong> phongList = new ArrayList<>();
@@ -217,7 +223,6 @@ public class PhongDAO extends MyDAO {
             phongList = getAllPhong(); // Assuming getAllPhong() returns a List<Phong>
         } catch (SQLException e) {
             e.printStackTrace();
-            // Handle the exception appropriately
         }
         return phongList;
     }
@@ -243,7 +248,6 @@ public class PhongDAO extends MyDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            // Handle the exception appropriately
         }
         return phong;
     }
