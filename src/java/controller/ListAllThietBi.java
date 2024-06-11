@@ -5,6 +5,7 @@
 package controller;
 
 import dal.DAO;
+import dal.PhongDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -74,7 +75,7 @@ public class ListAllThietBi extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         response.setContentType("text/html;charset=UTF-8");
+       response.setContentType("text/html;charset=UTF-8");
     HttpSession session = request.getSession();
     Accounts a = (Accounts) session.getAttribute("acc");
 
@@ -83,28 +84,66 @@ public class ListAllThietBi extends HttpServlet {
         return;
     } else {
         DAO dao = new DAO();
+        PhongDAO p = new PhongDAO();
         List<Accounts> acc = dao.getAccounts();
         List<Khu> listK = dao.getKhuByKhuID();
         List<Phong> listP = dao.getPhong();
-        
+
         String accountIDParam = request.getParameter("accountID");
         String khuIDParam = request.getParameter("khuID");
         String phongIDParam = request.getParameter("phongID");
         String name = request.getParameter("name");
         String tinhTrang = request.getParameter("tinhTrang");
         String giaParam = request.getParameter("gia");
-         String soPhongParam = request.getParameter("soPhong");
+        String soPhongParam = request.getParameter("soPhong");
 
         int accountID = (accountIDParam != null && !accountIDParam.isEmpty()) ? Integer.parseInt(accountIDParam) : 0;
         int khuID = (khuIDParam != null && !khuIDParam.isEmpty()) ? Integer.parseInt(khuIDParam) : 0;
-        int phongID = (phongIDParam != null && !phongIDParam.isEmpty()) ? Integer.parseInt(phongIDParam) : 0;
+        int phongID = 0;
 
+        if (soPhongParam != null && !soPhongParam.isEmpty()) {
+            try {
+                int soPhong = Integer.parseInt(soPhongParam);
+                List<Phong> phongs;
 
-        int gia = (giaParam != null && !giaParam.isEmpty()) ? Integer.parseInt(giaParam) : 0;
-        List<ThietBi> ltb = dao.searchListThietBi(accountID, khuID, phongID, name, tinhTrang, gia);
-         if (ltb.isEmpty()) {
-            request.setAttribute("error", "Không tìm thấy thiết bị nào theo yêu cầu.");
+                if (a.getRole() == 0) {
+                    phongs = p.getPhongBySoPhong(soPhong);
+                } else {
+                    phongs = p.getPhongBySoPhongByAccount(soPhong, a.getAccountID());
+                }
+
+                if (!phongs.isEmpty()) {
+                    phongID = phongs.get(0).getPhongID();
+                } else {
+                    request.setAttribute("error", "Không tìm thấy phòng!");
+                    request.getRequestDispatcher("ListThietBi.jsp").forward(request, response);
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                request.setAttribute("error", "Vui lòng nhập lại số phòng hợp lệ!");
+                request.getRequestDispatcher("ListThietBi.jsp").forward(request, response);
+                return;
+            }
         }
+
+        int gia = 0;
+        if (giaParam != null && !giaParam.isEmpty()) {
+            try {
+                gia = Integer.parseInt(giaParam);
+            } catch (NumberFormatException e) {
+                request.setAttribute("error", "Vui lòng nhập lại giá thiết bị!");
+                request.getRequestDispatcher("ListThietBi.jsp").forward(request, response);
+                return;
+            }
+        }
+
+        List<ThietBi> ltb = dao.searchListThietBi(accountID, khuID, phongID, name, tinhTrang, gia);
+        if (ltb.isEmpty()) {
+            request.setAttribute("error", "Không tìm thấy thiết bị nào theo yêu cầu!");
+            request.getRequestDispatcher("ListThietBi.jsp").forward(request, response);
+            return;
+        }
+
         request.setAttribute("listK", listK);
         request.setAttribute("listP", listP);
         request.setAttribute("ltb", ltb);

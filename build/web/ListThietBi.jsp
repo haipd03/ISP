@@ -60,8 +60,8 @@
                                     <!--<input type="hidden" name="accountID" value="${sessionScope.acc.accountID}">-->
                                 <%--</c:if>--%>
                                 <div class="flex" style="display: flex; align-items: center;">
-                                    <label for="phongID" style="margin-right: 10px;">Số Phòng: </label>
-                                    <input type="phongID" id="phongID" name="phongID" placeholder="Nhập Số phòng" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
+                                    <label for="soPhong" style="margin-right: 10px;">Số Phòng: </label>
+                                    <input type="soPhong" id="soPhong" name="soPhong" placeholder="Nhập Số phòng" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
                                 </div>
                                 <div class="flex" style="display: flex; align-items: center;">
                                     <label for="name" style="margin-right: 10px;">Tên Thiết Bị: </label>
