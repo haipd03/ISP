@@ -8,12 +8,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="./dist/styles.css">
     <link rel="stylesheet"
-        href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
-        integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
-        crossorigin="anonymous">
+          href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+          crossorigin="anonymous">
     <style>
         .login {
-            background: url('./dist/images/login-new.jpeg')
+            background: url('./dist/images/login-new.jpeg');
         }
     </style>
 </head>
@@ -33,23 +33,37 @@
                     <div>
                         <label class="block text-sm text-gray-600" for="username">Username</label>
                         <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="username" name="username"
-                            type="text" required="" placeholder="User Name" aria-label="username">
+                               type="text" required="" placeholder="User Name" aria-label="username">
                     </div>
                     <div class="mt-2">
                         <label class="block text-sm text-gray-600" for="password">Password</label>
                         <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="password" name="password"
-
-                            type="password" required="" placeholder="*******" aria-label="password">
-
+                               type="password" required="" placeholder="*******" aria-label="password">
                     </div>
                     <div class="mt-4 items-center justify-between">
                         <button class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded"
-                            type="submit">Login</button>
+                                type="submit">Login</button>
+                        <a class="inline-block right-0 align-baseline font-bold text-sm text-500 hover:text-blue-800" href="ForgotPassword.jsp">
+                            Forgot Password?
+                        </a>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+
+    <!-- Display alerts based on status -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            var status = "${status}";
+            if (status == "resetSuccess") {
+                swal("Congrats", "Password Reset Successful", "success");
+            } else if (status == "resetFailed") {
+                swal("Sorry", "Password Reset Failed", "error");
+            }
+        });
+    </script>
 </body>
 
 </html>

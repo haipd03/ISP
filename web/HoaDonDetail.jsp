@@ -62,6 +62,7 @@
                                         <td class="px-2 py-2 text-center">${o.dichVuID}</td>
                                         <td class="px-2 py-2 text-center">
                                             <a href="loadhoadondetail?id=${o.hoaDonDetailID}" class="text-blue-500 hover:text-blue-700 mr-2">Sửa</a>
+                                            <a href="deletehoadondetail?id=${o.hoaDonDetailID}" class="text-red-500 hover:text-blue-700 mr-2">Xóa</a>
                                         </td>
                                     </tr>
                                 </c:forEach>

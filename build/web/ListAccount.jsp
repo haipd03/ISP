@@ -22,13 +22,14 @@
                     event.preventDefault();
                 }
             }
+<<<<<<< HEAD
 
+=======
+>>>>>>> datnt
             document.getElementById("backButton").onclick = function () {
                 window.location.href = "listaccount";
             };
         </script>
-
-
     </head>
 
     <body>
@@ -96,7 +97,11 @@
                                 </table>
                             </form>
                             <div class="mb-2 md:mx-2 lg:mx-2">
+<<<<<<< HEAD
                                  <a href="nhapaddaccountjsp" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">Thêm tài khoản mới</a>
+=======
+                                 <a href="NhapAddAccount.jsp" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">Thêm tài khoản mới</a>
+>>>>>>> datnt
                             </div>
                         </div>
                     </div>

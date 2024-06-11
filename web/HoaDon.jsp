@@ -74,19 +74,14 @@
                                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Thêm hóa đơn</button>
                             </a>
                         </div>
-                        <div class="mt-4">
-                            <c:if test="${totalPages > 1}">
-                                <nav>
-                                    <ul class="pagination">
-                                        <c:forEach begin="1" end="${totalPages}" var="i">
-                                            <li class="page-item ${i == currentPage ? 'active' : ''}">
-                                                <a class="page-link" href="listhoadon?page=${i}">${i}</a>
-                                            </li>
-                                        </c:forEach>
-                                    </ul>
-                                </nav>
-                            </c:if>
-                        </div>
+                        <div class="flex justify-between mt-4">
+                                <c:if test="${currentPage > 1}">
+                                    <a href="listhoadon?page=${currentPage - 1}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Previous</a>
+                                </c:if>
+                                <c:if test="${currentPage < totalPages}">
+                                    <a href="listhoadon?page=${currentPage + 1}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Next</a>
+                                </c:if>
+                            </div>
                     </div>
                 </div>
             </div>

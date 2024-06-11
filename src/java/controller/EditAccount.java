@@ -34,8 +34,7 @@ import java.util.regex.Pattern;
              * @throws ServletException if a servlet-specific error occurs
              * @throws IOException if an I/O error occurs
              */
-                private static final String GMAIL_REGEX = "^[A-Za-z0-9._%+-]+@gmail\\.com$";
-
+ private static final String GMAIL_REGEX = "^[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}$";
            protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
                 response.setContentType("text/html;charset=UTF-8");
