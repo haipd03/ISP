@@ -55,9 +55,15 @@ public class ListNguoiThue extends HttpServlet {
             } else {
                 List<HopDong> hd = sondao.getHopDong();
                 List<KhachThue> kt = dao.getKhachThueByPhongID(id);
-                
+                HopDong hd1 = sondao.getHopDongByPhongIDandTinhTrang1(id);
+
+                if (sondao.checkPhongIDcoHopDongConThue(id)) {
+                    int sokhach = sondao.countKhachThueByPhongID(id);
+                    request.setAttribute("sokhach", sokhach);
+                }
                 request.setAttribute("listHopDong", hd);
                 request.setAttribute("listNguoiThue", kt);
+                request.setAttribute("listHopDong1", hd1);
             }
             request.getRequestDispatcher("ListKhachThue.jsp").forward(request, response);
         }

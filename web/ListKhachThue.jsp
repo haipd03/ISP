@@ -40,18 +40,22 @@
                     <!--/Sidebar-->
                     <!--Main-->
                     <main class="bg-gray-100 flex-1 p-6 overflow-hidden">
-                        
+
                         <c:if test="${sessionScope.acc.role == 0}">
                             <table border="0">
                                 <tbody>
                                     <tr>
-                                        <td>
-                                            <div class="flex justify-end">
-                                                <form action="nhapaddkhachthue?naktpid=${phongID}" method="post">
-                                                    <button type="submit" class="bg-green-500 hover:bg-green-800 text-white font-bold py-2 px-4 rounded">Thêm Khách Thuê</button>
-                                                </form>
-                                            </div>
-                                        </td>
+
+                                        <c:if test="${empty listHopDong1 || sokhach != listHopDong1.soKhachThue}">
+                                            <td>
+                                                <div class="flex justify-end">
+                                                    <form action="nhapaddkhachthue?naktpid=${phongID}" method="post">
+                                                        <button type="submit" class="bg-green-500 hover:bg-green-800 text-white font-bold py-2 px-4 rounded">Thêm Khách Thuê</button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </c:if>
+
                                         <c:set var="phongDaCoHopDong" value="false" />
 
                                         <c:forEach var="hopDong" items="${listHopDong}">
@@ -73,7 +77,7 @@
                                 </tbody>
                             </table>
                         </c:if>
-                        
+
                         <c:if test="${not empty error}">
                             <p style="color: red; font-size: 1.2em; font-weight: bold;">${error}</p>
                         </c:if>

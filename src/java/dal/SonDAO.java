@@ -940,9 +940,58 @@ public class SonDAO extends MyDAO {
         return 1;
     }
 
-    public static void main(String[] args) throws SQLException {
-        SonDAO dao = new SonDAO();
-        int nextHoaDonID = dao.getNextHoaDonID();
-        System.out.println("Next HoaDonID: " + nextHoaDonID);
+    public int countKhachThueByPhongID(String phongID) {
+        String sql = "SELECT COUNT(*) AS SoLuongKhachThue FROM KhachThue WHERE PhongID = ? and TinhTrang = 1";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, phongID);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt("SoLuongKhachThue");
+                return count;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return 0;
     }
+
+    public boolean checkPhongIDcoHopDongConThue(String pid) {
+        String query = "select distinct p.* from Phong p join HopDong hdong on hdong.PhongID = p.PhongID where p.PhongID = ? and hdong.TinhTrang = 1";
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, pid);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static void main(String[] args) {
+    SonDAO dao = new SonDAO();
+    boolean result = dao.checkPhongIDcoHopDongConThue("2014");
+    if (result) {
+        System.out.println("true");
+    } else {
+        System.out.println("false");
+    }
+}
 }
