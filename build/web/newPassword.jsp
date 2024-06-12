@@ -1,4 +1,6 @@
 <!doctype html>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <html>
     <head>
         <meta charset='utf-8'>
@@ -36,7 +38,7 @@
                             <!-- Main Heading -->
                             <div class="row justify-content-center align-items-center pt-3">
                                 <h1>
-                                    <strong>Reset Password</strong>
+                                    <strong>Đặt lại mật khẩu</strong>
                                 </h1>
                             </div>
                             <div class="pt-3 pb-3">

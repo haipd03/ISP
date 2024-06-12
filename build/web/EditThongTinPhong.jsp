@@ -52,7 +52,7 @@
                             <form action="editPhong" method="get" onsubmit="return confirmUpdate()">
                                 <div class="space-y-4">
                                     <div class="flex items-center">
-                                        <label class="w-1/3 text-gray-700 font-semibold">Phòng ID:</label>
+                                        <label class="w-1/3 text-gray-700 font-semibold">Mã Phòng:</label>
                                         <input type="text" name="phongID" value="${p.phongID}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
@@ -60,7 +60,7 @@
                                         <input type="text" name="soPhong" value="${p.soPhong}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
-                                        <label class="w-1/3 text-gray-700 font-semibold">Khu ID:</label>
+                                        <label class="w-1/3 text-gray-700 font-semibold">Mã Khu:</label>
                                         <input type="text" name="khuID" value="${p.khuID}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
@@ -108,7 +108,7 @@
                                 </div>
                                 <c:if test="${sessionScope.acc.role == 0}">
                                     <div class="mt-6 flex justify-end">
-                                        <input type="submit" value="Update" class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 transition-colors duration-200">
+                                        <input type="submit" value="Sửa" class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 transition-colors duration-200">
                                     </div>
                                 </c:if>
                             </form>

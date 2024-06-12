@@ -39,47 +39,47 @@
                     <!-- Main Content -->
                     <div class="mb-4 md:mx-2 lg:mx-2 border border-gray-300 rounded-lg shadow-lg w-full md:w-1/2 lg:w-4/5">
                         <div class="bg-gray-600 text-white px-4 py-3 rounded-t-lg">
-                            Edit Hóa Đơn
+                            Sửa Hóa Đơn
                         </div>
                         <div class="p-6 bg-white">
                             <div class="container">
-                                <h2 class="text-center">Edit Hóa Đơn</h2>
+                                <h2 class="text-center">Sửa Hóa Đơn</h2>
                                 <div class="row justify-content-center">
                                     <div class="col-md-8">
                                         <div class="card">
-                                            <div class="card-header">Edit Hóa Đơn</div>
+                                            <div class="card-header">Sửa Hóa Đơn</div>
                                             <div class="card-body">
                                                 <form action="edithoadon" method="post">
                                                     <div class="form-group">
-                                                        <label>HoaDonID:</label>
+                                                        <label>Mã hóa đơn</label>
                                                         <input value="${hoadon.hoaDonID}" name="HoaDonID" type="text" class="form-control" readonly required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>HopDongID:</label>
+                                                        <label>Mã hợp đồng</label>
                                                         <input value="${hoadon.hopDongID}" name="HopDongID" type="text" class="form-control" readonly required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>NgayThanhToan:</label>
+                                                        <label>Ngày thanh toán</label>
                                                         <input value="${hoadon.ngayThanhToan}" name="NgayThanhToan" type="date" class="form-control" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>TinhTrangThanhToan:</label>
+                                                        <label>Tình trạng</label>
                                                         <input value="${hoadon.tinhTrangThanhToan}" name="TinhTrangThanhToan" type="text" class="form-control" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>TuNgay:</label>
+                                                        <label>Từ ngày</label>
                                                         <input value="${hoadon.tuNgay}" name="TuNgay" type="date" class="form-control" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>DenNgay:</label>
+                                                        <label>Đến ngày</label>
                                                         <input value="${hoadon.denNgay}" name="DenNgay" type="date" class="form-control" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>TongTien:</label>
+                                                        <label>Tổng tiền</label>
                                                         <input value="${hoadon.tongTien}" name="TongTien" type="text" class="form-control" required>
                                                     </div>
-                                                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                                                    <a href="listhoadon" class="btn btn-danger">Back</a>
+                                                    <button type="submit" class="btn btn-primary">Lưu</button>
+                                                    <a href="listhoadon" class="btn btn-danger">Quay về</a>
                                                 </form>
                                             </div>
                                         </div>

@@ -27,8 +27,6 @@
                 window.location.href = "listaccount";
             };
         </script>
-
-
     </head>
 
     <body>
@@ -49,7 +47,7 @@
                     <!-- Underline form -->
                     <div class="mb-2 md:mx-2 lg:mx-2 border-solid border-gray-200 rounded border shadow-sm w-full md:w-1/2 lg:w-2/3">
                         <div class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b font-bold">
-                            List Accounts
+                            Danh sách tài khoản
                         </div>
                         <div class="p-3">
                             <c:if test="${not empty error}">
@@ -64,14 +62,14 @@
                                 <table class="min-w-full leading-normal">
                                     <thead>
                                         <tr>
-                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">AccountID</th>
-                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">TaiKhoan</th>
-                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Password</th>
-                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Role</th>
-                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">HoVaTen</th>
+                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Mã tài khoản</th>
+                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Tài khoản</th>
+                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Mật khẩu</th>
+                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Vai trò</th>
+                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Họ và tên</th>
                                             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Email</th>
                                             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">CCCD</th>
-                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">DiaChi</th>
+                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Địa chỉ</th>
                                             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Tùy Chọn</th>
                                         </tr>
                                     </thead>
@@ -87,8 +85,8 @@
                                                 <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.CCCD}</td>
                                                 <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.diaChi}</td>
                                                 <td class="px-5 py-5 border-b border-gray-200 text-sm">
-                                                    <a href='loadaccount?aid=${o.accountID}' class="text-indigo-600 hover:text-indigo-900">Update</a>
-                                                    <a href='#' class="text-red-600 hover:text-red-900 ml-2" onclick="confirmDelete(event, 'deleteacc?aid=${o.accountID}')">Delete</a>
+                                                    <a href='loadaccount?aid=${o.accountID}' class="text-indigo-600 hover:text-indigo-900">Sửa</a>
+                                                    <a href='#' class="text-red-600 hover:text-red-900 ml-2" onclick="confirmDelete(event, 'deleteacc?aid=${o.accountID}')">Xóa</a>
                                                 </td>
                                             </tr>
                                         </c:forEach>
@@ -96,7 +94,9 @@
                                 </table>
                             </form>
                             <div class="mb-2 md:mx-2 lg:mx-2">
-                                 <a href="nhapaddaccountjsp" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">Thêm tài khoản mới</a>
+
+                                 <a href="NhapAddAccount.jsp" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">Thêm tài khoản mới</a>
+
                             </div>
                         </div>
                     </div>

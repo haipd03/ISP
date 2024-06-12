@@ -30,7 +30,7 @@
                                 <h3>
                                     <i class="fa fa-lock fa-4x"></i>
                                 </h3>
-                                <h2 class="text-center">Enter OTP</h2>
+                                <h2 class="text-center">OTP</h2>
                                 <%
 if(request.getAttribute("message")!=null)
 {

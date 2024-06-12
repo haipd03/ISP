@@ -46,7 +46,7 @@
                                     <input type="text" id="CCCD" name="CCCD" placeholder="Nhập CCCD" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
                                 </div>
                                 <div class="flex" style="display: flex; align-items: center;">
-                                    <label for="SDT" style="margin-right: 10px;"> SDT:</label>
+                                    <label for="SDT" style="margin-right: 10px;"> SĐT:</label>
                                     <input type="text" id="SDT" name="SDT" placeholder="Nhập SDT" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
                                 </div>                        
 
@@ -66,7 +66,7 @@
                                 <table class="min-w-full leading-normal">
                                     <thead>
                                         <tr>
-                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Khách ID</th>
+                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Mã Khách</th>
                                             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Họ Và Tên</th>
                                             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">CCCD</th>
                                             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Số Điện Thoại</th>
@@ -74,7 +74,7 @@
                                             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Tên Người Thân</th>
                                             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Số Điện Thoại Người Thân</th>
                                             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Quan Hệ Với Người Thân</th>
-                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Phòng ID</th>
+                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Mã Phòng</th>
                                             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Tình Trạng</th>
 
                                         </tr>
@@ -137,10 +137,10 @@
                             <c:if test="${sessionScope.acc.accountID == 1}">
                                 <div class="flex justify-between mt-4">
                                     <c:if test="${currentPage > 1}">
-                                        <a href="listchitietkhachthue?page=${currentPage - 1}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Previous</a>
+                                        <a href="listchitietkhachthue?page=${currentPage - 1}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Quay về</a>
                                     </c:if>
                                     <c:if test="${currentPage < totalPages}">
-                                        <a href="listchitietkhachthue?page=${currentPage + 1}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Next</a>
+                                        <a href="listchitietkhachthue?page=${currentPage + 1}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Tiếp</a>
                                     </c:if>
                                 </div>
                             </c:if>

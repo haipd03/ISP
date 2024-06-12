@@ -23,7 +23,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <title>Add  hóa đơn</title>
+        <title>Thêm hóa đơn</title>
     </head>
 
     <body>
@@ -66,38 +66,38 @@
                                                 </div>
                                                 <div class="modal-body">					
                                                     <div class="form-group">
-                                                        <label>HoaDonID</label>
+                                                        <label>Mã Hóa Đơn</label>
                                                         <input name="HoaDonID" type="text" class="form-control" required>
                                                     </div>                                                    
                                                     <div class="form-group">
-                                                        <label>HopDongID</label>
+                                                        <label>Hợp Đồng</label>
                                                         <input name="HopDongID" type="text" class="form-control" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>NgayThanhToan</label>
+                                                        <label>Ngày Thanh Toán</label>
                                                         <input name="NgayThanhToan" type="date" class="form-control" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>TinhTrangThanhToan</label>
+                                                        <label>Tình trạng</label>
                                                         <input name="TinhTrangThanhToan" type="text" class="form-control" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>TuNgay</label>
+                                                        <label>Từ Ngày</label>
                                                         <input name="TuNgay" type="date" class="form-control" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>DenNgay</label>
+                                                        <label>Đến Ngày</label>
                                                         <input name="DenNgay" type="date" class="form-control" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>TongTien</label>
+                                                        <label>Tổng Tiền</label>
                                                         <input name="TongTien" type="text" class="form-control" required>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">                            
                                                     <input type="submit" class="btn btn-success" value="Add">
 
-                                                        <a href="" class="btn btn-danger">Back</a>
+                                                        <a href="" class="btn btn-danger">Quay về</a>
                                                     
                                                 </div>
                                             </form>

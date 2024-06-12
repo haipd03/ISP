@@ -45,15 +45,15 @@
                         <form action="editaccount" method="post">
                             <div class="space-y-4">
                                 <div class="flex items-center">
-                                    <label class="w-1/3 text-gray-700 font-semibold">AccountID</label>
+                                    <label class="w-1/3 text-gray-700 font-semibold">Mã tài khoản</label>
                                     <input type="text" name="AccountID" readonly value="${listA.accountID}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                 </div>
                                 <div class="flex items-center">
-                                    <label class="w-1/3 text-gray-700 font-semibold">TaiKhoan</label>
+                                    <label class="w-1/3 text-gray-700 font-semibold">Tài khoản</label>
                                     <input type="text" name="TaiKhoan" value="${listA.taiKhoan}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                 </div>
                                 <div class="flex items-center">
-                                    <label class="w-1/3 text-gray-700 font-semibold">Password</label>
+                                    <label class="w-1/3 text-gray-700 font-semibold">Mật khẩu</label>
                                     <input type="text" name="Password" value="${listA.password}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                 </div>
                                 <div class="flex items-center">
@@ -61,7 +61,7 @@
                                     <input type="text" name="Role" value="${listA.role}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                 </div>
                                 <div class="flex items-center">
-                                    <label class="w-1/3 text-gray-700 font-semibold">HoVaTen</label>
+                                    <label class="w-1/3 text-gray-700 font-semibold">Họ và tên</label>
                                     <input type="text" name="HoVaTen" value="${listA.hoVaTen}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                 </div>
                                 <div class="flex items-center">
@@ -73,14 +73,14 @@
                                     <input type="text" name="CCCD" value="${listA.CCCD}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                 </div>
                                 <div class="flex items-center">
-                                    <label class="w-1/3 text-gray-700 font-semibold">DiaChi</label>
+                                    <label class="w-1/3 text-gray-700 font-semibold">Địa chỉ</label>
                                     <input type="text" name="DiaChi" value="${listA.diaChi}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                 </div>
                             </div>
                             <div class="mt-6 flex justify-end">
-                                <input type="submit" value="Update" class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 transition-colors duration-200">
+                                <input type="submit" value="Sửa" class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 transition-colors duration-200">
                                 <a href="listaccount" class="bg-red-500 hover:bg-red-800 text-white font-bold py-2 px-4 rounded">
-                                        Back
+                                        Quay về
                                     </a>
                             </div>
                         </form>

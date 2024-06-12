@@ -57,7 +57,7 @@
                                         <input type="text" name="KhachID" value="${listhd.khachID}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" readonly>
                                     </div>
                                     <div class="flex items-center">
-                                        <label class="w-1/3 text-gray-700 font-semibold">Phòng ID:</label>
+                                        <label class="w-1/3 text-gray-700 font-semibold">Mã Phòng:</label>
                                         <input type="text" name="PhongID" value="${listhd.phongID}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" readonly>
                                     </div>
                                     <div class="flex items-center">
@@ -102,9 +102,9 @@
                                     </div>
                                 </div>
                                 <div class="mt-6 flex justify-end">
-                                    <input type="submit" value="Update" onclick="return confirmUpdate()" class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 transition-colors duration-200">
+                                    <input type="submit" value="Sửa" onclick="return confirmUpdate()" class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 transition-colors duration-200">
                                     <a href="listhopdong" class="bg-red-500 hover:bg-red-800 text-white font-bold py-2 px-4 rounded">
-                                        Back
+                                        Quay về
                                     </a>
                                 </div>
                             </form>

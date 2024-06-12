@@ -68,36 +68,36 @@
                                                 </div>
                                                 <div class="modal-body">					
                                                     <div class="form-group">
-                                                        <label>HoaDonDetailID</label>
+                                                        <label>Mã hóa đơn chi tiết</label>
                                                         <input name="HoaDonDetailID" type="text" class="form-control" value="${nextHoaDonDetailID}" readonly>
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label>HoaDonID</label>
+                                                        <label>Mã hóa đơn</label>
                                                         <input value="${hdid1}" name="HoaDonID" type="text" class="form-control" readonly required>                                    
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label>TuNgay</label>
+                                                        <label>Từ ngày</label>
                                                         <input name="TuNgay" type="date" class="form-control" value="${hdid[0].tuNgay}" readonly>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>DenNgay</label>
+                                                        <label>Đến ngày</label>
                                                         <input name="DenNgay" type="date" class="form-control" value="${hdid[0].denNgay}" readonly>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>HeSo</label>
+                                                        <label>Hệ số</label>
                                                         <input name="HeSo" type="text" class="form-control" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>DichVuID</label>
+                                                        <label>Mã dịch vụ</label>
                                                         <input name="DichVuID" type="text" class="form-control" required>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">                            
                                                     <input type="submit" class="btn btn-success" value="Add">
                                                     <c:forEach items="${hdid}" var="o">
-                                                        <a href="listhoadondetail?id=${o.hoaDonID}" class="btn btn-danger">Back</a>
+                                                        <a href="listhoadondetail?id=${o.hoaDonID}" class="btn btn-danger">Quay về</a>
                                                     </c:forEach>
                                                 </div>
                                             </form>

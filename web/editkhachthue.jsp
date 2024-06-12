@@ -45,7 +45,7 @@
                             <form id="editKhachThueForm" action="editKhachThue" method="post">
                                 <div class="space-y-4">
                                     <div class="flex items-center">
-                                        <label class="w-1/3 text-gray-700 font-semibold">ID Khách</label>
+                                        <label class="w-1/3 text-gray-700 font-semibold">Mã Khách</label>
                                         <input type="text" name="KhachID" readonly value="${listNguoiThue1.khachID}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
@@ -89,7 +89,7 @@
                                     </div>
                                 </div>
                                 <div class="mt-6 flex justify-end">
-                                    <input type="submit" value="Update" onclick="return confirmUpdate()" class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 transition-colors duration-200">
+                                    <input type="submit" value="Sửa" onclick="return confirmUpdate()" class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 transition-colors duration-200">
                                 </div>
                             </form>
                         </div>

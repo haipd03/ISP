@@ -33,17 +33,17 @@
                     <!-- Underline form -->
                     <div class="mb-4 mx-auto border border-gray-300 rounded-lg shadow-lg w-full md:w-1/2 lg:w-1/3">
                         <div class="bg-purple-600 text-white px-4 py-3 rounded-t-lg w-full ">
-                            Add Hóa Đơn Detail
+                            Thêm Hóa Đơn Chi Tiết
                         </div>
                         <div class="p-6 bg-white">
                             <form id="hoadon-form" action="addhoadondetailphong" method="get">
                                 <div class="space-y-4">
                                     <div class="flex items-center">
-                                        <label class="w-2/5 text-gray-700 font-semibold">Hóa Đơn Chi Tiết ID:</label>
+                                        <label class="w-2/5 text-gray-700 font-semibold">Mã Hóa Đơn Chi Tiết:</label>
                                         <input type="text" name="HoaDonDetailID" value="${nextHoaDonDetailID}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
-                                        <label class="w-2/5 text-gray-700 font-semibold">Hóa Đơn ID:</label>
+                                        <label class="w-2/5 text-gray-700 font-semibold">Mã Hóa Đơn :</label>
                                         <input type="text" name="HoaDonID" value="${lp2.hoaDonID}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
