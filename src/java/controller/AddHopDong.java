@@ -45,11 +45,9 @@ public class AddHopDong extends HttpServlet {
         String errorMsg = null;
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-        if (KhachID == null) {
+        if (KhachID == null || !KhachID.matches("\\d+")) {
             errorMsg = "Bạn Cần thêm Khách Thuê Đại diện trước khi tạo Hợp Đồng!";
-        } else if (HopDongID == null || !HopDongID.matches("\\d+")) {
-            errorMsg = "HopDongID không hợp lệ.";
-        } else if (TienCoc != null && !TienCoc.matches("\\d+")) {
+        } else if (TienCoc == null || !TienCoc.matches("\\d+")) {
             errorMsg = "TienCoc không hợp lệ.";
         } else if (SoKhachThue == null || !SoKhachThue.matches("\\d+")) {
             errorMsg = "Số khách thuê không hợp lệ.";
@@ -66,10 +64,7 @@ public class AddHopDong extends HttpServlet {
         }
 
         SonDAO sondao = new SonDAO();
-        if (errorMsg == null && sondao.checkHopDongIDExists(HopDongID)) {
-            errorMsg = "HopDongID đã tồn tại.";
-        }
-
+        
         if (errorMsg != null) {
             request.setAttribute("error", errorMsg);
             request.getRequestDispatcher("listhopdong").forward(request, response);

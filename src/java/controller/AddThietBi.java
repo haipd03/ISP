@@ -43,11 +43,13 @@ public class AddThietBi extends HttpServlet {
         String tbsoluong = request.getParameter("SoLuong");
         String tbtinhtrang = request.getParameter("TinhTrang");
         String tbgia = request.getParameter("Gia");
+        
         DAO dao = new DAO();
-        String ThietBiIDPattern = "^[0-9]+$";
+        
         String SoLuongPattern = "^[0-9]+$";
         String GiaPattern = "^[0-9]+$";
-        if (!tbid.matches(ThietBiIDPattern) || !tbsoluong.matches(SoLuongPattern) || !tbgia.matches(GiaPattern)) {
+        
+        if (!tbsoluong.matches(SoLuongPattern) || !tbgia.matches(GiaPattern)) {
             request.setAttribute("error", "Dữ liệu nhập vào không hợp lệ!");
             RequestDispatcher dispatcher = request.getRequestDispatcher("listthietbi?id=" + tbpid);
             dispatcher.forward(request, response);

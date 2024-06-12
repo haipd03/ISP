@@ -337,8 +337,8 @@ public class HaiDao extends MyDAO {
                     rs.getDate("NgayTra"),
                     rs.getInt("SoKhachThue"),
                     rs.getString("GhiChu"),
-                    rs.getInt("CCCD"),
-                    rs.getInt("SDT"),
+                    rs.getString("CCCD"),
+                    rs.getString("SDT"),
                     rs.getString("HoVaTen"),
                     rs.getInt("TinhTrang")
                 );
@@ -367,8 +367,8 @@ public class HaiDao extends MyDAO {
                 java.sql.Date ngayTra = rs.getDate("NgayTra");
                 int soKhachThue = rs.getInt("SoKhachThue");
                 String ghiChu = rs.getString("GhiChu");
-                int cccd = rs.getInt("CCCD");
-                int sdt = rs.getInt("SDT");
+                String cccd = rs.getString("CCCD");
+                String sdt = rs.getString("SDT");
                 String hoVaTen = rs.getString("HoVaTen");
                 int tinhTrang = rs.getInt("TinhTrang");
                 HopDong hopDong = new HopDong(hopDongID, khachID, phongID, tienCoc, ngayThue, ngayTra, soKhachThue, ghiChu, cccd, sdt, hoVaTen, tinhTrang);
@@ -397,8 +397,8 @@ public class HaiDao extends MyDAO {
                 java.sql.Date ngayTra = rs.getDate("NgayTra");
                 int soKhachThue = rs.getInt("SoKhachThue");
                 String ghiChu = rs.getString("GhiChu");
-                int cccd = rs.getInt("CCCD");
-                int sdt = rs.getInt("SDT");
+                String cccd = rs.getString("CCCD");
+                String sdt = rs.getString("SDT");
                 String hoVaTen = rs.getString("HoVaTen");
                 int tinhTrang = rs.getInt("TinhTrang");
                 HopDong hopDong = new HopDong(hopDongID, khachID, phongID, tienCoc, ngayThue, ngayTra, soKhachThue, ghiChu, cccd, sdt, hoVaTen, tinhTrang);

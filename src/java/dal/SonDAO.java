@@ -132,8 +132,8 @@ public class SonDAO extends MyDAO {
                 java.sql.Date ngayTra = rs.getDate("NgayTra");
                 int soKhachThue = rs.getInt("SoKhachThue");
                 String ghiChu = rs.getString("GhiChu");
-                int cccd = rs.getInt("CCCD");
-                int sdt = rs.getInt("SDT");
+                String cccd = rs.getString("CCCD");
+                String sdt = rs.getString("SDT");
                 String hoVaTen = rs.getString("HoVaTen");
                 int tinhTrang = rs.getInt("TinhTrang");
                 HopDong hopDong = new HopDong(hopDongID, khachID, phongID, tienCoc, ngayThue, ngayTra, soKhachThue, ghiChu, cccd, sdt, hoVaTen, tinhTrang);
@@ -231,8 +231,8 @@ public class SonDAO extends MyDAO {
                 java.sql.Date ngayTra = rs.getDate("NgayTra");
                 int soKhachThue = rs.getInt("SoKhachThue");
                 String ghiChu = rs.getString("GhiChu");
-                int cccd = rs.getInt("CCCD");
-                int sdt = rs.getInt("SDT");
+                String cccd = rs.getString("CCCD");
+                String sdt = rs.getString("SDT");
                 String hoVaTen = rs.getString("HoVaTen");
                 int tinhTrang = rs.getInt("TinhTrang");
                 HopDong hopDong = new HopDong(hopDongID, khachID, phongID, tienCoc, ngayThue, ngayTra, soKhachThue, ghiChu, cccd, sdt, hoVaTen, tinhTrang);
@@ -260,8 +260,8 @@ public class SonDAO extends MyDAO {
                 java.sql.Date ngayTra = rs.getDate("NgayTra");
                 int soKhachThue = rs.getInt("SoKhachThue");
                 String ghiChu = rs.getString("GhiChu");
-                int cccd = rs.getInt("CCCD");
-                int sdt = rs.getInt("SDT");
+                String cccd = rs.getString("CCCD");
+                String sdt = rs.getString("SDT");
                 String hoVaTen = rs.getString("HoVaTen");
                 int tinhTrang = rs.getInt("TinhTrang");
                 HopDong hopDong = new HopDong(hopDongID, khachID, phongID, tienCoc, ngayThue, ngayTra, soKhachThue, ghiChu, cccd, sdt, hoVaTen, tinhTrang);
@@ -391,8 +391,8 @@ public class SonDAO extends MyDAO {
                 java.sql.Date ngayTra = rs.getDate("NgayTra");
                 int soKhachThue = rs.getInt("SoKhachThue");
                 String ghiChu = rs.getString("GhiChu");
-                int cccd = rs.getInt("CCCD");
-                int sdt = rs.getInt("SDT");
+                String cccd = rs.getString("CCCD");
+                String sdt = rs.getString("SDT");
                 String hoVaTen = rs.getString("HoVaTen");
                 int tinhTrang = rs.getInt("TinhTrang");
                 HopDong hopDong = new HopDong(hopDongID, khachID, phongID, tienCoc, ngayThue, ngayTra, soKhachThue, ghiChu, cccd, sdt, hoVaTen, tinhTrang);
@@ -562,8 +562,8 @@ public class SonDAO extends MyDAO {
                 java.sql.Date ngayTra = rs.getDate("NgayTra");
                 int soKhachThue = rs.getInt("SoKhachThue");
                 String ghiChu = rs.getString("GhiChu");
-                int cccd = rs.getInt("CCCD");
-                int sdt = rs.getInt("SDT");
+                String cccd = rs.getString("CCCD");
+                String sdt = rs.getString("SDT");
                 String hoVaTen = rs.getString("HoVaTen");
                 int tinhTrang = rs.getInt("TinhTrang");
                 HopDong hopDong = new HopDong(hopDongID, khachID, phongID, tienCoc, ngayThue, ngayTra, soKhachThue, ghiChu, cccd, sdt, hoVaTen, tinhTrang);
@@ -1003,14 +1003,26 @@ public class SonDAO extends MyDAO {
         return false;
     }
 
+    
     public static void main(String[] args) {
-    SonDAO dao = new SonDAO();
-    boolean result = dao.checkPhongIDcoHopDongConThue("2014");
-    if (result) {
-        System.out.println("true");
-    } else {
-        System.out.println("false");
+        // Initialize the manager and update a contract
+        SonDAO dao = new SonDAO();
+        
+        // Replace these test values with actual values as needed
+        String HopDongID = "1";
+        String KhachID = "1011";
+        String PhongID = "1001";
+        String TienCoc = "300";
+        String NgayThue = "2024-01-01";
+        String NgayTra = "2024-12-31";
+        String SoKhachThue = "1";
+        String GhiChu = "null";
+        String CCCD = "001126484354";
+        String SDT = "0254896354";
+        String HoVaTen = "Phan hai";
+        String TinhTrang = "1";
+
+        dao.updateHopDong(HopDongID, KhachID, PhongID, TienCoc, NgayThue, NgayTra, SoKhachThue, GhiChu, CCCD, SDT, HoVaTen, TinhTrang);
     }
-}
 }
 
