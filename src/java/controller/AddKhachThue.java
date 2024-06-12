@@ -35,11 +35,9 @@ public class AddKhachThue extends HttpServlet {
         // Validation
         String errorMsg = null;
 
-        if (KhachID == null || !KhachID.matches("\\d+")) {
-            errorMsg = "KhachID không hợp lệ.";
-        } else if (HoVaTen == null || HoVaTen.trim().isEmpty() || HoVaTen.length() > 50) {
+        if (HoVaTen == null || HoVaTen.trim().isEmpty() || HoVaTen.length() > 50) {
             errorMsg = "Họ và tên không hợp lệ.";
-        } else if (CCCD == null || !CCCD.matches("\\d{10}")) {
+        } else if (CCCD == null || !CCCD.matches("\\d{12}")) {
             errorMsg = "CCCD không hợp lệ.";
         } else if (SDT == null || !SDT.matches("\\d{10}")) {
             errorMsg = "Số điện thoại không hợp lệ.";
@@ -54,9 +52,7 @@ public class AddKhachThue extends HttpServlet {
         }
 
         SonDAO sondao = new SonDAO();
-        if (errorMsg == null && sondao.checkKhachIDExists(KhachID)) {
-            errorMsg = "KhachID đã tồn tại.";
-        }
+        
         if (errorMsg != null) {
             request.setAttribute("error", errorMsg);
             request.getRequestDispatcher("listNguoiThue?lntid=" + PhongID).forward(request, response);

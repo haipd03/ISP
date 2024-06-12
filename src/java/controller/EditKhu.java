@@ -5,6 +5,7 @@
 package controller;
 
 import dal.DAO;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -36,8 +37,15 @@ public class EditKhu extends HttpServlet {
         String accountID = request.getParameter("accountID");
         String khuID = request.getParameter("khuID");
         DAO dao = new DAO();
-        dao.UpdateKhu(name, accountID, khuID);
-        response.sendRedirect("khu");
+
+        if (dao.checkExistingName(name)) {
+            request.setAttribute("error", "Đã tồn tại Tên Khu trong cơ sở dữ liệu! Vui lòng chọn Tên Khu khác!");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("khu");
+            dispatcher.forward(request, response);
+        } else {
+            dao.UpdateKhu(name, accountID, khuID);
+            response.sendRedirect("khu");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

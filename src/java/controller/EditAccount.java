@@ -45,7 +45,7 @@ import java.util.regex.Pattern;
                 String roleParam = request.getParameter("Role");
                 String hoVaTen = request.getParameter("HoVaTen");
                 String email = request.getParameter("Email");
-                int cccd = Integer.parseInt(request.getParameter("CCCD"));
+                String cccd = request.getParameter("cccd");
                 String diaChi = request.getParameter("DiaChi");
 
                 int role;
