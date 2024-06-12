@@ -76,12 +76,12 @@
                                                     <c:if test="${phong.phongConTrong eq 1}">
                                                         <form action="deletePhong" method="get" style="display: inline;" onsubmit="return confirmDelete();">
                                                             <input type="hidden" name="phongID" value="${phong.phongID}">
-                                                            <button type="submit" class="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200">Delete</button>
+                                                            <button type="submit" class="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200">Xóa</button>
                                                         </form>
                                                     </c:if>
                                                 </c:if>
-                                                <a class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200" href="nhapeditphong?phongID=${phong.phongID}">Update</a>
-                                                <a class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200" href="/quanlytro/listphong">Home</a>
+                                                <a class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200" href="nhapeditphong?phongID=${phong.phongID}">Sửa</a>
+                                                <a class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200" href="/quanlytro/listphong">Trang chủ</a>
                                             </div>
                                         </div>
                                     </div>

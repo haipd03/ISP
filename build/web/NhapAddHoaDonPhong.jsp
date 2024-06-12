@@ -39,11 +39,11 @@
                             <form action="addhdonandnhapadddichvu" method="get">
                                 <div class="space-y-4">
                                     <div class="flex items-center">
-                                        <label class="w-2/5 text-gray-700 font-semibold">Hóa Đơn ID:</label>
+                                        <label class="w-2/5 text-gray-700 font-semibold">Mã Hóa Đơn:</label>
                                         <input type="text" name="HoaDonID" value="${nextHoaDonID}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
-                                        <label class="w-2/5 text-gray-700 font-semibold">Hợp Đồng ID:</label>
+                                        <label class="w-2/5 text-gray-700 font-semibold">Mã Hợp Đồng:</label>
                                         <input type="text" name="HopDongID" value="${lp1.hopDongID}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">

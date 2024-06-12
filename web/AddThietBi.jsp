@@ -24,7 +24,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <title>Add Thiet Bi</title>
+        <title>Thêm Thiết Bị</title>
     </head>
 
     <body>
@@ -67,25 +67,25 @@
                                                 </div>
                                                 <div class="modal-body">					
                                                     <div class="form-group">
-                                                        <label>ThietBiID:</label>
+                                                        <label>Mã thiết bị:</label>
                                                         <input name="ThietBiID" type="text" value="${nextThietBiID}" readonly class="form-control" required>
                                                     </div>
                                                     <c:forEach items="${pid}" var="thietbi">
                                                         <div class="form-group">
-                                                            <label>PhongID:</label>
+                                                            <label>Mã phòng:</label>
                                                             <input value="${thietbi.phongID}" name="PhongID" type="text" class="form-control" readonly required>                                    
                                                         </div>
-                                                    </c:forEach>
+                                                   
                                                     <div class="form-group">
-                                                        <label>Name:</label>
+                                                        <label>Tên:</label>
                                                         <input name="Name" type="text" class="form-control" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>SoLuong:</label>
+                                                        <label>Số lượng:</label>
                                                         <input name="SoLuong" type="text" class="form-control" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>TinhTrang:</label>
+                                                        <label>Tình trạng:</label>
                                                         <select name="TinhTrang" class="form-control" required>
                                                             <option value="Tốt">Tốt</option>
                                                             <option value="Bảo trì">Bảo trì</option>
@@ -94,14 +94,15 @@
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label>Gia:</label>
+                                                        <label>Giá:</label>
                                                         <input name="Gia" type="text" class="form-control" required>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">                            
-                                                    <input type="submit" class="btn btn-success" value="Add">
-                                                    <a href="listdichvu?id=${detail.dichVuID}" class="btn btn-danger">Back</a>
+                                                    <input type="submit" class="btn btn-success" value="Thêm">
+                                                    <a href="listthietbi?id=${thietbi.phongID}" class="btn btn-danger">Quay về</a>
                                                 </div>
+                                                 </c:forEach>
                                             </form>
                                         </div>
                                     </div>

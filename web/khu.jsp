@@ -52,8 +52,8 @@
                                 <table class="min-w-full leading-normal">
                                     <thead>
                                         <tr>
-                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">KhuID</th>
-                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Name</th>
+                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Mã hu</th>
+                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Tên</th>
                                             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Tên Quản Lý</th>
                                                 <c:if test="${sessionScope.acc.accountID == 1}">
                                                 <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Tùy Chọn</th>
@@ -77,8 +77,8 @@
                                                         </c:forEach>
                                                     </td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">
-                                                        <a href='loadkhu?lkid=${o.khuID}' class="text-indigo-600 hover:text-indigo-900">Update</a>
-                                                        <a href='#' class="text-red-600 hover:text-red-900 ml-2" onclick="confirmDelete(event, 'deletekhu?kid=${o.khuID}')">Delete</a>
+                                                        <a href='loadkhu?lkid=${o.khuID}' class="text-indigo-600 hover:text-indigo-900">Sửa</a>
+                                                        <a href='#' class="text-red-600 hover:text-red-900 ml-2" onclick="confirmDelete(event, 'deletekhu?kid=${o.khuID}')">Xóa</a>
                                                     </td>
                                                 </tr>
                                             </c:if>

@@ -90,7 +90,7 @@
                                     <table class="table-auto w-full border-collapse">
                                         <thead>
                                             <tr class="bg-gray-200 text-gray-800">
-                                                <th class="px-4 py-2">RequestID</th>
+                                                <th class="px-4 py-2">Mã yêu cầu</th>
                                                 <th class="px-4 py-2">Người Gửi</th>
                                                 <th class="px-4 py-2">Tiêu Đề</th>
                                                 <th class="px-4 py-2">Thời Gian</th>
@@ -166,7 +166,7 @@
                                     <table class="table-auto w-full border-collapse">
                                         <thead>
                                             <tr class="bg-gray-200 text-gray-800">
-                                                <th class="px-4 py-2">RequestID</th>
+                                                <th class="px-4 py-2">Mã</th>
                                                 <th class="px-4 py-2">Người Nhận</th>
                                                 <th class="px-4 py-2">Tiêu Đề</th>
                                                 <th class="px-4 py-2">Thời Gian</th>
