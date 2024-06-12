@@ -750,11 +750,13 @@ public class DAO extends MyDAO {
         return ThietBi;
     }
 
-    public List<ThietBi> getAllThietBi() {
+    public List<ThietBi> getAllThietBi(int offset, int limit) {
         List<ThietBi> ThietBi = new ArrayList<>();
-        String sql = "select * from ThietBi ORDER BY PhongID ";
+        String sql = "select * from ThietBi ORDER BY PhongID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
         try {
             ps = con.prepareStatement(sql);
+             ps.setInt(1, offset);
+        ps.setInt(2, limit);
             rs = ps.executeQuery();
             while (rs.next()) {
                 int ThietBiID = rs.getInt("ThietBiID");
@@ -771,6 +773,21 @@ public class DAO extends MyDAO {
         }
         return ThietBi;
     }
+    
+    public int getTotalThietBiCount() {
+    int count = 0;
+    try {
+        String sql = "SELECT COUNT(*) FROM ThietBi";
+        PreparedStatement st = connection.prepareStatement(sql);
+        ResultSet rs = st.executeQuery();
+        if (rs.next()) {
+            count = rs.getInt(1);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return count;
+}
     
 public List<ThietBi> getAllThietBiGia() {
     List<ThietBi> thietBiList = new ArrayList<>();
@@ -795,11 +812,11 @@ public static void main(String[] args) {
         DAO thietBiDAO = new DAO();
         
         // Gọi phương thức và nhận danh sách kết quả trả về
-        List<ThietBi> thietBiList = thietBiDAO.getAllThietBiGia();
+        List<ThietBi> thietBiList = thietBiDAO.getAllThietBi(0, 20);
         
         // In ra các giá trị trong danh sách
         for (ThietBi thietBi : thietBiList) {
-            System.out.println("Gia: " + thietBi.getGia());
+            System.out.println(thietBi);
         }
     }
 //    public List<ThietBi> searchListThietBi(int accountID, int khuID, int phongID, String name, String tinhTrang, int gia) {

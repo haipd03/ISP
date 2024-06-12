@@ -66,14 +66,14 @@
                             <table class="table-auto w-full border-collapse">
                                 <thead>
                                     <tr class="bg-gray-200 text-gray-800">
-                                        <th class="px-4 py-2 text-center">DichVuID</th>
-                                        <th class="px-4 py-2 text-center">SoPhong</th>
-                                        <th class="px-4 py-2 text-center">Name</th>
-                                        <th class="px-4 py-2 text-center">GiaTien</th>
-                                        <th class="px-4 py-2 text-center">TuNgay</th>
-                                        <th class="px-4 py-2 text-center">DenNgay</th>
-                                        <th class="px-4 py-2 text-center">ChiSoCu</th>
-                                        <th class="px-4 py-2 text-center">ChiSoMoi</th>
+                                        <th class="px-4 py-2 text-center">Mã dịch vụ</th>
+                                        <th class="px-4 py-2 text-center">Số phòng</th>
+                                        <th class="px-4 py-2 text-center">Tên</th>
+                                        <th class="px-4 py-2 text-center">Giá tiền</th>
+                                        <th class="px-4 py-2 text-center">Từ ngày</th>
+                                        <th class="px-4 py-2 text-center">Đến ngày</th>
+                                        <th class="px-4 py-2 text-center">Chỉ số cũ</th>
+                                        <th class="px-4 py-2 text-center">Chỉ số mới</th>
                                         <th class="px-4 py-2 text-center">Thao tác</th>
                                     </tr>
                                 </thead>

@@ -21,7 +21,7 @@
             <div class="flex justify-between">
                 <div class="p-1 mx-3 inline-flex items-center">
                     <i class="fas fa-bars pr-2 text-white" onclick="sidebarToggle()"></i>
-                    <a href="listphong" class="text-white p-2">Home</a>
+                    <a href="listphong" class="text-white p-2">Trang chủ</a>
                 </div>
 
                 <div class="p-1 flex flex-row items-center">
@@ -29,13 +29,12 @@
                         <img src="dist/images/mailbox.png" alt="Mailbox" class="mr-2 white-image" width="30" height="30">
                 </a>
 
-                    <a  onclick="profileToggle()" class="text-white p-2 no-underline hidden md:block lg:block">Hello ${sessionScope.acc.taiKhoan}</a>
+                    <a  onclick="profileToggle()" class="text-white p-2 no-underline hidden md:block lg:block">Xin Chào ${sessionScope.acc.taiKhoan}</a>
                     <div id="ProfileDropDown" class="rounded hidden shadow-md bg-white top-0 right-0 absolute pin-t mt-12 mr-1 pin-r">
                         <ul class="list-reset">
-                            <li><a href="loadmyaccount?id=${sessionScope.acc.accountID}" class="no-underline px-4 py-2 block text-black hover:bg-grey-light">My account</a></li>
-                            <li><a href="#" class="no-underline px-4 py-2 block text-black hover:bg-grey-light">Notifications</a></li>
+                            <li><a href="loadmyaccount?id=${sessionScope.acc.accountID}" class="no-underline px-4 py-2 block text-black hover:bg-grey-light">Thông tin tài hoản</a></li>
                             <li><hr class="border-t mx-2 border-grey-ligght"></li>
-                            <li><a href="logout" class="no-underline px-4 py-2 block text-black hover:bg-grey-light">Logout</a></li>
+                            <li><a href="logout" class="no-underline px-4 py-2 block text-black hover:bg-grey-light">Đăng xuất</a></li>
                         </ul>
                     </div>
                 </div>

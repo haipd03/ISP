@@ -88,11 +88,11 @@
                                             <div class="flex justify-between">
                                                 <button class="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded"
                                                         type="button" onclick="window.history.back()">
-                                                    Back
+                                                    Quay về
                                                 </button>
                                                 <button class="shadow bg-gray-700 hover:bg-gray-600 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded"
                                                         type="submit" onclick="confirmSend(event, this.href)">
-                                                    Send 
+                                                    Gửi 
                                                 </button>
                                             </div>
                                         </form>

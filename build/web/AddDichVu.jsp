@@ -23,7 +23,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <title>Add Dich Vu</title>
+        <title>Thêm Dịch Vụ</title>
     </head>
 
     <body>
@@ -43,14 +43,14 @@
                     <!-- Main Content -->
                     <div class="mb-4 md:mx-2 lg:mx-2 border border-gray-300 rounded-lg shadow-lg w-full md:w-1/2 lg:w-4/5">
                         <div class="bg-blue-500 text-white text-center font-bold text-2xl px-4 py-3 rounded-t-lg">
-                            Add Dich Vu
+                            Thêm Dịch Vụ
                         </div>
                         <div class="p-6 bg-white">
                             <div class="container">
                                 <div class="row justify-content-center">
                                     <div class="col-md-8">
                                         <div class="card">
-                                            <div class="card-header">Add Dich Vu</div>
+                                            <div class="card-header">Thêm Dịch Vụ</div>
                                             <div class="card-body">
                                                 <c:if test="${not empty errorMessage}">
                                                     <div class="alert alert-danger">${errorMessage}</div>
@@ -58,47 +58,47 @@
                                                 <form action="adddichvu" method="post">
                                                     <div class="form-row">
                                                         <div class="form-group col-md-6">
-                                                            <label>DichVuID:</label>
+                                                            <label>Mã Dịch Vụ:</label>
                                                             <input name="DichVuID" type="text" class="form-control" value="${nextDichVuID}" readonly>
                                                         </div>
                                                         <div class="form-group col-md-6">
-                                                            <label>SoPhong:</label>
+                                                            <label>Số Phòng:</label>
                                                             <input name="SoPhong" type="text" class="form-control" required>
                                                         </div>
                                                     </div>
                                                     <div class="form-row">
                                                         <div class="form-group col-md-6">
-                                                            <label>Name:</label>
+                                                            <label>Tên:</label>
                                                             <input name="Name" type="text" class="form-control" required>
                                                         </div>
                                                         <div class="form-group col-md-6">
-                                                            <label>GiaTien:</label>
+                                                            <label>Giá Tiền:</label>
                                                             <input name="GiaTien" type="text" class="form-control" required>
                                                         </div>
                                                     </div>
                                                     <div class="form-row">
                                                         <div class="form-group col-md-6">
-                                                            <label>TuNgay:</label>
+                                                            <label>Từ Ngày:</label>
                                                             <input name="TuNgay" type="date" class="form-control" required>
                                                         </div>
                                                         <div class="form-group col-md-6">
-                                                            <label>DenNgay:</label>
+                                                            <label>Đến Ngày:</label>
                                                             <input name="DenNgay" type="date" class="form-control" required>
                                                         </div>
                                                     </div>
                                                     <div class="form-row">
                                                         <div class="form-group col-md-6">
-                                                            <label>ChiSoCu:</label>
+                                                            <label>Chỉ số cũ:</label>
                                                             <input name="ChiSoCu" type="text" class="form-control" required>
                                                         </div>
                                                         <div class="form-group col-md-6">
-                                                            <label>ChiSoMoi:</label>
+                                                            <label>Chỉ số mới:</label>
                                                             <input name="ChiSoMoi" type="text" class="form-control" required>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <input type="submit" class="btn btn-success" value="Add">
-                                                        <a href="listdichvu?id=${detail.dichVuID}" class="btn btn-danger">Back</a>
+                                                        <a href="listdichvu?id=${detail.dichVuID}" class="btn btn-danger">Quay về</a>
                                                     </div>
                                                 </form>
                                             </div>

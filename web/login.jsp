@@ -1,4 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!doctype html>
 <html lang="en">
 
@@ -31,22 +33,22 @@
                     </c:if>
 
                     <div>
-                        <label class="block text-sm text-gray-600" for="username">Username</label>
+                        <label class="block text-sm text-gray-600" for="username">Tài khoản</label>
                         <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="username" name="username"
                                type="text" required="" placeholder="User Name" aria-label="username">
                     </div>
                     <div class="mt-2">
-                        <label class="block text-sm text-gray-600" for="password">Password</label>
+                        <label class="block text-sm text-gray-600" for="password">Mật khẩu</label>
                         <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="password" name="password"
                                type="password" required="" placeholder="*******" aria-label="password">
                     </div>
                     <div class="mt-4 items-center justify-between">
                         <button class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded"
-                                type="submit">Login</button>
+                                type="submit">Đăng  nhập</button>
                         <a class="inline-block right-0 align-baseline font-bold text-sm text-500 hover:text-blue-800" href="ForgotPassword.jsp">
-                            Forgot Password?
+                            Quên mật khẩu?
                         </a>
-                    </div>
+                    </div> 
                 </form>
             </div>
         </div>

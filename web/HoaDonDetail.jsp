@@ -38,14 +38,14 @@
                         <table class="table-auto w-full border-collapse">
                             <thead>
                                 <tr class="bg-gray-200 text-gray-800">
-                                    <th class="px-2 py-2 text-center">HoaDonChiTietID</th>
-                                    <th class="px-2 py-2 text-center">HoaDonID</th>
-                                    <th class="px-2 py-2 text-center">TuNgay</th>
-                                    <th class="px-2 py-2 text-center">DenNgay</th>
-                                    <th class="px-2 py-2 text-center">TongSo</th>
-                                    <th class="px-2 py-2 text-center">HeSo</th>
-                                    <th class="px-2 py-2 text-center">ThanhTien</th>
-                                    <th class="px-2 py-2 text-center">DichVuID</th>
+                                    <th class="px-2 py-2 text-center">Mã hóa đơn chi tiết</th>
+                                    <th class="px-2 py-2 text-center">Mã hóa đơn</th>
+                                    <th class="px-2 py-2 text-center">Từ ngày</th>
+                                    <th class="px-2 py-2 text-center">Đến ngày</th>
+                                    <th class="px-2 py-2 text-center">Tổng số</th>
+                                    <th class="px-2 py-2 text-center">Hệ số</th>
+                                    <th class="px-2 py-2 text-center">Thành tiền</th>
+                                    <th class="px-2 py-2 text-center">Dịch vụ</th>
                                     <th class="px-2 py-2 text-center">Thao tác</th>
                                 </tr>
                             </thead>
