@@ -32,28 +32,34 @@
                     <div class="p-4">
                         <!-- Form tìm kiếm -->
                         <form method="post" action="searchdichvubysophong" style="display: flex; flex-wrap: wrap; gap: 15px; align-items: center; margin-bottom: 20px;">
-    <div class="flex" style="display: flex; align-items: center;">
-        <label for="soPhong" style="margin-right: 10px;">Tìm kiếm Số phòng:</label>
-        <input type="text" id="soPhong" name="soPhong" placeholder="Nhập số phòng" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
-    </div>
-    <div class="flex" style="display: flex; align-items: center;">
-        <label for="name" style="margin-right: 10px;">Tên dịch vụ:</label>
-        <input type="text" id="name" name="name" placeholder="Nhập tên dịch vụ" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
-    </div>
-    <div class="flex" style="display: flex; align-items: center;">
-        <label for="tuNgay" style="margin-right: 10px;">Từ ngày:</label>
-        <input type="date" id="tuNgay" name="tuNgay" style="border: 1px solid black; width: 180px;" class="py-2 px-3 rounded">
-    </div>
-    <div class="flex" style="display: flex; align-items: center;">
-        <label for="denNgay" style="margin-right: 10px;">Đến ngày:</label>
-        <input type="date" id="denNgay" name="denNgay" style="border: 1px solid black; width: 180px;" class="py-2 px-3 rounded">
-    </div>
-    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" style="margin-left: 10px;">Tìm kiếm</button>
+                            <div class="flex" style="display: flex; align-items: center;">
+                                <label for="soPhong" style="margin-right: 10px;">Số phòng:</label>
+                                <input type="text" id="soPhong" name="soPhong" placeholder="Nhập số phòng" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
+                            </div>
+                            <div class="flex" style="display: flex; align-items: center;">
+                                <label for="name" style="margin-right: 10px;">Tên dịch vụ:</label>
+                                <input type="text" id="name" name="name" placeholder="Nhập tên dịch vụ" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
+                            </div>
+                            <div class="flex" style="display: flex; align-items: center;">
+                                <label for="tuNgay" style="margin-right: 10px;">Từ ngày:</label>
+                                <input type="date" id="tuNgay" name="tuNgay" style="border: 1px solid black; width: 180px;" class="py-2 px-3 rounded">
+                            </div>
+                            <div class="flex" style="display: flex; align-items: center;">
+                                <label for="denNgay" style="margin-right: 10px;">Đến ngày:</label>
+                                <input type="date" id="denNgay" name="denNgay" style="border: 1px solid black; width: 180px;" class="py-2 px-3 rounded">
+                            </div>
+                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" style="margin-left: 10px;">Tìm kiếm</button>
 
-    <c:if test="${not empty error}">
-        <span style="color: red; font-size: 1.2em; font-weight: bold;">${error}</span>
-    </c:if>
-</form>
+                            <% if (request.getAttribute("success") != null) { %>
+                            <div style="color: blue; font-size: 1.2em; font-weight: bold;">
+                                <%= request.getAttribute("success") %>
+                            </div>
+                            <% } %>
+
+                            <c:if test="${not empty error}">
+                                <span style="color: red; font-size: 1.2em; font-weight: bold;">${error}</span>
+                            </c:if>
+                        </form>
 
 
 
