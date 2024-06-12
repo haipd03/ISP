@@ -45,14 +45,12 @@ public class EditHopDong extends HttpServlet {
         String CCCD = request.getParameter("CCCD");
         String SDT = request.getParameter("SDT");
         String HoVaTen = request.getParameter("HoVaTen");
-        String TinhTrang = request.getParameter("TinhTrang");
+        String TinhTrang = request.getParameter("TinhTrangHidden");
 
         String errorMsg = null;
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-        if (HopDongID == null || !HopDongID.matches("\\d+")) {
-            errorMsg = "HopDongID không hợp lệ.";
-        } else if (TienCoc != null && !TienCoc.matches("\\d+")) {
+        if (TienCoc != null && !TienCoc.matches("\\d+")) {
             errorMsg = "TienCoc không hợp lệ.";
         } else if (SoKhachThue == null || !SoKhachThue.matches("\\d+")) {
             errorMsg = "Số khách thuê không hợp lệ.";

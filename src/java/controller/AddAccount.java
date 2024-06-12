@@ -42,7 +42,7 @@ public class AddAccount extends HttpServlet {
         int role = 1; // Assuming role is set to 1 for all new accounts
         String hoVaTen = request.getParameter("hovaten");
         String email = request.getParameter("email");
-        int cccd = Integer.parseInt(request.getParameter("cccd"));
+        String cccd = request.getParameter("cccd");
         String diaChi = request.getParameter("diachi");
 
         Pattern pattern = Pattern.compile(EMAIL_REGEX);

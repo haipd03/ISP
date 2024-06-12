@@ -18,6 +18,18 @@
             function confirmUpdate() {
                 return confirm("Bạn có chắc chắn muốn thay đổi thông tin hợp đồng này không?");
             }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                var tinhTrangSelect = document.getElementById('TinhTrang');
+                var tinhTrangHidden = document.getElementById('TinhTrangHidden');
+                // Set the hidden input value when the page loads
+                tinhTrangHidden.value = tinhTrangSelect.value;
+                // Update the hidden input value when the dropdown changes
+                tinhTrangSelect.addEventListener('change', function () {
+                    tinhTrangHidden.value = this.value;
+                });
+            });
+
         </script>
     </head>
 
@@ -74,7 +86,7 @@
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Số Khách Thuê Phòng:</label>
-                                        <input type="text" name="SoKhachThue" value="${listhd.soKhachThue}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" readonly>
+                                        <input type="text" name="SoKhachThue" value="${listhd.soKhachThue}" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Ghi Chú:</label>
@@ -94,11 +106,12 @@
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Tình Trạng:</label>
-                                        <select name="TinhTrang" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" 
+                                        <select name="TinhTrang" id="TinhTrang" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600"
                                                 <c:if test="${not empty errorMessage}">disabled</c:if>>
                                             <option value="1" ${listhd.tinhTrang == 1 ? 'selected' : ''}>Đang Thuê</option>
                                             <option value="0" ${listhd.tinhTrang == 0 ? 'selected' : ''}>Không còn Thuê</option>
                                         </select>
+                                        <input type="hidden" name="TinhTrangHidden" id="TinhTrangHidden" value="${listhd.tinhTrang}">
                                     </div>
                                 </div>
                                 <div class="mt-6 flex justify-end">

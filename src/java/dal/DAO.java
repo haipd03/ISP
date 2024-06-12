@@ -115,7 +115,7 @@ public class DAO extends MyDAO {
                         rs.getInt("Role"),
                         rs.getString("HoVaTen"),
                         rs.getString("Email"),
-                        rs.getInt("CCCD"),
+                        rs.getString("CCCD"),
                         rs.getString("DiaChi")
                 );
             }
@@ -138,7 +138,7 @@ public class DAO extends MyDAO {
                 int role = rs.getInt("Role");
                 String hoVaTen = rs.getString("HoVaTen");
                 String email = rs.getString("Email");
-                int cccd = rs.getInt("CCCD");
+                String cccd = rs.getString("CCCD");
                 String diaChi = rs.getString("DiaChi");
 
                 // Creating an Accounts object with retrieved data
@@ -163,7 +163,7 @@ public class DAO extends MyDAO {
                     int role = rs.getInt("Role");
                     String hoVaTen = rs.getString("HoVaTen");
                     String email = rs.getString("Email");
-                    int cccd = rs.getInt("CCCD");
+                    String cccd = rs.getString("CCCD");
                     String diaChi = rs.getString("DiaChi");
 
                     // Creating an Accounts object with retrieved data
@@ -214,7 +214,7 @@ public class DAO extends MyDAO {
                 int Role = rs.getInt("Role");
                 String HoVaTen = rs.getString("HoVaTen");
                 String Email = rs.getString("Email");
-                int CCCD = rs.getInt("CCCD");
+                String CCCD = rs.getString("CCCD");
                 String DiaChi = rs.getString("DiaChi");
 
                 Accounts account = new Accounts(AccountID, TaiKhoan, Password, Role, HoVaTen, Email, CCCD, DiaChi);
@@ -234,7 +234,7 @@ public class DAO extends MyDAO {
             ps.setInt(4, account.getRole());
             ps.setString(5, account.getHoVaTen());
             ps.setString(6, account.getEmail());
-            ps.setInt(7, account.getCCCD());
+            ps.setString(7, account.getCCCD());
             ps.setString(8, account.getDiaChi());
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -273,7 +273,7 @@ public class DAO extends MyDAO {
             ps.setInt(3, account.getRole());
             ps.setString(4, account.getHoVaTen());
             ps.setString(5, account.getEmail());
-            ps.setInt(6, account.getCCCD());
+            ps.setString(6, account.getCCCD());
             ps.setString(7, account.getDiaChi());
             ps.setInt(8, account.getAccountID());
             ps.executeUpdate();
@@ -445,11 +445,11 @@ public class DAO extends MyDAO {
         }
     }
 
-    public boolean checkExistingKhuID(String khuID) {
-        String query = "SELECT KhuID FROM [dbo].[Khu] WHERE KhuID = ?";
+    public boolean checkExistingName(String Name) {
+        String query = "SELECT KhuID FROM [dbo].[Khu] WHERE Name = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, khuID);
+            ps.setString(1, Name);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 return true;
@@ -1261,7 +1261,7 @@ public static void main(String[] args) {
                 int Role = rs.getInt("Role");
                 String HoVaTen = rs.getString("HoVaTen");
                 String Email = rs.getString("Email");
-                int CCCD = rs.getInt("CCCD");
+                String CCCD = rs.getString("CCCD");
                 String DiaChi = rs.getString("DiaChi");
 
                 Accounts Accounts = new Accounts(AccountID, TaiKhoan, Password, Role, HoVaTen, Email, CCCD, DiaChi);

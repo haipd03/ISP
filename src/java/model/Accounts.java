@@ -9,20 +9,21 @@ package model;
  * @author admin
  */
 public class Accounts {
+
     private int AccountID;
     private String TaiKhoan;
     private String Password;
     private int Role;
     private String HoVaTen;
     private String Email;
-    private int CCCD;
+    private String CCCD;
     private String DiaChi;
 
     public Accounts() {
     }
 
-    public Accounts(int id, String TaiKhoan, String Password, int Role, String HoVaTen, String Email, int CCCD, String DiaChi) {
-        this.AccountID = id;
+    public Accounts(int AccountID, String TaiKhoan, String Password, int Role, String HoVaTen, String Email, String CCCD, String DiaChi) {
+        this.AccountID = AccountID;
         this.TaiKhoan = TaiKhoan;
         this.Password = Password;
         this.Role = Role;
@@ -36,8 +37,8 @@ public class Accounts {
         return AccountID;
     }
 
-    public void setAccountID(int id) {
-        this.AccountID = id;
+    public void setAccountID(int AccountID) {
+        this.AccountID = AccountID;
     }
 
     public String getTaiKhoan() {
@@ -80,11 +81,11 @@ public class Accounts {
         this.Email = Email;
     }
 
-    public int getCCCD() {
+    public String getCCCD() {
         return CCCD;
     }
 
-    public void setCCCD(int CCCD) {
+    public void setCCCD(String CCCD) {
         this.CCCD = CCCD;
     }
 
@@ -98,8 +99,8 @@ public class Accounts {
 
     @Override
     public String toString() {
-        return "Accounts{" + "id=" + AccountID + ", TaiKhoan=" + TaiKhoan + ", Password=" + Password + ", Role=" + Role + ", HoVaTen=" + HoVaTen + ", Email=" + Email + ", CCCD=" + CCCD + ", DiaChi=" + DiaChi + '}';
+        return "Accounts{" + "AccountID=" + AccountID + ", TaiKhoan=" + TaiKhoan + ", Password=" + Password + ", Role=" + Role + ", HoVaTen=" + HoVaTen + ", Email=" + Email + ", CCCD=" + CCCD + ", DiaChi=" + DiaChi + '}';
     }
-    
+
     
 }
