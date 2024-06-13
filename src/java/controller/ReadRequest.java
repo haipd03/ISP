@@ -31,13 +31,14 @@ public class ReadRequest extends HttpServlet {
         String accountNhanStr = request.getParameter("accountNhan");
         String title = request.getParameter("title");
         String requestText = request.getParameter("requestText");
-        String tinhTrang = request.getParameter("tinhTrang");
+        String tinhTrangStr = request.getParameter("tinhTrang");
+//        String phanHoi = request.getParameter("phanHoi");
 
         if (accountIDStr == null || accountIDStr.isEmpty()
                 || accountNhanStr == null || accountNhanStr.isEmpty()
                 || title == null || title.isEmpty()
                 || requestText == null || requestText.isEmpty()
-                || tinhTrang == null || tinhTrang.isEmpty()) {
+                || tinhTrangStr == null || tinhTrangStr.isEmpty()) {
             request.setAttribute("Message", "Vui lòng nhập đầy đủ thông tin.");
             request.getRequestDispatcher("NhapRequest.jsp").forward(request, response);
             return;
@@ -45,15 +46,20 @@ public class ReadRequest extends HttpServlet {
         try {
             int accountID = Integer.parseInt(accountIDStr);
             int accountNhan = Integer.parseInt(accountNhanStr);
-
+            int tinhTrang = Integer.parseInt(tinhTrangStr);
+            String phanHoi = "null";
+            
             DAO dao = new DAO();
             List<Accounts> acc = dao.getAccounts();
-            Request newRequest = new Request(accountID, title, requestText, tinhTrang, accountNhan);
+//            Request newRequest = new Request(accountID, title, requestText, tinhTrang, accountNhan);
+Request newRequest = new Request(accountID, title, requestText, tinhTrang, accountNhan, phanHoi);
             RequestDao requestDao = new RequestDao();
-            requestDao.addRequest(accountID, title, requestText, tinhTrang, accountNhan);
+//            requestDao.addRequest(accountID, title, requestText, tinhTrang, accountNhan);
+requestDao.addRequest(accountID, title, requestText, tinhTrang, accountNhan, phanHoi);
              request.setAttribute("listK3", acc);
             request.setAttribute("title", title);
         request.setAttribute("requestText", requestText);
+        request.setAttribute("phanHoi", phanHoi);
         request.setAttribute("tinhTrang", tinhTrang);
         request.setAttribute("accountNhan", accountNhan);
         request.setAttribute("Message1", "Tin Nhắn Đã Được Gửi Thành Công!");

@@ -16,6 +16,12 @@
         <title>Forms | Tailwind Admin</title>
         <script>
             function confirmSend(event, url) {
+                var phanHoi = document.getElementById("phanHoi").value;
+                if (phanHoi.trim() === "") {
+                    alert("Vui lòng lòng nhập phản hồi để gửi!");
+                    event.preventDefault();
+                    return false;
+                }
                 if (confirm("Bạn có chắc muốn gửi tin nhắn này?")) {
                     window.location.href = url;
                 } else {
@@ -47,6 +53,7 @@
                                     <div class="bg-gray-700 px-4 py-3 border-solid border-gray-300 border-b text-white rounded-t-lg">
                                         Phản Hồi Yêu Cầu
                                     </div>
+                                    <%--<c:forEach items="${requests}" var="r">--%>
                                     <div class="p-4 bg-white rounded-b-lg">
                                         <form action="UpdateRequest" method="post" class="w-full">
                                             <c:forEach items="${requests}" var="r">
@@ -73,30 +80,72 @@
                                                         Nội Dung Yêu Cầu
                                                     </label>
                                                     <textarea class="bg-gray-100 appearance-none border border-gray-300 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                                              name="requestText" rows="10" readonly>${r.requestText}</textarea>
+                                                              name="requestText" rows="7" readonly>${r.requestText}</textarea>
                                                 </div>
-                                                <div class="mb-6">
-                                                    <label class="block text-gray-700 font-regular mb-1" for="title">
-                                                        Tình Trạng
-                                                    </label>
-                                                    <input class="bg-gray-100 appearance-none border border-gray-300 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                                           name="tinhTrang" type="text" value="${r.tinhTrang}" >
-                                                </div>
-                                                <input type="hidden" name="requestID" value="${r.requestID}">
+                                                <!--TH1-->
+                                                <c:if test="${r.tinhTrang == 0}">
+                                                    <div class="mb-6">
+                                                        <label class="block text-gray-700 font-regular mb-1" for="phanHoi">
+                                                            Phản Hồi 
+                                                        </label>
+                                                        <textarea class="bg-gray-100 appearance-none border border-gray-300 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                                                  name="phanHoi" rows="7" required></textarea>
+                                                    </div>
+                                                    <div class="mb-6">
+                                                        <label class="block text-gray-700 font-regular mb-1" for="tinhTrang">
+                                                            Tình Trạng
+                                                        </label>
+                                                        <select class="bg-gray-100 appearance-none border border-gray-300 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                                                name="tinhTrang">
+                                                            <option value="" disabled selected hidden>${r.tinhTrang == 1 ? 'Đã làm' : 'Chưa làm'}</option>
+                                                            <option value="1" ${r.tinhTrang == 1 ? 'selected' : ''}>Đã làm</option>
+                                                            <option value="0" ${r.tinhTrang == 0 ? 'selected' : ''}>Chưa làm</option>
+                                                        </select>
+                                                    </div>
+                                                    <input type="hidden" name="requestID" value="${r.requestID}">
+                                                    <div class="flex justify-between">
+                                                        <button class="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded"
+                                                                type="button" onclick="window.history.back()">
+                                                            Quay về
+                                                        </button>
+                                                        <button class="shadow bg-gray-700 hover:bg-gray-600 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded"
+                                                                type="submit" onclick="confirmSend(event, this.href)">
+                                                            Gửi 
+                                                        </button>
+                                                    </div>
+                                                </c:if>
+                                                <!--TH2-->
+                                                <c:if test="${r.tinhTrang == 1}">
+                                                    <div class="mb-6">
+                                                        <label class="block text-gray-700 font-regular mb-1" for="phanHoi">
+                                                            Bạn Đã Phản Hồi 
+                                                        </label>
+                                                        <textarea class="bg-gray-100 appearance-none border border-gray-300 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                                                  name="phanHoi" rows="7" readonly>${r.phanHoi}</textarea>
+                                                    </div>
+                                                    <div class="mb-6">
+                                                        <label class="block text-gray-700 font-regular mb-1" for="tinhTrang">
+                                                            Tình Trạng
+                                                        </label>
+                                                        <input class="bg-gray-100 appearance-none border border-gray-300 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                                   name="tinhTrang" type="text" value=" ${r.tinhTrang == 1 ? 'Đã làm' : 'Chưa làm'}"readonly>
+                                                    </div>
+                                                    <input type="hidden" name="requestID" value="${r.requestID}">
+                                                    <div class="flex justify-between">
+                                                        <button class="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded"
+                                                                type="button" onclick="window.history.back()">
+                                                            Quay về
+                                                        </button>
+                                                        <button class="shadow bg-gray-700 hover:bg-gray-600 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded"
+                                                                type="button" onclick="window.location.href = 'ListRequest'">
+                                                            Danh sách
+                                                        </button>
+                                                    </div>
+                                                </c:if>
                                             </c:forEach>
-
-                                            <div class="flex justify-between">
-                                                <button class="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded"
-                                                        type="button" onclick="window.history.back()">
-                                                    Quay về
-                                                </button>
-                                                <button class="shadow bg-gray-700 hover:bg-gray-600 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded"
-                                                        type="submit" onclick="confirmSend(event, this.href)">
-                                                    Gửi 
-                                                </button>
-                                            </div>
                                         </form>
                                     </div>
+                                    <%--</c:forEach>--%>
                                 </div>
                                 <!--/Email Request Form-->
                             </div>

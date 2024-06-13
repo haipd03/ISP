@@ -100,12 +100,16 @@
                                                           name="requestText" rows="10" required></textarea>
                                             </div>
                                             <div class="mb-6">
-                                                <label class="block text-gray-700 font-regular mb-1" for="title">
-                                                    Tình Trạng
-                                                </label>
-                                                <input class="bg-gray-100 appearance-none border border-gray-300 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                                       name="tinhTrang" type="text" value="" >
-                                            </div>
+                                                    <label class="block text-gray-700 font-regular mb-1" for="tinhTrang">
+                                                        Tình Trạng
+                                                    </label>
+                                                    <select class="bg-gray-100 appearance-none border border-gray-300 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                                            name="tinhTrang">
+                                                        <option value="" disabled selected hidden>${r.tinhTrang == 1 ? 'Đã làm' : 'Chưa làm'}</option>
+                                                        <option value="1" ${r.tinhTrang == 1 ? 'selected' : ''}>Đã làm</option>
+                                                        <option value="0" ${r.tinhTrang == 0 ? 'selected' : ''}>Chưa làm</option>
+                                                    </select>
+                                                </div>
                                             <p style="color: red;">${Message}</p>
                                             <p style="color: green;">${Message1}</p>
 

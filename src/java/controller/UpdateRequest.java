@@ -34,10 +34,13 @@ public class UpdateRequest extends HttpServlet {
         }
         String requestIDStr = request.getParameter("requestID");
         String tinhTrang = request.getParameter("tinhTrang");
+        String phanHoi = request.getParameter("phanHoi");
         try {
             int requestID = Integer.parseInt(requestIDStr);
             RequestDao dao = new RequestDao();
-            dao.updateTinhTrang(requestID, tinhTrang);
+//            dao.updateTinhTrang(requestID, tinhTrang);
+dao.updateTinhTrangPhanHoi(requestID, tinhTrang, phanHoi);
+request.setAttribute("phanHoi", phanHoi);
             request.getRequestDispatcher("ListRequest").forward(request, response);
         } catch (NumberFormatException e) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Request ID không hợp lệ.");

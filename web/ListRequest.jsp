@@ -114,10 +114,16 @@
                                                         <fmt:formatDate value="${r.submittedAt}" pattern="HH:mm - dd/MM/yyyy"/>
                                                     </td>
 
-                                                    <td class="px-4 py-2">${r.tinhTrang}</td>
+<!--                                                    <td class="px-4 py-2">${r.tinhTrang}</td>-->
+                                                    <td class="px-4 py-2">
+                                                        ${r.tinhTrang == 1 ? 'Đã làm' : 'Chưa làm'}
+                                                    </td>
                                                     <td class="px-4 py-2">
                                                         <a href="LoadRequest?id=${r.requestID}" class="text-blue-500 hover:text-blue-700 mr-2">Chi tiết</a>
-                                                        <a href="DeleteRequest?id=${r.requestID}" class="text-red-500 hover:text-red-700" onclick="confirmDelete(event, this.href)">Xóa</a>
+                                                        <c:if test="${a.accountID == r.accountNhan}">
+                                                            <a href="DeleteRequest?id=${r.requestID}" class="text-red-500 hover:text-red-700" onclick="confirmDelete(event, this.href)">Xóa</a>
+                                                        </c:if>                                                        
+                                            <!--<a href="DeleteRequest?id=${r.requestID}" class="text-red-500 hover:text-red-700" onclick="confirmDelete(event, this.href)">Xóa</a>-->
                                                     </td>
                                                 </tr>
                                             </c:forEach>
@@ -189,10 +195,12 @@
                                                     <td class="px-4 py-2">
                                                         <fmt:formatDate value="${g.submittedAt}" pattern="HH:mm - dd/MM/yyyy"/>
                                                     </td>
-                                                    <td class="px-4 py-2">${g.tinhTrang}</td>
+                                                    <td class="px-4 py-2">${g.tinhTrang == 1 ? 'Đã làm' : 'Chưa làm'}</td>
                                                     <td class="px-4 py-2">
                                                         <a href="ReadRequestGui?id=${g.requestID}" class="text-blue-500 hover:text-blue-700 mr-2">Chi tiết</a>
+                                                        <c:if test="${g.tinhTrang == 0}">
                                                         <a href="DeleteRequest?id=${g.requestID}" class="text-red-500 hover:text-red-700" onclick="confirmDelete(event, this.href)">Xóa</a>
+                                                        </c:if>
                                                     </td>
                                                 </c:forEach>
                                         </tbody>
