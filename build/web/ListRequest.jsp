@@ -37,10 +37,11 @@
                     <jsp:include page="menu2.jsp" />
 
                     <div class="p-4">
-
-                        <c:if test="${not empty error}">
+                        <h1><p style="color: green;">${message3}</p></h1>
+                        <h1><p style="color: green;">${message1}</p></h1>
+                           <c:if test="${not empty error}">
                             <span style="color: red; font-size: 1.2em; font-weight: bold;">${error}</span>
-                        </c:if>
+                           </c:if>
                         <h4 class="text-lg font-semibold mb-2">Danh sách yêu cầu:</h4>
                         <div class="overflow-x-auto">
                             <div class="mb-4">
@@ -51,9 +52,8 @@
                                 </form>
 
                             </div>
-                            <h1><p style="color: green;">${message1}</p></h1>
-                                <c:choose>
-                                    <c:when test="${empty param.action or param.action == 'nhan'}">
+                            <c:choose>
+                                <c:when test="${empty param.action or param.action == 'nhan'}">
                                     <form method="get" action="SearchRequest" style="display: flex; flex-wrap: wrap; gap: 15px; align-items: center; margin-bottom: 20px;">
                                         <div class="flex" style="display: flex; align-items: center;">
                                             <label for="accountID" style="margin-right: 10px;">Người gửi:</label>
@@ -82,10 +82,7 @@
                                             <label for="submittedAt" style="margin-right: 10px;">Thời gian</label>
                                             <input type="date" id="submittedAt" name="submittedAt" style="border: 1px solid black; width: 180px;" class="py-2 px-3 rounded">
                                         </div>
-
                                         <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" style="margin-left: 10px;">Tìm kiếm</button>
-
-
                                     </form>
                                     <table class="table-auto w-full border-collapse">
                                         <thead>
@@ -113,8 +110,6 @@
                                                     <td class="px-4 py-2">
                                                         <fmt:formatDate value="${r.submittedAt}" pattern="HH:mm - dd/MM/yyyy"/>
                                                     </td>
-
-<!--                                                    <td class="px-4 py-2">${r.tinhTrang}</td>-->
                                                     <td class="px-4 py-2">
                                                         ${r.tinhTrang == 1 ? 'Đã làm' : 'Chưa làm'}
                                                     </td>
@@ -123,17 +118,13 @@
                                                         <c:if test="${a.accountID == r.accountNhan}">
                                                             <a href="DeleteRequest?id=${r.requestID}" class="text-red-500 hover:text-red-700" onclick="confirmDelete(event, this.href)">Xóa</a>
                                                         </c:if>                                                        
-                                            <!--<a href="DeleteRequest?id=${r.requestID}" class="text-red-500 hover:text-red-700" onclick="confirmDelete(event, this.href)">Xóa</a>-->
                                                     </td>
                                                 </tr>
                                             </c:forEach>
                                         </tbody>
                                     </table>
                                 </c:when>
-
                             </c:choose>
-
-                            <!-- Form Soạn Yêu Cầu -->
                             <c:choose>
                                 <c:when test="${param.action == 'gui'}">
                                     <form method="post" action="SearchRequest" style="display: flex; flex-wrap: wrap; gap: 15px; align-items: center; margin-bottom: 20px;">
@@ -166,8 +157,6 @@
                                         </div>
 
                                         <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" style="margin-left: 10px;">Tìm kiếm</button>
-
-
                                     </form>
                                     <table class="table-auto w-full border-collapse">
                                         <thead>
@@ -199,7 +188,7 @@
                                                     <td class="px-4 py-2">
                                                         <a href="ReadRequestGui?id=${g.requestID}" class="text-blue-500 hover:text-blue-700 mr-2">Chi tiết</a>
                                                         <c:if test="${g.tinhTrang == 0}">
-                                                        <a href="DeleteRequest?id=${g.requestID}" class="text-red-500 hover:text-red-700" onclick="confirmDelete(event, this.href)">Xóa</a>
+                                                            <a href="DeleteRequest?id=${g.requestID}" class="text-red-500 hover:text-red-700" onclick="confirmDelete(event, this.href)">Xóa</a>
                                                         </c:if>
                                                     </td>
                                                 </c:forEach>

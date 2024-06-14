@@ -103,11 +103,6 @@
                         </div>
                     </main>
                     <!--/Main-->
-
-                    <!-- Underline form -->
-
-                    <!--/Underline form-->
-                    <!--/Main-->
                 </div>
                 <!--Footer-->
                 <footer class="bg-grey-darkest text-white p-2">

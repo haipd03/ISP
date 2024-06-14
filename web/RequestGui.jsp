@@ -23,7 +23,6 @@
                 <!--Header Section Starts Here-->
                 <jsp:include page="menu1.jsp" />
                 <!--/Header-->
-
                 <div class="flex flex-1">
                     <!--Sidebar-->
                     <jsp:include page="menu2.jsp" />
@@ -97,8 +96,8 @@
                                                 Quay về
                                             </button>
                                             <button class="shadow bg-gray-700 hover:bg-gray-600 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded"
-                                                    type="button" onclick="window.location.href = '/quanlytro/listphong'">
-                                                Trang chủ
+                                                    type="button" onclick="window.location.href = 'ListRequest?action=gui'">
+                                                Danh sách
                                             </button>
                                         </div>
                                     </div>
@@ -117,9 +116,6 @@
                 <!--/footer-->
             </div>
         </div>
-
         <script src="./main.js"></script>
-
     </body>
-
 </html>

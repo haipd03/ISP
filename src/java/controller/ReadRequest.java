@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 package controller;
+
 import dal.DAO;
 import dal.RequestDao;
 import java.io.IOException;
@@ -16,8 +17,10 @@ import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Accounts;
 import model.Request;
+
 @WebServlet(name = "ReadRequest", urlPatterns = {"/ReadRequest"})
 public class ReadRequest extends HttpServlet {
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -32,78 +35,51 @@ public class ReadRequest extends HttpServlet {
         String title = request.getParameter("title");
         String requestText = request.getParameter("requestText");
         String tinhTrangStr = request.getParameter("tinhTrang");
-//        String phanHoi = request.getParameter("phanHoi");
-
         if (accountIDStr == null || accountIDStr.isEmpty()
                 || accountNhanStr == null || accountNhanStr.isEmpty()
                 || title == null || title.isEmpty()
                 || requestText == null || requestText.isEmpty()
                 || tinhTrangStr == null || tinhTrangStr.isEmpty()) {
             request.setAttribute("Message", "Vui lòng nhập đầy đủ thông tin.");
-            request.getRequestDispatcher("NhapRequest.jsp").forward(request, response);
+            request.getRequestDispatcher("NhapRequest").forward(request, response);
             return;
-        }else{
-        try {
-            int accountID = Integer.parseInt(accountIDStr);
-            int accountNhan = Integer.parseInt(accountNhanStr);
-            int tinhTrang = Integer.parseInt(tinhTrangStr);
-            String phanHoi = "null";
-            
-            DAO dao = new DAO();
-            List<Accounts> acc = dao.getAccounts();
-//            Request newRequest = new Request(accountID, title, requestText, tinhTrang, accountNhan);
-Request newRequest = new Request(accountID, title, requestText, tinhTrang, accountNhan, phanHoi);
-            RequestDao requestDao = new RequestDao();
-//            requestDao.addRequest(accountID, title, requestText, tinhTrang, accountNhan);
-requestDao.addRequest(accountID, title, requestText, tinhTrang, accountNhan, phanHoi);
-             request.setAttribute("listK3", acc);
-            request.setAttribute("title", title);
-        request.setAttribute("requestText", requestText);
-        request.setAttribute("phanHoi", phanHoi);
-        request.setAttribute("tinhTrang", tinhTrang);
-        request.setAttribute("accountNhan", accountNhan);
-        request.setAttribute("Message1", "Tin Nhắn Đã Được Gửi Thành Công!");
-        request.getRequestDispatcher("ReadRequest.jsp").forward(request, response);
-        } catch (Exception e) {
-            request.setAttribute("Message", "Đã có lỗi xảy ra. Vui lòng thử lại.");
-            request.getRequestDispatcher("NhapRequest.jsp").forward(request, response);
-        }
+        } else {
+            try {
+                int accountID = Integer.parseInt(accountIDStr);
+                int accountNhan = Integer.parseInt(accountNhanStr);
+                int tinhTrang = Integer.parseInt(tinhTrangStr);
+                String phanHoi = "null";
+
+                DAO dao = new DAO();
+                List<Accounts> acc = dao.getAccounts();
+                Request newRequest = new Request(accountID, title, requestText, tinhTrang, accountNhan, phanHoi);
+                RequestDao requestDao = new RequestDao();
+                requestDao.addRequest(accountID, title, requestText, tinhTrang, accountNhan, phanHoi);
+                request.setAttribute("listK3", acc);
+                request.setAttribute("title", title);
+                request.setAttribute("requestText", requestText);
+                request.setAttribute("phanHoi", phanHoi);
+                request.setAttribute("tinhTrang", tinhTrang);
+                request.setAttribute("accountNhan", accountNhan);
+                request.setAttribute("Message1", "Tin Nhắn Đã Được Gửi Thành Công!");
+                request.getRequestDispatcher("ReadRequest.jsp").forward(request, response);
+            } catch (Exception e) {
+                request.setAttribute("Message", "Đã có lỗi xảy ra. Vui lòng thử lại.");
+                request.getRequestDispatcher("NhapRequest.jsp").forward(request, response);
+            }
         }
     }
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
