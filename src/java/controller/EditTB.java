@@ -51,13 +51,13 @@ public class EditTB extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("listthietbi?id=" + tbpid);
             dispatcher.forward(request, response);
         } else {
-            if (dao.checkExistingThietBiID(tbid)) {
-                request.setAttribute("error", "Đã tồn tại ThietBiID trong cơ sở dữ liệu! Vui lòng chọn ThietBiID khác!");
-                RequestDispatcher dispatcher = request.getRequestDispatcher("listthietbi?id=" + tbpid);
-                dispatcher.forward(request, response);
-            } else {
+//            if (dao.checkExistingThietBiID(tbid)) {
+//                request.setAttribute("error", "Đã tồn tại ThietBiID trong cơ sở dữ liệu! Vui lòng chọn ThietBiID khác!");
+//                RequestDispatcher dispatcher = request.getRequestDispatcher("listthietbi?id=" + tbpid);
+//                dispatcher.forward(request, response);
+//            } else {
                 dao.editThietBi(tbid, tbname, tbsoluong, tbtinhtrang, tbgia);
-            }
+//            }
             response.sendRedirect("listthietbi?id=" + tbpid);
         }
     }

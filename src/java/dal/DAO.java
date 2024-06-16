@@ -752,7 +752,7 @@ public class DAO extends MyDAO {
 
     public List<ThietBi> getAllThietBi(int offset, int limit) {
         List<ThietBi> ThietBi = new ArrayList<>();
-        String sql = "select * from ThietBi ORDER BY PhongID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
+        String sql = "select * from ThietBi ORDER BY ThietBiID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
         try {
             ps = con.prepareStatement(sql);
              ps.setInt(1, offset);
@@ -874,7 +874,10 @@ public static void main(String[] args) {
 //    }
 //        return tb;
 //    }
-   public List<ThietBi> searchListThietBi(int accountID, int khuID, int phongID, String name, String tinhTrang, int gia) {
+
+
+
+  public List<ThietBi> searchListThietBi(int accountID, int khuID, int phongID, String name, String tinhTrang, int gia, int offset, int limit) {
     List<ThietBi> tb = new ArrayList<>();
     String sql = "select tb.* from ThietBi tb " +
                  "join Phong p on p.PhongID = tb.PhongID " +
@@ -907,6 +910,10 @@ public static void main(String[] args) {
         sql += " AND tb.Gia = ?";
         parameters.add(gia);
     }
+    sql += " ORDER BY ThietBiID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+
+    parameters.add(offset);
+    parameters.add(limit);
 
     try (PreparedStatement ps = con.prepareStatement(sql)) {
         for (int i = 0; i < parameters.size(); i++) {
@@ -930,6 +937,27 @@ public static void main(String[] args) {
     }
     return tb;
 }
+
+  
+    public int getTotalThietBiCount1() {
+    int count = 0;
+    try {
+        String sql = "SELECT COUNT(*) FROM ThietBi tb " +
+                     "JOIN Phong p ON p.PhongID = tb.PhongID " +
+                     "JOIN Khu k ON k.KhuID = p.KhuID " +
+                     "JOIN Accounts a ON a.AccountID = k.AccountID";
+        PreparedStatement st = connection.prepareStatement(sql);
+        ResultSet rs = st.executeQuery();
+        if (rs.next()) {
+            count = rs.getInt(1);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return count;
+}
+
+    
     public List<ThietBi> getAllThietBiByAccountID() {
         List<ThietBi> ThietBi = new ArrayList<>();
         String sql = "select tb.* from ThietBi tb\n"

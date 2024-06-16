@@ -95,7 +95,7 @@
                             </form>
                             <div class="mb-2 md:mx-2 lg:mx-2">
 
-                                 <a href="NhapAddAccount.jsp" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">Thêm tài khoản mới</a>
+                                 <a href="nhapaddaccount" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">Thêm tài khoản mới</a>
 
                             </div>
                         </div>
