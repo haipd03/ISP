@@ -56,9 +56,18 @@
                             </div>
                             <% } %>
 
+                            <% if (session.getAttribute("success") != null) { %>
+                            <div style="color: blue; font-size: 1.2em; font-weight: bold;">
+                                <%= session.getAttribute("success") %>
+                            </div>
+                            <% 
+                                session.removeAttribute("success");
+                            } %>
+
                             <c:if test="${not empty error}">
                                 <span style="color: red; font-size: 1.2em; font-weight: bold;">${error}</span>
                             </c:if>
+
                         </form>
 
 
