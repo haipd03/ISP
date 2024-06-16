@@ -5,6 +5,7 @@
 
 package controller;
 
+import dal.HaiDao;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -25,6 +26,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import model.Accounts;
 
 /**
  *
@@ -48,6 +50,18 @@ public class ForgotPassword extends HttpServlet {
 		RequestDispatcher dispatcher = null;
 		int otpvalue = 0;
 		HttpSession mySession = request.getSession();
+                
+                
+                 HaiDao dao = new HaiDao();
+        Accounts account = dao.getAccountByEmail(email);
+        if (account == null) {
+            // Email không tồn tại, trả về thông báo lỗi
+            dispatcher = request.getRequestDispatcher("ForgotPassword.jsp");
+            request.setAttribute("message", "Email không tồn tại trong hệ thống");
+            dispatcher.forward(request, response);
+            return;
+        }
+
 		
 		if(email!=null || !email.equals("")) {
 			// sending otp

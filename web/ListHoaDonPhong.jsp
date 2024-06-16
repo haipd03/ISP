@@ -43,8 +43,8 @@
                                         List hóa đơn từng phòng
                                     </div>
                                     <div class="p-4">
-                                        <p class="text-gray-700"><strong>Hóa Đơn ID:</strong> ${listhdon.hoaDonID}</p>
-                                        <p class="text-gray-700"><strong>Hợp Đồng ID:</strong> ${listhdon.hopDongID}</p>
+                                        <p class="text-gray-700"><strong>Mã Hóa Đơn:</strong> ${listhdon.hoaDonID}</p>
+                                        <p class="text-gray-700"><strong>Mã Hợp Đồng:</strong> ${listhdon.hopDongID}</p>
                                         <p class="text-gray-700"><strong>Ngày Thanh Toán:</strong> ${listhdon.ngayThanhToan}</p>
                                         <p class="text-gray-700"><strong>Tình Trạng Thanh Toán:</strong> ${listhdon.tinhTrangThanhToan}</p>
                                         <p class="text-gray-700"><strong>Từ Ngày:</strong> ${listhdon.tuNgay}</p>
@@ -52,7 +52,7 @@
                                         <p class="text-gray-700"><strong>Tổng Tiền:</strong> ${listhdon.tongTien}</p>
                                         <div class="mt-4">
                                             <a class="inline-block bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
-                                               href="nhapaddhoadonphong?id=${phongid}">ADD Hóa Đơn Mới
+                                               href="nhapaddhoadonphong?id=${phongid}">Thêm Hóa Đơn Mới
                                             </a>
                                         </div>
                                     </div>

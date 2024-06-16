@@ -23,7 +23,6 @@
                 <!--Header Section Starts Here-->
                 <jsp:include page="menu1.jsp" />
                 <!--/Header-->
-
                 <div class="flex flex-1">
                     <!--Sidebar-->
                     <jsp:include page="menu2.jsp" />
@@ -68,20 +67,37 @@
                                                       name="requestText" rows="10" readonly>${requests[0].requestText}</textarea>
                                         </div>
                                         <div class="mb-6">
-                                            <label class="block text-gray-700 font-regular mb-1" for="title">
+                                            <c:if test="${requests[0].tinhTrang == 1}">
+                                                <c:if test="${requests[0].phanHoi != 'null'}">
+                                                    <label class="block text-gray-700 font-regular mb-1" for="phanHoi" >
+                                                        Đã Phản Hồi cho bạn
+                                                    </label>
+                                                    <textarea class="bg-gray-100 appearance-none border border-gray-300 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                                              name="phanHoi" rows="10"readonly >${requests[0].phanHoi}</textarea>
+                                                </c:if>  
+                                            </c:if>
+                                        </div>
+                                        <div class="mb-6">
+                                            <label class="block text-gray-700 font-regular mb-1" for="tinhTrang">
                                                 Tình Trạng
                                             </label>
-                                            <input class="bg-gray-100 appearance-none border border-gray-300 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                                   id="tinhTrang" type="text" value="${requests[0].tinhTrang}" readonly>
+                                            <c:if test="${requests[0].tinhTrang == 0}">
+                                                <input class="bg-gray-100 appearance-none border border-gray-300 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                                       name="tinhTrang" type="text" readonly value="Chưa làm">
+                                            </c:if>
+                                            <c:if test="${requests[0].tinhTrang == 1}">
+                                                <input class="bg-gray-100 appearance-none border border-gray-300 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                                       name="tinhTrang" type="text" readonly value="Đã làm">
+                                            </c:if>
                                         </div>
                                         <div class="flex justify-between">
                                             <button class="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded"
                                                     type="button" onclick="window.history.back()">
-                                                Back
+                                                Quay về
                                             </button>
                                             <button class="shadow bg-gray-700 hover:bg-gray-600 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded"
-                                                    type="button" onclick="window.location.href = '/quanlytro/listphong'">
-                                                Home
+                                                    type="button" onclick="window.location.href = 'ListRequest?action=gui'">
+                                                Danh sách
                                             </button>
                                         </div>
                                     </div>
@@ -91,10 +107,6 @@
                             <!-- /Card Section Ends Here -->
                         </div>
                     </main>
-
-                    <!-- Underline form -->
-
-                    <!--/Underline form-->
                     <!--/Main-->
                 </div>
                 <!--Footer-->
@@ -104,9 +116,6 @@
                 <!--/footer-->
             </div>
         </div>
-
         <script src="./main.js"></script>
-
     </body>
-
 </html>

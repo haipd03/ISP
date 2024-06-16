@@ -45,7 +45,7 @@
                             <table class="table-auto w-full border-collapse">
                                 <thead>
                                     <tr class="bg-gray-200 text-gray-800">
-                                        <th class="px-4 py-2">Thiết bị ID</th>
+                                        <th class="px-4 py-2"> Mã Thiết bị</th>
                                         <th class="px-4 py-2">Phòng ID</th>
                                         <th class="px-4 py-2">Tên thiết bị</th>
                                         <th class="px-4 py-2">Số lượng</th>

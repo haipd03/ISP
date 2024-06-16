@@ -19,7 +19,7 @@
                     <a href="listphong"
                        class="font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
                         <i class="fas fa-tachometer-alt float-left mx-2"></i>
-                        Room
+                        Phòng
                         <span><i class="fas fa-angle-right float-right"></i></span>
                     </a>
                 </li>
@@ -36,7 +36,7 @@
                         <a href="listaccount"
                            class="font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline">
                             <i class="fab fa-wpforms float-left mx-2"></i>
-                            Accounts
+                            Tài Khoản
                             <span><i class="fa fa-angle-right float-right"></i></span>
                         </a>
                     </li>

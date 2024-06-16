@@ -92,7 +92,7 @@
                                                 Danh Sách Khách Hàng
                                             </div>
                                             <div class="p-4">
-                                                <p class="text-gray-700"><strong>ID Khách:</strong> ${o.khachID}</p>
+                                                <p class="text-gray-700"><strong>Mã khách:</strong> ${o.khachID}</p>
                                                 <p class="text-gray-700"><strong>Tên Khách:</strong> ${o.hoVaTen}</p>
                                                 <p class="text-gray-700"><strong>CCCD:</strong> ${o.CCCD}</p>
                                                 <p class="text-gray-700"><strong>SDT:</strong> ${o.SDT}</p>
@@ -100,7 +100,7 @@
                                                 <p class="text-gray-700"><strong>Tên Người Thân:</strong> ${o.tenNguoiThan}</p>
                                                 <p class="text-gray-700"><strong>SDT Người Thân:</strong> ${o.SDTNguoiThan}</p>
                                                 <p class="text-gray-700"><strong>Quan Hệ Với Người Thân:</strong> ${o.quanHeVoiNguoiThan}</p>
-                                                <p class="text-gray-700"><strong>ID Phòng:</strong> ${o.phongID}</p>
+                                                <p class="text-gray-700"><strong>Mã Phòng:</strong> ${o.phongID}</p>
                                                 <p class="text-gray-700"><strong>Tình Trạng:</strong>
                                                     <c:choose>
                                                         <c:when test="${o.tinhTrang == 1}">
@@ -113,10 +113,10 @@
                                                 </p>
                                                 <div class="mt-4">
                                                     <a href='#' class="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200" 
-                                                       onclick="confirmDelete(event, 'deletekhachthue?ktid=${o.khachID}')">Delete
+                                                       onclick="confirmDelete(event, 'deletekhachthue?ktid=${o.khachID}')">Xóa
                                                     </a>  
                                                     <a class="inline-block bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
-                                                       href="listEdit?lntt=${o.khachID}">Update
+                                                       href="listEdit?lntt=${o.khachID}">Sửa
                                                     </a>
                                                 </div>
                                             </div>

@@ -24,7 +24,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <title>Edit Thiết Bị</title>
+        <title>Sửa Thiết Bị</title>
     </head>
 
     <body>
@@ -44,35 +44,35 @@
                     <!-- Main Content -->
                     <div class="mb-4 md:mx-2 lg:mx-2 border border-gray-300 rounded-lg shadow-lg w-full md:w-1/2 lg:w-4/5">
                         <div class="bg-gray-600 text-white px-4 py-3 rounded-t-lg">
-                            Edit Thiết Bị
+                            Sửa Thiết Bị
                         </div>
                         <div class="p-6 bg-white">
                             <div class="container">
-                                <h2 class="text-center">Edit Thiết Bị</h2>
+                                <h2 class="text-center">Sửa Thiết Bị</h2>
                                 <div class="row justify-content-center">
                                     <div class="col-md-8">
                                         <div class="card">
-                                            <div class="card-header">Edit Thiết Bị</div>
+                                            <div class="card-header">Sửa Thiết Bị</div>
                                             <div class="card-body">
                                                 <form action="edittb" method="post">
                                                     <div class="form-group">
-                                                        <label>ThietBiID:</label>
+                                                        <label>Mã Thiết Bị:</label>
                                                         <input value="${detail.thietBiID}" name="ThietBiID" type="text" class="form-control" readonly required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>PhongID:</label>
+                                                        <label>Mã Phòng:</label>
                                                         <input value="${detail.phongID}" name="PhongID" type="text" class="form-control" readonly required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>Name:</label>
+                                                        <label>Tên:</label>
                                                         <input value="${detail.name}" name="Name" type="text" class="form-control" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>SoLuong:</label>
+                                                        <label>Số Lượng:</label>
                                                         <input value="${detail.soLuong}" name="Soluong" type="text" class="form-control" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>TinhTrang:</label>
+                                                        <label>Tình Trạng</label>
                                                         <select name="TinhTrang" class="form-control" required>
                                                             <option value="Tốt" <c:if test="${detail.tinhTrang == 'Tốt'}">selected</c:if>>Tốt</option>
                                                             <option value="Bảo trì" <c:if test="${detail.tinhTrang == 'Bảo trì'}">selected</c:if>>Bảo trì</option>
@@ -81,11 +81,11 @@
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <label>Gia:</label>
+                                                            <label>Giá</label>
                                                             <input value="${detail.gia}" name="Gia" type="text" class="form-control" required>
                                                     </div>
-                                                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                                                    <a href="listthietbi?id=${detail.phongID}" class="btn btn-danger">Back</a>
+                                                    <button type="submit" class="btn btn-primary">Lưu</button>
+                                                    <a href="listthietbi?id=${detail.phongID}" class="btn btn-danger">Quay về</a>
                                                 </form>
                                             </div>
                                         </div>

@@ -48,7 +48,7 @@ public class EditKhachThue extends HttpServlet {
         String errorMsg = null;
         if (HoVaTen == null || HoVaTen.trim().isEmpty() || HoVaTen.length() > 50) {
             errorMsg = "Họ và tên không hợp lệ.";
-        } else if (CCCD == null || !CCCD.matches("\\d{10}")) {
+        } else if (CCCD == null || !CCCD.matches("\\d{12}")) {
             errorMsg = "CCCD không hợp lệ.";
         } else if (SDT == null || !SDT.matches("\\d{10}")) {
             errorMsg = "Số điện thoại không hợp lệ.";

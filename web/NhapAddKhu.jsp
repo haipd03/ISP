@@ -39,7 +39,7 @@
                     <!-- Main Content -->
                     <div class="mb-4 md:mx-2 lg:mx-2 border border-gray-300 rounded-lg shadow-lg w-full md:w-1/2 lg:w-4/5">
                         <div class="bg-gray-600 text-white px-4 py-3 rounded-t-lg">
-                            Add Khu
+                            Thêm Khu
                         </div>
                         <div class="p-6 bg-white">
                             <div class="container">
@@ -47,7 +47,7 @@
                                     <div class="table-title">
                                         <div class="row">
                                             <div class="col-sm-6">
-                                                <h2>Add Khu</h2>
+                                                <h2>Thêm Khu</h2>
                                             </div>
                                             <div class="col-sm-6"></div>
                                         </div>
@@ -62,7 +62,7 @@
                                                 </div>
                                                 <div class="modal-body">					
                                                     <div class="form-group">
-                                                        <label>ID Khu:</label>
+                                                        <label>Mã Khu:</label>
                                                         <input name="khuID" type="text" class="form-control" value="${nextKhuID}" readonly>
                                                     </div>
 
@@ -85,7 +85,7 @@
                                                     </p>
                                                 </div>
                                                 <div class="modal-footer">                            
-                                                    <input type="submit" class="btn btn-success" value="Add">
+                                                    <input type="submit" class="btn btn-success" value="Thêm">
                                                 </div>
                                             </form>
                                         </div>

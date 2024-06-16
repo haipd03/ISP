@@ -115,7 +115,7 @@ public class DAO extends MyDAO {
                         rs.getInt("Role"),
                         rs.getString("HoVaTen"),
                         rs.getString("Email"),
-                        rs.getInt("CCCD"),
+                        rs.getString("CCCD"),
                         rs.getString("DiaChi")
                 );
             }
@@ -138,7 +138,7 @@ public class DAO extends MyDAO {
                 int role = rs.getInt("Role");
                 String hoVaTen = rs.getString("HoVaTen");
                 String email = rs.getString("Email");
-                int cccd = rs.getInt("CCCD");
+                String cccd = rs.getString("CCCD");
                 String diaChi = rs.getString("DiaChi");
 
                 // Creating an Accounts object with retrieved data
@@ -163,7 +163,7 @@ public class DAO extends MyDAO {
                     int role = rs.getInt("Role");
                     String hoVaTen = rs.getString("HoVaTen");
                     String email = rs.getString("Email");
-                    int cccd = rs.getInt("CCCD");
+                    String cccd = rs.getString("CCCD");
                     String diaChi = rs.getString("DiaChi");
 
                     // Creating an Accounts object with retrieved data
@@ -214,7 +214,7 @@ public class DAO extends MyDAO {
                 int Role = rs.getInt("Role");
                 String HoVaTen = rs.getString("HoVaTen");
                 String Email = rs.getString("Email");
-                int CCCD = rs.getInt("CCCD");
+                String CCCD = rs.getString("CCCD");
                 String DiaChi = rs.getString("DiaChi");
 
                 Accounts account = new Accounts(AccountID, TaiKhoan, Password, Role, HoVaTen, Email, CCCD, DiaChi);
@@ -234,7 +234,7 @@ public class DAO extends MyDAO {
             ps.setInt(4, account.getRole());
             ps.setString(5, account.getHoVaTen());
             ps.setString(6, account.getEmail());
-            ps.setInt(7, account.getCCCD());
+            ps.setString(7, account.getCCCD());
             ps.setString(8, account.getDiaChi());
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -273,7 +273,7 @@ public class DAO extends MyDAO {
             ps.setInt(3, account.getRole());
             ps.setString(4, account.getHoVaTen());
             ps.setString(5, account.getEmail());
-            ps.setInt(6, account.getCCCD());
+            ps.setString(6, account.getCCCD());
             ps.setString(7, account.getDiaChi());
             ps.setInt(8, account.getAccountID());
             ps.executeUpdate();
@@ -445,11 +445,11 @@ public class DAO extends MyDAO {
         }
     }
 
-    public boolean checkExistingKhuID(String khuID) {
-        String query = "SELECT KhuID FROM [dbo].[Khu] WHERE KhuID = ?";
+    public boolean checkExistingName(String Name) {
+        String query = "SELECT KhuID FROM [dbo].[Khu] WHERE Name = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, khuID);
+            ps.setString(1, Name);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 return true;
@@ -750,11 +750,13 @@ public class DAO extends MyDAO {
         return ThietBi;
     }
 
-    public List<ThietBi> getAllThietBi() {
+    public List<ThietBi> getAllThietBi(int offset, int limit) {
         List<ThietBi> ThietBi = new ArrayList<>();
-        String sql = "select * from ThietBi ORDER BY PhongID ";
+        String sql = "select * from ThietBi ORDER BY ThietBiID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
         try {
             ps = con.prepareStatement(sql);
+             ps.setInt(1, offset);
+        ps.setInt(2, limit);
             rs = ps.executeQuery();
             while (rs.next()) {
                 int ThietBiID = rs.getInt("ThietBiID");
@@ -771,6 +773,21 @@ public class DAO extends MyDAO {
         }
         return ThietBi;
     }
+    
+    public int getTotalThietBiCount() {
+    int count = 0;
+    try {
+        String sql = "SELECT COUNT(*) FROM ThietBi";
+        PreparedStatement st = connection.prepareStatement(sql);
+        ResultSet rs = st.executeQuery();
+        if (rs.next()) {
+            count = rs.getInt(1);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return count;
+}
     
 public List<ThietBi> getAllThietBiGia() {
     List<ThietBi> thietBiList = new ArrayList<>();
@@ -795,11 +812,11 @@ public static void main(String[] args) {
         DAO thietBiDAO = new DAO();
         
         // Gọi phương thức và nhận danh sách kết quả trả về
-        List<ThietBi> thietBiList = thietBiDAO.getAllThietBiGia();
+        List<ThietBi> thietBiList = thietBiDAO.getAllThietBi(0, 20);
         
         // In ra các giá trị trong danh sách
         for (ThietBi thietBi : thietBiList) {
-            System.out.println("Gia: " + thietBi.getGia());
+            System.out.println(thietBi);
         }
     }
 //    public List<ThietBi> searchListThietBi(int accountID, int khuID, int phongID, String name, String tinhTrang, int gia) {
@@ -857,7 +874,10 @@ public static void main(String[] args) {
 //    }
 //        return tb;
 //    }
-   public List<ThietBi> searchListThietBi(int accountID, int khuID, int phongID, String name, String tinhTrang, int gia) {
+
+
+
+  public List<ThietBi> searchListThietBi(int accountID, int khuID, int phongID, String name, String tinhTrang, int gia, int offset, int limit) {
     List<ThietBi> tb = new ArrayList<>();
     String sql = "select tb.* from ThietBi tb " +
                  "join Phong p on p.PhongID = tb.PhongID " +
@@ -890,6 +910,10 @@ public static void main(String[] args) {
         sql += " AND tb.Gia = ?";
         parameters.add(gia);
     }
+    sql += " ORDER BY ThietBiID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+
+    parameters.add(offset);
+    parameters.add(limit);
 
     try (PreparedStatement ps = con.prepareStatement(sql)) {
         for (int i = 0; i < parameters.size(); i++) {
@@ -913,6 +937,27 @@ public static void main(String[] args) {
     }
     return tb;
 }
+
+  
+    public int getTotalThietBiCount1() {
+    int count = 0;
+    try {
+        String sql = "SELECT COUNT(*) FROM ThietBi tb " +
+                     "JOIN Phong p ON p.PhongID = tb.PhongID " +
+                     "JOIN Khu k ON k.KhuID = p.KhuID " +
+                     "JOIN Accounts a ON a.AccountID = k.AccountID";
+        PreparedStatement st = connection.prepareStatement(sql);
+        ResultSet rs = st.executeQuery();
+        if (rs.next()) {
+            count = rs.getInt(1);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return count;
+}
+
+    
     public List<ThietBi> getAllThietBiByAccountID() {
         List<ThietBi> ThietBi = new ArrayList<>();
         String sql = "select tb.* from ThietBi tb\n"
@@ -1261,7 +1306,7 @@ public static void main(String[] args) {
                 int Role = rs.getInt("Role");
                 String HoVaTen = rs.getString("HoVaTen");
                 String Email = rs.getString("Email");
-                int CCCD = rs.getInt("CCCD");
+                String CCCD = rs.getString("CCCD");
                 String DiaChi = rs.getString("DiaChi");
 
                 Accounts Accounts = new Accounts(AccountID, TaiKhoan, Password, Role, HoVaTen, Email, CCCD, DiaChi);

@@ -18,7 +18,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <title>Edit Dich Vu</title>
+        <title>Sửa Dich Vu</title>
     </head>
 
     <body>
@@ -38,14 +38,14 @@
                     <!-- Main Content -->
                     <div class="mb-4 md:mx-2 lg:mx-2 border border-gray-300 rounded-lg shadow-lg w-full md:w-1/2 lg:w-4/5">
                         <div class="bg-blue-500 text-white text-center font-bold text-2xl px-4 py-3 rounded-t-lg">
-                            Edit Dich Vu
+                            Sửa Dịch Vụ
                         </div>
                         <div class="p-6 bg-white">
                             <div class="container">
                                 <div class="row justify-content-center">
                                     <div class="col-md-8">
                                         <div class="card">
-                                            <div class="card-header">Edit Dich Vu</div>
+                                            <div class="card-header"> Sửa Dịch Vụ</div>
                                             <div class="card-body">
                                                 <c:if test="${not empty errorMessage}">
                                                     <div class="alert alert-danger">${errorMessage}</div>
@@ -53,46 +53,46 @@
                                                 <form action="editdv" method="post">
                                                     <div class="form-row">
                                                         <div class="form-group col-md-6">
-                                                            <label>DichVuID:</label>
+                                                            <label>Mã dịch vụ</label>
                                                             <input value="${detail.dichVuID}" name="DichVuID" type="text" class="form-control" readonly required>
                                                         </div>
                                                         <div class="form-group col-md-6">
-                                                            <label>SoPhong:</label>
+                                                            <label>Số phòng</label>
                                                             <input value="${detail.soPhong}" name="SoPhong" type="text" class="form-control" readonly required>
                                                         </div>
                                                     </div>
                                                     <div class="form-row">
                                                         <div class="form-group col-md-6">
-                                                            <label>Name:</label>
+                                                            <label>Tên</label>
                                                             <input value="${detail.name}" name="Name" type="text" class="form-control" required>
                                                         </div>
                                                         <div class="form-group col-md-6">
-                                                            <label>GiaTien:</label>
+                                                            <label>Giá tiền</label>
                                                             <input value="${detail.giaTien}" name="GiaTien" type="text" class="form-control" required>
                                                         </div>
                                                     </div>
                                                     <div class="form-row">
                                                         <div class="form-group col-md-6">
-                                                            <label>TuNgay:</label>
+                                                            <label>Từ ngày</label>
                                                             <input value="${detail.tuNgay}" name="TuNgay" type="date" class="form-control" required>
                                                         </div>
                                                         <div class="form-group col-md-6">
-                                                            <label>DenNgay:</label>
+                                                            <label>Đến ngày</label>
                                                             <input value="${detail.denNgay}" name="DenNgay" type="date" class="form-control" required>
                                                         </div>
                                                     </div>
                                                     <div class="form-row">
                                                         <div class="form-group col-md-6">
-                                                            <label>ChiSoCu:</label>
+                                                            <label>Chỉ số cũ</label>
                                                             <input value="${detail.chiSoCu}" name="ChiSoCu" type="text" class="form-control" required>
                                                         </div>
                                                         <div class="form-group col-md-6">
-                                                            <label>ChiSoMoi:</label>
+                                                            <label>Chỉ số mới</label>
                                                             <input value="${detail.chiSoMoi}" name="ChiSoMoi" type="text" class="form-control" required>
                                                         </div>
                                                     </div>
-                                                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                                                    <a href="listdichvu?id=${detail.dichVuID}" class="btn btn-danger">Back</a>
+                                                    <button type="submit" class="btn btn-primary">Lưu</button>
+                                                    <a href="listdichvu?id=${detail.dichVuID}" class="btn btn-danger">Quay về</a>
                                                 </form>
                                             </div>
                                         </div>

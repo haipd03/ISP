@@ -16,7 +16,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <title>Edit Thiết Bị</title>
+    <title>Chỉnh sửa hóa đơn chi tiết</title>
 </head>
 <body>
     <div class="mx-auto bg-grey-lightest">
@@ -38,39 +38,39 @@
                                         <div class="card-body">
                                             <form action="edithoadondetail" method="post">
                                                 <div class="form-group">
-                                                    <label>HoaDonDetailID:</label>
+                                                    <label>Mã hóa đơn chi tiết </label>
                                                     <input value="${detail.hoaDonDetailID}" name="HoaDonChiTietID" type="text" class="form-control" readonly required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>HoaDonID</label>
+                                                    <label>Mã hóa đơn</label>
                                                     <input value="${detail.hoaDonID}" name="HoaDonID" type="text" class="form-control" readonly required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>TuNgay</label>
+                                                    <label>Từ ngày </label>
                                                     <input value="${detail.tuNgay}" name="TuNgay" type="date" class="form-control" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>DenNgay</label>
+                                                    <label>Đến ngày</label>
                                                     <input value="${detail.denNgay}" name="DenNgay" type="date" class="form-control" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>TongSo</label>
+                                                    <label>Tổng số</label>
                                                     <input value="${detail.tongSo}" name="TongSo" type="text" class="form-control" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>HeSo</label>
+                                                    <label>Hệ số</label>
                                                     <input value="${detail.heSo}" name="HeSo" type="text" class="form-control" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>ThanhTien</label>
+                                                    <label>Thành tiền</label>
                                                     <input value="${detail.thanhTien}" name="ThanhTien" type="text" class="form-control" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>DichVuID</label>
+                                                    <label>Mã dich vụ</label>
                                                     <input value="${detail.dichVuID}" name="DichVuID" type="text" class="form-control" readonly required>
                                                 </div>
-                                                <button type="submit" class="btn btn-primary">Save Changes</button>
-                                                <a href="listhoadondetail?id=${detail.hoaDonID}" class="btn btn-danger">Back</a>
+                                                <button type="submit" class="btn btn-primary">Lưu</button>
+                                                <a href="listhoadondetail?id=${detail.hoaDonID}" class="btn btn-danger">Quay về</a>
                                             </form>
                                         </div>
                                     </div>

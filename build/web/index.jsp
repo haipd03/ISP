@@ -59,7 +59,7 @@
                                 <form class="searchform cf flex justify-center items-center mt-8 mb-8" action="search" method="post">
                                     <input id="roomNumberInput" name="txt" type="text" placeholder="Nhập số phòng" class="w-full md:w-3/4 lg:w-1/2 p-2 border border-gray-600 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r-lg focus:outline-none focus:ring-2 focus:ring-blue-500" type="submit">
-                                        Search
+                                        Tìm kiếm
                                     </button>
                                 </form>
 
@@ -149,10 +149,10 @@
                             <table border="0">
                                 <tbody>
                                     <tr>
-                                        <td><h1>List </h1></td>
+                                        <td><h1>Danh sách </h1></td>
                                         <td><div class="flex justify-end">
                                                 <form action="nhapaddphong" method="post">
-                                                    <button type="submit"  class="bg-green-500 hover:bg-green-800 text-white font-bold py-2 px-4 rounded">ADD</button>
+                                                    <button type="submit"  class="bg-green-500 hover:bg-green-800 text-white font-bold py-2 px-4 rounded">Thêm</button>
                                                 </form>
                                             </div>
                                         </td>

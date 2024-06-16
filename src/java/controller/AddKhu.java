@@ -37,26 +37,15 @@ public class AddKhu extends HttpServlet {
         String accountID = request.getParameter("accountID");
         DAO dao = new DAO();
 
-        String khuIDPattern = "^[0-9]+$";
-        String namePattern = "^[a-zA-Z0-9 ]+$";
-        if (khuID == null || khuID.isEmpty() || name == null || name.isEmpty()) {
-            request.setAttribute("error", "Vui lòng nhập đầy đủ thông tin KhuID và Tên Khu!");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("NhapAddKhu.jsp");
-            dispatcher.forward(request, response);
-        } else if (!khuID.matches(khuIDPattern) || !name.matches(namePattern)) {
-            request.setAttribute("error", "Dữ liệu nhập vào không hợp lệ!");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("NhapAddKhu.jsp");
+        if (dao.checkExistingName(name)) {
+            request.setAttribute("error", "Đã tồn tại Tên Khu trong cơ sở dữ liệu! Vui lòng chọn Tên Khu khác!");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("NhapAddKhu");
             dispatcher.forward(request, response);
         } else {
-            if (dao.checkExistingKhuID(khuID)) {
-                request.setAttribute("error", "Đã tồn tại KhuID trong cơ sở dữ liệu! Vui lòng chọn KhuID khác!");
-                RequestDispatcher dispatcher = request.getRequestDispatcher("NhapAddKhu.jsp");
-                dispatcher.forward(request, response);
-            } else {
-                dao.InsertKhu(khuID, name, accountID);
-                response.sendRedirect("khu");
-            }
+            dao.InsertKhu(khuID, name, accountID);
+            response.sendRedirect("khu");
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

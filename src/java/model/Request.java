@@ -6,39 +6,37 @@ package model;
 
 import java.util.Date;
 
-/**
- *
- * @author Admin
- */
 public class Request {
     private int RequestID;
     private int AccountID;
     private String Title;
     private Date SubmittedAt;
     private String RequestText;
-    private String TinhTrang;
+    private String PhanHoi;
     private int AccountNhan;
+    private int TinhTrang;
 
     public Request() {
     }
 
-    public Request(int RequestID, int AccountID, String Title, Date SubmittedAt, String RequestText, String TinhTrang, int AccountNhan) {
+    public Request(int RequestID, int AccountID, String Title, Date SubmittedAt, String RequestText, String PhanHoi, int AccountNhan, int TinhTrang) {
         this.RequestID = RequestID;
         this.AccountID = AccountID;
         this.Title = Title;
         this.SubmittedAt = SubmittedAt;
         this.RequestText = RequestText;
-        this.TinhTrang = TinhTrang;
+        this.PhanHoi = PhanHoi;
         this.AccountNhan = AccountNhan;
-    }
-    public Request(int AccountID, String Title, String RequestText, String TinhTrang, int AccountNhan) {
-        this.AccountID = AccountID;
-        this.Title = Title;
-        this.RequestText = RequestText;
         this.TinhTrang = TinhTrang;
-        this.AccountNhan = AccountNhan;
     }
-
+   public Request(int AccountID, String Title, String RequestText, int TinhTrang, int AccountNhan, String PhanHoi) {
+    this.AccountID = AccountID;
+    this.Title = Title;
+    this.RequestText = RequestText;
+    this.TinhTrang = TinhTrang;
+    this.AccountNhan = AccountNhan;
+    this.PhanHoi = PhanHoi;
+}
     public int getRequestID() {
         return RequestID;
     }
@@ -79,12 +77,12 @@ public class Request {
         this.RequestText = RequestText;
     }
 
-    public String getTinhTrang() {
-        return TinhTrang;
+    public String getPhanHoi() {
+        return PhanHoi;
     }
 
-    public void setTinhTrang(String TinhTrang) {
-        this.TinhTrang = TinhTrang;
+    public void setPhanHoi(String PhanHoi) {
+        this.PhanHoi = PhanHoi;
     }
 
     public int getAccountNhan() {
@@ -95,11 +93,13 @@ public class Request {
         this.AccountNhan = AccountNhan;
     }
 
-    @Override
-    public String toString() {
-        return "Request{" + "RequestID=" + RequestID + ", AccountID=" + AccountID + ", Title=" + Title + ", SubmittedAt=" + SubmittedAt + ", RequestText=" + RequestText + ", TinhTrang=" + TinhTrang + ", AccountNhan=" + AccountNhan + '}';
+    public int getTinhTrang() {
+        return TinhTrang;
     }
 
- 
-    
+    public void setTinhTrang(int TinhTrang) {
+        this.TinhTrang = TinhTrang;
+    }
+
+  
 }

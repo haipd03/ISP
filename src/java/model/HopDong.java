@@ -20,15 +20,15 @@ public class HopDong {
     private Date NgayTra;
     private int SoKhachThue;
     private String GhiChu;
-    private int CCCD;
-    private int SDT;
+    private String CCCD;
+    private String SDT;
     private String HoVaTen;
     private int TinhTrang;
 
     public HopDong() {
     }
 
-    public HopDong(int HopDongID, int KhachID, int PhongID, int TienCoc, Date NgayThue, Date NgayTra, int SoKhachThue, String GhiChu, int CCCD, int SDT, String HoVaTen, int TinhTrang) {
+    public HopDong(int HopDongID, int KhachID, int PhongID, int TienCoc, Date NgayThue, Date NgayTra, int SoKhachThue, String GhiChu, String CCCD, String SDT, String HoVaTen, int TinhTrang) {
         this.HopDongID = HopDongID;
         this.KhachID = KhachID;
         this.PhongID = PhongID;
@@ -55,8 +55,8 @@ public class HopDong {
         return KhachID;
     }
 
-    public void setKhachID(int KhanhID) {
-        this.KhachID = KhanhID;
+    public void setKhachID(int KhachID) {
+        this.KhachID = KhachID;
     }
 
     public int getPhongID() {
@@ -107,19 +107,19 @@ public class HopDong {
         this.GhiChu = GhiChu;
     }
 
-    public int getCCCD() {
+    public String getCCCD() {
         return CCCD;
     }
 
-    public void setCCCD(int CCCD) {
+    public void setCCCD(String CCCD) {
         this.CCCD = CCCD;
     }
 
-    public int getSDT() {
+    public String getSDT() {
         return SDT;
     }
 
-    public void setSDT(int SDT) {
+    public void setSDT(String SDT) {
         this.SDT = SDT;
     }
 
@@ -141,7 +141,7 @@ public class HopDong {
 
     @Override
     public String toString() {
-        return "HopDong{" + "HopDongID=" + HopDongID + ", KhanhID=" + KhachID + ", PhongID=" + PhongID + ", TienCoc=" + TienCoc + ", NgayThue=" + NgayThue + ", NgayTra=" + NgayTra + ", SoKhachThue=" + SoKhachThue + ", GhiChu=" + GhiChu + ", CCCD=" + CCCD + ", SDT=" + SDT + ", HoVaTen=" + HoVaTen + ", TinhTrang=" + TinhTrang + '}';
+        return "HopDong{" + "HopDongID=" + HopDongID + ", KhachID=" + KhachID + ", PhongID=" + PhongID + ", TienCoc=" + TienCoc + ", NgayThue=" + NgayThue + ", NgayTra=" + NgayTra + ", SoKhachThue=" + SoKhachThue + ", GhiChu=" + GhiChu + ", CCCD=" + CCCD + ", SDT=" + SDT + ", HoVaTen=" + HoVaTen + ", TinhTrang=" + TinhTrang + '}';
     }
 
 }

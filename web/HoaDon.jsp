@@ -35,14 +35,14 @@
                         <table class="table-auto w-full border-collapse">
                             <thead>
                                 <tr class="bg-gray-200 text-gray-800">
-                                    <th class="px-4 py-2">HoaDonID</th>
-                                    <th class="px-4 py-2">HopDongID</th>
-                                    <th class="px-4 py-2">SoPhong</th>
-                                    <th class="px-4 py-2">NgayThanhToan</th>
-                                    <th class="px-4 py-2">TinhTrangThanhToan</th>
-                                    <th class="px-4 py-2">TuNgay</th>
-                                    <th class="px-4 py-2">DenNgay</th>
-                                    <th class="px-4 py-2">TongTien</th>
+                                    <th class="px-4 py-2">Mã hóa đơn</th>
+                                    <th class="px-4 py-2">Mã hợp đồng</th>
+                                    <th class="px-4 py-2">Số phòng</th>
+                                    <th class="px-4 py-2">Ngày thanh toán</th>
+                                    <th class="px-4 py-2">Tình trạng</th>
+                                    <th class="px-4 py-2">Từ ngày</th>
+                                    <th class="px-4 py-2">Đến ngày</th>
+                                    <th class="px-4 py-2">Tổng tiền</th>
                                     <th class="px-4 py-2">Thao tác</th>
                                     <th class="px-4 py-2">Thông tin </th>
                                 </tr>
@@ -76,10 +76,10 @@
                         </div>
                         <div class="flex justify-between mt-4">
                                 <c:if test="${currentPage > 1}">
-                                    <a href="listhoadon?page=${currentPage - 1}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Previous</a>
+                                    <a href="listhoadon?page=${currentPage - 1}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Quay về</a>
                                 </c:if>
                                 <c:if test="${currentPage < totalPages}">
-                                    <a href="listhoadon?page=${currentPage + 1}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Next</a>
+                                    <a href="listhoadon?page=${currentPage + 1}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Tiếp</a>
                                 </c:if>
                             </div>
                     </div>

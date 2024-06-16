@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import model.Accounts;
 import model.DichVu;
 import model.HoaDon;
 import model.HopDong;
@@ -184,6 +185,7 @@ public class HaiDao extends MyDAO {
     return hoaDon;
 }
 
+    
     public void updateHoaDon(HoaDon hoadon) {
         String sql = "UPDATE HoaDon SET HopDongID = ?,NgayThanhToan= ?, TinhTrangThanhToan = ?, TuNgay = ?, DenNgay = ?, TongTien = ? WHERE HoaDonID = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
@@ -337,8 +339,8 @@ public class HaiDao extends MyDAO {
                     rs.getDate("NgayTra"),
                     rs.getInt("SoKhachThue"),
                     rs.getString("GhiChu"),
-                    rs.getInt("CCCD"),
-                    rs.getInt("SDT"),
+                    rs.getString("CCCD"),
+                    rs.getString("SDT"),
                     rs.getString("HoVaTen"),
                     rs.getInt("TinhTrang")
                 );
@@ -367,8 +369,8 @@ public class HaiDao extends MyDAO {
                 java.sql.Date ngayTra = rs.getDate("NgayTra");
                 int soKhachThue = rs.getInt("SoKhachThue");
                 String ghiChu = rs.getString("GhiChu");
-                int cccd = rs.getInt("CCCD");
-                int sdt = rs.getInt("SDT");
+                String cccd = rs.getString("CCCD");
+                String sdt = rs.getString("SDT");
                 String hoVaTen = rs.getString("HoVaTen");
                 int tinhTrang = rs.getInt("TinhTrang");
                 HopDong hopDong = new HopDong(hopDongID, khachID, phongID, tienCoc, ngayThue, ngayTra, soKhachThue, ghiChu, cccd, sdt, hoVaTen, tinhTrang);
@@ -397,8 +399,8 @@ public class HaiDao extends MyDAO {
                 java.sql.Date ngayTra = rs.getDate("NgayTra");
                 int soKhachThue = rs.getInt("SoKhachThue");
                 String ghiChu = rs.getString("GhiChu");
-                int cccd = rs.getInt("CCCD");
-                int sdt = rs.getInt("SDT");
+                String cccd = rs.getString("CCCD");
+                String sdt = rs.getString("SDT");
                 String hoVaTen = rs.getString("HoVaTen");
                 int tinhTrang = rs.getInt("TinhTrang");
                 HopDong hopDong = new HopDong(hopDongID, khachID, phongID, tienCoc, ngayThue, ngayTra, soKhachThue, ghiChu, cccd, sdt, hoVaTen, tinhTrang);
@@ -425,10 +427,36 @@ public class HaiDao extends MyDAO {
     return count;
 }
 
+public Accounts getAccountByEmail(String email) {
+    Accounts account = null;
+    String sql = "SELECT * FROM Accounts WHERE Email = ?";
 
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setString(1, email);
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                int accountID = rs.getInt("AccountID");
+                String taiKhoan = rs.getString("TaiKhoan");
+                String password = rs.getString("Password");
+                int role = rs.getInt("Role");
+                String hoVaTen = rs.getString("HoVaTen");
+                String cccd = rs.getString("CCCD");
+                String diaChi = rs.getString("DiaChi");
+
+                account = new Accounts(accountID, taiKhoan, password, role, hoVaTen, email, cccd, diaChi);
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return account;
+}
 
     public static void main(String[] args) throws SQLException {
         HaiDao dao = new HaiDao();
+    Accounts Accounts = dao.getAccountByEmail("phanhai@gmail.com");
+    System.out.println(Accounts);
 
 
     }
