@@ -58,7 +58,7 @@ public class EditDV extends HttpServlet {
 
                 // Check chiSoCu < chiSoMoi
                 if (chiSoCu >= chiSoMoi) {
-                    request.setAttribute("error", "Chi số cũ phải nhỏ hơn chi số mới.");
+                    request.setAttribute("error", "Sửa dịch dịch vụ không thành công! Chi số cũ phải nhỏ hơn chi số mới.");
                     RequestDispatcher dispatcher = request.getRequestDispatcher("listdichvu");
                     dispatcher.forward(request, response);
                     return;
@@ -66,7 +66,7 @@ public class EditDV extends HttpServlet {
 
                 // Check tuNgay <= denNgay
                 if (tuNgay.after(denNgay)) {
-                    request.setAttribute("error", "Từ ngày phải nhỏ hơn hoặc bằng đến ngày.");
+                    request.setAttribute("error", "Sửa dịch dịch vụ không thành công! Từ ngày phải nhỏ hơn hoặc bằng đến ngày.");
                     RequestDispatcher dispatcher = request.getRequestDispatcher("listdichvu");
                     dispatcher.forward(request, response);
                     return;
