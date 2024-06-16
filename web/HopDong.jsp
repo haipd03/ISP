@@ -16,7 +16,7 @@
         <title>Forms | Tailwind Admin</title>
         <script>
             function confirmDelete(event, url) {
-                if (confirm("Bạn có chắc muốn xóa khu này không?")) {
+                if (confirm("Bạn có chắc muốn xóa hợp đồng này không?")) {
                     window.location.href = url;
                 } else {
                     event.preventDefault();

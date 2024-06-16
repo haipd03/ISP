@@ -1009,20 +1009,20 @@ public class SonDAO extends MyDAO {
         SonDAO dao = new SonDAO();
         
         // Replace these test values with actual values as needed
-        String HopDongID = "1";
-        String KhachID = "1011";
-        String PhongID = "1001";
+        String HopDongID = "10";
+        String KhachID = "1031";
+        String PhongID = "1003";
         String TienCoc = "300";
         String NgayThue = "2024-01-01";
         String NgayTra = "2024-12-31";
         String SoKhachThue = "1";
         String GhiChu = "null";
-        String CCCD = "001126484354";
-        String SDT = "0254896354";
-        String HoVaTen = "Phan hai";
+        String CCCD = "123456789111";
+        String SDT = "1234567890";
+        String HoVaTen = "Phan Đứ";
         String TinhTrang = "1";
 
-        dao.updateHopDong(HopDongID, KhachID, PhongID, TienCoc, NgayThue, NgayTra, SoKhachThue, GhiChu, CCCD, SDT, HoVaTen, TinhTrang);
+        dao.insertHopDong(HopDongID, KhachID, PhongID, TienCoc, NgayThue, NgayTra, SoKhachThue, GhiChu, CCCD, SDT, HoVaTen, TinhTrang);
     }
 }
 

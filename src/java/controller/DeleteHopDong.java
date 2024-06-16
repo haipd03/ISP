@@ -45,8 +45,9 @@ public class DeleteHopDong extends HttpServlet {
             dispatcher.forward(request, response);
         } else {
             sondao.DeleteHopDong(hdid);
+             response.sendRedirect("listhopdong");
         }
-        response.sendRedirect("listhopdong");
+       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
