@@ -24,10 +24,12 @@ public class RequestDao extends MyDAO {
                         rs.getInt("RequestID"),
                         rs.getInt("AccountID"),
                         rs.getString("Title"),
-                       rs.getTimestamp("SubmittedAt"),
+
+                        rs.getTimestamp("SubmittedAt"),
                         rs.getString("RequestText"),
-                        rs.getString("TinhTrang"),
-                        rs.getInt("AccountNhan"));
+                        rs.getString("PhanHoi"),
+                        rs.getInt("AccountNhan"),
+                        rs.getInt("TinhTrang"));
                 requests.add(request);
             }
         } catch (SQLException e) {
@@ -69,10 +71,12 @@ public class RequestDao extends MyDAO {
                         rs.getInt("RequestID"),
                         rs.getInt("AccountID"),
                         rs.getString("Title"),
+
                         rs.getTimestamp("SubmittedAt"),
                         rs.getString("RequestText"),
-                        rs.getString("TinhTrang"),
-                        rs.getInt("AccountNhan"));
+                        rs.getString("PhanHoi"),
+                        rs.getInt("AccountNhan"),
+                        rs.getInt("TinhTrang"));
                 requests.add(request);
             }
         }
@@ -115,12 +119,14 @@ public List<Request> searchRequestsGui(int accountNhan, String title, Date submi
         while (rs.next()) {
             Request request = new Request(
                     rs.getInt("RequestID"),
-                    rs.getInt("AccountID"),
-                    rs.getString("Title"),
-                    rs.getTimestamp("SubmittedAt"),
-                    rs.getString("RequestText"),
-                    rs.getString("TinhTrang"),
-                    rs.getInt("AccountNhan"));
+                        rs.getInt("AccountID"),
+                        rs.getString("Title"),
+
+                        rs.getTimestamp("SubmittedAt"),
+                        rs.getString("RequestText"),
+                        rs.getString("PhanHoi"),
+                        rs.getInt("AccountNhan"),
+                        rs.getInt("TinhTrang"));
             requests.add(request);
         }
     } catch (SQLException e) {
@@ -142,11 +148,12 @@ public List<Request> searchRequestsGui(int accountNhan, String title, Date submi
                         rs.getInt("RequestID"),
                         rs.getInt("AccountID"),
                         rs.getString("Title"),
-//                        rs.getDate("SubmittedAt"),
+
                         rs.getTimestamp("SubmittedAt"),
                         rs.getString("RequestText"),
-                        rs.getString("TinhTrang"),
-                        rs.getInt("AccountNhan"));
+                        rs.getString("PhanHoi"),
+                        rs.getInt("AccountNhan"),
+                        rs.getInt("TinhTrang"));
                 requests.add(request);
             }
         } catch (SQLException e) {
@@ -167,10 +174,12 @@ public List<Request> searchRequestsGui(int accountNhan, String title, Date submi
                         rs.getInt("RequestID"),
                         rs.getInt("AccountID"),
                         rs.getString("Title"),
+
                         rs.getTimestamp("SubmittedAt"),
                         rs.getString("RequestText"),
-                        rs.getString("TinhTrang"),
-                        rs.getInt("AccountNhan"));
+                        rs.getString("PhanHoi"),
+                        rs.getInt("AccountNhan"),
+                        rs.getInt("TinhTrang"));
                 requests.add(request);
             }
         } catch (SQLException e) {
@@ -192,10 +201,12 @@ public List<Request> searchRequestsGui(int accountNhan, String title, Date submi
                         rs.getInt("RequestID"),
                         rs.getInt("AccountID"),
                         rs.getString("Title"),
+
                         rs.getTimestamp("SubmittedAt"),
                         rs.getString("RequestText"),
-                        rs.getString("TinhTrang"),
-                        rs.getInt("AccountNhan"));
+                        rs.getString("PhanHoi"),
+                        rs.getInt("AccountNhan"),
+                        rs.getInt("TinhTrang"));
                 requests.add(request);
             }
         } catch (SQLException e) {
@@ -215,22 +226,53 @@ public List<Request> searchRequestsGui(int accountNhan, String title, Date submi
             e.printStackTrace();
         }
     }
-
-    public void addRequest(int accountID, String title, String requestText, String tinhTrang, int accountNhan) {
-        String sql = "INSERT INTO Request (AccountID, Title, RequestText, TinhTrang, AccountNhan) VALUES (?, ?, ?, ?, ?)";
+ public void updateTinhTrangPhanHoi(int requestID, String tinhTrang, String phanHoi) {
+        String sql = "UPDATE [Request] SET [TinhTrang] = ?,[PhanHoi] = ? WHERE [RequestID] = ?";
         try {
             ps = con.prepareStatement(sql);
-            ps.setInt(1, accountID);
-            ps.setString(2, title);
-            ps.setString(3, requestText);
-            ps.setString(4, tinhTrang);
-            ps.setInt(5, accountNhan);
-            ps.executeUpdate();
+            ps.setString(1, tinhTrang);
+            ps.setString(2, phanHoi);
+            ps.setInt(3, requestID);
+            ps.executeUpdate(); // Thực thi câu lệnh UPDATE
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
+//    public void addRequest(int accountID, String title, String requestText, String tinhTrang, int accountNhan) {
+//        String sql = "INSERT INTO Request (AccountID, Title, RequestText, TinhTrang, AccountNhan) VALUES (?, ?, ?, ?, ?)";
+//        try {
+//            ps = con.prepareStatement(sql);
+//            ps.setInt(1, accountID);
+//            ps.setString(2, title);
+//            ps.setString(3, requestText);
+//            ps.setString(4, tinhTrang);
+//            ps.setInt(5, accountNhan);
+//            ps.executeUpdate();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
+public void addRequest(int accountID, String title, String requestText, int tinhTrang, int accountNhan, String phanHoi) {
+    String sql = "INSERT INTO Request (AccountID, Title, RequestText, TinhTrang, AccountNhan, PhanHoi) VALUES (?, ?, ?, ?, ?, ?)";
+    try {
+        ps = con.prepareStatement(sql);
+        ps.setInt(1, accountID);
+        ps.setString(2, title);
+        ps.setString(3, requestText);
+        ps.setInt(4, tinhTrang);
+        ps.setInt(5, accountNhan);
+        
+        if (phanHoi != null) {
+            ps.setString(6, phanHoi);
+        } else {
+            ps.setNull(6, java.sql.Types.VARCHAR);
+        }
+        
+        ps.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
     public void deleteRequestByRequestID(int requestID) {
         String sql = "DELETE FROM Request WHERE RequestID = ?";
         try {

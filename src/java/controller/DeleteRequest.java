@@ -28,7 +28,7 @@ public class DeleteRequest extends HttpServlet {
         Accounts a = (Accounts) session.getAttribute("acc");
 
         if (a == null) {
-            response.sendRedirect("login"); // Redirect to login page if not logged in
+            response.sendRedirect("login"); 
         } else {
             String requestIdParam = request.getParameter("id");
             if (requestIdParam != null && !requestIdParam.isEmpty()) {
