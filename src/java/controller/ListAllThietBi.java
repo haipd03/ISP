@@ -54,8 +54,8 @@ public class ListAllThietBi extends HttpServlet {
             DAO dao = new DAO();
             List<Accounts> acc = dao.getAccounts();
             String pageStr = request.getParameter("page");
-            int page = (pageStr == null ) ? 1 : Integer.parseInt(pageStr);
-            int pageSize = 20;
+            int page = (pageStr == null) ? 1 : Integer.parseInt(pageStr);
+            int pageSize = 15;
             int offset = (page - 1) * pageSize;
 
             List<ThietBi> ltb = dao.getAllThietBi(offset, pageSize);
@@ -140,8 +140,14 @@ public class ListAllThietBi extends HttpServlet {
                     return;
                 }
             }
+            String pageStr = request.getParameter("page");
+            int page = (pageStr == null) ? 1 : Integer.parseInt(pageStr);
+            int pageSize = 15;
+            int offset = (page - 1) * pageSize;
+            List<ThietBi> ltb = dao.searchListThietBi(accountID, khuID, phongID, name, tinhTrang, gia, offset, pageSize);
+            int totalRecords1 = dao.getTotalThietBiCount1();
+            int totalPages = (int) Math.ceil((double) totalRecords1 / pageSize);
 
-            List<ThietBi> ltb = dao.searchListThietBi(accountID, khuID, phongID, name, tinhTrang, gia);
             if (ltb.isEmpty()) {
                 request.setAttribute("error", "Không tìm thấy thiết bị nào theo yêu cầu!");
                 request.getRequestDispatcher("ListThietBi.jsp").forward(request, response);
@@ -152,6 +158,8 @@ public class ListAllThietBi extends HttpServlet {
             request.setAttribute("listP", listP);
             request.setAttribute("ltb", ltb);
             request.setAttribute("listK3", acc);
+            request.setAttribute("currentPage", page);
+            request.setAttribute("totalPages", totalPages);
             request.getRequestDispatcher("ListThietBi.jsp").forward(request, response);
         }
     }
