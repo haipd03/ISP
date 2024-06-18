@@ -35,35 +35,34 @@ public class SearchChiTietKhachThue extends HttpServlet {
     throws ServletException, IOException {
          response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-       String name = request.getParameter("name");
-       String CCCD = request.getParameter("CCCD");
-       String SDT = request.getParameter("SDT");
+
+        String name = request.getParameter("name");
+        String CCCD = request.getParameter("CCCD");
+        String SDT = request.getParameter("SDT");
 
         HaiDao dao = new HaiDao();
         List<KhachThue> ktList;
 
-        // Fetch all KhachThue initially
         List<KhachThue> allKtList = dao.getKhachThue();
 
-    
         if ((name != null && !name.trim().isEmpty())
-                || (CCCD != null && !name.trim().isEmpty())
-                || (SDT != null && !name.trim().isEmpty())){
+                || (CCCD != null && !CCCD.trim().isEmpty())
+                || (SDT != null && !SDT.trim().isEmpty())) {
             try {
-                ktList = dao.searchKhachThueByCriteria(name,CCCD,SDT);
+                ktList = dao.searchKhachThueByCriteria(name, CCCD, SDT);
                 if (ktList.isEmpty()) {
-                    request.setAttribute("error", "Không tìm thấy khách thuê với tên: " + name);
-                    request.setAttribute("listK", allKtList); // Reassign initial list
+                    request.setAttribute("error", "Không tìm thấy khách thuê với các tiêu chí tìm kiếm.");
+                    request.setAttribute("listK", allKtList);
                 } else {
-                    request.setAttribute("listK", ktList); // Update ktList with search results
+                    request.setAttribute("listK", ktList);
                 }
             } catch (Exception e) {
                 request.setAttribute("error", "Đã xảy ra lỗi trong quá trình tìm kiếm.");
-                request.setAttribute("listK", allKtList); // Reassign initial list
+                request.setAttribute("listK", allKtList);
             }
         } else {
-            request.setAttribute("listK", allKtList); // Reassign initial list
-            request.setAttribute("error", "Vui lòng nhập tên để tìm kiếm.");
+            request.setAttribute("listK", allKtList);
+            request.setAttribute("error", "Vui lòng nhập ít nhất một tiêu chí tìm kiếm.");
         }
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("ChiTietKhachThue.jsp");

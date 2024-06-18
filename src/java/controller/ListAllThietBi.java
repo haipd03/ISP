@@ -119,11 +119,17 @@ public class ListAllThietBi extends HttpServlet {
                     if (!phongs.isEmpty()) {
                         phongID = phongs.get(0).getPhongID();
                     } else {
+                        request.setAttribute("listK3", acc);
+                    request.setAttribute("listK", listK);
+                    request.setAttribute("listP", listP);
                         request.setAttribute("error", "Không tìm thấy phòng!");
                         request.getRequestDispatcher("ListThietBi.jsp").forward(request, response);
                         return;
                     }
                 } catch (NumberFormatException e) {
+                    request.setAttribute("listK3", acc);
+                    request.setAttribute("listK", listK);
+                    request.setAttribute("listP", listP);
                     request.setAttribute("error", "Vui lòng nhập lại số phòng hợp lệ!");
                     request.getRequestDispatcher("ListThietBi.jsp").forward(request, response);
                     return;
@@ -135,31 +141,38 @@ public class ListAllThietBi extends HttpServlet {
                 try {
                     gia = Integer.parseInt(giaParam);
                 } catch (NumberFormatException e) {
+                    request.setAttribute("listK3", acc);
+                    request.setAttribute("listK", listK);
+                    request.setAttribute("listP", listP);
                     request.setAttribute("error", "Vui lòng nhập lại giá thiết bị!");
                     request.getRequestDispatcher("ListThietBi.jsp").forward(request, response);
                     return;
                 }
             }
-            String pageStr = request.getParameter("page");
-            int page = (pageStr == null) ? 1 : Integer.parseInt(pageStr);
-            int pageSize = 15;
-            int offset = (page - 1) * pageSize;
-            List<ThietBi> ltb = dao.searchListThietBi(accountID, khuID, phongID, name, tinhTrang, gia, offset, pageSize);
-            int totalRecords1 = dao.getTotalThietBiCount1();
-            int totalPages = (int) Math.ceil((double) totalRecords1 / pageSize);
+//            String pageStr = request.getParameter("page");
+//            int page = (pageStr == null) ? 1 : Integer.parseInt(pageStr);
+//            int pageSize = 15;
+//            int offset = (page - 1) * pageSize;
+            List<ThietBi> ltb = dao.searchListThietBi(accountID, khuID, phongID, name, tinhTrang, gia);
+//            int totalRecords1 = dao.getTotalThietBiCount1();
+//            int totalPages = (int) Math.ceil((double) totalRecords1 / pageSize);
 
             if (ltb.isEmpty()) {
+                request.setAttribute("listK3", acc);
+                    request.setAttribute("listK", listK);
+                    request.setAttribute("listP", listP);
                 request.setAttribute("error", "Không tìm thấy thiết bị nào theo yêu cầu!");
                 request.getRequestDispatcher("ListThietBi.jsp").forward(request, response);
+
                 return;
             }
-
+            request.setAttribute("listK3", acc);
             request.setAttribute("listK", listK);
             request.setAttribute("listP", listP);
             request.setAttribute("ltb", ltb);
-            request.setAttribute("listK3", acc);
-            request.setAttribute("currentPage", page);
-            request.setAttribute("totalPages", totalPages);
+
+//            request.setAttribute("currentPage", page);
+//            request.setAttribute("totalPages", totalPages);
             request.getRequestDispatcher("ListThietBi.jsp").forward(request, response);
         }
     }
