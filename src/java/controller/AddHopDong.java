@@ -28,7 +28,7 @@ public class AddHopDong extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
+      
         String HopDongID = request.getParameter("HopDongID");
         String KhachID = request.getParameter("KhachID");
         String PhongID = request.getParameter("PhongID");
@@ -64,10 +64,10 @@ public class AddHopDong extends HttpServlet {
         }
 
         SonDAO sondao = new SonDAO();
-        
+
         if (errorMsg != null) {
             request.setAttribute("error", errorMsg);
-            request.getRequestDispatcher("listhopdong").forward(request, response);
+            request.getRequestDispatcher("nhapaddhopdong").forward(request, response);
         } else {
             sondao.insertHopDong(HopDongID, KhachID, PhongID, TienCoc, NgayThue, NgayTra, SoKhachThue, GhiChu, CCCD, SDT, HoVaTen, TinhTrang);
             response.sendRedirect("listhopdong");

@@ -56,6 +56,7 @@ public class NhapAddHopDong extends HttpServlet {
             request.setAttribute("lp1", loaiPhongList);
             request.setAttribute("lp2", hopDongList);
             request.setAttribute("lp3", khachThueList);
+            request.setAttribute("hdid", hdid);
             request.setAttribute("nextHopDongID", nextHopDongID);
 
             request.getRequestDispatcher("FormAddHopDong.jsp").forward(request, response);
