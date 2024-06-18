@@ -65,7 +65,9 @@
                                             <td class="px-4 py-2">${thietBi.gia}</td>
                                             <td class="px-4 py-2">
                                                 <a href="editthietbi?tbid=${thietBi.thietBiID}" class="text-blue-500 hover:text-blue-700 mr-2">Sửa</a>
-                                                <a href="#" class="text-red-500 hover:text-red-700" onclick="confirmDelete(event, 'deletethietbi?tbid=${thietBi.thietBiID}')">Xóa</a>
+                                                <c:if test="${thietBi.tinhTrang == 'Tốt'}">  
+                                                    <a href="#" class="text-red-500 hover:text-red-700" onclick="confirmDelete(event, 'deletethietbi?tbid=${thietBi.thietBiID}')">Xóa</a>
+                                                </c:if>
                                             </td>
                                         </tr>
                                     </c:forEach>
