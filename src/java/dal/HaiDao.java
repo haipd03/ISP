@@ -218,7 +218,7 @@ public class HaiDao extends MyDAO {
     }
 }
     
-      public List<KhachThue> searchKhachThueByCriteria(String name, String sdt, String cccd) {
+       public List<KhachThue> searchKhachThueByCriteria(String name, String sdt, String cccd) {
         List<KhachThue> list = new ArrayList<>();
         String sql = "SELECT * FROM KhachThue WHERE 1=1";
 
@@ -226,10 +226,10 @@ public class HaiDao extends MyDAO {
             sql += " AND HoVaTen LIKE ?";
         }
         if (sdt != null && !sdt.trim().isEmpty()) {
-            sql += " AND SDT LIKE  ?";
+            sql += " AND SDT LIKE ?";
         }
         if (cccd != null && !cccd.trim().isEmpty()) {
-            sql += " AND CCCD LIKE  ?";
+            sql += " AND CCCD LIKE ?";
         }
 
         try {
@@ -267,7 +267,7 @@ public class HaiDao extends MyDAO {
         }
         return list;
     }
-      
+           
       public List<KhachThue> getKhachThue() {
         List<KhachThue> KhachThues = new ArrayList<>();
         String sql = "Select * from khachthue";

@@ -243,6 +243,34 @@ public class SonDAO extends MyDAO {
         }
         return null;
     }
+    
+    public HopDong getHopDongByKhachID(String id) {
+        String sql = "select * from HopDong hd where hd.KhachID = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                int hopDongID = rs.getInt("HopDongID");
+                int khachID = rs.getInt("KhachID");
+                int phongID = rs.getInt("PhongID");
+                int tienCoc = rs.getInt("TienCoc");
+                java.sql.Date ngayThue = rs.getDate("NgayThue");
+                java.sql.Date ngayTra = rs.getDate("NgayTra");
+                int soKhachThue = rs.getInt("SoKhachThue");
+                String ghiChu = rs.getString("GhiChu");
+                String cccd = rs.getString("CCCD");
+                String sdt = rs.getString("SDT");
+                String hoVaTen = rs.getString("HoVaTen");
+                int tinhTrang = rs.getInt("TinhTrang");
+                HopDong hopDong = new HopDong(hopDongID, khachID, phongID, tienCoc, ngayThue, ngayTra, soKhachThue, ghiChu, cccd, sdt, hoVaTen, tinhTrang);
+                return hopDong;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public List<HopDong> getHopDongByPhongID(String id) {
         List<HopDong> HopDongs = new ArrayList<>();

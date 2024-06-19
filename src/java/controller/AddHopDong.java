@@ -28,7 +28,7 @@ public class AddHopDong extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-      
+
         String HopDongID = request.getParameter("HopDongID");
         String KhachID = request.getParameter("KhachID");
         String PhongID = request.getParameter("PhongID");
@@ -51,6 +51,8 @@ public class AddHopDong extends HttpServlet {
             errorMsg = "TienCoc không hợp lệ.";
         } else if (SoKhachThue == null || !SoKhachThue.matches("\\d+")) {
             errorMsg = "Số khách thuê không hợp lệ.";
+        } else if (Integer.parseInt(SoKhachThue) < 1) {
+            errorMsg = "Số khách thuê phải lớn hơn hoặc bằng 1.";
         } else {
             try {
                 Date dateNgayThue = dateFormat.parse(NgayThue);

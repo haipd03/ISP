@@ -14,6 +14,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.Date;
+import model.HopDong;
 
 /**
  *
@@ -67,6 +69,34 @@ public class EditKhachThue extends HttpServlet {
             request.setAttribute("error", errorMsg);
             request.getRequestDispatcher("listNguoiThue?lntid=" + PhongID).forward(request, response);
         } else {
+            SonDAO sondao = new SonDAO();
+
+            HopDong hd = sondao.getHopDongByKhachID(KhachID);
+
+            int hdongid = hd.getHopDongID();
+            int khachid = hd.getKhachID();
+            int phongid = hd.getPhongID();
+            int tiencoc = hd.getTienCoc();
+            Date ngaythue = hd.getNgayThue();
+            Date ngaytra = hd.getNgayTra();
+            int sokhachthue = hd.getSoKhachThue();
+            String ghichu = hd.getGhiChu();
+            String cccd = hd.getCCCD();
+            String sdt = hd.getSDT();
+            String hovaten = hd.getHoVaTen();
+            int tinhtrang = hd.getTinhTrang();
+
+            String hdid = String.valueOf(hdongid);
+            String kid = String.valueOf(khachid);
+            String pid = String.valueOf(phongid);
+            String tc = String.valueOf(tiencoc);
+            String skt = String.valueOf(sokhachthue);
+            String tt = String.valueOf(tinhtrang);
+            String nthue = String.valueOf(ngaythue);
+            String ntra = String.valueOf(ngaytra);
+
+            sondao.updateHopDong(hdid, kid, pid, tc, nthue, ntra, skt, ghichu, CCCD, SDT, HoVaTen, tt);
+
             dao.Updatekhachthue(KhachID, HoVaTen, CCCD, SDT, QueQuan, TenNguoiThan, SDTNguoiThan, QuanHeVoiNguoiThan, PhongID, TinhTrang);
             response.sendRedirect("listNguoiThue?lntid=" + PhongID);
         }
