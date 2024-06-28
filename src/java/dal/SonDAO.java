@@ -145,49 +145,48 @@ public class SonDAO extends MyDAO {
         return HopDongs;
     }
 
-   public List<KhachThue> getKhachThue(int offset, int limit) {
-    List<KhachThue> KhachThues = new ArrayList<>();
-    String sql = "SELECT * FROM khachthue ORDER BY KhachID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
-    try {
-        ps = con.prepareStatement(sql);
-        ps.setInt(1, offset);
-        ps.setInt(2, limit);
-        rs = ps.executeQuery();
-        while (rs.next()) {
-            int KhachID = rs.getInt("KhachID");
-            String HoVaTen = rs.getString("HoVaTen");
-            String CCCD = rs.getString("CCCD");
-            String SDT = rs.getString("SDT");
-            String QueQuan = rs.getString("QueQuan");
-            String TenNguoiThan = rs.getString("TenNguoiThan");
-            String SDTNguoiThan = rs.getString("SDTNguoiThan");
-            String QuanHeVoiNguoiThan = rs.getString("QuanHeVoiNguoiThan");
-            int PhongID = rs.getInt("PhongID");
-            int TinhTrang = rs.getInt("TinhTrang");
-            KhachThue khachThue = new KhachThue(KhachID, HoVaTen, CCCD, SDT, QueQuan, TenNguoiThan, SDTNguoiThan, QuanHeVoiNguoiThan, PhongID, TinhTrang);
-            KhachThues.add(khachThue);
+    public List<KhachThue> getKhachThue(int offset, int limit) {
+        List<KhachThue> KhachThues = new ArrayList<>();
+        String sql = "SELECT * FROM khachthue ORDER BY KhachID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, offset);
+            ps.setInt(2, limit);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int KhachID = rs.getInt("KhachID");
+                String HoVaTen = rs.getString("HoVaTen");
+                String CCCD = rs.getString("CCCD");
+                String SDT = rs.getString("SDT");
+                String QueQuan = rs.getString("QueQuan");
+                String TenNguoiThan = rs.getString("TenNguoiThan");
+                String SDTNguoiThan = rs.getString("SDTNguoiThan");
+                String QuanHeVoiNguoiThan = rs.getString("QuanHeVoiNguoiThan");
+                int PhongID = rs.getInt("PhongID");
+                int TinhTrang = rs.getInt("TinhTrang");
+                KhachThue khachThue = new KhachThue(KhachID, HoVaTen, CCCD, SDT, QueQuan, TenNguoiThan, SDTNguoiThan, QuanHeVoiNguoiThan, PhongID, TinhTrang);
+                KhachThues.add(khachThue);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return KhachThues;
     }
-    return KhachThues;
-}
-   
-   public int getTotalKhachThueCount() {
-    int count = 0;
-    try {
-        String sql = "SELECT COUNT(*) FROM KhachThue";
-        PreparedStatement st = connection.prepareStatement(sql);
-        ResultSet rs = st.executeQuery();
-        if (rs.next()) {
-            count = rs.getInt(1);
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-    return count;
-}
 
+    public int getTotalKhachThueCount() {
+        int count = 0;
+        try {
+            String sql = "SELECT COUNT(*) FROM KhachThue";
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
 
     public List<KhachThue> getKhachThueByAccountID(int aid) {
         List<KhachThue> KhachThues = new ArrayList<>();
@@ -218,6 +217,34 @@ public class SonDAO extends MyDAO {
 
     public HopDong getHopDongByHopDongID(String id) {
         String sql = "select * from HopDong hd where hd.HopDongID = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                int hopDongID = rs.getInt("HopDongID");
+                int khachID = rs.getInt("KhachID");
+                int phongID = rs.getInt("PhongID");
+                int tienCoc = rs.getInt("TienCoc");
+                java.sql.Date ngayThue = rs.getDate("NgayThue");
+                java.sql.Date ngayTra = rs.getDate("NgayTra");
+                int soKhachThue = rs.getInt("SoKhachThue");
+                String ghiChu = rs.getString("GhiChu");
+                String cccd = rs.getString("CCCD");
+                String sdt = rs.getString("SDT");
+                String hoVaTen = rs.getString("HoVaTen");
+                int tinhTrang = rs.getInt("TinhTrang");
+                HopDong hopDong = new HopDong(hopDongID, khachID, phongID, tienCoc, ngayThue, ngayTra, soKhachThue, ghiChu, cccd, sdt, hoVaTen, tinhTrang);
+                return hopDong;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public HopDong getHopDongByKhachID(String id) {
+        String sql = "select * from HopDong hd where hd.KhachID = ?";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, id);
@@ -575,6 +602,318 @@ public class SonDAO extends MyDAO {
         return null;
     }
 
+    public HopDong getHopDongByPhongIDandTinhTrang1andAccountID(String id, int aid) {
+        String sql = "select * from HopDong hd JOIN Phong p ON p.PhongID = hd.PhongID JOIN Khu k ON k.KhuID = p.KhuID JOIN Accounts a ON a.AccountID = k.AccountID where hd.PhongID = ? and hd.TinhTrang = 1 and a.AccountID = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, id);
+            ps.setInt(2, aid);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                int hopDongID = rs.getInt("HopDongID");
+                int khachID = rs.getInt("KhachID");
+                int phongID = rs.getInt("PhongID");
+                int tienCoc = rs.getInt("TienCoc");
+                java.sql.Date ngayThue = rs.getDate("NgayThue");
+                java.sql.Date ngayTra = rs.getDate("NgayTra");
+                int soKhachThue = rs.getInt("SoKhachThue");
+                String ghiChu = rs.getString("GhiChu");
+                String cccd = rs.getString("CCCD");
+                String sdt = rs.getString("SDT");
+                String hoVaTen = rs.getString("HoVaTen");
+                int tinhTrang = rs.getInt("TinhTrang");
+                HopDong hopDong = new HopDong(hopDongID, khachID, phongID, tienCoc, ngayThue, ngayTra, soKhachThue, ghiChu, cccd, sdt, hoVaTen, tinhTrang);
+                return hopDong;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Phong> getPhongByAccountID(String id, int accountID) {
+        List<Phong> Phongs = new ArrayList<>();
+        String sql = "SELECT p.* "
+                + "FROM Phong p "
+                + "JOIN Khu k ON p.KhuID = k.KhuID "
+                + "JOIN Accounts a ON a.AccountID = k.AccountID "
+                + "WHERE p.PhongID = ? and a.AccountID = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, id);
+            ps.setInt(2, accountID);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int PhongID = rs.getInt("PhongID");
+                int SoPhong = rs.getInt("SoPhong");
+                int KhuID = rs.getInt("KhuID");
+                String LoaiPhong = rs.getString("LoaiPhong");
+                int PhongConTrong = rs.getInt("PhongConTrong");
+                String GhiChu = rs.getString("GhiChu");
+                int Gia = rs.getInt("Gia");
+
+                Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, GhiChu, Gia);
+                Phongs.add(phong);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Phongs;
+    }
+
+    public HoaDon getIDByHoaDonIDByPhongIDAndAccountID(String id, int aid) {
+        String query = "SELECT TOP 1 hdon.*\n"
+                + "FROM HoaDon hdon\n"
+                + "JOIN HopDong hdong ON hdong.HopDongID = hdon.HopDongID\n"
+                + "JOIN Phong p ON p.PhongID = hdong.PhongID\n"
+                + "JOIN Khu k ON p.KhuID = k.KhuID \n"
+                + "JOIN Accounts a ON a.AccountID = k.AccountID \n"
+                + "WHERE hdong.PhongID = ? and a.AccountID = ?\n"
+                + "ORDER BY hdon.HoaDonID DESC";
+        try {
+            ps = con.prepareStatement(query);
+            ps.setString(1, id);
+            ps.setInt(2, aid);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int hoaDonID = rs.getInt("HoaDonID");
+                int hopDongID = rs.getInt("HopDongID");
+                Date NgayThanhToan = rs.getDate("NgayThanhToan");
+                String tinhTrangThanhToan = rs.getString("TinhTrangThanhToan");
+                Date tuNgay = rs.getDate("TuNgay");
+                Date denNgay = rs.getDate("DenNgay");
+                int tongTien = rs.getInt("TongTien");
+                HoaDon hoaDons = new HoaDon(hoaDonID, hopDongID, NgayThanhToan, tinhTrangThanhToan, tuNgay, denNgay, tongTien);
+                return hoaDons;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<HoaDonDetail> getHoaDonDetailByAccountID(String id, int aid) {
+        List<HoaDonDetail> hoaDonDetail = new ArrayList<>();
+        String query = "SELECT * \n"
+                + "FROM HoaDonDetail hdd\n"
+                + "JOIN HoaDon hd ON hd.HoaDonID = hdd.HoaDonID\n"
+                + "JOIN HopDong hdong ON hdong.HopDongID = hd.HopDongID\n"
+                + "JOIN Phong p ON p.PhongID = hdong.PhongID\n"
+                + "JOIN Khu k ON p.KhuID = k.KhuID \n"
+                + "JOIN Accounts a ON a.AccountID = k.AccountID \n"
+                + "where hdd.HoaDonID = ? and a.AccountID = ?";
+        try {
+            ps = con.prepareStatement(query);
+            ps.setString(1, id);
+            ps.setInt(2, aid);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int hoaDonDetailID = rs.getInt("HoaDonDetailID");
+                int hoaDonID = rs.getInt("HoaDonID");
+                Date tuNgay = rs.getDate("TuNgay");
+                Date denNgay = rs.getDate("DenNgay");
+                int tongSo = rs.getInt("TongSo");
+                int heSo = rs.getInt("HeSo");
+                int thanhTien = rs.getInt("ThanhTien");
+                int dichVuID = rs.getInt("DichVuID");
+
+                HoaDonDetail hoaDonDetails = new HoaDonDetail(hoaDonDetailID, hoaDonID, tuNgay, denNgay, tongSo, heSo, thanhTien, dichVuID);
+                hoaDonDetail.add(hoaDonDetails);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return hoaDonDetail;
+    }
+
+    public HoaDon getHoaDonByIdAndAccountID(int hoaDonID, int aid) {
+        HoaDon hoaDon = null;
+        String sql = "SELECT hd.* \n"
+                + "FROM HoaDon hd\n"
+                + "JOIN HopDong hdong ON hdong.HopDongID = hd.HopDongID\n"
+                + "JOIN Phong p ON p.PhongID = hdong.PhongID\n"
+                + "JOIN Khu k ON p.KhuID = k.KhuID \n"
+                + "JOIN Accounts a ON a.AccountID = k.AccountID\n"
+                + "WHERE HoaDonID = ? and a.AccountID = ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, hoaDonID);
+            ps.setInt(2, aid);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    int hopDongID = rs.getInt("HopDongID");
+                    Date NgayThanhToan = rs.getDate("NgayThanhToan");
+
+                    String tinhTrangThanhToan = rs.getString("TinhTrangThanhToan");
+                    Date tuNgay = rs.getDate("TuNgay");
+                    Date denNgay = rs.getDate("DenNgay");
+                    int tongTien = rs.getInt("TongTien");
+
+                    hoaDon = new HoaDon(hoaDonID, hopDongID, NgayThanhToan, tinhTrangThanhToan, tuNgay, denNgay, tongTien);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return hoaDon;
+    }
+
+    public HoaDonDetail getHoaDonDetailByIDAndAccountID(String id, int aid) {
+        String sql = "SELECT * \n"
+                + "FROM HoaDonDetail hdd\n"
+                + "JOIN HoaDon hd ON hd.HoaDonID = hdd.HoaDonID\n"
+                + "JOIN HopDong hdong ON hdong.HopDongID = hd.HopDongID\n"
+                + "JOIN Phong p ON p.PhongID = hdong.PhongID\n"
+                + "JOIN Khu k ON p.KhuID = k.KhuID \n"
+                + "JOIN Accounts a ON a.AccountID = k.AccountID \n"
+                + "where hdd.HoaDonDetailID = ? and a.AccountID = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, id);
+            ps.setInt(2, aid);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                int hoaDonDetailID = rs.getInt("HoaDonDetailID");
+                int hoaDonID = rs.getInt("HoaDonID");
+                Date tuNgay = rs.getDate("TuNgay");
+                Date denNgay = rs.getDate("DenNgay");
+                int tongSo = rs.getInt("TongSo");
+                int heSo = rs.getInt("HeSo");
+                int thanhTien = rs.getInt("ThanhTien");
+                int dichVuID = rs.getInt("DichVuID");
+
+                // Assuming Truyen is your custom class
+                HoaDonDetail hoadondetails = new HoaDonDetail(hoaDonDetailID, hoaDonID, tuNgay, denNgay, tongSo, heSo, thanhTien, dichVuID);
+                return hoadondetails;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<HoaDon> getIDByHoaDonID(String hdid, int aid) {
+        List<HoaDon> hoaDon = new ArrayList<>();
+        String query = "SELECT hd.* \n"
+                + "FROM HoaDon hd\n"
+                + "JOIN HopDong hdong ON hdong.HopDongID = hd.HopDongID\n"
+                + "JOIN Phong p ON p.PhongID = hdong.PhongID\n"
+                + "JOIN Khu k ON p.KhuID = k.KhuID \n"
+                + "JOIN Accounts a ON a.AccountID = k.AccountID\n"
+                + "WHERE HoaDonID = ? and a.AccountID = ?";
+        try {
+            ps = con.prepareStatement(query);
+            ps.setString(1, hdid);
+            ps.setInt(2, aid);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int hoaDonID = rs.getInt("HoaDonID");
+                int hopDongID = rs.getInt("HopDongID");
+                Date NgayThanhToan = rs.getDate("NgayThanhToan");
+                String tinhTrangThanhToan = rs.getString("TinhTrangThanhToan");
+                Date tuNgay = rs.getDate("TuNgay");
+                Date denNgay = rs.getDate("DenNgay");
+                int tongTien = rs.getInt("TongTien");
+                HoaDon hoaDons = new HoaDon(hoaDonID, hopDongID, NgayThanhToan, tinhTrangThanhToan, tuNgay, denNgay, tongTien);
+                hoaDon.add(hoaDons);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return hoaDon;
+    }
+
+    public List<DichVu> getAllDichVuByAccountID(int aid) {
+        List<DichVu> dichVuList = new ArrayList<>();
+        String sql = "SELECT dv.*\n"
+                + "FROM DichVu dv\n"
+                + "JOIN Phong p ON p.PhongID = dv.PhongID\n"
+                + "JOIN Khu k ON p.KhuID = k.KhuID \n"
+                + "JOIN Accounts a ON a.AccountID = k.AccountID \n"
+                + "where a.AccountID = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, aid);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int dichVuID = rs.getInt("DichVuID");
+                int phongID = rs.getInt("PhongID");
+                String name = rs.getString("Name");
+                int giaTien = rs.getInt("GiaTien");
+                Date tuNgay = rs.getDate("TuNgay");
+                Date denNgay = rs.getDate("DenNgay");
+                int chiSoCu = rs.getInt("ChiSoCu");
+                int chiSoMoi = rs.getInt("ChiSoMoi");
+
+                DichVu dichVu = new DichVu(dichVuID, phongID, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi);
+                dichVuList.add(dichVu);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // In ra lỗi nếu có
+        }
+        return dichVuList;
+    }
+
+    public List<Phong> getPhongIDByAccountID(int accountID) {
+        List<Phong> Phongs = new ArrayList<>();
+        String sql = "SELECT p.* \n"
+                + "FROM Phong p\n"
+                + "JOIN Khu k ON p.KhuID = k.KhuID \n"
+                + "JOIN Accounts a ON a.AccountID = k.AccountID \n"
+                + "where a.AccountID = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, accountID);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int PhongID = rs.getInt("PhongID");
+                int SoPhong = rs.getInt("SoPhong");
+                int KhuID = rs.getInt("KhuID");
+                String LoaiPhong = rs.getString("LoaiPhong");
+                int PhongConTrong = rs.getInt("PhongConTrong");
+                String GhiChu = rs.getString("GhiChu");
+                int Gia = rs.getInt("Gia");
+
+                Phong phong = new Phong(PhongID, SoPhong, KhuID, LoaiPhong, PhongConTrong, GhiChu, Gia);
+                Phongs.add(phong);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Phongs;
+    }
+    
+    public DichVu getDichVubyID(String id, int aid) {
+        String sql = "SELECT dv.*\n"
+                + "FROM DichVu dv\n"
+                + "JOIN Phong p ON p.PhongID = dv.PhongID\n"
+                + "JOIN Khu k ON p.KhuID = k.KhuID \n"
+                + "JOIN Accounts a ON a.AccountID = k.AccountID \n"
+                + "where dv.DichVuID = ? and a.AccountID = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, id);
+            ps.setInt(2, aid);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                int dichVuID = rs.getInt("DichVuID");
+                int phongID = rs.getInt("PhongID");
+                String name = rs.getString("Name");
+                int giaTien = rs.getInt("GiaTien");
+                Date tuNgay = rs.getDate("TuNgay");
+                Date denNgay = rs.getDate("DenNgay");
+                int chiSoCu = rs.getInt("ChiSoCu");
+                int chiSoMoi = rs.getInt("ChiSoMoi");
+
+                DichVu dichVu = new DichVu(dichVuID, phongID, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi);
+                return dichVu;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public void insertHoaDon(String HoaDonID, String HopDongID, String NgayThanhToan, String TinhTrangThanhToan, String TuNgay, String DenNgay, String TongTien) {
         String sql = "INSERT INTO [dbo].[HoaDon] ([HoaDonID],[HopDongID],[NgayThanhToan],[TinhTrangThanhToan],[TuNgay],[DenNgay],[TongTien]) VALUES (?,?,?,?,?,?,?)";
         try {
@@ -592,12 +931,12 @@ public class SonDAO extends MyDAO {
         }
     }
 
-    public void insertDichVu(String dvid, String soPhong, String name, String giaTien, String tuNgay, String denNgay, String chiSoCu, String chiSoMoi) {
-        String sql = "INSERT INTO DichVu (DichVuID, SoPhong, Name, GiaTien, TuNgay, DenNgay, ChiSoCu, ChiSoMoi) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    public void insertDichVu(String dvid, String PhongID, String name, String giaTien, String tuNgay, String denNgay, String chiSoCu, String chiSoMoi) {
+        String sql = "INSERT INTO DichVu (DichVuID, PhongID, Name, GiaTien, TuNgay, DenNgay, ChiSoCu, ChiSoMoi) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, dvid);
-            ps.setString(2, soPhong);
+            ps.setString(2, PhongID);
             ps.setString(3, name);
             ps.setString(4, giaTien);
             ps.setString(5, tuNgay);
@@ -680,7 +1019,7 @@ public class SonDAO extends MyDAO {
             rs = ps.executeQuery();
             if (rs.next()) {
                 int dichVuID = rs.getInt("DichVuID");
-                int soPhong = rs.getInt("SoPhong");
+                int phongID = rs.getInt("PhongID");
                 String name = rs.getString("Name");
                 int giaTien = rs.getInt("GiaTien");
                 Date tuNgay = rs.getDate("TuNgay");
@@ -688,7 +1027,7 @@ public class SonDAO extends MyDAO {
                 int chiSoCu = rs.getInt("ChiSoCu");
                 int chiSoMoi = rs.getInt("ChiSoMoi");
 
-                DichVu dichVu = new DichVu(dichVuID, soPhong, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi);
+                DichVu dichVu = new DichVu(dichVuID, phongID, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi);
                 return dichVu;
             }
         } catch (SQLException e) {
@@ -1003,26 +1342,12 @@ public class SonDAO extends MyDAO {
         return false;
     }
 
-    
-    public static void main(String[] args) {
-        // Initialize the manager and update a contract
-        SonDAO dao = new SonDAO();
-        
-        // Replace these test values with actual values as needed
-        String HopDongID = "10";
-        String KhachID = "1031";
-        String PhongID = "1003";
-        String TienCoc = "300";
-        String NgayThue = "2024-01-01";
-        String NgayTra = "2024-12-31";
-        String SoKhachThue = "1";
-        String GhiChu = "null";
-        String CCCD = "123456789111";
-        String SDT = "1234567890";
-        String HoVaTen = "Phan Đứ";
-        String TinhTrang = "1";
 
-        dao.insertHopDong(HopDongID, KhachID, PhongID, TienCoc, NgayThue, NgayTra, SoKhachThue, GhiChu, CCCD, SDT, HoVaTen, TinhTrang);
+    public static void main(String[] args) {
+        SonDAO dao = new SonDAO();
+        List<Phong> phongList = dao.getPhongIDByAccountID(3);
+        for (Phong phong : phongList) {
+            System.out.println(phong);
+        }
     }
 }
-

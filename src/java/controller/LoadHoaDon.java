@@ -6,6 +6,7 @@
 package controller;
 
 import dal.HaiDao;
+import dal.SonDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -37,12 +38,12 @@ public class LoadHoaDon extends HttpServlet {
         HttpSession session = request.getSession();
         int id = Integer.parseInt(request.getParameter("id"));
         Accounts a = (Accounts) session.getAttribute("acc");
-        if (a == null || a.getRole() == 1) {
+        if (a == null || a.getRole() == 0) {
             response.sendRedirect("login");
         } else {
-            HaiDao dao = new HaiDao();
-            HoaDon hoadon = dao.getHoaDonById(id);
-
+            SonDAO sondao = new SonDAO();
+            
+            HoaDon hoadon = sondao.getHoaDonByIdAndAccountID(id, a.getAccountID());
             request.setAttribute("hoadon", hoadon);
             request.getRequestDispatcher("EditHoaDon.jsp").forward(request, response);
         }

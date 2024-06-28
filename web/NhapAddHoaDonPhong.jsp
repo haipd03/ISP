@@ -35,6 +35,9 @@
                         <div class="bg-purple-600 text-white px-4 py-3 rounded-t-lg w-full ">
                             Tạo Hóa Đơn Mới
                         </div>
+                        <c:if test="${not empty error}">
+                            <p style="color: red; font-size: 1.2em; font-weight: bold;">${error}</p>
+                        </c:if>
                         <div class="p-6 bg-white">
                             <form action="addhdonandnhapadddichvu" method="get">
                                 <div class="space-y-4">
@@ -56,7 +59,7 @@
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-2/5 text-gray-700 font-semibold">Từ Ngày:</label>
-                                        <input type="date" name="TuNgay" value="${lp2.denNgay}" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <input type="date" name="TuNgay" value="${lp2.denNgay}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-2/5 text-gray-700 font-semibold">Đến Ngày:</label>

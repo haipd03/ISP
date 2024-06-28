@@ -819,40 +819,48 @@ public static void main(String[] args) {
             System.out.println(thietBi);
         }
     }
-//    public List<ThietBi> searchListThietBi(int accountID, int khuID, int phongID, String name, String tinhTrang, int gia) {
-//        List<ThietBi> tb = new ArrayList<>();
-//        String sql = "select tb.* from ThietBi tb\n"
-//                + "join Phong p on p.PhongID =  tb.PhongID\n"
-//                + "join Khu k on k.KhuID = p.KhuID\n"
-//                + "join Accounts a on a.AccountID = k.AccountID\n"
-//                + "where 1=1";
-//        List<Object> parameters = new ArrayList<>();
-//        if (accountID != 0) {
-//            sql += " AND a.AccountID = ?";
-//            parameters.add(accountID);
-//        }
-//         if (khuID != 0) {
-//            sql += " AND p.KhuID = ?";
-//            parameters.add(khuID);
-//        }
-//         if (phongID != 0) {
-//            sql += " AND tb.PhongID = ?";
-//            parameters.add(phongID);
-//        }
-//          if (name != null && !name.isEmpty()) {
-//            sql += "AND tb.Name LIKE ?";
-//            parameters.add("%" + name + "%");
-//        }
-//           if (tinhTrang != null && !tinhTrang.isEmpty()) {
-//            sql += "AND tb.TinhTrang LIKE ?";
-//            parameters.add("%" + tinhTrang + "%");
-//        }
-//        if (gia != 0) {
-//            sql += " AND tb.Gia = ?";
-//            parameters.add(gia);
-//        }
-//        try (PreparedStatement ps = con.prepareStatement(sql)) {
+
+
+
+//public List<ThietBi> searchListThietBi(int accountID, int khuID, int phongID, String name, String tinhTrang, int gia, int offset, int limit) {
+//    List<ThietBi> tb = new ArrayList<>();
+//    String sql = "select tb.* from ThietBi tb " +
+//                 "join Phong p on p.PhongID = tb.PhongID " +
+//                 "join Khu k on k.KhuID = p.KhuID " +
+//                 "join Accounts a on a.AccountID = k.AccountID " +
+//                 "where 1=1";
 //
+//    List<Object> parameters = new ArrayList<>();
+//    if (accountID != 0) {
+//        sql += " AND a.AccountID = ?";
+//        parameters.add(accountID);
+//    }
+//    if (khuID != 0) {
+//        sql += " AND k.KhuID = ?";
+//        parameters.add(khuID);
+//    }
+//    if (phongID != 0) {
+//        sql += " AND tb.PhongID = ?";
+//        parameters.add(phongID);
+//    }
+//    if (name != null && !name.isEmpty()) {
+//        sql += " AND tb.Name LIKE ?";
+//        parameters.add("%" + name + "%");
+//    }
+//    if (tinhTrang != null && !tinhTrang.isEmpty()) {
+//        sql += " AND tb.TinhTrang LIKE ?";
+//        parameters.add("%" + tinhTrang + "%");
+//    }
+//    if (gia != 0) {
+//        sql += " AND tb.Gia = ?";
+//        parameters.add(gia);
+//    }
+//    sql += " ORDER BY ThietBiID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+//
+//    parameters.add(offset);
+//    parameters.add(limit);
+//
+//    try (PreparedStatement ps = con.prepareStatement(sql)) {
 //        for (int i = 0; i < parameters.size(); i++) {
 //            ps.setObject(i + 1, parameters.get(i));
 //        }
@@ -872,12 +880,10 @@ public static void main(String[] args) {
 //    } catch (SQLException e) {
 //        e.printStackTrace();
 //    }
-//        return tb;
-//    }
+//    return tb;
+//}
 
-
-
-  public List<ThietBi> searchListThietBi(int accountID, int khuID, int phongID, String name, String tinhTrang, int gia, int offset, int limit) {
+  public List<ThietBi> searchListThietBi(int accountID, int khuID, int phongID, String name, String tinhTrang, int gia) {
     List<ThietBi> tb = new ArrayList<>();
     String sql = "select tb.* from ThietBi tb " +
                  "join Phong p on p.PhongID = tb.PhongID " +
@@ -910,10 +916,6 @@ public static void main(String[] args) {
         sql += " AND tb.Gia = ?";
         parameters.add(gia);
     }
-    sql += " ORDER BY ThietBiID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
-
-    parameters.add(offset);
-    parameters.add(limit);
 
     try (PreparedStatement ps = con.prepareStatement(sql)) {
         for (int i = 0; i < parameters.size(); i++) {
@@ -1264,7 +1266,7 @@ public static void main(String[] args) {
                 Date tuNgay = rs.getDate("TuNgay");
                 Date denNgay = rs.getDate("DenNgay");
                 int tongTien = rs.getInt("TongTien");
-                HoaDon hoaDons = new HoaDon(hoaDonID, hopDongID, tuNgay, tinhTrangThanhToan, tuNgay, denNgay, tongTien);
+                HoaDon hoaDons = new HoaDon(hoaDonID, hopDongID, NgayThanhToan, tinhTrangThanhToan, tuNgay, denNgay, tongTien);
                 hoaDon.add(hoaDons);
             }
         } catch (SQLException e) {
@@ -1352,7 +1354,7 @@ public static void main(String[] args) {
             rs = ps.executeQuery();
             if (rs.next()) {
                 int dichVuID = rs.getInt("DichVuID");
-                int soPhong = rs.getInt("SoPhong");
+                int phongID = rs.getInt("PhongID");
                 String name = rs.getString("Name");
                 int giaTien = rs.getInt("GiaTien");
                 Date tuNgay = rs.getDate("TuNgay");
@@ -1360,7 +1362,7 @@ public static void main(String[] args) {
                 int chiSoCu = rs.getInt("ChiSoCu");
                 int chiSoMoi = rs.getInt("ChiSoMoi");
 
-                DichVu dichVu = new DichVu(dichVuID, soPhong, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi);
+                DichVu dichVu = new DichVu(dichVuID, phongID, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi);
                 return dichVu;
             }
         } catch (SQLException e) {

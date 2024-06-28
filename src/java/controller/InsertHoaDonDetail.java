@@ -14,7 +14,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
+import model.Accounts;
 import model.HoaDon;
 import model.HoaDonDetail;
 
@@ -35,20 +37,25 @@ public class InsertHoaDonDetail extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String hdid = request.getParameter("id");
+        HttpSession session = request.getSession();
+        Accounts a = (Accounts) session.getAttribute("acc");
+        if (a == null) {
+            response.sendRedirect("login");
+        } else {
+            String hdid = request.getParameter("id");
         DAO dao = new DAO();
         SonDAO sondao = new SonDAO();
         
-        List<HoaDon> h = dao.getIDByHoaDonID(hdid);
+        List<HoaDon> h = sondao.getIDByHoaDonID(hdid, a.getAccountID());
         int nextHoaDonDetailID = sondao.getNextHoaDonDetailID();
         
         request.setAttribute("hdid", h);
-        request.setAttribute("hdid1", hdid);
+        request.setAttribute("id", hdid);
         request.setAttribute("nextHoaDonDetailID", nextHoaDonDetailID);
         
         request.getRequestDispatcher("AddHoaDonDetail.jsp").forward(request, response);
+        }        
     } 
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
      * Handles the HTTP <code>GET</code> method.

@@ -87,9 +87,7 @@
                                             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Số Điện Thoại</th>
                                             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Họ Và Tên Đại Diện Phòng</th>
                                             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Tình Trạng</th>
-                                                <c:if test="${sessionScope.acc.accountID == 1}">
-                                                <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Tùy Chọn</th>
-                                                </c:if>
+                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Tùy Chọn</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -151,13 +149,19 @@
                                                             </c:when>
                                                         </c:choose>
                                                     </td>
+                                                    <c:if test="${o.tinhTrang == 1}">
+                                                        <td class="px-5 py-5 border-b border-gray-200 text-sm">
+                                                            <a href='loadhopdong?lhdid=${o.hopDongID}&lpid=${o.phongID}' class="text-indigo-600 hover:text-indigo-900">Update</a>
+                                                            <a href='#' class="text-red-600 hover:text-red-900 ml-2" onclick="confirmDelete(event, 'deletehopdong?hdid=${o.hopDongID}')">Delete</a>
+                                                        </td>
+                                                    </c:if>
                                                 </tr>
                                             </c:if>
                                         </c:forEach>
                                     </tbody>
                                 </table>
                             </form>
-                             <c:if test="${sessionScope.acc.accountID == 1}">
+                            <c:if test="${sessionScope.acc.accountID == 1}">
                                 <div class="flex justify-between mt-4">
                                     <c:if test="${currentPage > 1}">
                                         <a href="listhopdong?page=${currentPage - 1}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Quay về</a>

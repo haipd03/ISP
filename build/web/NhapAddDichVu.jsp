@@ -35,16 +35,19 @@
                         <div class="bg-purple-600 text-white px-4 py-3 rounded-t-lg w-full ">
                             Thêm Dịch Vụ
                         </div>
+                        <c:if test="${not empty error}">
+                            <p style="color: red; font-size: 1.2em; font-weight: bold;">${error}</p>
+                        </c:if>
                         <div class="p-6 bg-white">
                             <form action="adddichvuandnhapaddhdondetail" method="get">
                                 <div class="space-y-4">
                                     <div class="flex items-center">
-                                        <label class="w-2/5 text-gray-700 font-semibold">Nã Dịch Vụ:</label>
+                                        <label class="w-2/5 text-gray-700 font-semibold">Mã Dịch Vụ:</label>
                                         <input type="text" name="DichVuID" value="${nextDichVuID}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
-                                        <label class="w-2/5 text-gray-700 font-semibold">Số Phòng:</label>
-                                        <input type="text" name="SoPhong" value="${lp1[0].soPhong}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <label class="w-2/5 text-gray-700 font-semibold">Số Phòng ID:</label>
+                                        <input type="text" name="PhongID" value="${lp1[0].phongID}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-2/5 text-gray-700 font-semibold">Tên Dịch Vụ:</label>

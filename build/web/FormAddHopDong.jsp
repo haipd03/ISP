@@ -35,9 +35,13 @@
                         <div class="bg-purple-600 text-white px-4 py-3 rounded-t-lg w-full ">
                             Thêm Hợp Đồng
                         </div>
+                        <c:if test="${not empty error}">
+                            <p style="color: red; font-size: 1.2em; font-weight: bold;">${error}</p>
+                        </c:if>
                         <div class="p-6 bg-white">
                             <form action="addhopdong" method="get">
                                 <div class="space-y-4">
+                                    <input type="hidden" name="nahdpid" value="${hdid}" readonly>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Mã hợp đồng:</label>
                                         <input type="text" name="HopDongID" value="${nextHopDongID}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" readonly>

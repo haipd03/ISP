@@ -35,6 +35,9 @@
                         <div class="bg-purple-600 text-white px-4 py-3 rounded-t-lg w-full ">
                             Thêm Hóa Đơn Chi Tiết
                         </div>
+                        <c:if test="${not empty error}">
+                            <p style="color: red; font-size: 1.2em; font-weight: bold;">${error}</p>
+                        </c:if>
                         <div class="p-6 bg-white">
                             <form id="hoadon-form" action="addhoadondetailphong" method="get">
                                 <div class="space-y-4">

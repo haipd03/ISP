@@ -40,20 +40,21 @@ public class NhapAddHoaDonPhong extends HttpServlet {
         HttpSession session = request.getSession();
         Accounts a = (Accounts) session.getAttribute("acc");
 
-        if (a == null || a.getRole() == 1) {
+        if (a == null || a.getRole() == 0) {
             response.sendRedirect("login.jsp");
         } else {
             String pid = request.getParameter("id");
             SonDAO sondao = new SonDAO();
 
-            HopDong hopdongphong = sondao.getHopDongByPhongIDandTinhTrang1(pid);
-            HoaDon listhdon = sondao.getIDByHoaDonIDByPhongID(pid);
+
+            HopDong hopdongphong = sondao.getHopDongByPhongIDandTinhTrang1andAccountID(pid, a.getAccountID());
+            HoaDon listhdon = sondao.getIDByHoaDonIDByPhongIDAndAccountID(pid, a.getAccountID());
 
             request.setAttribute("lp1", hopdongphong);
             request.setAttribute("lp2", listhdon);
             request.setAttribute("lp3", pid);
 
-            int nextHoaDonID = sondao.getNextHoaDonID(); /// lấy hoadonid tự động tăng thêm 1 so với số cao nhất trước
+            int nextHoaDonID = sondao.getNextHoaDonID();
             request.setAttribute("nextHoaDonID", nextHoaDonID);
 
             request.getRequestDispatcher("NhapAddHoaDonPhong.jsp").forward(request, response);

@@ -7,6 +7,7 @@ package controller;
 import dal.DAO;
 import dal.HaiDao;
 import dal.LinhDao;
+import dal.SonDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -15,6 +16,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import model.Accounts;
 import model.DichVu;
@@ -40,16 +42,23 @@ public class ListDichVu extends HttpServlet {
     response.setContentType("text/html;charset=UTF-8");
     HttpSession session = request.getSession();
     Accounts a = (Accounts) session.getAttribute("acc");
+    List<DichVu> ldv = new ArrayList<>();
+
     if (a == null) {
         response.sendRedirect("login");
     } else {
         LinhDao u = new LinhDao();
-        List<DichVu> ldv = u.getAllDichVu();
-        request.setAttribute("ldv", ldv);
-        request.getRequestDispatcher("DichVu.jsp").forward(request, response);
+        SonDAO sondao = new SonDAO();
+        
+        if (a.getRole() == 1) {
+            ldv = sondao.getAllDichVuByAccountID(a.getAccountID());
+        } else {
+            ldv = u.getAllDichVu();
+        }
     }
+    request.setAttribute("ldv", ldv);
+    request.getRequestDispatcher("DichVu.jsp").forward(request, response);
 }
-
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

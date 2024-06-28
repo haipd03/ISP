@@ -41,6 +41,9 @@
                         <div class="bg-gray-600 text-white px-4 py-3 rounded-t-lg">
                             Sửa Hóa Đơn
                         </div>
+                        <c:if test="${not empty error}">
+                            <p style="color: red; font-size: 1.2em; font-weight: bold;">${error}</p>
+                        </c:if>
                         <div class="p-6 bg-white">
                             <div class="container">
                                 <h2 class="text-center">Sửa Hóa Đơn</h2>
@@ -76,7 +79,11 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Tổng tiền</label>
+<<<<<<< HEAD
                                                         <input value="${hoadon.tongTien}" name="TongTien" type="text" class="form-control" required>
+=======
+                                                        <input value="${hoadon.tongTien}" name="TongTien" type="text" class="form-control" readonly required>
+>>>>>>> SonT
                                                     </div>
                                                     <button type="submit" class="btn btn-primary">Lưu</button>
                                                     <a href="listhoadon" class="btn btn-danger">Quay về</a>

@@ -27,7 +27,8 @@ public class LinhDao extends MyDAO {
             rs = ps.executeQuery();
             while (rs.next()) {
                 int dichVuID = rs.getInt("DichVuID");
-                int soPhong = rs.getInt("SoPhong");
+
+                int phongID = rs.getInt("PhongID");
                 String name = rs.getString("Name");
                 int giaTien = rs.getInt("GiaTien");
                 Date tuNgay = rs.getDate("TuNgay");
@@ -35,7 +36,8 @@ public class LinhDao extends MyDAO {
                 int chiSoCu = rs.getInt("ChiSoCu");
                 int chiSoMoi = rs.getInt("ChiSoMoi");
 
-                DichVu dichVu = new DichVu(dichVuID, soPhong, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi);
+
+                DichVu dichVu = new DichVu(dichVuID, phongID, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi);
                 dichVuList.add(dichVu);
             }
         } catch (SQLException e) {
@@ -69,12 +71,12 @@ public class LinhDao extends MyDAO {
 //        }
 //        return dichVuSearch;
 //    }
-    public List<DichVu> getDichVuByCriteria(String soPhong, String name, String tuNgay, String denNgay) {
+    public List<DichVu> getDichVuByCriteria(String phongID, String name, String tuNgay, String denNgay) {
         List<DichVu> dichVuSearch = new ArrayList<>();
         String sql = "SELECT * FROM DichVu WHERE 1=1";
 
-        if (soPhong != null && !soPhong.trim().isEmpty()) {
-            sql += " AND SoPhong = ?";
+        if (phongID != null && !phongID.trim().isEmpty()) {
+            sql += " AND PhongID = ?";
         }
         if (name != null && !name.trim().isEmpty()) {
             sql += " AND Name LIKE ?";
@@ -90,8 +92,8 @@ public class LinhDao extends MyDAO {
             PreparedStatement ps = con.prepareStatement(sql);
             int paramIndex = 1;
 
-            if (soPhong != null && !soPhong.trim().isEmpty()) {
-                ps.setString(paramIndex++, soPhong);
+            if (phongID != null && !phongID.trim().isEmpty()) {
+                ps.setString(paramIndex++, phongID);
             }
             if (name != null && !name.trim().isEmpty()) {
                 ps.setString(paramIndex++, "%" + name + "%");
@@ -116,7 +118,7 @@ public class LinhDao extends MyDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int dichVuID = rs.getInt("DichVuID");
-                int soPhong1 = rs.getInt("SoPhong");
+                int phongID1 = rs.getInt("PhongID");
                 String nameResult = rs.getString("Name");
                 int giaTien = rs.getInt("GiaTien");
                 Date tuNgayResult = rs.getDate("TuNgay");
@@ -124,7 +126,7 @@ public class LinhDao extends MyDAO {
                 int chiSoCu = rs.getInt("ChiSoCu");
                 int chiSoMoi = rs.getInt("ChiSoMoi");
 
-                DichVu dichVu = new DichVu(dichVuID, soPhong1, nameResult, giaTien, tuNgayResult, denNgayResult, chiSoCu, chiSoMoi);
+                DichVu dichVu = new DichVu(dichVuID, phongID1, nameResult, giaTien, tuNgayResult, denNgayResult, chiSoCu, chiSoMoi);
                 dichVuSearch.add(dichVu);
             }
         } catch (SQLException e) {
@@ -141,7 +143,7 @@ public class LinhDao extends MyDAO {
             rs = ps.executeQuery();
             if (rs.next()) {
                 int dichVuID = rs.getInt("DichVuID");
-                int soPhong = rs.getInt("SoPhong");
+                int phongID = rs.getInt("PhongID");
                 String name = rs.getString("Name");
                 int giaTien = rs.getInt("GiaTien");
                 Date tuNgay = rs.getDate("TuNgay");
@@ -149,7 +151,7 @@ public class LinhDao extends MyDAO {
                 int chiSoCu = rs.getInt("ChiSoCu");
                 int chiSoMoi = rs.getInt("ChiSoMoi");
 
-                DichVu dichVu = new DichVu(dichVuID, soPhong, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi);
+                DichVu dichVu = new DichVu(dichVuID, phongID, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi);
                 return dichVu;
             }
         } catch (SQLException e) {
@@ -158,9 +160,10 @@ public class LinhDao extends MyDAO {
         return null;
     }
 
-    public void editDichVu(String id, String soPhong, String name, String giaTien, Date tuNgay, Date denNgay, String chiSoCu, String chiSoMoi) {
+
+    public void editDichVu(String id, String phongID, String name, String giaTien, Date tuNgay, Date denNgay, String chiSoCu, String chiSoMoi) {
         String query = "UPDATE DichVu\n"
-                + "SET SoPhong = ?,\n"
+                + "SET PhongID = ?,\n"
                 + "    Name = ?,\n"
                 + "    GiaTien = ?,\n"
                 + "    TuNgay = ?,\n"
@@ -170,7 +173,7 @@ public class LinhDao extends MyDAO {
                 + "WHERE DichVuID = ?;";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, soPhong);
+            ps.setString(1, phongID);
             ps.setString(2, name);
             ps.setString(3, giaTien); // Use setString for String parameters
             ps.setDate(4, new java.sql.Date(tuNgay.getTime())); // Convert java.util.Date to java.sql.Date
@@ -185,7 +188,7 @@ public class LinhDao extends MyDAO {
     }
 
     public void insertDichVu(String dvid, String phongid, String name, String giaTien, String tuNgay, String denNgay, String chiSoCu, String chiSoMoi) {
-        String sql = "INSERT INTO DichVu (DichVuID, SoPhong, Name, GiaTien, TuNgay, DenNgay, ChiSoCu, ChiSoMoi) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO DichVu (DichVuID, PhongID, Name, GiaTien, TuNgay, DenNgay, ChiSoCu, ChiSoMoi) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, dvid);
@@ -231,9 +234,9 @@ public class LinhDao extends MyDAO {
 
     public static void main(String[] args) throws SQLException {
         LinhDao u = new LinhDao();
-        Date tuNgay = new Date(2024, 1, 1); // Constructing Date objects, the first parameter is the year minus 1900
-        Date denNgay = new Date(2024, 1, 31); // Constructing Date objects, the first parameter is the year minus 1900
-
-        //       u.editDichVu("1", 1, "Nước", 11000, tuNgay, denNgay, 0, 0); // Passing id as String
+        List<DichVu> dichVu = u.getAllDichVu();
+        for (DichVu phong : dichVu) {
+            System.out.println(phong);
+        }
     }
 }

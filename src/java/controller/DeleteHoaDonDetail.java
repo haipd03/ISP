@@ -38,7 +38,9 @@ public class DeleteHoaDonDetail extends HttpServlet {
         HttpSession session = request.getSession();
         Accounts a = (Accounts) session.getAttribute("acc");
 
-        if (a == null || a.getRole() == 1) {
+
+        if (a == null || a.getRole() == 0) {
+
             // Redirect to login page or show error message if account is not logged in
             response.sendRedirect("login.jsp");
         } else {
@@ -50,7 +52,9 @@ public class DeleteHoaDonDetail extends HttpServlet {
                 e.printStackTrace();
                 // Set error message as request attribute and forward back to list page
                 request.setAttribute("error", "Xóa hóa đơn Detail không thành công ");
-                request.getRequestDispatcher("listhoadon").forward(request, response);
+
+                request.getRequestDispatcher("listhoadondetail").forward(request, response);
+
             }
         }
     } 
