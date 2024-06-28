@@ -5,7 +5,6 @@
 
 package controller;
 
-import dal.HaiDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,18 +12,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import model.Accounts;
 
 /**
  *
  * @author admin
  */
-@WebServlet(name="DeleteHoaDon", urlPatterns={"/deletehoadon"})
-public class DeleteHoaDon extends HttpServlet {
+@WebServlet(name="NewServlet", urlPatterns={"/NewServlet"})
+public class NewServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -34,28 +28,22 @@ public class DeleteHoaDon extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException, SQLException {
+    throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String hoaDonID = request.getParameter("id");
-        HttpSession session = request.getSession();
-        Accounts a = (Accounts) session.getAttribute("acc");
-
-        if (a == null || a.getRole() == 1) {
-            // Redirect to login page or show error message if account is not logged in
-            response.sendRedirect("login.jsp");
-        } else {
-            HaiDao dao = new HaiDao();
-            try {
-                dao.deleteHoaDon(hoaDonID);
-                response.sendRedirect("listhoadon");
-            } catch (SQLException e) {
-                e.printStackTrace();
-                // Set error message as request attribute and forward back to list page
-                request.setAttribute("error", "Xóa thông tin hóa đơn không thành công:Hóa Đơn đang liên kết với Thông tin Hóa Đơn chi tiết ");
-                request.getRequestDispatcher("listhoadon").forward(request, response);
-            }
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet NewServlet</title>");  
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet NewServlet at " + request.getContextPath () + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-    }
+    } 
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
      * Handles the HTTP <code>GET</code> method.
@@ -67,11 +55,7 @@ public class DeleteHoaDon extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(DeleteHoaDon.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     } 
 
     /** 
@@ -84,11 +68,7 @@ public class DeleteHoaDon extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(DeleteHoaDon.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /** 

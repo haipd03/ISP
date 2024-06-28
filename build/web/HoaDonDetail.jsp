@@ -33,7 +33,7 @@
 
                     
 
-                    <h4 class="text-lg font-semibold mb-2">Danh sách hóa đơn chi tiết:</h4>
+                    <h4 class="text-lg font-semibold mb-2">Danh sách thông tin hóa đơn chi tiết:</h4>
                     <div class="overflow-x-auto">
                         <table class="table-auto w-full border-collapse">
                             <thead>

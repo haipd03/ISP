@@ -46,7 +46,7 @@
                                 <div class="space-y-4">
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Mã Khách</label>
-                                        <input type="text" name="KhachID" readonly value="${listNguoiThue1.khachID}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <input type="text" style="background-color: gray;opacity: 0.7 " name="KhachID" readonly value="${listNguoiThue1.khachID}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Tên Khách</label>
@@ -77,8 +77,8 @@
                                         <input type="text" name="QuanHeVoiNguoiThan" value="${listNguoiThue1.quanHeVoiNguoiThan}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
-                                        <label class="w-1/3 text-gray-700 font-semibold">ID Phòng</label>
-                                        <input type="text" name="PhongID" readonly value="${listNguoiThue1.phongID}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <label class="w-1/3 text-gray-700 font-semibold">Mã Phòng</label>
+                                        <input type="text"  style="background-color: gray;opacity: 0.7 " name="PhongID" readonly value="${listNguoiThue1.phongID}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Tình Trạng</label>

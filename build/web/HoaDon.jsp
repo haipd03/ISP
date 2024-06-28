@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="./dist/styles.css">
     <link rel="stylesheet" href="./dist/all.css">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i,700,700i" rel="stylesheet">
-    <title>Danh sách hóa đơn</title>
+    <title>Danh sách thông tin hóa đơn</title>
 </head>
 <body>
     <!--Container -->
@@ -27,7 +27,7 @@
                 <jsp:include page="menu2.jsp" />
                 <!-- Thêm phần hiển thị danh sách thiết bị -->
                 <div class="p-4">
-                    <h4 class="text-lg font-semibold mb-2">Danh sách hóa đơn:</h4>
+                    <h4 class="text-lg font-semibold mb-2">Danh sách thông tin hóa đơn:</h4>
                     <div class="overflow-x-auto">
                         <c:if test="${not empty error}">
                             <p style="color: red; font-size: 1.2em; font-weight: bold;">${error}</p>
@@ -69,11 +69,7 @@
                                 </c:forEach>
                             </tbody>
                         </table><br>
-                        <div class="mt-4">
-                            <a href="AddHoaDon.jsp">
-                                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Thêm hóa đơn</button>
-                            </a>
-                        </div>
+                        
                         <div class="flex justify-between mt-4">
                                 <c:if test="${currentPage > 1}">
                                     <a href="listhoadon?page=${currentPage - 1}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Quay về</a>

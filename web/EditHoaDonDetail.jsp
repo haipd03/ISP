@@ -16,7 +16,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <title>Chỉnh sửa hóa đơn chi tiết</title>
+    <title>Chỉnh sửa thông tin hóa đơn chi tiết</title>
 </head>
 <body>
     <div class="mx-auto bg-grey-lightest">
@@ -26,7 +26,7 @@
                 <jsp:include page="menu2.jsp" />
                 <div class="mb-4 md:mx-2 lg:mx-2 border border-gray-300 rounded-lg shadow-lg w-full md:w-1/2 lg:w-4/5">
                     <div class="bg-gray-600 text-white px-4 py-3 rounded-t-lg">
-                        Chỉnh sửa hóa đơn chi tiết
+                        Chỉnh sửa thông tin hóa đơn chi tiết
                     </div>
                     <div class="p-6 bg-white">
                         <div class="container">
