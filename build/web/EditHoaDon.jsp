@@ -66,7 +66,7 @@
                                                         <label>Tình trạng</label>
                                                         <select name="TinhTrangThanhToan" id="TinhTrangThanhToan" class="form-control" required>
                                                     <option value="Đã thanh toán" <c:if test="${hoadon.tinhTrangThanhToan eq 'Đã thanh toán'}">selected</c:if>>Đã thanh toán</option>
-                                                    <option value="Chưa thanh toán" <c:if test="${hoadon.tinhTrangThanhToan eq 'Chưa thanh toán'}">selected</c:if>>Chưa thanh toán</option>
+                                                    <option value="Chưa Thanh Toán" <c:if test="${hoadon.tinhTrangThanhToan eq 'Chưa thanh toán'}">selected</c:if>>Chưa thanh toán</option>
                                                     
                                                     </select>
                                                     </div>
