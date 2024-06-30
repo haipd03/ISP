@@ -25,20 +25,20 @@ public class LoadPhong extends HttpServlet {
         if (a == null) {
             response.sendRedirect("login.jsp");
         } else {
-            String soPhongParam = request.getParameter("soPhong");
+            String PhongIDParam = request.getParameter("PhongID");
             PhongDAO phongDAO = new PhongDAO();
-            int soPhong = 0;
-            if (soPhongParam != null) {
+            int PhongID = 0;
+            if (PhongIDParam != null) {
                 try {
-                    soPhong = Integer.parseInt(soPhongParam);
+                    PhongID = Integer.parseInt(PhongIDParam);
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
                 }
                 if (a.getRole() == 1) {
-                    List<Phong> danhSachPhong = phongDAO.getPhongByKhuByAccountID(soPhong, a.getAccountID());
+                    List<Phong> danhSachPhong = phongDAO.getPhongByKhuByAccountID(PhongID, a.getAccountID());
                     request.setAttribute("danhSachPhong", danhSachPhong);
                 } else {
-                    List<Phong> danhSachPhong = phongDAO.getPhongBySoPhong(soPhong);
+                    List<Phong> danhSachPhong = phongDAO.getPhongByPhongID(PhongID);
                     Integer userRole = (Integer) session.getAttribute("userRole");
                     request.setAttribute("userRole", userRole);
                     request.setAttribute("danhSachPhong", danhSachPhong);
