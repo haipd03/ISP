@@ -28,6 +28,9 @@
                     <div class="bg-gray-600 text-white px-4 py-3 rounded-t-lg">
                         Chỉnh sửa thông tin hóa đơn chi tiết
                     </div>
+                   <c:if test="${not empty error}">
+                            <p style="color: red; font-size: 1.2em; font-weight: bold;">${error}</p>
+                        </c:if>
                     <div class="p-6 bg-white">
                         <div class="container">
                             <h2 class="text-center">Chỉnh sửa</h2>
@@ -47,7 +50,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Từ ngày </label>
-                                                    <input value="${detail.tuNgay}" name="TuNgay" type="date" class="form-control" required>
+                                                    <input value="${detail.tuNgay}" name="TuNgay" type="date" class="form-control" readonly required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Đến ngày</label>
@@ -55,7 +58,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Tổng số</label>
-                                                    <input value="${detail.tongSo}" name="TongSo" type="text" class="form-control" required>
+                                                    <input value="${detail.tongSo}" name="TongSo" type="text" class="form-control" readonly required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Hệ số</label>
@@ -63,12 +66,13 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Thành tiền</label>
-                                                    <input value="${detail.thanhTien}" name="ThanhTien" type="text" class="form-control" required>
+                                                    <input value="${detail.thanhTien}" name="ThanhTien" type="text" class="form-control" readonly required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Mã dich vụ</label>
                                                     <input value="${detail.dichVuID}" name="DichVuID" type="text" class="form-control" readonly required>
                                                 </div>
+                                                <input type="hidden" name="id" value="${lp3}">
                                                 <button type="submit" class="btn btn-primary">Lưu</button>
                                                 <a href="listhoadondetail?id=${detail.hoaDonID}" class="btn btn-danger">Quay về</a>
                                             </form>

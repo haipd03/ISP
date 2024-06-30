@@ -44,7 +44,9 @@
                                         <th class="px-4 py-2">Từ ngày</th>
                                         <th class="px-4 py-2">Đến ngày</th>
                                         <th class="px-4 py-2">Tổng tiền</th>
-                                        <th class="px-4 py-2">Thao tác</th>
+                                           <c:if test="${sessionScope.acc.role == 1}">
+                                            <th class="px-4 py-2">Thao tác</th>
+                                            </c:if>
                                         <th class="px-4 py-2">Thông tin </th>
                                     </tr>
                                 </thead>
@@ -59,6 +61,7 @@
                                             <td class="px-4 py-2">${o.hoaDon.tuNgay}</td>
                                             <td class="px-4 py-2">${o.hoaDon.denNgay}</td>
                                             <td class="px-4 py-2">${o.hoaDon.tongTien}</td>
+                                            <c:if test="${sessionScope.acc.role == 1}">
                                             <td class="px-4 py-2">
 
                                                 <c:if test="${o.hoaDon.tinhTrangThanhToan == 'Chưa Thanh Toán'}">
@@ -70,6 +73,7 @@
                                                     <a href="generatePDFhoadon?id=${o.hoaDon.hoaDonID}" class="text-blue-500 hover:text-blue-700 mr-2">Xuất file PDF</a>
                                                 </c:if> 
                                             </td>
+                                           </c:if> 
                                             <td class="px-4 py-2">
                                                 <a href="listhoadondetail?id=${o.hoaDon.hoaDonID}" class="text-blue-500 hover:text-red-700">Chi tiết</a>
                                             </td>
