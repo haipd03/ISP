@@ -44,10 +44,10 @@
                                         <th class="px-4 py-2">Từ ngày</th>
                                         <th class="px-4 py-2">Đến ngày</th>
                                         <th class="px-4 py-2">Tổng tiền</th>
-                                           <c:if test="${sessionScope.acc.role == 1}">
+                                        <th class="px-4 py-2">Thông tin </th>
+                                        <c:if test="${sessionScope.acc.role == 1}">
                                             <th class="px-4 py-2">Thao tác</th>
                                             </c:if>
-                                        <th class="px-4 py-2">Thông tin </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -61,6 +61,15 @@
                                             <td class="px-4 py-2">${o.hoaDon.tuNgay}</td>
                                             <td class="px-4 py-2">${o.hoaDon.denNgay}</td>
                                             <td class="px-4 py-2">${o.hoaDon.tongTien}</td>
+                                            
+                                            <td class="px-4 py-2">
+                                                <a href="listhoadondetail?id=${o.hoaDon.hoaDonID}" class="text-blue-500 hover:text-red-700">Chi tiết</a>
+                                                
+                                                <c:if test="${o.hoaDon.tinhTrangThanhToan == 'Đã thanh toán'}">
+                                                    <a href="generatePDFhoadon?id=${o.hoaDon.hoaDonID}" class="text-red-500 hover:text-blue-700 mr-2">Xuất file PDF</a>
+                                                </c:if> 
+                                            </td>
+                                            
                                             <c:if test="${sessionScope.acc.role == 1}">
                                             <td class="px-4 py-2">
 
@@ -69,14 +78,9 @@
                                                     <a href="deletehoadon?id=${o.hoaDon.hoaDonID}" class="text-red-500 hover:text-red-700">Xóa</a>
                                                 </c:if>  
 
-                                                <c:if test="${o.hoaDon.tinhTrangThanhToan == 'Đã thanh toán'}">
-                                                    <a href="generatePDFhoadon?id=${o.hoaDon.hoaDonID}" class="text-blue-500 hover:text-blue-700 mr-2">Xuất file PDF</a>
-                                                </c:if> 
+                                                
                                             </td>
                                            </c:if> 
-                                            <td class="px-4 py-2">
-                                                <a href="listhoadondetail?id=${o.hoaDon.hoaDonID}" class="text-blue-500 hover:text-red-700">Chi tiết</a>
-                                            </td>
                                         </tr>
                                     </c:forEach>
                                 </tbody>
