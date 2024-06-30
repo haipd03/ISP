@@ -19,6 +19,19 @@
                 return confirm("Bạn có chắc chắn muốn thay đổi thông tin hợp đồng này không?");
             }
 
+            function checkAndSubmitForm() {
+                var tinhTrangSelect = document.getElementById('TinhTrang');
+                var form = document.getElementById('editHopDongForm');
+
+                if (tinhTrangSelect.value === "0") {
+                    form.action = "loadphong?soPhong=${lpid}";
+                } else {
+                    form.action = "edithopdong";
+                }
+
+                return confirmUpdate();
+            }
+
             document.addEventListener('DOMContentLoaded', function () {
                 var tinhTrangSelect = document.getElementById('TinhTrang');
                 var tinhTrangHidden = document.getElementById('TinhTrangHidden');
@@ -58,7 +71,7 @@
                             Sửa Hợp Đồng
                         </div>
                         <div class="p-6 bg-white">
-                            <form id="editHopDongForm" action="edithopdong" method="post">
+                            <form id="editHopDongForm" action="edithopdong" method="post" onsubmit="return checkAndSubmitForm();">
                                 <div class="space-y-4">
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Hợp Đồng ID:</label>
@@ -115,7 +128,7 @@
                                     </div>
                                 </div>
                                 <div class="mt-6 flex justify-end">
-                                    <input type="submit" value="Sửa" onclick="return confirmUpdate()" class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 transition-colors duration-200">
+                                    <input type="submit" value="Sửa" class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 transition-colors duration-200">
                                     <a href="listhopdong" class="bg-red-500 hover:bg-red-800 text-white font-bold py-2 px-4 rounded">
                                         Quay về
                                     </a>

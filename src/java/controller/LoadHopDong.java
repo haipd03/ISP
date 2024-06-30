@@ -51,6 +51,7 @@ public class LoadHopDong extends HttpServlet {
             HopDong hd = sondao.getHopDongByHopDongID(lhdid);
             List<KhachThue> kt = sondao.getKhachThueByPhongID(lpid);
 
+            request.setAttribute("lpid", lpid);
             request.setAttribute("listhd", hd);
             request.setAttribute("listkt", kt);
 
