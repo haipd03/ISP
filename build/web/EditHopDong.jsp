@@ -62,15 +62,15 @@
                                 <div class="space-y-4">
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Hợp Đồng ID:</label>
-                                        <input type="text" name="HopDongID" value="${listhd.hopDongID}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" readonly>
+                                        <input type="text" style="background-color: gray;opacity: 0.7 " name="HopDongID" value="${listhd.hopDongID}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" readonly >
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Khách ID:</label>
-                                        <input type="text" name="KhachID" value="${listhd.khachID}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" readonly>
+                                        <input type="text" style="background-color: gray;opacity: 0.7 " name="KhachID" value="${listhd.khachID}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" readonly>
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Mã Phòng:</label>
-                                        <input type="text" name="PhongID" value="${listhd.phongID}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" readonly>
+                                        <input type="text" style="background-color: gray;opacity: 0.7 " name="PhongID" value="${listhd.phongID}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" readonly>
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Tiền Cọc:</label>
@@ -94,15 +94,15 @@
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">CCCD:</label>
-                                        <input type="text" name="CCCD" value="${listhd.CCCD}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" readonly>
+                                        <input type="text" style="background-color: gray;opacity: 0.7 " name="CCCD" value="${listhd.CCCD}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" readonly>
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Số Điện Thoại:</label>
-                                        <input type="text" name="SDT" value="${listhd.SDT}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" readonly>
+                                        <input type="text" style="background-color: gray;opacity: 0.7 " name="SDT" value="${listhd.SDT}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" readonly>
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Họ Và Tên Đại Diện Phòng:</label>
-                                        <input type="text" name="HoVaTen" value="${listhd.hoVaTen}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" readonly>
+                                        <input type="text" style="background-color: gray;opacity: 0.7 " name="HoVaTen" value="${listhd.hoVaTen}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600" readonly>
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Tình Trạng:</label>

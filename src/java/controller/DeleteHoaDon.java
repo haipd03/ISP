@@ -40,8 +40,7 @@ public class DeleteHoaDon extends HttpServlet {
         HttpSession session = request.getSession();
         Accounts a = (Accounts) session.getAttribute("acc");
 
-
-        if (a == null || a.getRole() == 0) {
+        if (a == null || a.getRole() == 1) {
             // Redirect to login page or show error message if account is not logged in
             response.sendRedirect("login.jsp");
         } else {
@@ -52,7 +51,7 @@ public class DeleteHoaDon extends HttpServlet {
             } catch (SQLException e) {
                 e.printStackTrace();
                 // Set error message as request attribute and forward back to list page
-                request.setAttribute("error", "Xóa hóa đơn không thành công:Hóa Đơn đang liên kết với Hóa Đơn Detail ");
+                request.setAttribute("error", "Xóa thông tin hóa đơn không thành công:Hóa Đơn đang liên kết với Thông tin Hóa Đơn chi tiết ");
                 request.getRequestDispatcher("listhoadon").forward(request, response);
             }
         }
