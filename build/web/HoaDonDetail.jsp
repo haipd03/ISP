@@ -46,7 +46,9 @@
                                     <th class="px-2 py-2 text-center">Hệ số</th>
                                     <th class="px-2 py-2 text-center">Thành tiền</th>
                                     <th class="px-2 py-2 text-center">Dịch vụ</th>
-                                    <th class="px-2 py-2 text-center">Thao tác</th>
+                                     <c:if test="${sessionScope.acc.role == 1}">
+                                        <th class="px-2 py-2 text-center">Thao tác</th>
+                                        </c:if>
                                 </tr>
                             </thead>
                             <tbody>
@@ -60,20 +62,24 @@
                                         <td class="px-2 py-2 text-center">${o.heSo}</td>
                                         <td class="px-2 py-2 text-center">${o.thanhTien}</td>
                                         <td class="px-2 py-2 text-center">${o.dichVuID}</td>
-                                        <td class="px-2 py-2 text-center">
-                                            <a href="loadhoadondetail?id=${o.hoaDonDetailID}" class="text-blue-500 hover:text-blue-700 mr-2">Sửa</a>
-                                            <a href="deletehoadondetail?id=${o.hoaDonDetailID}" class="text-red-500 hover:text-blue-700 mr-2">Xóa</a>
-                                        </td>
+                                       <c:if test="${sessionScope.acc.role == 1}">
+                                            <td class="px-2 py-2 text-center">
+                                                <a href="loadhoadondetail?id=${o.hoaDonDetailID}" class="text-blue-500 hover:text-blue-700 mr-2">Sửa</a>
+                                                <a href="deletehoadondetail?id=${o.hoaDonDetailID}" class="text-red-500 hover:text-blue-700 mr-2">Xóa</a>
+                                            </td>
+                                        </c:if>
                                     </tr>
                                 </c:forEach>
                             </tbody>
                         </table>
                     </div>
-                    <div class="mt-4">
-                        <a href="inserthoadondetail?id=${hdid1}">
-                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Thêm hóa đơn chi tiết</button>
-                        </a>
-                    </div>
+                    <c:if test="${sessionScope.acc.role == 1}">
+                        <div class="mt-4">
+                            <a href="inserthoadondetail?id=${hdid1}">
+                                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Thêm hóa đơn chi tiết</button>
+                            </a>
+                        </div>
+                    </c:if>   
                 </div>
             </div>
         </div>
