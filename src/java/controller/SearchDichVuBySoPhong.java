@@ -32,7 +32,7 @@ public class SearchDichVuBySoPhong extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
 
-        String soPhongStr = request.getParameter("soPhong");
+        String soPhongStr = request.getParameter("phongID");
         String name = request.getParameter("name");
         String tuNgayStr = request.getParameter("tuNgay");
         String denNgayStr = request.getParameter("denNgay");
@@ -41,7 +41,7 @@ public class SearchDichVuBySoPhong extends HttpServlet {
         List<DichVu> sdv;
 
         // Thiết lập danh sách dịch vụ ban đầu
-        List<DichVu> ldv = dao.getAllDichVu();
+        List<DichVu> ldv = null;
 
         if ((soPhongStr != null && !soPhongStr.trim().isEmpty())
                 || (name != null && !name.trim().isEmpty())

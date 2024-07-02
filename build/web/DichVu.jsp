@@ -34,7 +34,7 @@
                         <form method="post" action="searchdichvubysophong" style="display: flex; flex-wrap: wrap; gap: 15px; align-items: center; margin-bottom: 20px;">
                             <div class="flex" style="display: flex; align-items: center;">
 
-                                <label for="soPhong" style="margin-right: 10px;">Số phòng ID:</label>
+                                <label for="phongID" style="margin-right: 10px;">Số phòng ID:</label>
                                 <input type="text" id="phongID" name="phongID" placeholder="Nhập số phòng" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
                             </div>
                             <div class="flex" style="display: flex; align-items: center;">

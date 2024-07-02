@@ -57,10 +57,13 @@ public class ListHoaDon extends HttpServlet {
             }
             int totalRecords = u.getTotalHoaDonRecords();
             int totalPages = (int) Math.ceil((double) totalRecords / pageSize);
+            int totalRecords1 = u.getTotalHoaDonRecords1(a.getAccountID());
+            int totalPages1 = (int) Math.ceil((double) totalRecords1 / pageSize);
 
             request.setAttribute("currentPage", page);
             request.setAttribute("lhd", lhd);
             request.setAttribute("totalPages", totalPages);
+             request.setAttribute("totalPages1", totalPages1);
             request.getRequestDispatcher("HoaDon.jsp").forward(request, response);
 
         }

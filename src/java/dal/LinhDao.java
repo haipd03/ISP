@@ -234,7 +234,7 @@ public class LinhDao extends MyDAO {
 
     public static void main(String[] args) throws SQLException {
         LinhDao u = new LinhDao();
-        List<DichVu> dichVu = u.getAllDichVu();
+        List<DichVu> dichVu = u.getDichVuByCriteria("1001", null, null, null);
         for (DichVu phong : dichVu) {
             System.out.println(phong);
         }

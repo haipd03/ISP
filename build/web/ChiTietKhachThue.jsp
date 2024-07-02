@@ -34,7 +34,7 @@
                     <div class="mb-2 md:mx-2 lg:mx-2 border-solid border-gray-200 rounded border shadow-sm w-full md:w-1/2 lg:w-4/5">
 
                         <!-- Form tìm kiếm -->
-                        <c:if test="${sessionScope.acc.accountID == 1}">
+                       
                             <form method="post" action="searchchitietkhachthue" style="display: flex; flex-wrap: wrap; gap: 15px; align-items: center; margin-bottom: 20px;">
 
                                 <div class="flex" style="display: flex; align-items: center;">
@@ -56,7 +56,7 @@
                                     <span style="color: red; font-size: 1.2em; font-weight: bold;">${error}</span>
                                 </c:if>
                             </form>
-                        </c:if>
+                        
 
                         <div class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b font-bold">
                             Chi Tiết Khách Thuê
@@ -134,12 +134,23 @@
                                     </tbody>
                                 </table>
                             </form>
-                            <c:if test="${sessionScope.acc.accountID == 1}">
+                            <c:if test="${sessionScope.acc.role == 0}">
                                 <div class="flex justify-between mt-4">
                                     <c:if test="${currentPage > 1}">
                                         <a href="listchitietkhachthue?page=${currentPage - 1}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Quay về</a>
                                     </c:if>
                                     <c:if test="${currentPage < totalPages}">
+                                        <a href="listchitietkhachthue?page=${currentPage + 1}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Tiếp</a>
+                                    </c:if>
+                                </div>
+                            </c:if>
+                            
+                            <c:if test="${sessionScope.acc.role == 1}">
+                                <div class="flex justify-between mt-4">
+                                    <c:if test="${currentPage > 1}">
+                                        <a href="listchitietkhachthue?page=${currentPage - 1}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Quay về</a>
+                                    </c:if>
+                                    <c:if test="${currentPage < totalPages1}">
                                         <a href="listchitietkhachthue?page=${currentPage + 1}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Tiếp</a>
                                     </c:if>
                                 </div>
