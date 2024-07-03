@@ -432,13 +432,13 @@ public class SonDAO extends MyDAO {
 
     public List<HopDong> getHopDong1(int accountID, int offset, int limit) {
         List<HopDong> hopDongs = new ArrayList<>();
-        String sql = "SELECT hp.* FROM HopDong hp " +
-                     "JOIN Phong p ON p.PhongID = hp.PhongID " +
-                     "JOIN Khu k ON k.KhuID = p.KhuID " +
-                     "JOIN Accounts a ON a.AccountID = k.AccountID " +
-                     "WHERE a.AccountID = ? " +
-                     "ORDER BY HopDongID " +
-                     "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        String sql = "SELECT hp.* FROM HopDong hp "
+                + "JOIN Phong p ON p.PhongID = hp.PhongID "
+                + "JOIN Khu k ON k.KhuID = p.KhuID "
+                + "JOIN Accounts a ON a.AccountID = k.AccountID "
+                + "WHERE a.AccountID = ? "
+                + "ORDER BY HopDongID "
+                + "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
 
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, accountID);
@@ -468,14 +468,14 @@ public class SonDAO extends MyDAO {
         }
         return hopDongs;
     }
-    
+
     public int getTotalHopDongCount1(int accountID) {
         int count = 0;
-        String sql = "SELECT COUNT(*) FROM HopDong hp " +
-                     "JOIN Phong p ON p.PhongID = hp.PhongID " +
-                     "JOIN Khu k ON k.KhuID = p.KhuID " +
-                     "JOIN Accounts a ON a.AccountID = k.AccountID " +
-                     "WHERE a.AccountID = ?";
+        String sql = "SELECT COUNT(*) FROM HopDong hp "
+                + "JOIN Phong p ON p.PhongID = hp.PhongID "
+                + "JOIN Khu k ON k.KhuID = p.KhuID "
+                + "JOIN Accounts a ON a.AccountID = k.AccountID "
+                + "WHERE a.AccountID = ?";
         try (PreparedStatement st = con.prepareStatement(sql)) {
             st.setInt(1, accountID);
             try (ResultSet rs = st.executeQuery()) {
@@ -488,7 +488,6 @@ public class SonDAO extends MyDAO {
         }
         return count;
     }
-
 
     public void insertHopDong(String HopDongID, String KhachID, String PhongID, String TienCoc, String NgayThue, String NgayTra, String SoKhachThue, String GhiChu, String CCCD, String SDT, String HoVaTen, String TinhTrang) {
         String query = "INSERT INTO [dbo].[HopDong] ([HopDongID],[KhachID],[PhongID],[TienCoc],[NgayThue],[NgayTra],[SoKhachThue],[GhiChu],[CCCD],[SDT],[HoVaTen],[TinhTrang]) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -882,17 +881,24 @@ public class SonDAO extends MyDAO {
         return hoaDon;
     }
 
-    public List<DichVu> getAllDichVuByAccountID(int aid) {
+    public List<DichVu> getAllDichVuByAccountID(int aid, int offset, int limit) {
         List<DichVu> dichVuList = new ArrayList<>();
         String sql = "SELECT dv.*\n"
                 + "FROM DichVu dv\n"
                 + "JOIN Phong p ON p.PhongID = dv.PhongID\n"
                 + "JOIN Khu k ON p.KhuID = k.KhuID \n"
                 + "JOIN Accounts a ON a.AccountID = k.AccountID \n"
-                + "where a.AccountID = ?";
+                + "WHERE a.AccountID = ?\n"
+                + "ORDER BY DichVuID\n"
+                + "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, aid);
+            ps.setInt(2, offset);
+            ps.setInt(3, limit);
             rs = ps.executeQuery();
             while (rs.next()) {
                 int dichVuID = rs.getInt("DichVuID");
@@ -908,7 +914,7 @@ public class SonDAO extends MyDAO {
                 dichVuList.add(dichVu);
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // In ra lỗi nếu có
+            e.printStackTrace(); // Print error if any
         }
         return dichVuList;
     }

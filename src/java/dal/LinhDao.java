@@ -19,15 +19,20 @@ import model.Phong;
  */
 public class LinhDao extends MyDAO {
 
-    public List<DichVu> getAllDichVu() {
+    public List<DichVu> getAllDichVu(int offset, int limit) {
         List<DichVu> dichVuList = new ArrayList<>();
-        String sql = "SELECT * FROM DichVu"; // Giả sử bảng trong cơ sở dữ liệu là "DichVu"
+        String sql = "SELECT * FROM DichVu ORDER BY DichVuID "
+                + "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY"; // Assuming the table in the database is "DichVu"
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
         try {
             ps = con.prepareStatement(sql);
+            ps.setInt(1, offset);
+            ps.setInt(2, limit);
             rs = ps.executeQuery();
             while (rs.next()) {
                 int dichVuID = rs.getInt("DichVuID");
-
                 int phongID = rs.getInt("PhongID");
                 String name = rs.getString("Name");
                 int giaTien = rs.getInt("GiaTien");
@@ -36,14 +41,52 @@ public class LinhDao extends MyDAO {
                 int chiSoCu = rs.getInt("ChiSoCu");
                 int chiSoMoi = rs.getInt("ChiSoMoi");
 
-
                 DichVu dichVu = new DichVu(dichVuID, phongID, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi);
                 dichVuList.add(dichVu);
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // In ra lỗi nếu có
+            e.printStackTrace(); // Print error if any
         }
         return dichVuList;
+    }
+
+    public int getTotalDichVuRecords() {
+        int count = 0;
+        try {
+            String sql = "SELECT COUNT(*) FROM DichVu";
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
+    public int getTotalDichVuRecords1(int accountID) {
+        int count = 0;
+        String sql = "SELECT COUNT(*) FROM DichVu dv\n"
+                + "JOIN Phong p ON p.PhongID = dv.PhongID\n"
+                + "JOIN Khu k ON p.KhuID = k.KhuID \n"
+                + "JOIN Accounts a ON a.AccountID = k.AccountID \n"
+                + "WHERE a.AccountID = ?";
+
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try {
+            st = connection.prepareStatement(sql);
+            st.setInt(1, accountID);
+            rs = st.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
     }
 
 //    public List<DichVu> getDichVuBySoPhong(String soPhong) {
@@ -135,6 +178,77 @@ public class LinhDao extends MyDAO {
         return dichVuSearch;
     }
 
+    public List<DichVu> getDichVuByCriteria1(String phongID, String name, String tuNgay, String denNgay, int accountID) {
+        List<DichVu> dichVuSearch = new ArrayList<>();
+        String sql = "SELECT dv.*\n"
+                + "FROM DichVu dv\n"
+                + "JOIN Phong p ON p.PhongID = dv.PhongID\n"
+                + "JOIN Khu k ON p.KhuID = k.KhuID \n"
+                + "JOIN Accounts a ON a.AccountID = k.AccountID \n"
+                + "WHERE a.AccountID = ?";
+
+        if (phongID != null && !phongID.trim().isEmpty()) {
+            sql += " AND dv.PhongID = ?";
+        }
+        if (name != null && !name.trim().isEmpty()) {
+            sql += " AND dv.Name LIKE ?";
+        }
+        if (tuNgay != null && !tuNgay.trim().isEmpty()) {
+            sql += " AND dv.TuNgay >= ?";
+        }
+        if (denNgay != null && !denNgay.trim().isEmpty()) {
+            sql += " AND dv.DenNgay <= ?";
+        }
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            int paramIndex = 1;
+
+            // Set accountID parameter
+            ps.setInt(paramIndex++, accountID);
+
+            // Set other parameters if provided
+            if (phongID != null && !phongID.trim().isEmpty()) {
+                ps.setString(paramIndex++, phongID);
+            }
+            if (name != null && !name.trim().isEmpty()) {
+                ps.setString(paramIndex++, "%" + name + "%");
+            }
+            if (tuNgay != null && !tuNgay.trim().isEmpty()) {
+                try {
+                    ps.setDate(paramIndex++, java.sql.Date.valueOf(tuNgay));
+                } catch (IllegalArgumentException e) {
+                    throw new SQLException("Invalid 'tuNgay' format, expected 'yyyy-[m]m-[d]d'.");
+                }
+            }
+            if (denNgay != null && !denNgay.trim().isEmpty()) {
+                try {
+                    ps.setDate(paramIndex++, java.sql.Date.valueOf(denNgay));
+                } catch (IllegalArgumentException e) {
+                    throw new SQLException("Invalid 'denNgay' format, expected 'yyyy-[m]m-[d]d'.");
+                }
+            }
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int dichVuID = rs.getInt("DichVuID");
+                int phongID1 = rs.getInt("PhongID");
+                String nameResult = rs.getString("Name");
+                int giaTien = rs.getInt("GiaTien");
+                Date tuNgayResult = rs.getDate("TuNgay");
+                Date denNgayResult = rs.getDate("DenNgay");
+                int chiSoCu = rs.getInt("ChiSoCu");
+                int chiSoMoi = rs.getInt("ChiSoMoi");
+
+                DichVu dichVu = new DichVu(dichVuID, phongID1, nameResult, giaTien, tuNgayResult, denNgayResult, chiSoCu, chiSoMoi);
+                dichVuSearch.add(dichVu);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return dichVuSearch;
+    }
+
     public DichVu getDichVubyID(String id) {
         String sql = "select * from DichVu where DichVuID = ?";
         try {
@@ -159,7 +273,6 @@ public class LinhDao extends MyDAO {
         }
         return null;
     }
-
 
     public void editDichVu(String id, String phongID, String name, String giaTien, Date tuNgay, Date denNgay, String chiSoCu, String chiSoMoi) {
         String query = "UPDATE DichVu\n"

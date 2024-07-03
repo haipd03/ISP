@@ -124,6 +124,27 @@
                                     </c:forEach>
                                 </tbody>
                             </table><br>
+                            
+                            <c:if test="${sessionScope.acc.role == 0}">
+                                <div class="flex justify-between mt-4">
+                                    <c:if test="${currentPage > 1}">
+                                        <a href="listdichvu?page=${currentPage - 1}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Quay về</a>
+                                    </c:if>
+                                    <c:if test="${currentPage < totalPages}">
+                                        <a href="listdichvu?page=${currentPage + 1}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Tiếp</a>
+                                    </c:if>
+                                </div>
+                            </c:if>
+                            <c:if test="${sessionScope.acc.role == 1}">
+                                <div class="flex justify-between mt-4">
+                                    <c:if test="${currentPage > 1}">
+                                        <a href="listdichvu?page=${currentPage - 1}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Quay về</a>
+                                    </c:if>
+                                    <c:if test="${currentPage < totalPages1}">
+                                        <a href="listdichvu?page=${currentPage + 1}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Tiếp</a>
+                                    </c:if>
+                                </div>
+                            </c:if>  
                         </div>
                     </div>
                 </div>
