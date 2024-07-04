@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import model.DichVu;
+import model.DichVuChung;
 import model.HoaDon;
 import model.HoaDonDetail;
 import model.HopDong;
@@ -853,6 +854,39 @@ public class SonDAO extends MyDAO {
         }
         return dichVuList;
     }
+    
+    public List<DichVuChung> getAllDichVuChungByAccountID(int aid) {
+    List<DichVuChung> dichVuChungList = new ArrayList<>();
+    String sql = "SELECT dvc.*\n"
+               + "FROM DichVuChung dvc\n"
+               + "JOIN Khu k ON dvc.KhuID = k.KhuID\n"
+               + "JOIN Accounts a ON a.AccountID = k.AccountID\n"
+               + "WHERE a.AccountID = ?";
+    try {
+        ps = con.prepareStatement(sql);
+        ps.setInt(1, aid);
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            int dichVuChungID = rs.getInt("DichVuChungID");
+            int khuID = rs.getInt("KhuID");
+            String dichVuChungName = rs.getString("DichVuChungName");
+            String ten = rs.getString("Ten");
+            String sdt = rs.getString("SDT");
+            int gia = rs.getInt("Gia");
+            Date tuNgay = rs.getDate("TuNgay");
+            Date denNgay = rs.getDate("DenNgay");
+            String tinhTrang = rs.getString("TinhTrang");
+            String ghiChu = rs.getString("GhiChu");
+
+            DichVuChung dichVuChung = new DichVuChung(dichVuChungID, khuID, dichVuChungName, ten, sdt, gia, tuNgay, denNgay, tinhTrang, ghiChu);
+            dichVuChungList.add(dichVuChung);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return dichVuChungList;
+}
+
 
     public List<Phong> getPhongIDByAccountID(int accountID) {
         List<Phong> Phongs = new ArrayList<>();
@@ -914,6 +948,39 @@ public class SonDAO extends MyDAO {
         return null;
     }
 
+    public DichVuChung getDichVuChungByID(String id, int aid) {
+    String sql = "SELECT dvc.*\n" +
+                 "FROM DichVuChung dvc\n" +
+                 "JOIN Khu k ON dvc.KhuID = k.KhuID\n" +
+                 "JOIN Accounts a ON a.AccountID = k.AccountID\n" +
+                 "WHERE dvc.DichVuChungID = ? AND a.AccountID = ?";
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, id);
+        ps.setInt(2, aid);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            int dichVuChungID = rs.getInt("DichVuChungID");
+            int khuID = rs.getInt("KhuID");
+            String dichVuChungName = rs.getString("DichVuChungName");
+            String ten = rs.getString("Ten");
+            String sdt = rs.getString("Sdt");
+            int gia = rs.getInt("Gia");
+            Date tuNgay = rs.getDate("TuNgay");
+            Date denNgay = rs.getDate("DenNgay");
+            String tinhTrang = rs.getString("TinhTrang");
+            String ghiChu = rs.getString("GhiChu");
+
+            DichVuChung dichVuChung = new DichVuChung(dichVuChungID, khuID, dichVuChungName, ten, sdt, gia, tuNgay, denNgay, tinhTrang, ghiChu);
+            return dichVuChung;
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return null;
+}
+
+    
     public void insertHoaDon(String HoaDonID, String HopDongID, String NgayThanhToan, String TinhTrangThanhToan, String TuNgay, String DenNgay, String TongTien) {
         String sql = "INSERT INTO [dbo].[HoaDon] ([HoaDonID],[HopDongID],[NgayThanhToan],[TinhTrangThanhToan],[TuNgay],[DenNgay],[TongTien]) VALUES (?,?,?,?,?,?,?)";
         try {
@@ -1093,6 +1160,36 @@ public class SonDAO extends MyDAO {
         }
         return 1;
     }
+    
+    public int getNextDichVuChungID() {
+    String sql = "SELECT MAX(DichVuChungID) FROM DichVuChung";
+    try {
+        ps = con.prepareStatement(sql);
+        rs = ps.executeQuery();
+        if (rs.next()) {
+            int maxID = rs.getInt(1);
+            return maxID + 1;
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        try {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    return 1;
+}
+
 
     public int getNextHoaDonDetailID() {
         String sql = "SELECT MAX(HoaDonDetailID) FROM HoaDonDetail";
@@ -1342,7 +1439,53 @@ public class SonDAO extends MyDAO {
         return false;
     }
 
+public List<DichVuChung> getDichVuChungByAccountIDWithPagination(int accountId, int offset, int limit) {
+        List<DichVuChung> dichVuChungList = new ArrayList<>();
+        String query = "SELECT * FROM DichVuChung WHERE accountID = ? LIMIT ? OFFSET ?";
 
+        try (PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setInt(1, accountId);
+            ps.setInt(2, limit);
+            ps.setInt(3, offset);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    DichVuChung dichVuChung = new DichVuChung();
+                    dichVuChung.setDichVuChungID(rs.getInt("dichVuChungID"));
+                    dichVuChung.setKhuID(rs.getInt("khuID"));
+                    dichVuChung.setDichVuChungName(rs.getString("dichVuChungName"));
+                    dichVuChung.setTen(rs.getString("ten"));
+                    dichVuChung.setSdt(rs.getString("sdt"));
+                    dichVuChung.setGia(rs.getInt("gia"));
+                    dichVuChung.setTuNgay(rs.getDate("tuNgay"));
+                    dichVuChung.setDenNgay(rs.getDate("denNgay"));
+                    dichVuChung.setTinhTrang(rs.getString("tinhTrang"));
+                    dichVuChung.setGhiChu(rs.getString("ghiChu"));
+                    dichVuChungList.add(dichVuChung);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return dichVuChungList;
+    }
+
+    public int getDichVuChungCountByAccountID(int accountId) {
+        String query = "SELECT COUNT(*) FROM DichVuChung WHERE accountID = ?";
+        int count = 0;
+
+        try (PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setInt(1, accountId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    count = rs.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+    
     public static void main(String[] args) {
         SonDAO dao = new SonDAO();
         List<Phong> phongList = dao.getPhongIDByAccountID(3);
