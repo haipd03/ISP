@@ -48,51 +48,60 @@ public class AddHoaDonDetail extends HttpServlet {
         int hs1 = Integer.parseInt(request.getParameter("HeSo"));
         String dvid = request.getParameter("DichVuID");
 
-        DAO dao = new DAO();
-        SonDAO sondao = new SonDAO();
-        
-        DichVu listdvu = sondao.getDichVubyID(dvid);
-        Phong listphong = sondao.getPhongByHoaDonID(hdid);
+        String errorMsg = null;
+        if (tn == null || tn.trim().isEmpty() || dn == null || dn.trim().isEmpty()) {
+            errorMsg = "Bạn Không Thể Thêm Hóa Đơn Chi Tiết!";
+        }
+        if (errorMsg != null) {
+            request.setAttribute("error", errorMsg);
+            request.getRequestDispatcher("inserthoadondetail").forward(request, response);
+        } else {
+            DAO dao = new DAO();
+            SonDAO sondao = new SonDAO();
 
-        int giaTien = listdvu.getGiaTien();
-        int chiSoCu = listdvu.getChiSoCu();
-        int chiSoMoi = listdvu.getChiSoMoi();
-        int giaPhong = listphong.getGia();
+            DichVu listdvu = sondao.getDichVubyID(dvid);
+            Phong listphong = sondao.getPhongByHoaDonID(hdid);
 
-        int tongSo = chiSoMoi - chiSoCu;
+            int giaTien = listdvu.getGiaTien();
+            int chiSoCu = listdvu.getChiSoCu();
+            int chiSoMoi = listdvu.getChiSoMoi();
+            int giaPhong = listphong.getGia();
 
-        int thanhTien = tongSo * hs1 * giaTien;
+            int tongSo = chiSoMoi - chiSoCu;
 
-        String ts = String.valueOf(tongSo);
-        String hs = String.valueOf(hs1);
-        String tt = String.valueOf(thanhTien);
+            int thanhTien = tongSo * hs1 * giaTien;
 
-        try {
-            dao.insertHoaDonDetail(hddid, hdid, tn, dn, ts, hs, tt, dvid);
+            String ts = String.valueOf(tongSo);
+            String hs = String.valueOf(hs1);
+            String tt = String.valueOf(thanhTien);
 
-            HoaDon listhdon1 = sondao.getHoaDonByHoaDonID(hdid);
+            try {
+                dao.insertHoaDonDetail(hddid, hdid, tn, dn, ts, hs, tt, dvid);
 
-            int hdonid = listhdon1.getHoaDonID();
-            int hdongid = listhdon1.getHopDongID();
-            Date NgayThanhToan = listhdon1.getNgayThanhToan();
-            String tttt = listhdon1.getTinhTrangThanhToan();
-            Date TuNgay = listhdon1.getTuNgay();
-            Date DenNgay = listhdon1.getDenNgay();
+                HoaDon listhdon1 = sondao.getHoaDonByHoaDonID(hdid);
 
-            List<HoaDonDetail> listhdondetail = sondao.getHoaDonDetail(String.valueOf(hdonid));
+                int hdonid = listhdon1.getHoaDonID();
+                int hdongid = listhdon1.getHopDongID();
+                Date NgayThanhToan = listhdon1.getNgayThanhToan();
+                String tttt = listhdon1.getTinhTrangThanhToan();
+                Date TuNgay = listhdon1.getTuNgay();
+                Date DenNgay = listhdon1.getDenNgay();
 
-            int TongTien = giaPhong;
-            for (HoaDonDetail detail : listhdondetail) {
-                TongTien += detail.getThanhTien();
+                List<HoaDonDetail> listhdondetail = sondao.getHoaDonDetail(String.valueOf(hdonid));
+
+                int TongTien = giaPhong;
+                for (HoaDonDetail detail : listhdondetail) {
+                    TongTien += detail.getThanhTien();
+                }
+
+                HoaDon hoadon = new HoaDon(hdonid, hdongid, NgayThanhToan, tttt, TuNgay, DenNgay, TongTien);
+                sondao.updateHoaDon(hoadon);
+
+                response.sendRedirect("listhoadondetail?id=" + hdid);
+            } catch (Exception e) {
+                e.printStackTrace();
+                response.getWriter().println("Error: " + e.getMessage());
             }
-
-            HoaDon hoadon = new HoaDon(hdonid, hdongid, NgayThanhToan, tttt, TuNgay, DenNgay, TongTien);
-            sondao.updateHoaDon(hoadon);
-
-            response.sendRedirect("listhoadondetail?id=" + hdid);
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.getWriter().println("Error: " + e.getMessage());
         }
     }
 

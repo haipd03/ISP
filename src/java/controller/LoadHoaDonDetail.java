@@ -5,6 +5,7 @@
 package controller;
 
 import dal.DAO;
+import dal.SonDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -41,13 +42,13 @@ public class LoadHoaDonDetail extends HttpServlet {
         HttpSession session = request.getSession();
         Accounts a = (Accounts) session.getAttribute("acc");
 
-        if (a == null) {
+        if (a == null || a.getRole() == 0) {
             response.sendRedirect("login.jsp");
         } else {
             String hddid = request.getParameter("id");
-            DAO dao = new DAO();
+            SonDAO sondao = new SonDAO();
 
-            HoaDonDetail hdd = dao.getHoaDonDetailByID(hddid);
+            HoaDonDetail hdd = sondao.getHoaDonDetailByIDAndAccountID(hddid, a.getAccountID());
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             try {
                 Date tuNgay = dateFormat.parse("TuNgay");
@@ -59,9 +60,10 @@ public class LoadHoaDonDetail extends HttpServlet {
                 e.printStackTrace();
             }
             request.setAttribute("detail", hdd);
+            request.setAttribute("lp3", hddid);
+            
+            request.getRequestDispatcher("EditHoaDonDetail.jsp").forward(request, response);
         }
-        request.getRequestDispatcher("EditHoaDonDetail.jsp").forward(request, response);
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

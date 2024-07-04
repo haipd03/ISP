@@ -51,6 +51,8 @@ public class AddHopDong extends HttpServlet {
             errorMsg = "TienCoc không hợp lệ.";
         } else if (SoKhachThue == null || !SoKhachThue.matches("\\d+")) {
             errorMsg = "Số khách thuê không hợp lệ.";
+        } else if (Integer.parseInt(SoKhachThue) < 1) {
+            errorMsg = "Số khách thuê phải lớn hơn hoặc bằng 1.";
         } else {
             try {
                 Date dateNgayThue = dateFormat.parse(NgayThue);
@@ -64,10 +66,10 @@ public class AddHopDong extends HttpServlet {
         }
 
         SonDAO sondao = new SonDAO();
-        
+
         if (errorMsg != null) {
             request.setAttribute("error", errorMsg);
-            request.getRequestDispatcher("listhopdong").forward(request, response);
+            request.getRequestDispatcher("nhapaddhopdong").forward(request, response);
         } else {
             sondao.insertHopDong(HopDongID, KhachID, PhongID, TienCoc, NgayThue, NgayTra, SoKhachThue, GhiChu, CCCD, SDT, HoVaTen, TinhTrang);
             response.sendRedirect("listhopdong");

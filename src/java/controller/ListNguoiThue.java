@@ -44,29 +44,35 @@ public class ListNguoiThue extends HttpServlet {
 
         if (a == null) {
             response.sendRedirect("login");
-        } else {
-            String id = request.getParameter("lntid");
-            request.setAttribute("phongID", id);
-            DAO dao = new DAO();
-            SonDAO sondao = new SonDAO();
-            if (a.getRole() == 1) {
-                List<KhachThue> kt = dao.getKhachThueByPhongIDByAccountID(id, a.getAccountID());
-                request.setAttribute("listNguoiThue", kt);
-            } else {
-                List<HopDong> hd = sondao.getHopDong();
-                List<KhachThue> kt = dao.getKhachThueByPhongID(id);
-                HopDong hd1 = sondao.getHopDongByPhongIDandTinhTrang1(id);
-
-                if (sondao.checkPhongIDcoHopDongConThue(id)) {
-                    int sokhach = sondao.countKhachThueByPhongID(id);
-                    request.setAttribute("sokhach", sokhach);
-                }
-                request.setAttribute("listHopDong", hd);
-                request.setAttribute("listNguoiThue", kt);
-                request.setAttribute("listHopDong1", hd1);
-            }
-            request.getRequestDispatcher("ListKhachThue.jsp").forward(request, response);
+            return;
         }
+
+        String id = request.getParameter("lntid");
+        request.setAttribute("phongID", id);
+        DAO dao = new DAO();
+        SonDAO sondao = new SonDAO();
+
+        List<HopDong> hd;
+        List<KhachThue> kt;
+        HopDong hd1;
+
+        if (a.getRole() == 1) {
+            hd = sondao.getHopDong();
+            kt = dao.getKhachThueByPhongIDByAccountID(id, a.getAccountID());
+            hd1 = sondao.getHopDongByPhongIDandTinhTrang1andAccountID(id, a.getAccountID());
+        } else {
+            hd = sondao.getHopDong();
+            kt = dao.getKhachThueByPhongID(id);
+            hd1 = sondao.getHopDongByPhongIDandTinhTrang1(id);
+        }
+        if (sondao.checkPhongIDcoHopDongConThue(id)) {
+            int sokhach = sondao.countKhachThueByPhongID(id);
+            request.setAttribute("sokhach", sokhach);
+        }
+        request.setAttribute("listHopDong", hd);
+        request.setAttribute("listNguoiThue", kt);
+        request.setAttribute("listHopDong1", hd1);
+        request.getRequestDispatcher("ListKhachThue.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

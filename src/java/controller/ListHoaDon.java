@@ -48,18 +48,24 @@ public class ListHoaDon extends HttpServlet {
             int page = (pageStr == null) ? 1 : Integer.parseInt(pageStr);
             int pageSize = 10;
             int offset = (page - 1) * pageSize;
-            List<HaiDao.HoaDonWithSoPhong> lhd = u.getHoaDonWithPagination(pageSize, offset);
 
+            List<HaiDao.HoaDonWithSoPhong> lhd;
+            if (a.getRole() == 1) {
+                lhd = u.getHoaDonWithPaginationAndAccountID(a.getAccountID(), pageSize, offset);
+            } else {
+                lhd = u.getHoaDonWithPagination(pageSize, offset);
+            }
             int totalRecords = u.getTotalHoaDonRecords();
             int totalPages = (int) Math.ceil((double) totalRecords / pageSize);
+            int totalRecords1 = u.getTotalHoaDonRecords1(a.getAccountID());
+            int totalPages1 = (int) Math.ceil((double) totalRecords1 / pageSize);
 
             request.setAttribute("currentPage", page);
-
             request.setAttribute("lhd", lhd);
-
-           
             request.setAttribute("totalPages", totalPages);
-             request.getRequestDispatcher("HoaDon.jsp").forward(request, response);
+             request.setAttribute("totalPages1", totalPages1);
+            request.getRequestDispatcher("HoaDon.jsp").forward(request, response);
+
         }
     }
 

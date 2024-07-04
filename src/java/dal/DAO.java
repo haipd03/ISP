@@ -774,6 +774,37 @@ public class DAO extends MyDAO {
         return ThietBi;
     }
     
+    public List<ThietBi> getAllThietBibyAccountID(int accountId, int offset, int limit) {
+    List<ThietBi> thietBiList = new ArrayList<>();
+    String sql = "select tb.* from ThietBi tb " +
+                 "join Phong p on p.PhongID = tb.PhongID " +
+                 "join Khu k on k.KhuID = p.KhuID " +
+                 "join Accounts a on a.AccountID = k.AccountID " +
+                 "where a.AccountID = ? " +
+                 "ORDER BY tb.ThietBiID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, accountId);
+        ps.setInt(2, offset);
+        ps.setInt(3, limit);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            int thietBiID = rs.getInt("ThietBiID");
+            int phongID = rs.getInt("PhongID");
+            String name = rs.getString("Name");
+            int soLuong = rs.getInt("SoLuong");
+            String tinhTrang = rs.getString("TinhTrang");
+            int gia = rs.getInt("Gia");
+            ThietBi thietbi = new ThietBi(thietBiID, phongID, name, soLuong, tinhTrang, gia);
+            thietBiList.add(thietbi);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return thietBiList;
+}
+
+    
     public int getTotalThietBiCount() {
     int count = 0;
     try {
@@ -788,6 +819,28 @@ public class DAO extends MyDAO {
     }
     return count;
 }
+    
+    public int countThietBiByAccountID(int accountId) {
+    int count = 0;
+    String sql = "SELECT COUNT(*) " +
+                 "FROM ThietBi tb " +
+                 "JOIN Phong p ON p.PhongID = tb.PhongID " +
+                 "JOIN Khu k ON k.KhuID = p.KhuID " +
+                 "JOIN Accounts a ON a.AccountID = k.AccountID " +
+                 "WHERE a.AccountID = ?";
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, accountId);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            count = rs.getInt(1);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return count;
+}
+
     
 public List<ThietBi> getAllThietBiGia() {
     List<ThietBi> thietBiList = new ArrayList<>();
@@ -806,53 +859,47 @@ public List<ThietBi> getAllThietBiGia() {
     }
     return thietBiList;
 }
-public static void main(String[] args) {
-        // Tạo một đối tượng của lớp chứa phương thức getAllThietBiGia()
-        // ở đây mình giả sử lớp chứa phương thức là ThietBiDAO
-        DAO thietBiDAO = new DAO();
-        
-        // Gọi phương thức và nhận danh sách kết quả trả về
-        List<ThietBi> thietBiList = thietBiDAO.getAllThietBi(0, 20);
-        
-        // In ra các giá trị trong danh sách
-        for (ThietBi thietBi : thietBiList) {
-            System.out.println(thietBi);
-        }
-    }
-//    public List<ThietBi> searchListThietBi(int accountID, int khuID, int phongID, String name, String tinhTrang, int gia) {
-//        List<ThietBi> tb = new ArrayList<>();
-//        String sql = "select tb.* from ThietBi tb\n"
-//                + "join Phong p on p.PhongID =  tb.PhongID\n"
-//                + "join Khu k on k.KhuID = p.KhuID\n"
-//                + "join Accounts a on a.AccountID = k.AccountID\n"
-//                + "where 1=1";
-//        List<Object> parameters = new ArrayList<>();
-//        if (accountID != 0) {
-//            sql += " AND a.AccountID = ?";
-//            parameters.add(accountID);
-//        }
-//         if (khuID != 0) {
-//            sql += " AND p.KhuID = ?";
-//            parameters.add(khuID);
-//        }
-//         if (phongID != 0) {
-//            sql += " AND tb.PhongID = ?";
-//            parameters.add(phongID);
-//        }
-//          if (name != null && !name.isEmpty()) {
-//            sql += "AND tb.Name LIKE ?";
-//            parameters.add("%" + name + "%");
-//        }
-//           if (tinhTrang != null && !tinhTrang.isEmpty()) {
-//            sql += "AND tb.TinhTrang LIKE ?";
-//            parameters.add("%" + tinhTrang + "%");
-//        }
-//        if (gia != 0) {
-//            sql += " AND tb.Gia = ?";
-//            parameters.add(gia);
-//        }
-//        try (PreparedStatement ps = con.prepareStatement(sql)) {
+
+
+//public List<ThietBi> searchListThietBi(int accountID, int khuID, int phongID, String name, String tinhTrang, int gia, int offset, int limit) {
+//    List<ThietBi> tb = new ArrayList<>();
+//    String sql = "select tb.* from ThietBi tb " +
+//                 "join Phong p on p.PhongID = tb.PhongID " +
+//                 "join Khu k on k.KhuID = p.KhuID " +
+//                 "join Accounts a on a.AccountID = k.AccountID " +
+//                 "where 1=1";
 //
+//    List<Object> parameters = new ArrayList<>();
+//    if (accountID != 0) {
+//        sql += " AND a.AccountID = ?";
+//        parameters.add(accountID);
+//    }
+//    if (khuID != 0) {
+//        sql += " AND k.KhuID = ?";
+//        parameters.add(khuID);
+//    }
+//    if (phongID != 0) {
+//        sql += " AND tb.PhongID = ?";
+//        parameters.add(phongID);
+//    }
+//    if (name != null && !name.isEmpty()) {
+//        sql += " AND tb.Name LIKE ?";
+//        parameters.add("%" + name + "%");
+//    }
+//    if (tinhTrang != null && !tinhTrang.isEmpty()) {
+//        sql += " AND tb.TinhTrang LIKE ?";
+//        parameters.add("%" + tinhTrang + "%");
+//    }
+//    if (gia != 0) {
+//        sql += " AND tb.Gia = ?";
+//        parameters.add(gia);
+//    }
+//    sql += " ORDER BY ThietBiID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+//
+//    parameters.add(offset);
+//    parameters.add(limit);
+//
+//    try (PreparedStatement ps = con.prepareStatement(sql)) {
 //        for (int i = 0; i < parameters.size(); i++) {
 //            ps.setObject(i + 1, parameters.get(i));
 //        }
@@ -872,12 +919,10 @@ public static void main(String[] args) {
 //    } catch (SQLException e) {
 //        e.printStackTrace();
 //    }
-//        return tb;
-//    }
+//    return tb;
+//}
 
-
-
-  public List<ThietBi> searchListThietBi(int accountID, int khuID, int phongID, String name, String tinhTrang, int gia, int offset, int limit) {
+  public List<ThietBi> searchListThietBi(int accountID, int khuID, int phongID, String name, String tinhTrang, int gia) {
     List<ThietBi> tb = new ArrayList<>();
     String sql = "select tb.* from ThietBi tb " +
                  "join Phong p on p.PhongID = tb.PhongID " +
@@ -910,10 +955,6 @@ public static void main(String[] args) {
         sql += " AND tb.Gia = ?";
         parameters.add(gia);
     }
-    sql += " ORDER BY ThietBiID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
-
-    parameters.add(offset);
-    parameters.add(limit);
 
     try (PreparedStatement ps = con.prepareStatement(sql)) {
         for (int i = 0; i < parameters.size(); i++) {
@@ -937,6 +978,81 @@ public static void main(String[] args) {
     }
     return tb;
 }
+  public List<ThietBi> searchListThietBi1(int accountID, int khuID, int phongID, String name, String tinhTrang, int gia) {
+    List<ThietBi> tb = new ArrayList<>();
+    StringBuilder sql = new StringBuilder(
+        "SELECT tb.* FROM ThietBi tb " +
+        "JOIN Phong p ON p.PhongID = tb.PhongID " +
+        "JOIN Khu k ON k.KhuID = p.KhuID " +
+        "JOIN Accounts a ON a.AccountID = k.AccountID " +
+        "WHERE a.AccountID = ?"
+    );
+
+    List<Object> parameters = new ArrayList<>();
+    parameters.add(accountID);
+
+    if (khuID != 0) {
+        sql.append(" AND k.KhuID = ?");
+        parameters.add(khuID);
+    }
+    if (phongID != 0) {
+        sql.append(" AND tb.PhongID = ?");
+        parameters.add(phongID);
+    }
+    if (name != null && !name.isEmpty()) {
+        sql.append(" AND tb.Name LIKE ?");
+        parameters.add("%" + name + "%");
+    }
+    if (tinhTrang != null && !tinhTrang.isEmpty()) {
+        sql.append(" AND tb.TinhTrang LIKE ?");
+        parameters.add("%" + tinhTrang + "%");
+    }
+    if (gia != 0) {
+        sql.append(" AND tb.Gia = ?");
+        parameters.add(gia);
+    }
+
+    try (PreparedStatement ps = con.prepareStatement(sql.toString())) {
+        for (int i = 0; i < parameters.size(); i++) {
+            ps.setObject(i + 1, parameters.get(i));
+        }
+
+        try (ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                ThietBi tbs = new ThietBi(
+                    rs.getInt("ThietBiID"),
+                    rs.getInt("PhongID"),
+                    rs.getString("Name"),
+                    rs.getInt("SoLuong"),
+                    rs.getString("TinhTrang"),
+                    rs.getInt("Gia")
+                );
+                tb.add(tbs);
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return tb;
+}
+
+public static void main(String[] args) {
+    DAO thietBiDAO = new DAO();
+    
+    // Test with null or empty values for optional parameters
+    List<ThietBi> thietBiList = thietBiDAO.searchListThietBi(2, 0, 0, null, null, 0);
+    
+    // Print the values in the list
+    for (ThietBi thietBi : thietBiList) {
+        System.out.println(thietBi);
+    }
+}
+
+
+
+
+  
+ 
 
   
     public int getTotalThietBiCount1() {
@@ -958,34 +1074,7 @@ public static void main(String[] args) {
 }
 
     
-    public List<ThietBi> getAllThietBiByAccountID() {
-        List<ThietBi> ThietBi = new ArrayList<>();
-        String sql = "select tb.* from ThietBi tb\n"
-                + "join Phong p on p.PhongID =  tb.PhongID\n"
-                + "join Khu k on k.KhuID = p.KhuID\n"
-                + "join Accounts a on a.AccountID = k.AccountID\n"
-                + "where a.AccountID = ?\n"
-                + "ORDER BY PhongID ";
-        try {
-            ps = con.prepareStatement(sql);
-//            ps.setString(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                int ThietBiID = rs.getInt("ThietBiID");
-                int PhongID = rs.getInt("PhongID");
-                String Name = rs.getString("Name");
-                int SoLuong = rs.getInt("SoLuong");
-                String TinhTrang = rs.getString("TinhTrang");
-                int Gia = rs.getInt("Gia");
-                ThietBi thietbi = new ThietBi(ThietBiID, PhongID, Name, SoLuong, TinhTrang, Gia);
-                ThietBi.add(thietbi);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return ThietBi;
-    }
-
+    
     public ThietBi getThietBibyID(String id) {
         String sql = "select * from ThietBi where ThietBiID = ?";
         try {
@@ -1264,7 +1353,7 @@ public static void main(String[] args) {
                 Date tuNgay = rs.getDate("TuNgay");
                 Date denNgay = rs.getDate("DenNgay");
                 int tongTien = rs.getInt("TongTien");
-                HoaDon hoaDons = new HoaDon(hoaDonID, hopDongID, tuNgay, tinhTrangThanhToan, tuNgay, denNgay, tongTien);
+                HoaDon hoaDons = new HoaDon(hoaDonID, hopDongID, NgayThanhToan, tinhTrangThanhToan, tuNgay, denNgay, tongTien);
                 hoaDon.add(hoaDons);
             }
         } catch (SQLException e) {
@@ -1352,7 +1441,7 @@ public static void main(String[] args) {
             rs = ps.executeQuery();
             if (rs.next()) {
                 int dichVuID = rs.getInt("DichVuID");
-                int soPhong = rs.getInt("SoPhong");
+                int phongID = rs.getInt("PhongID");
                 String name = rs.getString("Name");
                 int giaTien = rs.getInt("GiaTien");
                 Date tuNgay = rs.getDate("TuNgay");
@@ -1360,7 +1449,7 @@ public static void main(String[] args) {
                 int chiSoCu = rs.getInt("ChiSoCu");
                 int chiSoMoi = rs.getInt("ChiSoMoi");
 
-                DichVu dichVu = new DichVu(dichVuID, soPhong, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi);
+                DichVu dichVu = new DichVu(dichVuID, phongID, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi);
                 return dichVu;
             }
         } catch (SQLException e) {

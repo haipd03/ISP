@@ -39,11 +39,28 @@ public class AddThemDichVu extends HttpServlet {
         String tn = request.getParameter("TuNgay");
         String dn = request.getParameter("DenNgay");
 
-        int csc = Integer.parseInt(request.getParameter("ChiSoCu"));
-        int csm = Integer.parseInt(request.getParameter("ChiSoMoi"));
+        String chiSoCuStr = request.getParameter("ChiSoCu");
+        String chiSoMoiStr = request.getParameter("ChiSoMoi");
+        String heSoStr = request.getParameter("HeSo");
+        String giaTienStr = request.getParameter("GiaTien");
 
-        int hs1 = Integer.parseInt(request.getParameter("HeSo"));
-        int gt = Integer.parseInt(request.getParameter("GiaTien"));
+        String errorMsg = null;
+        if (hdid == null || !hdid.matches("\\d+")) {
+            errorMsg = "Bạn Không Thể Thêm Dịch Vụ!";
+        } else if (heSoStr == null || !heSoStr.matches("\\d+")) {
+            errorMsg = "Hệ số không hợp lệ.";
+        }
+
+        if (errorMsg != null) {
+            request.setAttribute("error", errorMsg);
+            request.getRequestDispatcher("nhapaddhoadondetail?pid=" + pid + "&dvid=" + request.getParameter("DichVuID")).forward(request, response);
+            return;
+        }
+
+        int csc = Integer.parseInt(chiSoCuStr);
+        int csm = Integer.parseInt(chiSoMoiStr);
+        int hs1 = Integer.parseInt(heSoStr);
+        int gt = Integer.parseInt(giaTienStr);
 
         // Tính toán TongSo
         int tongSo = csm - csc;
@@ -60,7 +77,7 @@ public class AddThemDichVu extends HttpServlet {
 
         SonDAO sondao = new SonDAO();
         sondao.insertHoaDonDetail(hddid, hdid, tn, dn, ts, hs, tt, dvid);
-        
+
         response.sendRedirect("nhapadddichvu?id=" + pid);
     }
 

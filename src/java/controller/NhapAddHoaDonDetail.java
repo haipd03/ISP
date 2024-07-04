@@ -39,14 +39,14 @@ public class NhapAddHoaDonDetail extends HttpServlet {
         HttpSession session = request.getSession();
         Accounts a = (Accounts) session.getAttribute("acc");
 
-        if (a == null || a.getRole() == 1) {
+        if (a == null || a.getRole() == 0) {
             response.sendRedirect("login.jsp");
         } else {
             String pid = request.getParameter("pid");
             String dvid = request.getParameter("dvid");
             SonDAO sondao = new SonDAO();
 
-            HoaDon listhdon = sondao.getIDByHoaDonIDByPhongID(pid);
+            HoaDon listhdon = sondao.getIDByHoaDonIDByPhongIDAndAccountID(pid, a.getAccountID());
             DichVu listdichvu = sondao.getDichVubyID(dvid);
             int nextHoaDonDetailID = sondao.getNextHoaDonDetailID();
 

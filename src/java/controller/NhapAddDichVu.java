@@ -40,14 +40,15 @@ public class NhapAddDichVu extends HttpServlet {
     HttpSession session = request.getSession();
     Accounts a = (Accounts) session.getAttribute("acc");
 
-    if (a == null || a.getRole() == 1) {
+    if (a == null || a.getRole() == 0) {
         response.sendRedirect("login.jsp");
     } else {
         String pid = request.getParameter("id");
         SonDAO sondao = new SonDAO();
 
-        List<Phong> phong = sondao.getPhongByPhongID(pid);
-        HoaDon listhdon = sondao.getIDByHoaDonIDByPhongID(pid);
+        List<Phong> phong = sondao.getPhongByAccountID(pid, a.getAccountID());
+        HoaDon listhdon = sondao.getIDByHoaDonIDByPhongIDAndAccountID(pid, a.getAccountID());
+
         int nextDichVuID = sondao.getNextDichVuID();
 
         request.setAttribute("lp1", phong);

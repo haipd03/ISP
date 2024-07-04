@@ -14,6 +14,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.Date;
+import model.HopDong;
 
 /**
  *
@@ -32,45 +34,70 @@ public class EditKhachThue extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        String KhachID = request.getParameter("KhachID");
-        String HoVaTen = request.getParameter("HoVaTen");
-        String CCCD = request.getParameter("CCCD");
-        String SDT = request.getParameter("SDT");
-        String QueQuan = request.getParameter("QueQuan");
-        String TenNguoiThan = request.getParameter("TenNguoiThan");
-        String SDTNguoiThan = request.getParameter("SDTNguoiThan");
-        String QuanHeVoiNguoiThan = request.getParameter("QuanHeVoiNguoiThan");
-        String PhongID = request.getParameter("PhongID");
-        String TinhTrang = request.getParameter("TinhTrang");
+        throws ServletException, IOException {
+    response.setContentType("text/html;charset=UTF-8");
+    String KhachID = request.getParameter("KhachID");
+    String HoVaTen = request.getParameter("HoVaTen");
+    String CCCD = request.getParameter("CCCD");
+    String SDT = request.getParameter("SDT");
+    String QueQuan = request.getParameter("QueQuan");
+    String TenNguoiThan = request.getParameter("TenNguoiThan");
+    String SDTNguoiThan = request.getParameter("SDTNguoiThan");
+    String QuanHeVoiNguoiThan = request.getParameter("QuanHeVoiNguoiThan");
+    String PhongID = request.getParameter("PhongID");
+    String TinhTrang = request.getParameter("TinhTrang");
 
-        String errorMsg = null;
-        if (HoVaTen == null || HoVaTen.trim().isEmpty() || HoVaTen.length() > 50) {
-            errorMsg = "Họ và tên không hợp lệ.";
-        } else if (CCCD == null || !CCCD.matches("\\d{12}")) {
-            errorMsg = "CCCD không hợp lệ.";
-        } else if (SDT == null || !SDT.matches("\\d{10}")) {
-            errorMsg = "Số điện thoại không hợp lệ.";
-        } else if (QueQuan == null || QueQuan.trim().isEmpty() || QueQuan.length() > 100) {
-            errorMsg = "Quê quán không hợp lệ.";
-        } else if (TenNguoiThan != null && TenNguoiThan.length() > 50) {
-            errorMsg = "Tên người thân không hợp lệ.";
-        } else if (SDTNguoiThan != null && !SDTNguoiThan.matches("\\d{10}")) {
-            errorMsg = "Số điện thoại người thân không hợp lệ.";
-        } else if (QuanHeVoiNguoiThan != null && QuanHeVoiNguoiThan.length() > 50) {
-            errorMsg = "Quan hệ với người thân không hợp lệ.";
-        }
-
-        DAO dao = new DAO();
-        if (errorMsg != null) {
-            request.setAttribute("error", errorMsg);
-            request.getRequestDispatcher("listNguoiThue?lntid=" + PhongID).forward(request, response);
-        } else {
-            dao.Updatekhachthue(KhachID, HoVaTen, CCCD, SDT, QueQuan, TenNguoiThan, SDTNguoiThan, QuanHeVoiNguoiThan, PhongID, TinhTrang);
-            response.sendRedirect("listNguoiThue?lntid=" + PhongID);
-        }
+    String errorMsg = null;
+    if (HoVaTen == null || HoVaTen.trim().isEmpty() || HoVaTen.length() > 50) {
+        errorMsg = "Họ và tên không hợp lệ.";
+    } else if (CCCD == null || !CCCD.matches("\\d{12}")) {
+        errorMsg = "CCCD không hợp lệ.";
+    } else if (SDT == null || !SDT.matches("\\d{10}")) {
+        errorMsg = "Số điện thoại không hợp lệ.";
+    } else if (QueQuan == null || QueQuan.trim().isEmpty() || QueQuan.length() > 100) {
+        errorMsg = "Quê quán không hợp lệ.";
+    } else if (TenNguoiThan != null && TenNguoiThan.length() > 50) {
+        errorMsg = "Tên người thân không hợp lệ.";
+    } else if (SDTNguoiThan != null && !SDTNguoiThan.matches("\\d{10}")) {
+        errorMsg = "Số điện thoại người thân không hợp lệ.";
+    } else if (QuanHeVoiNguoiThan != null && QuanHeVoiNguoiThan.length() > 50) {
+        errorMsg = "Quan hệ với người thân không hợp lệ.";
     }
+
+    DAO dao = new DAO();
+    if (errorMsg != null) {
+        request.setAttribute("error", errorMsg);
+        request.getRequestDispatcher("listNguoiThue?lntid=" + PhongID).forward(request, response);
+    } else {
+        SonDAO sondao = new SonDAO();
+
+        HopDong hd = sondao.getHopDongByKhachID(KhachID);
+        if (hd != null) {
+            int hdongid = hd.getHopDongID();
+            int khachid = hd.getKhachID();
+            int phongid = hd.getPhongID();
+            int tiencoc = hd.getTienCoc();
+            Date ngaythue = hd.getNgayThue();
+            Date ngaytra = hd.getNgayTra();
+            int sokhachthue = hd.getSoKhachThue();
+            String ghichu = hd.getGhiChu();
+            int tinhtrang = hd.getTinhTrang();
+
+            String hdid = String.valueOf(hdongid);
+            String kid = String.valueOf(khachid);
+            String pid = String.valueOf(phongid);
+            String tc = String.valueOf(tiencoc);
+            String skt = String.valueOf(sokhachthue);
+            String tt = String.valueOf(tinhtrang);
+            String nthue = String.valueOf(ngaythue);
+            String ntra = String.valueOf(ngaytra);
+
+            sondao.updateHopDong(hdid, kid, pid, tc, nthue, ntra, skt, ghichu, CCCD, SDT, HoVaTen, tt);
+        }
+        dao.Updatekhachthue(KhachID, HoVaTen, CCCD, SDT, QueQuan, TenNguoiThan, SDTNguoiThan, QuanHeVoiNguoiThan, PhongID, TinhTrang);
+        response.sendRedirect("listNguoiThue?lntid=" + PhongID);
+    }
+}
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
     /**
