@@ -167,12 +167,12 @@
                                             <div class="text-center px-3 pb-6 pt-2">
                                                 <h3 class="text-black text-sm bold font-sans">
                                                     <form action="loadphong" method="get">
-                                                        <input type="hidden" name="soPhong" value="${o.soPhong}" />
+                                                        <input type="hidden" name="PhongID" value="${o.phongID}" />
                                                         <button type="submit">
                                                             Loại Phòng: ${o.loaiPhong} - Số Phòng: ${o.soPhong}
                                                         </button>
                                                     </form>
-                                                    </a></h3>
+                                                </h3>
                                                 <p class="mt-2 font-sans font-light text-grey-700">Giá ${o.gia}</p>
                                                 <p class="mt-2 font-sans font-light text-grey-700">
                                                     Tình trạng: 
@@ -210,12 +210,14 @@
 
                                         <div class="rounded rounded-t-lg overflow-hidden shadow my-3" style="width: calc((100% / 3) - 10px)">
                                             <div class="text-center px-3 pb-6 pt-2">
-                                                <h3 class="text-black text-sm bold font-sans"><form action="loadphong" method="get">
-                                                        <input type="hidden" name="soPhong" value="${p.soPhong}" />
+                                                <h3 class="text-black text-sm bold font-sans">
+                                                    <form action="loadphong" method="get">
+                                                        <input type="hidden" name="PhongID" value="${p.phongID}" />
                                                         <button type="submit">
                                                             Loại Phòng: ${p.loaiPhong} - Số Phòng: ${p.soPhong}
                                                         </button>
-                                                    </form></h3>
+                                                    </form>
+                                                </h3>
                                                 <p class="mt-2 font-sans font-light text-grey-700">Giá ${p.gia}</p>
                                                 <p class="mt-2 font-sans font-light text-grey-700">
                                                     Tình trạng: 
