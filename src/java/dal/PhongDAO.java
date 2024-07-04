@@ -393,16 +393,16 @@ public List<Phong> getPhongBySoPhongByAccount(int soPhong, int accountID) {
         return phongs;
     }
 
-    public List<Phong> getPhongByKhuByAccountID(int soPhong, int accountID) {
+    public List<Phong> getPhongByKhuByAccountID(int phongID, int accountID) {
         List<Phong> phongs = new ArrayList<>();
         String sql = "SELECT p.PhongID, p.SoPhong, p.KhuID, p.LoaiPhong, p.PhongConTrong, p.GhiChu, p.Gia\n"
                 + "FROM Phong p\n"
                 + "JOIN Khu k ON k.KhuID = p.KhuID\n"
                 + "JOIN Accounts a ON k.AccountID = a.AccountID\n"
-                + "WHERE p.SoPhong = ? AND a.AccountID = ?";
+                + "WHERE p.PhongID = ? AND a.AccountID = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, soPhong);
+            ps.setInt(1, phongID);
             ps.setInt(2, accountID);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
