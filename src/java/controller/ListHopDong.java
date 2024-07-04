@@ -50,15 +50,19 @@ public class ListHopDong extends HttpServlet {
         int offset = (page - 1) * pageSize;
         
         List<HopDong> list = u.getHopDong(offset, pageSize);
-        List<HopDong> list1 = sondao.getHopDong1(a.getAccountID());
+        List<HopDong> list1 = sondao.getHopDong1(a.getAccountID(), offset, pageSize);
         
         int totalRecords = u.getTotalHopDongCount();
         int totalPages = (int) Math.ceil((double) totalRecords / pageSize);
+        
+         int totalRecords1 = sondao.getTotalHopDongCount1(a.getAccountID());
+        int totalPages1 = (int) Math.ceil((double) totalRecords1 / pageSize);
 
         request.setAttribute("listK", list);
         request.setAttribute("listK1", list1);
         request.setAttribute("currentPage", page);
         request.setAttribute("totalPages", totalPages);
+        request.setAttribute("totalPages1", totalPages1);
 
         request.getRequestDispatcher("HopDong.jsp").forward(request, response);
     }

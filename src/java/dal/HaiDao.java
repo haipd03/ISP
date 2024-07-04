@@ -1,5 +1,6 @@
 package dal;
 
+import dal.HaiDao.HoaDonWithSoPhong;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -19,6 +20,7 @@ import model.KhachThue;
 public class HaiDao extends MyDAO {
 
     public class HoaDonWithSoPhong {
+
         private HoaDon hoaDon;
         private int soPhong;
 
@@ -175,6 +177,8 @@ public class HaiDao extends MyDAO {
         }
         return hoaDonWithSoPhongList;
     }
+    
+    
 
     public int getTotalHoaDonRecords() {
         int count = 0;
@@ -190,6 +194,174 @@ public class HaiDao extends MyDAO {
         }
         return count;
     }
+
+    public int getTotalHoaDonRecords1(int accountID) {
+        int count = 0;
+        try {
+            String sql = "SELECT COUNT(*) FROM HoaDon hd "
+                    + "JOIN HopDong hdong ON hdong.HopDongID = hd.HopDongID "
+                    + "JOIN Phong p ON p.PhongID = hdong.PhongID "
+                    + "JOIN Khu k ON p.KhuID = k.KhuID "
+                    + "JOIN Accounts a ON a.AccountID = k.AccountID "
+                    + "WHERE a.AccountID = ?";
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, accountID);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
+public List<HoaDonWithSoPhong> getHoaDonByCriteria(String soPhong, String tinhTrangThanhToan, String tuNgay, String denNgay) {
+    List<HoaDonWithSoPhong> hoaDonWithSoPhongList = new ArrayList<>();
+    String sql = "SELECT hd.*, p.SoPhong "
+            + "FROM HoaDon hd "
+            + "JOIN HopDong hdg ON hdg.HopDongID = hd.HopDongID "
+            + "JOIN Phong p ON p.PhongID = hdg.PhongID WHERE 1=1";
+
+    if (soPhong != null && !soPhong.trim().isEmpty()) {
+        sql += " AND p.SoPhong = ?";
+    }
+    if (tinhTrangThanhToan != null && !tinhTrangThanhToan.trim().isEmpty()) {
+        sql += " AND hd.TinhTrangThanhToan LIKE ?";
+    }
+    if (tuNgay != null && !tuNgay.trim().isEmpty()) {
+        sql += " AND hd.tuNgay >= ?";
+    }
+    if (denNgay != null && !denNgay.trim().isEmpty()) {
+        sql += " AND hd.denNgay <= ?";
+    }
+
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+        int paramIndex = 1;
+
+        if (soPhong != null && !soPhong.trim().isEmpty()) {
+            ps.setString(paramIndex++, soPhong);
+        }
+        if (tinhTrangThanhToan != null && !tinhTrangThanhToan.trim().isEmpty()) {
+            ps.setString(paramIndex++, "%" + tinhTrangThanhToan + "%");
+        }
+        if (tuNgay != null && !tuNgay.trim().isEmpty()) {
+            try {
+                ps.setDate(paramIndex++, java.sql.Date.valueOf(tuNgay));
+            } catch (IllegalArgumentException e) {
+                throw new SQLException("Invalid 'tuNgay' format, expected 'yyyy-[m]m-[d]d'.");
+            }
+        }
+        if (denNgay != null && !denNgay.trim().isEmpty()) {
+            try {
+                ps.setDate(paramIndex++, java.sql.Date.valueOf(denNgay));
+            } catch (IllegalArgumentException e) {
+                throw new SQLException("Invalid 'denNgay' format, expected 'yyyy-[m]m-[d]d'.");
+            }
+        }
+
+        try (ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                int hoaDonID = rs.getInt("HoaDonID");
+                int hopDongID = rs.getInt("HopDongID");
+                Date ngayThanhToan = rs.getDate("NgayThanhToan");
+                String tinhTrangThanhToanFromDb = rs.getString("TinhTrangThanhToan");  // Lấy giá trị từ ResultSet
+                Date tuNgayDate = rs.getDate("TuNgay");
+                Date denNgayDate = rs.getDate("DenNgay");
+                int tongTien = rs.getInt("TongTien");
+                String soPhongFromDb = rs.getString("SoPhong");  // Đảm bảo rằng `SoPhong` là một String từ ResultSet
+
+                // Tạo đối tượng HoaDon
+                HoaDon hoaDon = new HoaDon(hoaDonID, hopDongID, ngayThanhToan, tinhTrangThanhToanFromDb, tuNgayDate, denNgayDate, tongTien);
+
+                // Tạo đối tượng HoaDonWithSoPhong
+                HoaDonWithSoPhong hoaDonWithSoPhong = new HoaDonWithSoPhong(hoaDon, Integer.parseInt(soPhongFromDb));
+                hoaDonWithSoPhongList.add(hoaDonWithSoPhong);
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return hoaDonWithSoPhongList;
+}
+
+public List<HoaDonWithSoPhong> getHoaDonByCriteria1(String soPhong, String tinhTrangThanhToan, String tuNgay, String denNgay, int accountId) {
+    List<HoaDonWithSoPhong> hoaDonWithSoPhongList = new ArrayList<>();
+    String sql = "SELECT hd.*, p.SoPhong "
+                + "FROM HoaDon hd "
+                + "JOIN HopDong hdong ON hdong.HopDongID = hd.HopDongID "
+                + "JOIN Phong p ON p.PhongID = hdong.PhongID "
+                + "JOIN Khu k ON p.KhuID = k.KhuID "
+                + "JOIN Accounts a ON a.AccountID = k.AccountID "
+                + "WHERE a.AccountID = ?";
+
+    if (soPhong != null && !soPhong.trim().isEmpty()) {
+        sql += " AND p.SoPhong = ?";
+    }
+    if (tinhTrangThanhToan != null && !tinhTrangThanhToan.trim().isEmpty()) {
+        sql += " AND hd.TinhTrangThanhToan LIKE ?";
+    }
+    if (tuNgay != null && !tuNgay.trim().isEmpty()) {
+        sql += " AND hd.tuNgay >= ?";
+    }
+    if (denNgay != null && !denNgay.trim().isEmpty()) {
+        sql += " AND hd.denNgay <= ?";
+    }
+
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+        int paramIndex = 1;
+
+        // Set AccountID
+        ps.setInt(paramIndex++, accountId);
+
+        // Set other parameters based on provided criteria
+        if (soPhong != null && !soPhong.trim().isEmpty()) {
+            ps.setString(paramIndex++, soPhong);
+        }
+        if (tinhTrangThanhToan != null && !tinhTrangThanhToan.trim().isEmpty()) {
+            ps.setString(paramIndex++, "%" + tinhTrangThanhToan + "%");
+        }
+        if (tuNgay != null && !tuNgay.trim().isEmpty()) {
+            try {
+                ps.setDate(paramIndex++, java.sql.Date.valueOf(tuNgay));
+            } catch (IllegalArgumentException e) {
+                throw new SQLException("Invalid 'tuNgay' format, expected 'yyyy-[m]m-[d]d'.");
+            }
+        }
+        if (denNgay != null && !denNgay.trim().isEmpty()) {
+            try {
+                ps.setDate(paramIndex++, java.sql.Date.valueOf(denNgay));
+            } catch (IllegalArgumentException e) {
+                throw new SQLException("Invalid 'denNgay' format, expected 'yyyy-[m]m-[d]d'.");
+            }
+        }
+
+        try (ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                int hoaDonID = rs.getInt("HoaDonID");
+                int hopDongID = rs.getInt("HopDongID");
+                Date ngayThanhToan = rs.getDate("NgayThanhToan");
+                String tinhTrangThanhToanFromDb = rs.getString("TinhTrangThanhToan");
+                Date tuNgayDate = rs.getDate("TuNgay");
+                Date denNgayDate = rs.getDate("DenNgay");
+                int tongTien = rs.getInt("TongTien");
+                String soPhongFromDb = rs.getString("SoPhong");
+
+                // Tạo đối tượng HoaDon
+                HoaDon hoaDon = new HoaDon(hoaDonID, hopDongID, ngayThanhToan, tinhTrangThanhToanFromDb, tuNgayDate, denNgayDate, tongTien);
+
+                // Tạo đối tượng HoaDonWithSoPhong
+                HoaDonWithSoPhong hoaDonWithSoPhong = new HoaDonWithSoPhong(hoaDon, Integer.parseInt(soPhongFromDb));
+                hoaDonWithSoPhongList.add(hoaDonWithSoPhong);
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return hoaDonWithSoPhongList;
+}
+
+
 
     public void addHoaDon(HoaDon hoaDon) {
         String sql = "INSERT INTO HoaDon (HoaDonID, HopDongID,NgayThanhToan, TinhTrangThanhToan, TuNgay, DenNgay, TongTien) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -207,6 +379,7 @@ public class HaiDao extends MyDAO {
             e.printStackTrace();
         }
     }
+
     public HoaDon getHoaDonById(int hoaDonID) {
         HoaDon hoaDon = null;
         String sql = "SELECT * FROM HoaDon WHERE HoaDonID = ?";
@@ -315,30 +488,60 @@ public class HaiDao extends MyDAO {
         return list;
     }
 
-    public List<KhachThue> getKhachThue() {
-        List<KhachThue> KhachThues = new ArrayList<>();
-        String sql = "Select * from khachthue";
+    public List<KhachThue> searchKhachThueByCriteria1(int accountID, String name, String sdt, String cccd) {
+        List<KhachThue> list = new ArrayList<>();
+        String sql = "SELECT Kh.* FROM KhachThue Kh "
+                + "JOIN Phong P ON P.PhongID = Kh.PhongID "
+                + "JOIN Khu K ON K.KhuID = P.KhuID "
+                + "JOIN Accounts a ON a.AccountID = K.AccountID "
+                + "WHERE a.AccountID = ?";
+
+        if (name != null && !name.trim().isEmpty()) {
+            sql += " AND Kh.HoVaTen LIKE ?";
+        }
+        if (sdt != null && !sdt.trim().isEmpty()) {
+            sql += " AND Kh.SDT LIKE ?";
+        }
+        if (cccd != null && !cccd.trim().isEmpty()) {
+            sql += " AND Kh.CCCD LIKE ?";
+        }
+
         try {
-            ps = con.prepareStatement(sql);
-            rs = ps.executeQuery();
+            PreparedStatement ps = con.prepareStatement(sql);
+            int paramIndex = 1;
+
+            ps.setInt(paramIndex++, accountID);
+
+            if (name != null && !name.trim().isEmpty()) {
+                ps.setString(paramIndex++, "%" + name + "%");
+            }
+            if (sdt != null && !sdt.trim().isEmpty()) {
+                ps.setString(paramIndex++, "%" + sdt + "%");
+            }
+            if (cccd != null && !cccd.trim().isEmpty()) {
+                ps.setString(paramIndex++, "%" + cccd + "%");
+            }
+
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                int KhachID = rs.getInt("KhachID");
-                String HoVaTen = rs.getString("HoVaTen");
-                String CCCD = rs.getString("CCCD");
-                String SDT = rs.getString("SDT");
-                String QueQuan = rs.getString("QueQuan");
-                String TenNguoiThan = rs.getString("TenNguoiThan");
-                String SDTNguoiThan = rs.getString("SDTNguoiThan");
-                String QuanHeVoiNguoiThan = rs.getString("QuanHeVoiNguoiThan");
-                int PhongID = rs.getInt("PhongID");
-                int TinhTrang = rs.getInt("TinhTrang");
-                KhachThue khachThue = new KhachThue(KhachID, HoVaTen, CCCD, SDT, QueQuan, TenNguoiThan, SDTNguoiThan, QuanHeVoiNguoiThan, PhongID, TinhTrang);
-                KhachThues.add(khachThue);
+                KhachThue kt = new KhachThue(
+                        rs.getInt("KhachID"),
+                        rs.getString("HoVaTen"),
+                        rs.getString("CCCD"),
+                        rs.getString("SDT"),
+                        rs.getString("QueQuan"),
+                        rs.getString("TenNguoiThan"),
+                        rs.getString("SDTNguoiThan"),
+                        rs.getString("QuanHeVoiNguoiThan"),
+                        rs.getInt("PhongID"),
+                        rs.getInt("TinhTrang")
+                );
+                list.add(kt);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return KhachThues;
+        return list;
     }
 
     public List<HopDong> getHopDongByCriteria(String soKhachThue, String hoVaTen, Date ngayThue, Date ngayTra) {
@@ -401,6 +604,72 @@ public class HaiDao extends MyDAO {
         return hopDongSearch;
     }
 
+public List<HopDong> getHopDongByCriteria1(String soKhachThue, String hoVaTen, Date ngayThue, Date ngayTra, int accountId) {
+    List<HopDong> hopDongSearch = new ArrayList<>();
+    String sql = "SELECT hp.* FROM HopDong hp " +
+                 "JOIN Phong p ON p.PhongID = hp.PhongID " +
+                 "JOIN Khu k ON k.KhuID = p.KhuID " +
+                 "JOIN Accounts a ON a.AccountID = k.AccountID " +
+                 "WHERE a.AccountID = ?";
+
+    if (soKhachThue != null && !soKhachThue.trim().isEmpty()) {
+        sql += " AND SoKhachThue = ?";
+    }
+    if (hoVaTen != null && !hoVaTen.trim().isEmpty()) {
+        sql += " AND HoVaTen LIKE ?";
+    }
+    if (ngayThue != null) {
+        sql += " AND NgayThue >= ?";
+    }
+    if (ngayTra != null) {
+        sql += " AND NgayTra <= ?";
+    }
+
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+        int paramIndex = 1;
+        ps.setInt(paramIndex++, accountId);
+        
+        if (soKhachThue != null && !soKhachThue.trim().isEmpty()) {
+            ps.setString(paramIndex++, soKhachThue);
+        }
+        if (hoVaTen != null && !hoVaTen.trim().isEmpty()) {
+            ps.setString(paramIndex++, "%" + hoVaTen + "%");
+        }
+        if (ngayThue != null) {
+            ps.setDate(paramIndex++, new java.sql.Date(ngayThue.getTime()));
+        }
+        if (ngayTra != null) {
+            ps.setDate(paramIndex++, new java.sql.Date(ngayTra.getTime()));
+        }
+
+        try (ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                HopDong hopDong = new HopDong(
+                        rs.getInt("HopDongID"),
+                        rs.getInt("KhachID"),
+                        rs.getInt("PhongID"),
+                        rs.getInt("TienCoc"),
+                        rs.getDate("NgayThue"),
+                        rs.getDate("NgayTra"),
+                        rs.getInt("SoKhachThue"),
+                        rs.getString("GhiChu"),
+                        rs.getString("CCCD"),
+                        rs.getString("SDT"),
+                        rs.getString("HoVaTen"),
+                        rs.getInt("TinhTrang")
+                );
+                hopDongSearch.add(hopDong);
+            }
+        }
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    }
+
+    return hopDongSearch;
+}
+
+    
+    
     public List<HopDong> getHopDong() {
         List<HopDong> HopDongs = new ArrayList<>();
         String sql = "SELECT * FROM HopDong";
@@ -502,8 +771,9 @@ public class HaiDao extends MyDAO {
 
     public static void main(String[] args) throws SQLException {
         HaiDao dao = new HaiDao();
-        Accounts Accounts = dao.getAccountByEmail("phanhai@gmail.com");
-        System.out.println(Accounts);
-
+        List<HopDong> dichVu = dao.getHopDongByCriteria1(null, null, null, null,2);
+        for (HopDong phong : dichVu) {
+            System.out.println(phong);
+        }
     }
 }

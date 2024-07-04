@@ -73,7 +73,11 @@ public class EditHopDong extends HttpServlet {
             request.getRequestDispatcher("listhopdong").forward(request, response);
         } else {
             sondao.updateHopDong(HopDongID, KhachID, PhongID, TienCoc, NgayThue, NgayTra, SoKhachThue, GhiChu, CCCD, SDT, HoVaTen, TinhTrang);
-            response.sendRedirect("listhopdong");
+            if ("0".equals(TinhTrang)) {
+                response.sendRedirect("loadphong?PhongID=" + PhongID);
+            } else {
+                response.sendRedirect("listhopdong");
+            }
         }
     }
 

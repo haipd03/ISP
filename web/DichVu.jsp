@@ -34,7 +34,7 @@
                         <form method="post" action="searchdichvubysophong" style="display: flex; flex-wrap: wrap; gap: 15px; align-items: center; margin-bottom: 20px;">
                             <div class="flex" style="display: flex; align-items: center;">
 
-                                <label for="soPhong" style="margin-right: 10px;">Số phòng ID:</label>
+                                <label for="phongID" style="margin-right: 10px;">Số phòng ID:</label>
                                 <input type="text" id="phongID" name="phongID" placeholder="Nhập số phòng" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
                             </div>
                             <div class="flex" style="display: flex; align-items: center;">
@@ -120,6 +120,27 @@
                                     </c:forEach>
                                 </tbody>
                             </table><br>
+                            
+                            <c:if test="${sessionScope.acc.role == 0}">
+                                <div class="flex justify-between mt-4">
+                                    <c:if test="${currentPage > 1}">
+                                        <a href="listdichvu?page=${currentPage - 1}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Quay về</a>
+                                    </c:if>
+                                    <c:if test="${currentPage < totalPages}">
+                                        <a href="listdichvu?page=${currentPage + 1}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Tiếp</a>
+                                    </c:if>
+                                </div>
+                            </c:if>
+                            <c:if test="${sessionScope.acc.role == 1}">
+                                <div class="flex justify-between mt-4">
+                                    <c:if test="${currentPage > 1}">
+                                        <a href="listdichvu?page=${currentPage - 1}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Quay về</a>
+                                    </c:if>
+                                    <c:if test="${currentPage < totalPages1}">
+                                        <a href="listdichvu?page=${currentPage + 1}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Tiếp</a>
+                                    </c:if>
+                                </div>
+                            </c:if>  
                         </div>
                     </div>
                 </div>
