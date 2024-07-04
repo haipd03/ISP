@@ -83,7 +83,8 @@
                                                 <form id="editForm" action="nhapeditphong" method="post">
                                                     <input type="hidden" name="phongID" value="${phong.phongID}">
                                                     <button type="submit" class="bg-purple-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200">Sửa</button>
-                                                </form>                                                <a class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200" href="/quanlytro/listphong">Trang chủ</a>
+                                                </form>
+                                                <a class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200" href="/quanlytro/listphong">Trang chủ</a>
                                             </div>
                                         </div>
                                     </div>
