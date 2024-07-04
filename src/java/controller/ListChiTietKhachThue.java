@@ -49,15 +49,18 @@ public class ListChiTietKhachThue extends HttpServlet {
         int offset = (page - 1) * pageSize;
 
         List<KhachThue> list = sondao.getKhachThue(offset, pageSize);
-        List<KhachThue> list1 = sondao.getKhachThueByAccountID(a.getAccountID());
+        List<KhachThue> list1 = sondao.getKhachThueByAccountID(a.getAccountID(), offset, pageSize);
 
         int totalRecords = sondao.getTotalKhachThueCount();
         int totalPages = (int) Math.ceil((double) totalRecords / pageSize);
+         int totalRecords1 = sondao.getTotalKhachThueCount1(a.getAccountID());
+        int totalPages1 = (int) Math.ceil((double) totalRecords1 / pageSize);
 
         request.setAttribute("listK", list);
         request.setAttribute("listK1", list1);
         request.setAttribute("currentPage", page);
         request.setAttribute("totalPages", totalPages);
+        request.setAttribute("totalPages1", totalPages1);
 
         request.getRequestDispatcher("ChiTietKhachThue.jsp").forward(request, response);
     }

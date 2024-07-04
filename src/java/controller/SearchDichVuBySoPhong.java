@@ -31,17 +31,21 @@ public class SearchDichVuBySoPhong extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
+        HttpSession session = request.getSession();
+        Accounts a = (Accounts) session.getAttribute("acc");
 
-        String soPhongStr = request.getParameter("soPhong");
+        if (a == null) {
+            response.sendRedirect("login.jsp"); // Redirect to login if account is not found in session
+            return;
+        }
+
+        String soPhongStr = request.getParameter("phongID");
         String name = request.getParameter("name");
         String tuNgayStr = request.getParameter("tuNgay");
         String denNgayStr = request.getParameter("denNgay");
 
         LinhDao dao = new LinhDao();
-        List<DichVu> sdv;
-
-        // Thiết lập danh sách dịch vụ ban đầu
-        List<DichVu> ldv = dao.getAllDichVu();
+        List<DichVu> ldv = null;
 
         if ((soPhongStr != null && !soPhongStr.trim().isEmpty())
                 || (name != null && !name.trim().isEmpty())
@@ -49,24 +53,26 @@ public class SearchDichVuBySoPhong extends HttpServlet {
                 || (denNgayStr != null && !denNgayStr.trim().isEmpty())) {
 
             try {
-                sdv = dao.getDichVuByCriteria(soPhongStr, name, tuNgayStr, denNgayStr);
-                if (sdv.isEmpty()) {
-                    request.setAttribute("error", "Không tìm thấy dịch vụ với tiêu chí tìm kiếm!");
-                    request.setAttribute("ldv", ldv); // Gán lại danh sách dịch vụ ban đầu
+                if (a.getRole() == 1) {
+                    ldv = dao.getDichVuByCriteria1(soPhongStr, name, tuNgayStr, denNgayStr, a.getAccountID());
                 } else {
-                    request.setAttribute("ldv", sdv); // Cập nhật ldv thành kết quả tìm kiếm
+                    ldv = dao.getDichVuByCriteria(soPhongStr, name, tuNgayStr, denNgayStr);
+                }
+                if (ldv == null || ldv.isEmpty()) {
+                    request.setAttribute("error", "Không tìm thấy dịch vụ với tiêu chí tìm kiếm!");
+                } else {
+                    request.setAttribute("ldv", ldv);
                 }
             } catch (Exception e) {
                 request.setAttribute("error", "Đã xảy ra lỗi trong quá trình tìm kiếm.");
-                request.setAttribute("ldv", ldv); // Gán lại danh sách dịch vụ ban đầu
+                e.printStackTrace(); // Log the exception for debugging purposes
             }
         } else {
-            request.setAttribute("ldv", ldv); // Gán lại danh sách dịch vụ ban đầu
             request.setAttribute("error", "Vui lòng nhập ít nhất một tiêu chí để tìm kiếm.");
         }
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("DichVu.jsp");
-        dispatcher.include(request, response); // Chuyển hướng sang trang JSP để hiển thị kết quả
+        dispatcher.include(request, response);
     }
 
 // protected void processRequest(HttpServletRequest request, HttpServletResponse response)

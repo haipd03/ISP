@@ -31,6 +31,7 @@
                             <span style="color: red; font-size: 1.2em; font-weight: bold;">${error}</span>
                         </c:if>
                         <h4 class="text-lg font-semibold mb-2">Danh Sách Thiết Bị</h4>
+
                         <div class="overflow-x-auto">
                             <form method="post" action="ListAllThietBi" style="display: flex; flex-wrap: wrap; gap: 15px; align-items: center; margin-bottom: 20px;">
                                 <c:if test="${sessionScope.acc.role == 0}">
@@ -77,49 +78,50 @@
                                 </div>
                                 <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" style="margin-left: 10px;">Tìm kiếm</button>
                             </form>
-                            <h4 class="text-lg font-semibold mb-2">Danh Sách Thiết Bị Theo Yêu Cầu:</h4>
-                            <table class="table-auto w-full border-collapse">
-                                <thead>
-                                    <tr class="bg-gray-200 text-gray-800">
-                                        <th class="px-4 py-2">Khu</th>
-                                        <th class="px-4 py-2">Số Phòng</th>
-                                        <th class="px-4 py-2">Mã Thiết Bị</th>
-                                        <th class="px-4 py-2">Tên Thiết Bị</th>
-                                        <th class="px-4 py-2">Số Lượng</th>
-                                        <th class="px-4 py-2">Tình Trạng</th>
-                                        <th class="px-4 py-2">Giá </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <c:forEach items="${ltb}" var="l">
-                                        <c:forEach items="${listP}" var="p">
-                                            <c:if test="${l.phongID == p.phongID}">
-                                                <c:forEach items="${listK}" var="k">
-                                                    <c:if test="${k.khuID == p.khuID}">
-                                                        <c:choose>
-                                                            <c:when test="${sessionScope.acc.role == 0 || (sessionScope.acc.role == 1 && k.accountID == sessionScope.acc.accountID)}">
-                                                                <tr class="transition-colors hover:bg-gray-100">
-                                                                    <td class="px-4 py-2">${k.name}</td>
-                                                                    <td class="px-4 py-2">${p.soPhong}</td>
-                                                                    <td class="px-4 py-2">${l.thietBiID}</td>
-                                                                    <td class="px-4 py-2">${l.name}</td>
-                                                                    <td class="px-4 py-2">${l.soLuong}</td>
-                                                                    <td class="px-4 py-2">${l.tinhTrang}</td>
-                                                                    <td class="px-4 py-2">
-                                                                        <fmt:formatNumber value="${l.gia}" pattern="#,##0 đồng" />
-                                                                    </td>
-                                                                </tr>
-                                                            </c:when>
-                                                        </c:choose>
-                                                    </c:if>
-                                                </c:forEach>
-                                            </c:if>
+                            <c:if test="${sessionScope.acc.role == 0}">
+                                <h4 class="text-lg font-semibold mb-2">Danh Sách Thiết Bị Theo Yêu Cầu:</h4>
+                                <table class="table-auto w-full border-collapse">
+                                    <thead>
+                                        <tr class="bg-gray-200 text-gray-800">
+                                            <th class="px-4 py-2">Khu</th>
+                                            <th class="px-4 py-2">Số Phòng</th>
+                                            <th class="px-4 py-2">Mã Thiết Bị</th>
+                                            <th class="px-4 py-2">Tên Thiết Bị</th>
+                                            <th class="px-4 py-2">Số Lượng</th>
+                                            <th class="px-4 py-2">Tình Trạng</th>
+                                            <th class="px-4 py-2">Giá </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <c:forEach items="${ltb}" var="l">
+                                            <c:forEach items="${listP}" var="p">
+                                                <c:if test="${l.phongID == p.phongID}">
+                                                    <c:forEach items="${listK}" var="k">
+                                                        <c:if test="${k.khuID == p.khuID}">
+                                                            <c:choose>
+                                                                <c:when test="${sessionScope.acc.role == 0 || (sessionScope.acc.role == 1 && k.accountID == sessionScope.acc.accountID)}">
+                                                                    <tr class="transition-colors hover:bg-gray-100">
+                                                                        <td class="px-4 py-2">${k.name}</td>
+                                                                        <td class="px-4 py-2">${p.soPhong}</td>
+                                                                        <td class="px-4 py-2">${l.thietBiID}</td>
+                                                                        <td class="px-4 py-2">${l.name}</td>
+                                                                        <td class="px-4 py-2">${l.soLuong}</td>
+                                                                        <td class="px-4 py-2">${l.tinhTrang}</td>
+                                                                        <td class="px-4 py-2">
+                                                                            <fmt:formatNumber value="${l.gia}" pattern="#,##0 đồng" />
+                                                                        </td>
+                                                                    </tr>
+                                                                </c:when>
+                                                            </c:choose>
+                                                        </c:if>
+                                                    </c:forEach>
+                                                </c:if>
+                                            </c:forEach>
                                         </c:forEach>
-                                    </c:forEach>
-                                </tbody>
-                            </table>
-                            
-                                                        <c:if test="${sessionScope.acc.accountID == 1}">
+                                    </tbody>
+                                </table>
+
+
                                 <div class="flex justify-between mt-4">
                                     <c:if test="${currentPage > 1}">
                                         <a href="ListAllThietBi?page=${currentPage - 1}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Quay về</a>
@@ -128,13 +130,70 @@
                                         <a href="ListAllThietBi?page=${currentPage + 1}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Tiếp</a>
                                     </c:if>
                                 </div>
+
                             </c:if>
-                            
+                            <c:if test="${sessionScope.acc.role == 1}">
+
+
+                                <h4 class="text-lg font-semibold mb-2">Danh Sách Thiết Bị Theo Yêu Cầu:</h4>
+                                <table class="table-auto w-full border-collapse">
+                                    <thead>
+                                        <tr class="bg-gray-200 text-gray-800">
+                                            <th class="px-4 py-2">Khu</th>
+                                            <th class="px-4 py-2">Số Phòng</th>
+                                            <th class="px-4 py-2">Mã Thiết Bị</th>
+                                            <th class="px-4 py-2">Tên Thiết Bị</th>
+                                            <th class="px-4 py-2">Số Lượng</th>
+                                            <th class="px-4 py-2">Tình Trạng</th>
+                                            <th class="px-4 py-2">Giá </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <c:forEach items="${ltb1}" var="l1">
+                                            <c:forEach items="${listP}" var="p">
+                                                <c:if test="${l1.phongID == p.phongID}">
+                                                    <c:forEach items="${listK}" var="k">
+                                                        <c:if test="${k.khuID == p.khuID}">
+                                                            <c:choose>
+                                                                <c:when test="${sessionScope.acc.role == 0 || (sessionScope.acc.role == 1 && k.accountID == sessionScope.acc.accountID)}">
+                                                                    <tr class="transition-colors hover:bg-gray-100">
+                                                                        <td class="px-4 py-2">${k.name}</td>
+                                                                        <td class="px-4 py-2">${p.soPhong}</td>
+                                                                        <td class="px-4 py-2">${l1.thietBiID}</td>
+                                                                        <td class="px-4 py-2">${l1.name}</td>
+                                                                        <td class="px-4 py-2">${l1.soLuong}</td>
+                                                                        <td class="px-4 py-2">${l1.tinhTrang}</td>
+                                                                        <td class="px-4 py-2">
+                                                                            <fmt:formatNumber value="${l1.gia}" pattern="#,##0 đồng" />
+                                                                        </td>
+                                                                    </tr>
+                                                                </c:when>
+                                                            </c:choose>
+                                                        </c:if>
+                                                    </c:forEach>
+                                                </c:if>
+                                            </c:forEach>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
+
+                                <div class="flex justify-between mt-4">
+                                    <c:if test="${currentPage > 1}">
+                                        <a href="ListAllThietBi?page=${currentPage - 1}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Quay về</a>
+                                    </c:if>
+                                    <c:if test="${currentPage < totalPages1}">
+                                        <a href="ListAllThietBi?page=${currentPage + 1}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Tiếp</a>
+                                    </c:if>
+
+                                </c:if>
+                            </div>
+
+
+
                         </div>
                     </div>
                 </div>
+                <script src="./main.js"></script>
             </div>
-            <script src="./main.js"></script>
-        </div>
     </body>
 </html>
