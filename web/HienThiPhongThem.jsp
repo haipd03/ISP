@@ -1,7 +1,7 @@
 <%-- 
-    Document   : HienThiThongTinPhong
-    Created on : May 19, 2024, 9:15:39 PM
-    Author     : Admin
+Document   : HienThiThongTinPhong
+Created on : May 19, 2024, 9:15:39 PM
+Author     : Admin
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -39,46 +39,60 @@
 
                 <div class="flex flex-1">
                     <!--Sidebar-->
-                     <jsp:include page="menu2.jsp" />
+                    <jsp:include page="menu2.jsp" />
                     <!--/Sidebar-->
                     <!--Main-->
-                    <main class="bg-gray-100 flex-1 p-6 overflow-hidden">
-                        <div class="flex flex-col space-y-4">
-                            <!-- Check if Phong attribute is not null -->
-                            <c:if test="${not empty Phong}">
-                                <!-- Display room information -->
+                    <main class="bg-gray-100 flex-1 p-6 overflow-hidden ">
+                        <c:if test="${not empty error}">
+                            <p style="color: red; font-size: 1.2em; font-weight: bold;">${error}</p>
+                        </c:if>
+                        <div class="flex flex-col space-y-4" >
+                            <c:forEach items="${danhSachPhong}" var="phong">
+                                <!-- Card Section Starts Here -->
                                 <div class="flex flex-col md:flex-row lg:flex-row mx-2">
+                                    <!-- Card -->
                                     <div class="mb-4 bg-white border border-gray-200 rounded-lg shadow-lg w-full md:w-1/2 lg:w-1/3">
-<!--                                      <p>${message}</p>  -->
-                                      <div class="bg-purple-600 text-white px-4 py-3 rounded-t-lg">
-                                            Thông Tin Phòng Thêm
+
+                                        <div class="bg-purple-600 text-white px-4 py-3 rounded-t-lg">
+                                            Thông Tin Phòng
                                         </div>
-                                        
                                         <div class="p-4">
-                                            <p class="text-gray-700"><strong>Phòng ID:</strong> ${Phong.phongID}</p>
-                                            <p class="text-gray-700"><strong>Số Phòng:</strong> ${Phong.soPhong}</p>
-                                            <p class="text-gray-700"><strong>Khu ID:</strong> ${Phong.khuID}</p>
-                                            <p class="text-gray-700"><strong>Loại phòng:</strong> ${Phong.loaiPhong}</p>
+                                            <p class="text-gray-700"><strong>Phòng ID:</strong> ${phong.phongID}</p>
+                                            <p class="text-gray-700"><strong>Số Phòng:</strong> ${phong.soPhong}</p>
+                                            <p class="text-gray-700"><strong>Khu ID:</strong> ${phong.khuID}</p>
+                                            <p class="text-gray-700"><strong>Loại phòng:</strong> ${phong.loaiPhong}</p>
                                             <p class="text-gray-700"><strong>Phòng:</strong>  
-                                                <c:if test="${Phong.phongConTrong eq 1}">
+                                                <c:if test="${phong.phongConTrong eq 1}">
                                                     <span>Trống</span><br>
                                                 </c:if>
+                                                <c:if test="${phong.phongConTrong eq 0}">
+                                                    <span>Có khách thuê</span><br>
+                                                </c:if>
                                             </p>
-                                            <p class="text-gray-700"><strong>Ghi Chú:</strong> ${Phong.ghiChu}</p>
-                                            <p class="text-gray-700"><strong>Giá:</strong> ${Phong.gia}VND</p>
-                                            <!-- Add any additional actions/buttons here -->
+                                            <p class="text-gray-700"><strong>Ghi Chú:</strong> ${phong.ghiChu}</p>
+                                            <p class="text-gray-700"><strong>Giá:</strong> ${phong.gia}</p>
                                             <div class="mt-4 flex space-x-2">
-                                               
-                                               
-                                                <a class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200" href="/quanlytro/listphong">Trang chủ</a>
+                                                <c:if test="${sessionScope.acc.role == 0}">
+                                                    <c:if test="${phong.phongConTrong eq 1}">
+                                                        <form action="deletePhong" method="get" style="display: inline;" onsubmit="return confirmDelete();">
+                                                            <input type="hidden" name="phongID" value="${phong.phongID}">
+                                                            <button type="submit" class="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200">Xóa</button>
+                                                        </form>
+                                                    </c:if>
+                                                </c:if>
+                                                <form id="editForm" action="nhapeditphong" method="post">
+                                                    <input type="hidden" name="phongID" value="${phong.phongID}">
+                                                    <button type="submit" class="bg-purple-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200">Sửa</button>
+                                                </form>                                            <a class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200" href="/quanlytro/listphong">Trang chủ</a>
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- /Card -->
                                 </div>
-                            </c:if>
+                                <!-- /Card Section Ends Here -->
+                            </c:forEach>
                         </div>
                     </main>
-
 
 
 
@@ -102,6 +116,5 @@
     </body>
 
 </html>
-
 
 

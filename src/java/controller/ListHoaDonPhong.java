@@ -39,13 +39,13 @@ public class ListHoaDonPhong extends HttpServlet {
         HttpSession session = request.getSession();
         Accounts a = (Accounts) session.getAttribute("acc");
 
-        if (a == null || a.getRole() == 1) {
+        if (a == null || a.getRole() == 0) {
             response.sendRedirect("login.jsp");
         } else {
             String id = request.getParameter("id");
             SonDAO sondao = new SonDAO();
 
-            HoaDon listhdon = sondao.getIDByHoaDonIDByPhongID(id);
+            HoaDon listhdon = sondao.getIDByHoaDonIDByPhongIDAndAccountID(id, a.getAccountID());
 
             request.setAttribute("listhdon", listhdon);
             request.setAttribute("phongid", id);

@@ -41,7 +41,7 @@ public class LoadHopDong extends HttpServlet {
         HttpSession session = request.getSession();
         Accounts a = (Accounts) session.getAttribute("acc");
 
-        if (a == null || a.getRole() == 1) {
+        if (a == null) {
             response.sendRedirect("listhopdong");
         } else {
             String lpid = request.getParameter("lpid");
@@ -51,6 +51,7 @@ public class LoadHopDong extends HttpServlet {
             HopDong hd = sondao.getHopDongByHopDongID(lhdid);
             List<KhachThue> kt = sondao.getKhachThueByPhongID(lpid);
 
+            request.setAttribute("lpid", lpid);
             request.setAttribute("listhd", hd);
             request.setAttribute("listkt", kt);
 

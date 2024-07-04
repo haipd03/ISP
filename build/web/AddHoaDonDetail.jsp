@@ -66,6 +66,10 @@
                                                 <div class="modal-header">						
                                                     <h4 class="modal-title">Chi tiết</h4>
                                                 </div>
+
+                                                <c:if test="${not empty error}">
+                                                    <p style="color: red; font-size: 1.2em; font-weight: bold;">${error}</p>
+                                                </c:if>
                                                 <div class="modal-body">					
                                                     <div class="form-group">
                                                         <label>Mã hóa đơn chi tiết</label>
@@ -74,7 +78,9 @@
 
                                                     <div class="form-group">
                                                         <label>Mã hóa đơn</label>
-                                                        <input value="${hdid1}" name="HoaDonID" type="text" class="form-control" readonly required>                                    
+
+                                                        <input value="${id}" name="HoaDonID" type="text" class="form-control" readonly required>                                    
+
                                                     </div>
 
                                                     <div class="form-group">

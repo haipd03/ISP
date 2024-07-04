@@ -39,9 +39,9 @@
                     <div class="p-4">
                         <h1><p style="color: green;">${message3}</p></h1>
                         <h1><p style="color: green;">${message1}</p></h1>
-                           <c:if test="${not empty error}">
+                            <c:if test="${not empty error}">
                             <span style="color: red; font-size: 1.2em; font-weight: bold;">${error}</span>
-                           </c:if>
+                        </c:if>
                         <h4 class="text-lg font-semibold mb-2">Danh sách yêu cầu:</h4>
                         <div class="overflow-x-auto">
                             <div class="mb-4">
@@ -111,7 +111,20 @@
                                                         <fmt:formatDate value="${r.submittedAt}" pattern="HH:mm - dd/MM/yyyy"/>
                                                     </td>
                                                     <td class="px-4 py-2">
-                                                        ${r.tinhTrang == 1 ? 'Đã làm' : 'Chưa làm'}
+                                                        <c:choose>
+                                                            <c:when test="${r.tinhTrang == 1}">
+                                                                Đã làm
+                                                            </c:when>
+                                                            <c:when test="${r.tinhTrang == 0}">
+                                                                Chưa làm
+                                                            </c:when>
+                                                            <c:when test="${r.tinhTrang == 2}">
+                                                                Đang làm
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                Không rõ
+                                                            </c:otherwise>
+                                                        </c:choose>
                                                     </td>
                                                     <td class="px-4 py-2">
                                                         <a href="LoadRequest?id=${r.requestID}" class="text-blue-500 hover:text-blue-700 mr-2">Chi tiết</a>
@@ -184,14 +197,30 @@
                                                     <td class="px-4 py-2">
                                                         <fmt:formatDate value="${g.submittedAt}" pattern="HH:mm - dd/MM/yyyy"/>
                                                     </td>
-                                                    <td class="px-4 py-2">${g.tinhTrang == 1 ? 'Đã làm' : 'Chưa làm'}</td>
+                                                    <td class="px-4 py-2">
+                                                        <c:choose>
+                                                            <c:when test="${g.tinhTrang == 1}">
+                                                                Đã làm
+                                                            </c:when>
+                                                            <c:when test="${g.tinhTrang == 0}">
+                                                                Chưa làm
+                                                            </c:when>
+                                                            <c:when test="${g.tinhTrang == 2}">
+                                                                Đang làm
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                Không rõ
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </td>
                                                     <td class="px-4 py-2">
                                                         <a href="ReadRequestGui?id=${g.requestID}" class="text-blue-500 hover:text-blue-700 mr-2">Chi tiết</a>
                                                         <c:if test="${g.tinhTrang == 0}">
                                                             <a href="DeleteRequest?id=${g.requestID}" class="text-red-500 hover:text-red-700" onclick="confirmDelete(event, this.href)">Xóa</a>
                                                         </c:if>
                                                     </td>
-                                                </c:forEach>
+                                                </tr>
+                                            </c:forEach>
                                         </tbody>
                                     </table>
                                 </c:when>

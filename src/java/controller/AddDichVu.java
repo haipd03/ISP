@@ -22,7 +22,7 @@ public class AddDichVu extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         String dvid = request.getParameter("DichVuID");
-        String soPhong = request.getParameter("SoPhong");
+        String phongID = request.getParameter("PhongID");
         String name = request.getParameter("Name");
         String giaTien = request.getParameter("GiaTien");
         String tuNgay = request.getParameter("TuNgay");
@@ -34,10 +34,12 @@ public class AddDichVu extends HttpServlet {
         String giaTienPattern = "^[0-9]+$";
         String datePattern = "\\d{4}-\\d{2}-\\d{2}";
 
-        if (!dvid.matches(giaTienPattern) || !soPhong.matches(giaTienPattern) || !giaTien.matches(giaTienPattern) || !tuNgay.matches(datePattern) || !denNgay.matches(datePattern)
+
+        if (!dvid.matches(giaTienPattern) || !phongID.matches(giaTienPattern) || !giaTien.matches(giaTienPattern) || !tuNgay.matches(datePattern) || !denNgay.matches(datePattern)
                 || !chiSoCu.matches(giaTienPattern) || !chiSoMoi.matches(giaTienPattern)) {
             request.setAttribute("errorMessage", "Dữ liệu nhập vào không hợp lệ!");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("AddDichVu.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("insertdichvu");
+
             dispatcher.forward(request, response);
             return;
         }
@@ -62,14 +64,18 @@ public class AddDichVu extends HttpServlet {
                 return;
             }
 
-            dao.insertDichVu(dvid, soPhong, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi);
+
+            dao.insertDichVu(dvid, phongID, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi);
+
 
             request.getSession().setAttribute("success", "Đã Thêm Dịch Vụ thành công!");
             response.sendRedirect("listdichvu?id=" + dvid);
 
         } catch (NumberFormatException | ParseException e) {
             request.setAttribute("errorMessage", "Lỗi định dạng dữ liệu!");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("AddDichVu.jsp");
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("insertdichvu");
+
             dispatcher.forward(request, response);
         }
     }

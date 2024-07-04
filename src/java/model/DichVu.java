@@ -13,7 +13,7 @@ import java.util.Date;
 public class DichVu {
 
     private int dichVuID;
-    private int soPhong;
+    private int PhongID;
     private String name;
     private int giaTien;
     private Date tuNgay;
@@ -24,9 +24,10 @@ public class DichVu {
     public DichVu() {
     }
 
-    public DichVu(int dichVuID, int soPhong, String name, int giaTien, Date tuNgay, Date denNgay, int chiSoCu, int chiSoMoi) {
+
+    public DichVu(int dichVuID, int PhongID, String name, int giaTien, Date tuNgay, Date denNgay, int chiSoCu, int chiSoMoi) {
         this.dichVuID = dichVuID;
-        this.soPhong = soPhong;
+        this.PhongID = PhongID;
         this.name = name;
         this.giaTien = giaTien;
         this.tuNgay = tuNgay;
@@ -43,12 +44,12 @@ public class DichVu {
         this.dichVuID = dichVuID;
     }
 
-    public int getSoPhong() {
-        return soPhong;
+    public int getPhongID() {
+        return PhongID;
     }
 
-    public void setSoPhong(int soPhong) {
-        this.soPhong = soPhong;
+    public void setPhongID(int PhongID) {
+        this.PhongID = PhongID;
     }
 
     public String getName() {
@@ -101,7 +102,7 @@ public class DichVu {
 
     @Override
     public String toString() {
-        return "DichVu{" + "dichVuID=" + dichVuID + ", soPhong=" + soPhong + ", name=" + name + ", giaTien=" + giaTien + ", tuNgay=" + tuNgay + ", denNgay=" + denNgay + ", chiSoCu=" + chiSoCu + ", chiSoMoi=" + chiSoMoi + '}';
+        return "DichVu{" + "dichVuID=" + dichVuID + ", PhongID=" + PhongID + ", name=" + name + ", giaTien=" + giaTien + ", tuNgay=" + tuNgay + ", denNgay=" + denNgay + ", chiSoCu=" + chiSoCu + ", chiSoMoi=" + chiSoMoi + '}';
     }
 
 }

@@ -89,6 +89,10 @@
                                                 <input class="bg-gray-100 appearance-none border border-gray-300 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                                        name="tinhTrang" type="text" readonly value="Đã làm">
                                             </c:if>
+                                            <c:if test="${requests[0].tinhTrang == 2}">
+                                                <input class="bg-gray-100 appearance-none border border-gray-300 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                                       name="tinhTrang" type="text" readonly value="Đang làm">
+                                            </c:if>
                                         </div>
                                         <div class="flex justify-between">
                                             <button class="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded"

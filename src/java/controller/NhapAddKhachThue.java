@@ -15,7 +15,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Accounts;
-import model.HopDong;
 import model.Phong;
 
 /**
@@ -40,24 +39,24 @@ public class NhapAddKhachThue extends HttpServlet {
         HttpSession session = request.getSession();
         Accounts a = (Accounts) session.getAttribute("acc");
 
-        if (a == null || a.getRole() == 1) {
+        if (a == null) {
             response.sendRedirect("login.jsp");
-        } else {
-            String ktid = request.getParameter("naktpid");
-            SonDAO sondao = new SonDAO();
-
-            List<Phong> loaiPhongList = sondao.getPhongByPhongID(ktid);
-            List<HopDong> hopDongList = sondao.getHopDong();
-            int nextKhachID = sondao.getNextKhachID();
-
-            request.setAttribute("lp1", loaiPhongList);
-            request.setAttribute("lp2", hopDongList);
-            request.setAttribute("nextKhachID", nextKhachID);
-
-            request.getRequestDispatcher("NhapAddKhachThue.jsp").forward(request, response);
+            return;
         }
-    }
+        String ktid = request.getParameter("naktpid");
+        SonDAO sondao = new SonDAO();
+        List<Phong> loaiPhongList;
+        if (a.getRole() == 1) {
+            loaiPhongList = sondao.getPhongByAccountID(ktid, a.getAccountID());
+        } else {
+            loaiPhongList = sondao.getPhongByPhongID(ktid);
+        }
+        int nextKhachID = sondao.getNextKhachID();
+        request.setAttribute("lp1", loaiPhongList);
+        request.setAttribute("nextKhachID", nextKhachID);
 
+        request.getRequestDispatcher("NhapAddKhachThue.jsp").forward(request, response);
+    }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

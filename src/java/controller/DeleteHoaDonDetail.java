@@ -49,7 +49,7 @@ public class DeleteHoaDonDetail extends HttpServlet {
             } catch (SQLException e) {
                 e.printStackTrace();
                 // Set error message as request attribute and forward back to list page
-                request.setAttribute("error", "Xóa hóa đơn Detail không thành công ");
+                request.setAttribute("error", "Xóa hóa đơn chi tiết không thành công ");
                 request.getRequestDispatcher("listhoadon").forward(request, response);
             }
         }

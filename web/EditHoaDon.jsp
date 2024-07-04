@@ -19,7 +19,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <title>Edit Hóa Đơn</title>
+        <title>Edit Thông tin Hóa Đơn</title>
     </head>
 
     <body>
@@ -39,15 +39,18 @@
                     <!-- Main Content -->
                     <div class="mb-4 md:mx-2 lg:mx-2 border border-gray-300 rounded-lg shadow-lg w-full md:w-1/2 lg:w-4/5">
                         <div class="bg-gray-600 text-white px-4 py-3 rounded-t-lg">
-                            Sửa Hóa Đơn
+                            Sửa Thông tin Hóa Đơn
                         </div>
+                        <c:if test="${not empty error}">
+                            <p style="color: red; font-size: 1.2em; font-weight: bold;">${error}</p>
+                        </c:if>
                         <div class="p-6 bg-white">
                             <div class="container">
-                                <h2 class="text-center">Sửa Hóa Đơn</h2>
+                                <h2 class="text-center">Sửa Thông tin Hóa Đơn</h2>
                                 <div class="row justify-content-center">
                                     <div class="col-md-8">
                                         <div class="card">
-                                            <div class="card-header">Sửa Hóa Đơn</div>
+                                            <div class="card-header">Sửa Thông tin Hóa Đơn</div>
                                             <div class="card-body">
                                                 <form action="edithoadon" method="post">
                                                     <div class="form-group">
@@ -64,7 +67,11 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Tình trạng</label>
-                                                        <input value="${hoadon.tinhTrangThanhToan}" name="TinhTrangThanhToan" type="text" class="form-control" required>
+                                                        <select name="TinhTrangThanhToan" id="TinhTrangThanhToan" class="form-control" required>
+                                                    <option value="Đã thanh toán" <c:if test="${hoadon.tinhTrangThanhToan eq 'Đã thanh toán'}">selected</c:if>>Đã thanh toán</option>
+                                                    <option value="Chưa Thanh Toán" <c:if test="${hoadon.tinhTrangThanhToan eq 'Chưa thanh toán'}">selected</c:if>>Chưa thanh toán</option>
+                                                    
+                                                    </select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Từ ngày</label>
@@ -76,7 +83,7 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Tổng tiền</label>
-                                                        <input value="${hoadon.tongTien}" name="TongTien" type="text" class="form-control" required>
+                                                        <input value="${hoadon.tongTien}" name="TongTien" type="text" class="form-control"  readonly required>
                                                     </div>
                                                     <button type="submit" class="btn btn-primary">Lưu</button>
                                                     <a href="listhoadon" class="btn btn-danger">Quay về</a>

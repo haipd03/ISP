@@ -35,7 +35,9 @@ public class EditDV extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         String dvid = request.getParameter("DichVuID");
-        String soPhong = request.getParameter("SoPhong");
+
+        String PhongID = request.getParameter("PhongID");
+
         String name = request.getParameter("Name");
         String giaTienStr = request.getParameter("GiaTien");
         String tuNgayStr = request.getParameter("TuNgay");
@@ -43,7 +45,9 @@ public class EditDV extends HttpServlet {
         String chiSoCuStr = request.getParameter("ChiSoCu");
         String chiSoMoiStr = request.getParameter("ChiSoMoi");
 
-        if (dvid != null && soPhong != null && name != null && giaTienStr != null && tuNgayStr != null && denNgayStr != null && chiSoCuStr != null && chiSoMoiStr != null) {
+
+        if (dvid != null && PhongID != null && name != null && giaTienStr != null && tuNgayStr != null && denNgayStr != null && chiSoCuStr != null && chiSoMoiStr != null) {
+
             
             try {
                 // Validate giaTien, chiSoCu, chiSoMoi are integers
@@ -55,6 +59,15 @@ public class EditDV extends HttpServlet {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 Date tuNgay = dateFormat.parse(tuNgayStr);
                 Date denNgay = dateFormat.parse(denNgayStr);
+
+                
+                if (dvid != null && PhongID != null) {
+                    request.setAttribute("error", "Không thể Sửa Dịch Vụ");
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("listdichvu");
+                    dispatcher.forward(request, response);
+                    return;
+                }
+
 
                 // Check chiSoCu < chiSoMoi
                 if (chiSoCu >= chiSoMoi) {
@@ -74,7 +87,9 @@ public class EditDV extends HttpServlet {
 
                 // Perform the update
                 LinhDao u = new LinhDao();
-                u.editDichVu(dvid, soPhong, name, giaTienStr, tuNgay, denNgay, chiSoCuStr, chiSoMoiStr);
+
+                u.editDichVu(dvid, PhongID, name, giaTienStr, tuNgay, denNgay, chiSoCuStr, chiSoMoiStr);
+
                 
                 // Set success message
                 request.setAttribute("success", "Đã sửa Dịch Vụ thành công!");

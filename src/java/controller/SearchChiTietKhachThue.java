@@ -1,110 +1,75 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 
 package controller;
 
 import dal.HaiDao;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
+import model.Accounts;
 import model.KhachThue;
 
-/**
- *
- * @author admin
- */
 @WebServlet(name="SearchChiTietKhachThue", urlPatterns={"/searchchitietkhachthue"})
 public class SearchChiTietKhachThue extends HttpServlet {
    
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-         response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-       String name = request.getParameter("name");
-       String CCCD = request.getParameter("CCCD");
-       String SDT = request.getParameter("SDT");
+
+        HttpSession session = request.getSession();
+        Accounts a = (Accounts) session.getAttribute("acc");
+
+        String name = request.getParameter("name");
+        String CCCD = request.getParameter("CCCD");
+        String SDT = request.getParameter("SDT");
 
         HaiDao dao = new HaiDao();
         List<KhachThue> ktList;
+          List<KhachThue> ktList1;
 
-        // Fetch all KhachThue initially
-        List<KhachThue> allKtList = dao.getKhachThue();
-
-    
         if ((name != null && !name.trim().isEmpty())
-                || (CCCD != null && !name.trim().isEmpty())
-                || (SDT != null && !name.trim().isEmpty())){
+                || (CCCD != null && !CCCD.trim().isEmpty())
+                || (SDT != null && !SDT.trim().isEmpty())) {
             try {
-                ktList = dao.searchKhachThueByCriteria(name,CCCD,SDT);
-                if (ktList.isEmpty()) {
-                    request.setAttribute("error", "Không tìm thấy khách thuê với tên: " + name);
-                    request.setAttribute("listK", allKtList); // Reassign initial list
+                ktList = dao.searchKhachThueByCriteria(name, SDT, CCCD);
+                ktList1 = dao.searchKhachThueByCriteria1(a.getAccountID(), name, SDT, CCCD);
+                if (ktList.isEmpty() && ktList1.isEmpty()) {
+                    request.setAttribute("error", "Không tìm thấy khách thuê với tiêu chí tìm kiếm.");
                 } else {
                     request.setAttribute("listK", ktList); // Update ktList with search results
+                    request.setAttribute("listK1", ktList1); // Update ktList with search results
                 }
             } catch (Exception e) {
                 request.setAttribute("error", "Đã xảy ra lỗi trong quá trình tìm kiếm.");
-                request.setAttribute("listK", allKtList); // Reassign initial list
             }
-        } else {
-            request.setAttribute("listK", allKtList); // Reassign initial list
-            request.setAttribute("error", "Vui lòng nhập tên để tìm kiếm.");
-        }
+        } 
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("ChiTietKhachThue.jsp");
         dispatcher.include(request, response); 
-        
+
     } 
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
-     * Handles the HTTP <code>GET</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         processRequest(request, response);
     } 
 
-    /** 
-     * Handles the HTTP <code>POST</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /** 
-     * Returns a short description of the servlet.
-     * @return a String containing servlet description
-     */
+
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
-
+    }
 }

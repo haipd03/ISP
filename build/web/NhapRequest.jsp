@@ -104,8 +104,9 @@
                                             </label>
                                             <select class="bg-gray-100 appearance-none border border-gray-300 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="tinhTrang">
                                                 <!--<option value="" disabled selected hidden>${r.tinhTrang == 1 ? 'Đã làm' : 'Chưa làm'}</option>-->
-                                                <option value="1" ${r.tinhTrang == 1 ? 'selected' : ''}>Đã làm</option>
                                                 <option value="0" ${r.tinhTrang == 0 ? 'selected' : ''}>Chưa làm</option>
+                                                <option value="1" ${r.tinhTrang == 1 ? 'selected' : ''}>Đã làm</option>
+                                                <option value="2" ${r.tinhTrang == 2 ? 'selected' : ''}>Đang làm</option>
                                             </select>
                                         </div>
                                         <p style="color: red;">${Message}</p>

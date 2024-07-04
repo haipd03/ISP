@@ -62,8 +62,13 @@
                                                             <input name="DichVuID" type="text" class="form-control" value="${nextDichVuID}" readonly>
                                                         </div>
                                                         <div class="form-group col-md-6">
-                                                            <label>Số Phòng:</label>
-                                                            <input name="SoPhong" type="text" class="form-control" required>
+
+                                                            <label>Số Phòng ID:</label>
+                                                            <select name="PhongID" class="form-control" required>
+                                                                <c:forEach var="phong" items="${ldv}">
+                                                                    <option value="${phong.phongID}">${phong.phongID}</option>
+                                                                </c:forEach>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                     <div class="form-row">

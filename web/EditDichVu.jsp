@@ -57,8 +57,10 @@
                                                             <input value="${detail.dichVuID}" name="DichVuID" type="text" class="form-control" readonly required>
                                                         </div>
                                                         <div class="form-group col-md-6">
-                                                            <label>Số phòng</label>
-                                                            <input value="${detail.soPhong}" name="SoPhong" type="text" class="form-control" readonly required>
+
+                                                            <label>Số phòng ID</label>
+                                                            <input value="${detail.phongID}" name="PhongID" type="text" class="form-control" readonly required>
+
                                                         </div>
                                                     </div>
                                                     <div class="form-row">

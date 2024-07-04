@@ -59,9 +59,12 @@ public class ListAllThietBi extends HttpServlet {
             int offset = (page - 1) * pageSize;
 
             List<ThietBi> ltb = dao.getAllThietBi(offset, pageSize);
+            List<ThietBi> ltb1 = dao.getAllThietBibyAccountID(a.getAccountID(), offset, pageSize); // Corrected here
 
             int totalRecords = dao.getTotalThietBiCount();
+            int totalRecords1 = dao.countThietBiByAccountID(a.getAccountID());
             int totalPages = (int) Math.ceil((double) totalRecords / pageSize);
+            int totalPages1 = (int) Math.ceil((double) totalRecords1 / pageSize);
 
             List<Khu> listK = dao.getKhuByKhuID();
             List<Phong> listP = dao.getPhong();
@@ -69,14 +72,17 @@ public class ListAllThietBi extends HttpServlet {
             request.setAttribute("listK", listK);
             request.setAttribute("listP", listP);
             request.setAttribute("ltb", ltb);
+            request.setAttribute("ltb1", ltb1);
             request.setAttribute("listK3", acc);
+
             request.setAttribute("currentPage", page);
             request.setAttribute("totalPages", totalPages);
+            request.setAttribute("totalPages1", totalPages1);
+
             request.getRequestDispatcher("ListThietBi.jsp").forward(request, response);
         }
     }
 
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -149,15 +155,18 @@ public class ListAllThietBi extends HttpServlet {
                     return;
                 }
             }
-            String pageStr = request.getParameter("page");
-            int page = (pageStr == null) ? 1 : Integer.parseInt(pageStr);
-            int pageSize = 15;
-            int offset = (page - 1) * pageSize;
-            List<ThietBi> ltb = dao.searchListThietBi(accountID, khuID, phongID, name, tinhTrang, gia, offset, pageSize);
-            int totalRecords1 = dao.getTotalThietBiCount1();
-            int totalPages = (int) Math.ceil((double) totalRecords1 / pageSize);
+//            String pageStr = request.getParameter("page");
+//            int page = (pageStr == null) ? 1 : Integer.parseInt(pageStr);
+//            int pageSize = 15;
+//            int offset = (page - 1) * pageSize;
+            List<ThietBi> ltb = dao.searchListThietBi(accountID, khuID, phongID, name, tinhTrang, gia);
+            List<ThietBi> ltb1 = dao.searchListThietBi1(a.getAccountID(), khuID, phongID, name, tinhTrang, gia);
+//            int totalRecords1 = dao.getTotalThietBiCount1();
+//            int totalPages = (int) Math.ceil((double) totalRecords1 / pageSize);
 
-            if (ltb.isEmpty()) {
+
+            if (ltb.isEmpty()&& ltb1.isEmpty()) {
+
                 request.setAttribute("listK3", acc);
                 request.setAttribute("listK", listK);
                 request.setAttribute("listP", listP);
@@ -171,8 +180,10 @@ public class ListAllThietBi extends HttpServlet {
             request.setAttribute("listP", listP);
             request.setAttribute("ltb", ltb);
 
-            request.setAttribute("currentPage", page);
-            request.setAttribute("totalPages", totalPages);
+            request.setAttribute("ltb1", ltb1);
+//            request.setAttribute("currentPage", page);
+//            request.setAttribute("totalPages", totalPages);
+
             request.getRequestDispatcher("ListThietBi.jsp").forward(request, response);
         }
     }
