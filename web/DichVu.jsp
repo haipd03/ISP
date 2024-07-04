@@ -86,7 +86,6 @@
                                 <thead>
                                     <tr class="bg-gray-200 text-gray-800">
                                         <th class="px-4 py-2 text-center">Mã dịch vụ</th>
-
                                         <th class="px-4 py-2 text-center">Số phòng ID</th>
                                         <th class="px-4 py-2 text-center">Tên</th>
                                         <th class="px-4 py-2 text-center">Giá tiền</th>
@@ -94,7 +93,6 @@
                                         <th class="px-4 py-2 text-center">Đến ngày</th>
                                         <th class="px-4 py-2 text-center">Chỉ số cũ</th>
                                         <th class="px-4 py-2 text-center">Chỉ số mới</th>
-
                                             <c:if test="${sessionScope.acc.role == 1}">
                                             <th class="px-4 py-2 text-center">Thao tác</th>
                                             </c:if>
@@ -104,9 +102,7 @@
                                     <c:forEach items="${ldv}" var="o">
                                         <tr class="transition-colors hover:bg-gray-100">
                                             <td class="px-4 py-2 text-center">${o.dichVuID}</td>
-
                                             <td class="px-4 py-2 text-center">${o.phongID}</td>
-
                                             <td class="px-4 py-2 text-center">${o.name}</td>
                                             <td class="px-4 py-2 text-center">${o.giaTien}</td>
                                             <td class="px-4 py-2 text-center">${o.tuNgay}</td>
