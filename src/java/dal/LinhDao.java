@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import model.DichVu;
+import model.DichVuChung;
+import model.Khu;
 import model.Phong;
 
 /*
@@ -18,6 +20,7 @@ import model.Phong;
  * @author vulin
  */
 public class LinhDao extends MyDAO {
+
 
     public List<DichVu> getAllDichVu() {
         List<DichVu> dichVuList = new ArrayList<>();
@@ -36,7 +39,6 @@ public class LinhDao extends MyDAO {
                 int chiSoCu = rs.getInt("ChiSoCu");
                 int chiSoMoi = rs.getInt("ChiSoMoi");
 
-
                 DichVu dichVu = new DichVu(dichVuID, phongID, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi);
                 dichVuList.add(dichVu);
             }
@@ -46,31 +48,59 @@ public class LinhDao extends MyDAO {
         return dichVuList;
     }
 
-//    public List<DichVu> getDichVuBySoPhong(String soPhong) {
-//        List<DichVu> dichVuSearch = new ArrayList<>();
-//        String sql = "SELECT * FROM DichVu WHERE SoPhong = ?";
-//        try {
-//            PreparedStatement ps = con.prepareStatement(sql);
-//            ps.setString(1, soPhong);
-//            ResultSet rs = ps.executeQuery();
-//            while (rs.next()) {
-//                int dichVuID = rs.getInt("DichVuID");
-//                int soPhong1 = rs.getInt("SoPhong");
-//                String name = rs.getString("Name");
-//                int giaTien = rs.getInt("GiaTien");
-//                Date tuNgay = rs.getDate("TuNgay");
-//                Date denNgay = rs.getDate("DenNgay");
-//                int chiSoCu = rs.getInt("ChiSoCu");
-//                int chiSoMoi = rs.getInt("ChiSoMoi");
-//
-//                DichVu dichVu = new DichVu(dichVuID, soPhong1, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi);
-//                dichVuSearch.add(dichVu);
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace(); // In ra lỗi nếu có
-//        }
-//        return dichVuSearch;
-//    }
+    public List<Khu> getKhuByAccountID(int accountID) {
+        List<Khu> khus = new ArrayList<>();
+        String sql = "select k.*\n"
+                + "from khu k\n"
+                + "join Accounts a on a.AccountID = k.AccountID\n"
+                + "where a.AccountID=?";
+        try {
+            ps = con.prepareStatement(sql);
+             ps.setInt(1, accountID);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int KhuID = rs.getInt("KhuID");
+                String Name = rs.getString("Name");
+                int AccountID = rs.getInt("AccountID");
+                Khu khu = new Khu(KhuID, Name, AccountID);
+                khus.add(khu);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return khus;
+    }
+
+    public List<DichVuChung> getAllDichVuChung() {
+        List<DichVuChung> dichVuChungList = new ArrayList<>();
+        String sql = "SELECT * FROM DichVuChung";
+
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int dichVuChungID = rs.getInt("DichVuChungID");
+                int khuID = rs.getInt("KhuID");
+                String dichVuChungName = rs.getString("DichVuChungName");
+                String ten = rs.getString("Ten");
+                String sdt = rs.getString("SDT");
+                int gia = rs.getInt("Gia");
+                Date tuNgay = rs.getDate("TuNgay");
+                Date denNgay = rs.getDate("DenNgay");
+                String tinhTrang = rs.getString("TinhTrang");
+                String ghiChu = rs.getString("GhiChu");
+
+                DichVuChung dichVuChung = new DichVuChung(dichVuChungID, khuID, dichVuChungName, ten, sdt, gia, tuNgay, denNgay, tinhTrang, ghiChu);
+                dichVuChungList.add(dichVuChung);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Consider logging the exception or rethrowing it
+        }
+
+        return dichVuChungList;
+    }
+
     public List<DichVu> getDichVuByCriteria(String phongID, String name, String tuNgay, String denNgay) {
         List<DichVu> dichVuSearch = new ArrayList<>();
         String sql = "SELECT * FROM DichVu WHERE 1=1";
@@ -135,6 +165,93 @@ public class LinhDao extends MyDAO {
         return dichVuSearch;
     }
 
+    public List<DichVuChung> getDichVuChungByCriteria(String dichVuChungName, String ten, String sdt, Integer gia, String tuNgay, String denNgay, String tinhTrang, int accountID, int role, Integer khuID) {
+        List<DichVuChung> dichVuChungList = new ArrayList<>();
+        String sql = "SELECT dvc.* FROM DichVuChung dvc JOIN Khu k ON dvc.KhuID = k.KhuID JOIN Accounts a ON a.AccountID = k.AccountID WHERE 1=1";
+
+        if (role == 1) {
+            sql += " AND a.AccountID = ?";
+        }
+        if (role == 0 && khuID != null) {
+            sql += " AND k.KhuID = ?";
+        }
+
+        if (dichVuChungName != null && !dichVuChungName.trim().isEmpty()) {
+            sql += " AND dvc.DichVuChungName LIKE ?";
+        }
+        if (ten != null && !ten.trim().isEmpty()) {
+            sql += " AND dvc.Ten LIKE ?";
+        }
+        if (sdt != null && !sdt.trim().isEmpty()) {
+            sql += " AND dvc.SDT LIKE ?";
+        }
+        if (gia != null) {
+            sql += " AND dvc.Gia = ?";
+        }
+        if (tuNgay != null && !tuNgay.trim().isEmpty()) {
+            sql += " AND dvc.TuNgay >= ?";
+        }
+        if (denNgay != null && !denNgay.trim().isEmpty()) {
+            sql += " AND dvc.DenNgay <= ?";
+        }
+        if (tinhTrang != null && !tinhTrang.trim().isEmpty()) {
+            sql += " AND dvc.TinhTrang LIKE ?";
+        }
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            int paramIndex = 1;
+
+            if (role == 1) {
+                ps.setInt(paramIndex++, accountID);
+            }
+            if (role == 0 && khuID != null) {
+                ps.setInt(paramIndex++, khuID);
+            }
+
+            if (dichVuChungName != null && !dichVuChungName.trim().isEmpty()) {
+                ps.setString(paramIndex++, "%" + dichVuChungName + "%");
+            }
+            if (ten != null && !ten.trim().isEmpty()) {
+                ps.setString(paramIndex++, "%" + ten + "%");
+            }
+            if (sdt != null && !sdt.trim().isEmpty()) {
+                ps.setString(paramIndex++, "%" + sdt + "%");
+            }
+            if (gia != null) {
+                ps.setInt(paramIndex++, gia);
+            }
+            if (tuNgay != null && !tuNgay.trim().isEmpty()) {
+                ps.setDate(paramIndex++, java.sql.Date.valueOf(tuNgay));
+            }
+            if (denNgay != null && !denNgay.trim().isEmpty()) {
+                ps.setDate(paramIndex++, java.sql.Date.valueOf(denNgay));
+            }
+            if (tinhTrang != null && !tinhTrang.trim().isEmpty()) {
+                ps.setString(paramIndex++, "%" + tinhTrang + "%");
+            }
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int dichVuChungID = rs.getInt("DichVuChungID");
+                int khuIDResult = rs.getInt("KhuID");
+                String dichVuChungNameResult = rs.getString("DichVuChungName");
+                String tenResult = rs.getString("Ten");
+                String sdtResult = rs.getString("SDT");
+                int giaResult = rs.getInt("Gia");
+                Date tuNgayResult = rs.getDate("TuNgay");
+                Date denNgayResult = rs.getDate("DenNgay");
+                String tinhTrangResult = rs.getString("TinhTrang");
+                String ghiChu = rs.getString("GhiChu");
+
+                DichVuChung dichVuChung = new DichVuChung(dichVuChungID, khuIDResult, dichVuChungNameResult, tenResult, sdtResult, giaResult, tuNgayResult, denNgayResult, tinhTrangResult, ghiChu);
+                dichVuChungList.add(dichVuChung);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return dichVuChungList;
+    }
+
     public DichVu getDichVubyID(String id) {
         String sql = "select * from DichVu where DichVuID = ?";
         try {
@@ -160,6 +277,32 @@ public class LinhDao extends MyDAO {
         return null;
     }
 
+    public DichVuChung getDichVuChungByID(String id) {
+        String sql = "SELECT * FROM DichVuChung WHERE DichVuChungID = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                int dichVuChungID = rs.getInt("DichVuChungID");
+                int khuID = rs.getInt("KhuID");
+                String dichVuChungName = rs.getString("DichVuChungName");
+                String ten = rs.getString("Ten");
+                String sdt = rs.getString("Sdt");
+                int gia = rs.getInt("Gia");
+                Date tuNgay = rs.getDate("TuNgay");
+                Date denNgay = rs.getDate("DenNgay");
+                String tinhTrang = rs.getString("TinhTrang");
+                String ghiChu = rs.getString("GhiChu");
+
+                DichVuChung dichVuChung = new DichVuChung(dichVuChungID, khuID, dichVuChungName, ten, sdt, gia, tuNgay, denNgay, tinhTrang, ghiChu);
+                return dichVuChung;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public void editDichVu(String id, String phongID, String name, String giaTien, Date tuNgay, Date denNgay, String chiSoCu, String chiSoMoi) {
         String query = "UPDATE DichVu\n"
@@ -218,6 +361,19 @@ public class LinhDao extends MyDAO {
         }
     }
 
+    public void deleteDichVuChung(int dichVuChungID) throws SQLException {
+        String sql = "DELETE FROM DichVuChung WHERE dichVuChungID = ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, dichVuChungID);
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Xóa dịch vụ chung không thành công, không có bản ghi nào bị ảnh hưởng.");
+            }
+        } catch (SQLException e) {
+            throw new SQLException("Lỗi khi xóa dịch vụ chung: " + e.getMessage(), e);
+        }
+    }
+
     public boolean dichVuIdExists(String dvid) {
         String query = "SELECT COUNT(*) FROM DichVu WHERE DichVuID = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -232,11 +388,62 @@ public class LinhDao extends MyDAO {
         return false;
     }
 
+    public void insertDichVuChung(String dichVuChungID, String khuID, String dichVuChungName, String ten, String sdt, String gia, String tuNgay, String denNgay, String tinhTrang, String ghiChu) {
+        String sql = "INSERT INTO DichVuChung (DichVuChungID, KhuID, DichVuChungName, Ten, Sdt, Gia, TuNgay, DenNgay, TinhTrang, GhiChu) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, dichVuChungID);
+            ps.setString(2, khuID);
+            ps.setString(3, dichVuChungName);
+            ps.setString(4, ten);
+            ps.setString(5, sdt);
+            ps.setString(6, gia);
+            ps.setString(7, tuNgay);
+            ps.setString(8, denNgay);
+            ps.setString(9, tinhTrang);
+            ps.setString(10, ghiChu);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void editDichVuChung(int dichVuChungID, int khuID, String dichVuChungName, String ten, String sdt, int gia, Date tuNgay, Date denNgay, String tinhTrang, String ghiChu) {
+        String query = "UPDATE DichVuChung\n"
+                + "SET KhuID = ?,\n"
+                + "    DichVuChungName = ?,\n"
+                + "    Ten = ?,\n"
+                + "    Sdt = ?,\n"
+                + "    Gia = ?,\n"
+                + "    TuNgay = ?,\n"
+                + "    DenNgay = ?,\n"
+                + "    TinhTrang = ?,\n"
+                + "    GhiChu = ?\n"
+                + "WHERE DichVuChungID = ?;";
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, khuID);
+            ps.setString(2, dichVuChungName);
+            ps.setString(3, ten);
+            ps.setString(4, sdt);
+            ps.setInt(5, gia);
+            ps.setDate(6, new java.sql.Date(tuNgay.getTime()));
+            ps.setDate(7, new java.sql.Date(denNgay.getTime()));
+            ps.setString(8, tinhTrang);
+            ps.setString(9, ghiChu);
+            ps.setInt(10, dichVuChungID);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) throws SQLException {
         LinhDao u = new LinhDao();
-        List<DichVu> dichVu = u.getAllDichVu();
-        for (DichVu phong : dichVu) {
-            System.out.println(phong);
-        }
+        //  List<DichVuChung> dichVu = u.getAllDichVuChung();
+        //  for (dichVu phong : dichVu) {
+        //      System.out.println(dichVu);
+        //     }
+        u.getAllDichVu();
     }
 }
