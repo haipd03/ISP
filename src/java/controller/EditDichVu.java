@@ -41,7 +41,6 @@ public class EditDichVu extends HttpServlet {
             response.sendRedirect("login.jsp");
         } else {
             String dvid = request.getParameter("id");
-            LinhDao dao = new LinhDao();
             SonDAO sondao = new SonDAO();
             DichVu tb = sondao.getDichVubyID(dvid, a.getAccountID());
             request.setAttribute("detail", tb);

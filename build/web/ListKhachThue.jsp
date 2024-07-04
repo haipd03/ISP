@@ -71,6 +71,17 @@
                                             </div>
                                         </td>
                                     </c:if>
+
+                                    <c:if test="${!(empty listHopDong1 || (sokhach > 0)) && phongDaCoHopDong}">
+                                        <td>
+                                            <div class="flex justify-end">
+                                                <form action="loadhopdong?lhdid=${listHopDong1.hopDongID}&lpid=${phongID}" method="post">
+                                                    <button class="bg-red-500 hover:bg-red-800 text-white font-bold py-2 px-4 rounded">Kết thúc Hợp Đồng</button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </c:if>
+
                                 </tr>    
                             </tbody>
                         </table>

@@ -49,7 +49,7 @@ public class AddKhachThue extends HttpServlet {
             errorMsg = "Số điện thoại người thân không hợp lệ.";
         } else if (QuanHeVoiNguoiThan != null && QuanHeVoiNguoiThan.length() > 50) {
             errorMsg = "Quan hệ với người thân không hợp lệ.";
-        } else if (PhongID == null || !PhongID.matches("\\d{12}")) {
+        } else if (PhongID == null || !PhongID.matches("\\d+")) {
             errorMsg = "Không thể thêm khách thuê.";
         }
 
