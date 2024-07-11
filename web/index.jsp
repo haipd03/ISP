@@ -214,7 +214,7 @@
                                                     <form action="loadphong" method="get">
                                                         <input type="hidden" name="PhongID" value="${p.phongID}" />
                                                         <button type="submit">
-                                                            Loại Phòng: ${p.loaiPhong} - Số Phòng: ${p.soPhong}
+                                                            Loại Phòng: ${p.loaiPhong} - Số Phòng: ${p.soPhong} - Khu: ${p.khuID}
                                                         </button>
                                                     </form>
                                                 </h3>

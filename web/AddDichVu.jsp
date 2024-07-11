@@ -102,7 +102,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <input type="submit" class="btn btn-success" value="Add">
+                                                        <input type="submit" class="btn btn-success" value="Thêm">
                                                         <a href="listdichvu?id=${detail.dichVuID}" class="btn btn-danger">Quay về</a>
                                                     </div>
                                                 </form>

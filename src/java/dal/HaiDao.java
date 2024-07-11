@@ -768,12 +768,41 @@ public List<HopDong> getHopDongByCriteria1(String soKhachThue, String hoVaTen, D
 
         return account;
     }
+    
+    public HoaDon getHoaDonByIdAndAccountID(int hoaDonID) {
+        HoaDon hoaDon = null;
+        String sql = "SELECT hd.* \n"
+                + "FROM HoaDon hd\n"
+                + "WHERE HoaDonID = ? ";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, hoaDonID);
+           
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    int hopDongID = rs.getInt("HopDongID");
+                    Date NgayThanhToan = rs.getDate("NgayThanhToan");
+
+                    String tinhTrangThanhToan = rs.getString("TinhTrangThanhToan");
+                    Date tuNgay = rs.getDate("TuNgay");
+                    Date denNgay = rs.getDate("DenNgay");
+                    int tongTien = rs.getInt("TongTien");
+
+                    hoaDon = new HoaDon(hoaDonID, hopDongID, NgayThanhToan, tinhTrangThanhToan, tuNgay, denNgay, tongTien);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return hoaDon;
+    }
 
     public static void main(String[] args) throws SQLException {
         HaiDao dao = new HaiDao();
-        List<HopDong> dichVu = dao.getHopDongByCriteria1(null, null, null, null,2);
-        for (HopDong phong : dichVu) {
-            System.out.println(phong);
-        }
+//        List<HopDong> dichVu = dao.getHopDongByCriteria1(null, null, null, null,2);
+//        for (HopDong phong : dichVu) {
+//            System.out.println(phong);
+//        }
+System.out.println(dao.getHoaDonById(1));
     }
 }

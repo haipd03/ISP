@@ -31,7 +31,7 @@
                 <!-- Thêm phần hiển thị hóa đon chi tiết -->
                 <div class="flex-1 p-4">
 
-                    
+
 
                     <h4 class="text-lg font-semibold mb-2">Danh sách thông tin hóa đơn chi tiết:</h4>
                     <div class="overflow-x-auto">
@@ -46,7 +46,7 @@
                                     <th class="px-2 py-2 text-center">Hệ số</th>
                                     <th class="px-2 py-2 text-center">Thành tiền</th>
                                     <th class="px-2 py-2 text-center">Dịch vụ</th>
-                                     <c:if test="${sessionScope.acc.role == 1}">
+                                        <c:if test="${sessionScope.acc.role == 1}">
                                         <th class="px-2 py-2 text-center">Thao tác</th>
                                         </c:if>
                                 </tr>
@@ -62,11 +62,13 @@
                                         <td class="px-2 py-2 text-center">${o.heSo}</td>
                                         <td class="px-2 py-2 text-center">${o.thanhTien}</td>
                                         <td class="px-2 py-2 text-center">${o.dichVuID}</td>
-                                       <c:if test="${sessionScope.acc.role == 1}">
-                                            <td class="px-2 py-2 text-center">
-                                                <a href="loadhoadondetail?id=${o.hoaDonDetailID}" class="text-blue-500 hover:text-blue-700 mr-2">Sửa</a>
-                                                <a href="deletehoadondetail?id=${o.hoaDonDetailID}" class="text-red-500 hover:text-blue-700 mr-2">Xóa</a>
-                                            </td>
+                                        <c:if test="${hd.tinhTrangThanhToan != 'Đã thanh toán'}">
+                                            <c:if test="${sessionScope.acc.role == 1}">
+                                                <td class="px-2 py-2 text-center">
+                                                    <a href="loadhoadondetail?id=${o.hoaDonDetailID}" class="text-blue-500 hover:text-blue-700 mr-2">Sửa</a>
+                                                    <a href="deletehoadondetail?id=${o.hoaDonDetailID}" class="text-red-500 hover:text-blue-700 mr-2">Xóa</a>
+                                                </td>
+                                            </c:if>
                                         </c:if>
                                     </tr>
                                 </c:forEach>

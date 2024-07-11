@@ -57,10 +57,7 @@ public class EditHoaDonDetail extends HttpServlet {
         if (hs == null || !hs.matches("\\d+")) {
             errorMsg = "Hệ số không hợp lệ!";
         } else {
-            int heSo = Integer.parseInt(hs);
-            if (heSo <= 0) {
-                errorMsg = "Hệ số phải là số nguyên dương và không được bằng 0!";
-            } else {
+            
                 try {
                     Date dateNgayThue = dateFormat.parse(tn);
                     Date dateNgayTra = dateFormat.parse(dn);
@@ -70,7 +67,7 @@ public class EditHoaDonDetail extends HttpServlet {
                 } catch (ParseException e) {
                     errorMsg = "Định dạng ngày không hợp lệ.";
                 }
-            }
+            
         }
 
         DAO dao = new DAO();

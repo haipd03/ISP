@@ -5,6 +5,7 @@
 package controller;
 
 import dal.DAO;
+import dal.HaiDao;
 import dal.SonDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,6 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Accounts;
+import model.HoaDon;
 import model.HoaDonDetail;
 
 /**
@@ -45,14 +47,17 @@ public class ListHoaDonDetail extends HttpServlet {
             String id = request.getParameter("id");
             DAO dao = new DAO();
             SonDAO sondao = new SonDAO();
+            HaiDao haidao = new HaiDao();
             List<HoaDonDetail> lhdd;
 
+            int idInt = Integer.parseInt(id);
+            HoaDon hd = haidao.getHoaDonById(idInt);
             if (a.getRole() == 1) {
                 lhdd = sondao.getHoaDonDetailByAccountID(id, a.getAccountID());
             } else {
                 lhdd = dao.getHoaDonDetail(id);
             }
-
+            request.setAttribute("hd", hd);
             request.setAttribute("lhdd", lhdd);
             request.setAttribute("hdid1", id);
 
