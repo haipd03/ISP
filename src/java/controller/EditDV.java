@@ -61,13 +61,7 @@ public class EditDV extends HttpServlet {
                 Date denNgay = dateFormat.parse(denNgayStr);
 
                 
-                if (dvid != null && PhongID != null) {
-                    request.setAttribute("error", "Không thể Sửa Dịch Vụ");
-                    RequestDispatcher dispatcher = request.getRequestDispatcher("listdichvu");
-                    dispatcher.forward(request, response);
-                    return;
-                }
-
+                
 
                 // Check chiSoCu < chiSoMoi
                 if (chiSoCu >= chiSoMoi) {

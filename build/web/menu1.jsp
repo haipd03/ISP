@@ -32,7 +32,7 @@
                     <a  onclick="profileToggle()" class="text-white p-2 no-underline hidden md:block lg:block">Xin Chào ${sessionScope.acc.taiKhoan}</a>
                     <div id="ProfileDropDown" class="rounded hidden shadow-md bg-white top-0 right-0 absolute pin-t mt-12 mr-1 pin-r">
                         <ul class="list-reset">
-                            <li><a href="loadmyaccount?id=${sessionScope.acc.accountID}" class="no-underline px-4 py-2 block text-black hover:bg-grey-light">Thông tin tài hoản</a></li>
+                            <li><a href="loadmyaccount?id=${sessionScope.acc.accountID}" class="no-underline px-4 py-2 block text-black hover:bg-grey-light">Thông tin tài khoản</a></li>
                             <li><hr class="border-t mx-2 border-grey-ligght"></li>
                             <li><a href="logout" class="no-underline px-4 py-2 block text-black hover:bg-grey-light">Đăng xuất</a></li>
                         </ul>

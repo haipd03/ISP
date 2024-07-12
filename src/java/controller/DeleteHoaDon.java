@@ -40,7 +40,7 @@ public class DeleteHoaDon extends HttpServlet {
         HttpSession session = request.getSession();
         Accounts a = (Accounts) session.getAttribute("acc");
 
-        if (a == null || a.getRole() == 1) {
+        if (a == null ) {
             // Redirect to login page or show error message if account is not logged in
             response.sendRedirect("login.jsp");
         } else {

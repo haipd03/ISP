@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Accounts;
 import model.DichVu;
+import model.HoaDon;
 
 /**
  *
@@ -40,13 +41,16 @@ public class ListDichVu extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         HttpSession session = request.getSession();
         Accounts a = (Accounts) session.getAttribute("acc");
-        
+
         List<DichVu> ldv = new ArrayList<>();
         LinhDao u = new LinhDao();
         SonDAO sondao = new SonDAO();
+        HaiDao haidao = new HaiDao();
+
+        List<HoaDon> hd = haidao.getHoaDonDV();
         String pageStr = request.getParameter("page");
         int page = (pageStr == null) ? 1 : Integer.parseInt(pageStr);
         int pageSize = 10;
@@ -68,6 +72,7 @@ public class ListDichVu extends HttpServlet {
         int totalRecords1 = u.getTotalDichVuRecords1(a.getAccountID());
         int totalPages1 = (int) Math.ceil((double) totalRecords1 / pageSize);
 
+        request.setAttribute("hd", hd);
         request.setAttribute("currentPage", page);
         request.setAttribute("ldv", ldv);
         request.setAttribute("totalPages", totalPages);

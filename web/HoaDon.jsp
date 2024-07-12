@@ -28,33 +28,33 @@
                     <jsp:include page="menu2.jsp" />
                     <!-- Thêm phần hiển thị danh sách thiết bị -->
                     <div class="p-4">
-                        
+
                         <!-- Form tìm kiếm -->
-                    <form method="post" action="searchhoadon" style="display: flex; flex-wrap: wrap; gap: 15px; align-items: center; margin-bottom: 20px;">
-                        <div class="flex" style="display: flex; align-items: center;">
-                            <label for="soPhong" style="margin-right: 10px;">Số phòng :</label>
-                            <input type="text" id="soPhong" name="soPhong" placeholder="Nhập số phòng" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
-                        </div>
-                        <div class="flex" style="display: flex; align-items: center;">
-                            <label for="tinhTrangThanhToan" style="margin-right: 10px;">Trạng thái:</label>
-                            <input type="text" id="tinhTrangThanhToan" name="tinhTrangThanhToan" placeholder="Nhập tên dịch vụ" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
-                        </div>
-                        <div class="flex" style="display: flex; align-items: center;">
-                            <label for="tuNgay" style="margin-right: 10px;">Từ ngày:</label>
-                            <input type="date" id="tuNgay" name="tuNgay" style="border: 1px solid black; width: 180px;" class="py-2 px-3 rounded">
-                        </div>
-                        <div class="flex" style="display: flex; align-items: center;">
-                            <label for="denNgay" style="margin-right: 10px;">Đến ngày:</label>
-                            <input type="date" id="denNgay" name="denNgay" style="border: 1px solid black; width: 180px;" class="py-2 px-3 rounded">
-                        </div>
-                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" style="margin-left: 10px;">Tìm kiếm</button>
-                    </form>
-                        
-                         <c:if test="${not empty error}">
-                        <span style="color: red; font-size: 1.2em; font-weight: bold;">${error}</span>
-                    </c:if>
-                    
-                        
+                        <form method="post" action="searchhoadon" style="display: flex; flex-wrap: wrap; gap: 15px; align-items: center; margin-bottom: 20px;">
+                            <div class="flex" style="display: flex; align-items: center;">
+                                <label for="soPhong" style="margin-right: 10px;">Số phòng :</label>
+                                <input type="text" id="soPhong" name="soPhong" placeholder="Nhập số phòng" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
+                            </div>
+                            <div class="flex" style="display: flex; align-items: center;">
+                                <label for="tinhTrangThanhToan" style="margin-right: 10px;">Trạng thái:</label>
+                                <input type="text" id="tinhTrangThanhToan" name="tinhTrangThanhToan" placeholder="Nhập tên dịch vụ" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
+                            </div>
+                            <div class="flex" style="display: flex; align-items: center;">
+                                <label for="tuNgay" style="margin-right: 10px;">Từ ngày:</label>
+                                <input type="date" id="tuNgay" name="tuNgay" style="border: 1px solid black; width: 180px;" class="py-2 px-3 rounded">
+                            </div>
+                            <div class="flex" style="display: flex; align-items: center;">
+                                <label for="denNgay" style="margin-right: 10px;">Đến ngày:</label>
+                                <input type="date" id="denNgay" name="denNgay" style="border: 1px solid black; width: 180px;" class="py-2 px-3 rounded">
+                            </div>
+                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" style="margin-left: 10px;">Tìm kiếm</button>
+                        </form>
+
+                        <c:if test="${not empty error}">
+                            <span style="color: red; font-size: 1.2em; font-weight: bold;">${error}</span>
+                        </c:if>
+
+
                         <h4 class="text-lg font-semibold mb-2">Danh sách thông tin hóa đơn:</h4>
                         <div class="overflow-x-auto">
 
@@ -96,15 +96,19 @@
                                             </td>
 
                                             <c:if test="${sessionScope.acc.role == 1}">
-                                                <td class="px-4 py-2">
+                                                <c:if test="${o.hoaDon.tinhTrangThanhToan == 'Chưa thanh toán'}">
 
-                                                    <c:if test="${o.hoaDon.tinhTrangThanhToan == 'Chưa Thanh Toán'}">
-                                                        <a href="loadhoadon?id=${o.hoaDon.hoaDonID}" class="text-blue-500 hover:text-blue-700 mr-2">Sửa</a>
-                                                        <a href="deletehoadon?id=${o.hoaDon.hoaDonID}" class="text-red-500 hover:text-red-700">Xóa</a>
-                                                    </c:if>  
-
-
-                                                </td>
+                                                    <td class="px-4 py-2">
+                                                        <form action="loadhoadon" method="post" style="display: inline;">
+                                                            <input type="hidden" name="id" value="${o.hoaDon.hoaDonID}" />
+                                                            <button type="submit" class="text-blue-500 hover:text-blue-700 mr-2">Sửa</button>
+                                                        </form>
+                                                        <form action="deletehoadon" method="post" style="display: inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa hóa đơn này không?');">
+                                                            <input type="hidden" name="id" value="${o.hoaDon.hoaDonID}" />
+                                                            <button type="submit" class="text-red-500 hover:text-red-700">Xóa</button>
+                                                        </form>
+                                                    </td>
+                                                </c:if> 
                                             </c:if> 
                                         </tr>
                                     </c:forEach>
