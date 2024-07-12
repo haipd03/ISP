@@ -112,15 +112,22 @@
 
                                             <c:if test="${sessionScope.acc.role == 1}">
                                                 <td class="px-4 py-2">
-                                                    <a href="editdichvu?id=${o.dichVuID}" class="text-blue-500 hover:text-blue-700 mr-2">Sửa</a>
-                                                    <a href="${pageContext.request.contextPath}/deletedichvu?id=${o.dichVuID}" class="text-red-500 hover:text-red-700" onclick="return confirm('Bạn có chắc chắn muốn xóa dịch vụ này không?');">Xóa</a>
+                                                    <form action="editdichvu" method="post" style="display: inline;">
+                                                        <input type="hidden" name="id" value="${o.dichVuID}" />
+                                                        <button type="submit" class="text-blue-500 hover:text-blue-700 mr-2">Sửa</button>
+                                                    </form>
+                                                    <form action="${pageContext.request.contextPath}/deletedichvu" method="get" style="display: inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa dịch vụ này không?');">
+                                                        <input type="hidden" name="id" value="${o.dichVuID}" />
+                                                        <button type="submit" class="text-red-500 hover:text-red-700">Xóa</button>
+                                                    </form>
                                                 </td>
+
                                             </c:if>
                                         </tr>
                                     </c:forEach>
                                 </tbody>
                             </table><br>
-                            
+
                             <c:if test="${sessionScope.acc.role == 0}">
                                 <div class="flex justify-between mt-4">
                                     <c:if test="${currentPage > 1}">

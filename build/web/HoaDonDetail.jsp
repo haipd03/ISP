@@ -65,9 +65,16 @@
                                         <c:if test="${hd.tinhTrangThanhToan != 'Đã thanh toán'}">
                                             <c:if test="${sessionScope.acc.role == 1}">
                                                 <td class="px-2 py-2 text-center">
-                                                    <a href="loadhoadondetail?id=${o.hoaDonDetailID}" class="text-blue-500 hover:text-blue-700 mr-2">Sửa</a>
-                                                    <a href="deletehoadondetail?id=${o.hoaDonDetailID}" class="text-red-500 hover:text-blue-700 mr-2">Xóa</a>
+                                                    <form action="loadhoadondetail" method="post" style="display: inline;">
+                                                        <input type="hidden" name="id" value="${o.hoaDonDetailID}" />
+                                                        <button type="submit" class="text-blue-500 hover:text-blue-700 mr-2">Sửa</button>
+                                                    </form>
+                                                    <form action="deletehoadondetail" method="post" style="display: inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa chi tiết hóa đơn này không?');">
+                                                        <input type="hidden" name="id" value="${o.hoaDonDetailID}" />
+                                                        <button type="submit" class="text-red-500 hover:text-blue-700 mr-2">Xóa</button>
+                                                    </form>
                                                 </td>
+
                                             </c:if>
                                         </c:if>
                                     </tr>

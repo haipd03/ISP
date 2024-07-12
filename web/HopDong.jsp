@@ -41,29 +41,29 @@
 
                     <!-- Underline form -->
                     <div class="mb-2 md:mx-2 lg:mx-2 border-solid border-gray-200 rounded border shadow-sm w-full md:w-1/2 lg:w-4/5">
-                       
-                            <form method="post" action="searchhopdong" style="display: flex; flex-wrap: wrap; gap: 15px; align-items: center; margin-bottom: 20px;">
-                                <div class="flex" style="display: flex; align-items: center;">
-                                    <label for="hovaten" style="margin-right: 10px;">HỌ VÀ TÊN:</label>
-                                    <input type="text" id="hovaten" name="hovaten" placeholder="Nhập HỌ VÀ TÊN" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
-                                </div>
-                                <div class="flex" style="display: flex; align-items: center;">
-                                    <label for="sokhachthue" style="margin-right: 10px;">SỐ KHÁCH THUÊ:</label>
-                                    <input type="text" id="sokhachthue" name="sokhachthue" placeholder="Nhập SỐ KHÁCH THUÊ" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
-                                </div>
-                                <div class="flex" style="display: flex; align-items: center;">
-                                    <label for="ngaythue" style="margin-right: 10px;">NGÀY THUÊ:</label>
-                                    <input type="date" id="ngaythue" name="ngaythue" style="border: 1px solid black; width: 180px;" class="py-2 px-3 rounded">
-                                </div>
-                                <div class="flex" style="display: flex; align-items: center;">
-                                    <label for="ngaytra" style="margin-right: 10px;">NGÀY TRẢ:</label>
-                                    <input type="date" id="ngaytra" name="ngaytra" style="border: 1px solid black; width: 180px;" class="py-2 px-3 rounded">
-                                </div>
-                                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" style="margin-left: 10px;">Tìm kiếm</button>
+
+                        <form method="post" action="searchhopdong" style="display: flex; flex-wrap: wrap; gap: 15px; align-items: center; margin-bottom: 20px;">
+                            <div class="flex" style="display: flex; align-items: center;">
+                                <label for="hovaten" style="margin-right: 10px;">HỌ VÀ TÊN:</label>
+                                <input type="text" id="hovaten" name="hovaten" placeholder="Nhập HỌ VÀ TÊN" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
+                            </div>
+                            <div class="flex" style="display: flex; align-items: center;">
+                                <label for="sokhachthue" style="margin-right: 10px;">SỐ KHÁCH THUÊ:</label>
+                                <input type="text" id="sokhachthue" name="sokhachthue" placeholder="Nhập SỐ KHÁCH THUÊ" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
+                            </div>
+                            <div class="flex" style="display: flex; align-items: center;">
+                                <label for="ngaythue" style="margin-right: 10px;">NGÀY THUÊ:</label>
+                                <input type="date" id="ngaythue" name="ngaythue" style="border: 1px solid black; width: 180px;" class="py-2 px-3 rounded">
+                            </div>
+                            <div class="flex" style="display: flex; align-items: center;">
+                                <label for="ngaytra" style="margin-right: 10px;">NGÀY TRẢ:</label>
+                                <input type="date" id="ngaytra" name="ngaytra" style="border: 1px solid black; width: 180px;" class="py-2 px-3 rounded">
+                            </div>
+                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" style="margin-left: 10px;">Tìm kiếm</button>
 
 
-                            </form>
-                       
+                        </form>
+
                         <div class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b font-bold">
                             Hợp Đồng
                         </div>
@@ -151,8 +151,16 @@
                                                     </td>
                                                     <c:if test="${o.tinhTrang == 1}">
                                                         <td class="px-5 py-5 border-b border-gray-200 text-sm">
-                                                            <a href='loadhopdong?lhdid=${o.hopDongID}&lpid=${o.phongID}' class="text-indigo-600 hover:text-indigo-900">Update</a>
-                                                            <a href='#' class="text-red-600 hover:text-red-900 ml-2" onclick="confirmDelete(event, 'deletehopdong?hdid=${o.hopDongID}')">Delete</a>
+                                                            <form action='loadhopdong' method='post' style='display: inline;'>
+                                                            </form>
+
+                                                            <form action='loadhopdong' method='post' style='display: inline;'>
+                                                                <input type='hidden' name='lhdid' value='${o.hopDongID}' />
+                                                                <input type='hidden' name='lpid' value='${o.phongID}' />
+                                                                <button type='submit' class='text-indigo-600 hover:text-indigo-900'>Sửa</button>
+                                                            </form>
+                                                            <a href='#' class="text-red-600 hover:text-red-900 ml-2" onclick="confirmDelete(event, 'deletehopdong?hdid=${o.hopDongID}')">Xóa</a>
+
                                                         </td>
                                                     </c:if>
                                                 </tr>
@@ -171,7 +179,7 @@
                                     </c:if>
                                 </div>
                             </c:if>
-                            
+
                             <c:if test="${sessionScope.acc.role == 1}">
                                 <div class="flex justify-between mt-4">
                                     <c:if test="${currentPage > 1}">
