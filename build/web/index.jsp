@@ -240,7 +240,7 @@
                                                 </div>
 
                                                 <div class="text-center mr-3 border-r pr-3">
-                                                    <a href="listhoadonphong?id=${p.phongID}" class="button-link">Hóa Đơn</a>
+                                                    <a href="listhoadonphong?id=${p.phongID}" class="button-link">Thông Tin Hóa Đơn</a>
                                                 </div>
                                                 <c:if test="${p.phongConTrong == 0}">
                                                     <a  href="listNguoiThue?lntid=${p.phongID}">

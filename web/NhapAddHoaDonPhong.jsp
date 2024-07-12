@@ -59,7 +59,7 @@
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-2/5 text-gray-700 font-semibold">Từ Ngày:</label>
-                                        <input type="date" name="TuNgay" value="${lp2.denNgay}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <input type="date" name="TuNgay" required value="${lp2.denNgay}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-2/5 text-gray-700 font-semibold">Đến Ngày:</label>

@@ -13,8 +13,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 import model.Accounts;
+import model.DichVu;
 import model.HoaDon;
+import model.HoaDonDetail;
 
 /**
  *
@@ -46,9 +50,18 @@ public class ListHoaDonPhong extends HttpServlet {
             SonDAO sondao = new SonDAO();
 
             HoaDon listhdon = sondao.getIDByHoaDonIDByPhongIDAndAccountID(id, a.getAccountID());
+            List<DichVu> listdv = new ArrayList<>();
+            List<HoaDonDetail> hdd = new ArrayList<>();
+            if (listhdon != null) {
+                listdv = sondao.getDichVubyhdonID(listhdon.getHoaDonID());
+                hdd = sondao.getHoaDonDetailByDVuID(listhdon.getHoaDonID());
+            }
 
             request.setAttribute("listhdon", listhdon);
             request.setAttribute("phongid", id);
+            request.setAttribute("listdv", listdv);
+            request.setAttribute("hdd", hdd);
+
             request.getRequestDispatcher("ListHoaDonPhong.jsp").forward(request, response);
         }
     }
