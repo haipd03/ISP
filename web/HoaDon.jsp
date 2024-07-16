@@ -96,7 +96,7 @@
                                             </td>
 
                                             <c:if test="${sessionScope.acc.role == 1}">
-                                                <c:if test="${o.hoaDon.tinhTrangThanhToan == 'Chưa thanh toán'}">
+                                                <c:if test="${o.hoaDon.tinhTrangThanhToan == 'Chưa Thanh Toán'}">
 
                                                     <td class="px-4 py-2">
                                                         <form action="loadhoadon" method="post" style="display: inline;">
