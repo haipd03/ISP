@@ -33,7 +33,7 @@ public class InsertDichVuChung extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         Accounts a = (Accounts) session.getAttribute("acc");
-        if (a == null || a.getRole() == 0) {
+        if (a == null || a.getRole() == 1) {
             response.sendRedirect("login");
         } else {
             String dvid = request.getParameter("id");
@@ -43,7 +43,7 @@ public class InsertDichVuChung extends HttpServlet {
             
 
             DichVuChung dvChung = dao.getDichVuChungByID(dvid);
-           List<Khu> khu = dao.getKhuByAccountID(a.getAccountID());
+           List<Khu> khu = dao.getKhuBy();
             int nextDichVuChungID = sondao.getNextDichVuChungID();
             
             

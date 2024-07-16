@@ -46,7 +46,7 @@
                                     <!-- User Name Input -->
                                     <div class="form-group row justify-content-center px-3">
                                         <div class="col-9 px-0">
-                                            <input type="text" name="password" placeholder="&#xf084; &nbsp; New Password"
+                                            <input type="text" name="password" placeholder="&#xf084; &nbsp; Mật khẩu mới"
                                                    class="form-control border-info placeicon">
                                         </div>
                                     </div>
@@ -54,7 +54,7 @@
                                     <div class="form-group row justify-content-center px-3">
                                         <div class="col-9 px-0">
                                             <input type="password" name="confPassword"
-                                                   placeholder="&#xf084; &nbsp; Confirm New Password"
+                                                   placeholder="&#xf084; &nbsp; Nhập lại mật khẩu"
                                                    class="form-control border-info placeicon">
                                         </div>
                                     </div>
@@ -75,7 +75,7 @@
                                 <div class="px-4 pt-5">
                                     <hr>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -84,16 +84,34 @@
         </div>
         <script type='text/javascript'
         src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js'></script>
-            <!-- Display alerts based on status -->
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", function() {
-            var status = "${status}";
-            if (status == "passwordMismatch") {
-                swal("Sorry", "New Password not true", "error");
-            } 
-        });
-    </script>
+        <!-- Display alerts based on status -->
+        <!--    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+            <script type="text/javascript">
+                document.addEventListener("DOMContentLoaded", function() {
+                    var status = "${status}";
+                    if (status == "passwordMismatch") {
+                        swal("Sorry", "New Password not true", "error");
+                    } 
+                });
+            </script>-->
+
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script type="text/javascript">
+            document.addEventListener("DOMContentLoaded", function () {
+                // Lấy giá trị của 'status' từ request attribute
+                var status = "${status}";
+
+                // Hiển thị thông báo dựa trên giá trị của 'status'
+                if (status === "passwordMismatch") {
+                    swal("Error", "Hãy điền đầy đủ", "error");
+                } else if (status === "passwordMissing") {
+                    swal("Error", "Hãy điền đầy đủ", "error");
+                } else if (status === "invalidPassword") {
+                    swal("Error", "Mật khẩu cần ít nhất 6 ký tự ,chứa ít nhất một ký tự đặc biệt, một ký tự chữ cái, một ký tự số", "error");
+                }
+            });
+        </script>
+
 
     </body>
 </html>

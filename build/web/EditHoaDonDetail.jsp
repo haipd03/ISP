@@ -62,7 +62,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Hệ số</label>
-                                                    <input value="${detail.heSo}" name="HeSo" type="text" class="form-control" required>
+                                                    <input value="${detail.heSo}" name="HeSo" type="text" class="form-control" readonly required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Thành tiền</label>

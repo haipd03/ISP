@@ -51,8 +51,8 @@ public class AddHopDong extends HttpServlet {
             errorMsg = "TienCoc không hợp lệ.";
         } else if (SoKhachThue == null || !SoKhachThue.matches("\\d+")) {
             errorMsg = "Số khách thuê không hợp lệ.";
-        } else if (Integer.parseInt(SoKhachThue) < 1) {
-            errorMsg = "Số khách thuê phải lớn hơn hoặc bằng 1.";
+        } else if (Integer.parseInt(SoKhachThue) < 1 || Integer.parseInt(SoKhachThue) > 4) {
+            errorMsg = "Số khách thuê phải lớn hơn hoặc bằng 1 và bé hơn 4.";
         } else {
             try {
                 Date dateNgayThue = dateFormat.parse(NgayThue);

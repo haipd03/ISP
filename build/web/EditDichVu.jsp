@@ -18,7 +18,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <title>Sửa Dich Vu</title>
+        <title>Sửa Dich Vu Phòng</title>
     </head>
 
     <body>
@@ -38,14 +38,14 @@
                     <!-- Main Content -->
                     <div class="mb-4 md:mx-2 lg:mx-2 border border-gray-300 rounded-lg shadow-lg w-full md:w-1/2 lg:w-4/5">
                         <div class="bg-blue-500 text-white text-center font-bold text-2xl px-4 py-3 rounded-t-lg">
-                            Sửa Dịch Vụ
+                            Sửa Dịch Vụ Phòng
                         </div>
                         <div class="p-6 bg-white">
                             <div class="container">
                                 <div class="row justify-content-center">
                                     <div class="col-md-8">
                                         <div class="card">
-                                            <div class="card-header"> Sửa Dịch Vụ</div>
+                                            <div class="card-header"> Sửa Dịch Vụ Phòng</div>
                                             <div class="card-body">
                                                 <c:if test="${not empty errorMessage}">
                                                     <div class="alert alert-danger">${errorMessage}</div>

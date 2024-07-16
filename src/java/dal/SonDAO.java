@@ -1503,6 +1503,38 @@ public class SonDAO extends MyDAO {
         }
         return false;
     }
+    
+    public DichVuChung getDichVuChungByID(String id) {
+    String sql = "SELECT dvc.*\n" +
+                 "FROM DichVuChung dvc\n" +
+                 "JOIN Khu k ON dvc.KhuID = k.KhuID\n" +
+                 "JOIN Accounts a ON a.AccountID = k.AccountID\n" +
+                 "WHERE dvc.DichVuChungID = ? ";
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, id);
+        
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            int dichVuChungID = rs.getInt("DichVuChungID");
+            int khuID = rs.getInt("KhuID");
+            String dichVuChungName = rs.getString("DichVuChungName");
+            String ten = rs.getString("Ten");
+            String sdt = rs.getString("Sdt");
+            int gia = rs.getInt("Gia");
+            Date tuNgay = rs.getDate("TuNgay");
+            Date denNgay = rs.getDate("DenNgay");
+            String tinhTrang = rs.getString("TinhTrang");
+            String ghiChu = rs.getString("GhiChu");
+
+            DichVuChung dichVuChung = new DichVuChung(dichVuChungID, khuID, dichVuChungName, ten, sdt, gia, tuNgay, denNgay, tinhTrang, ghiChu);
+            return dichVuChung;
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return null;
+}
 
     public static void main(String[] args) {
         SonDAO dao = new SonDAO();

@@ -53,15 +53,15 @@
                                 <div class="space-y-4">
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Mã Phòng:</label>
-                                        <input type="text" name="phongID" value="${p.phongID}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <input type="text" style="background-color: gray;opacity: 0.7 " name="phongID" value="${p.phongID}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Số Phòng:</label>
-                                        <input type="text" name="soPhong" value="${p.soPhong}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <input type="text" style="background-color: gray;opacity: 0.7 " name="soPhong" value="${p.soPhong}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Mã Khu:</label>
-                                        <input type="text" name="khuID" value="${p.khuID}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <input type="text" style="background-color: gray;opacity: 0.7 " name="khuID" value="${p.khuID}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Loại Phòng:</label>
@@ -95,21 +95,30 @@
                                         <c:otherwise>
                                             <div class="flex items-center">
                                                 <label class="w-1/3 text-gray-700 font-semibold">Ghi Chú:</label>
-                                                <input type="text" name="ghiChu" value="Tốt" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                                <input type="text" style="background-color: gray;opacity: 0.7 " name="ghiChu" value="Tốt" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                             </div>
                                         </c:otherwise>
                                     </c:choose>
+                                    <c:if test="${sessionScope.acc.role == 0}">
+                                        <div class="flex items-center">
+                                            <label class="w-1/3 text-gray-700 font-semibold">Giá:</label>
+                                            <input type="text" name="gia" value="${p.gia}" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        </div>
+                                    </c:if>
 
-                                    <div class="flex items-center">
-                                        <label class="w-1/3 text-gray-700 font-semibold">Giá:</label>
-                                        <input type="text" name="gia" value="${p.gia}" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
-                                    </div>
+                                    <c:if test="${sessionScope.acc.role == 1}">
+                                        <div class="flex items-center">
+                                            <label class="w-1/3 text-gray-700 font-semibold">Giá:</label>
+                                            <input type="text" style="background-color: gray;opacity: 0.7 " name="gia" value="${p.gia}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        </div>
+                                    </c:if>
+
                                     <p style="color: red">${message}</p>
                                 </div>
-                                    <div class="mt-6 flex justify-end">
-                                        <input type="submit" value="Sửa" class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 transition-colors duration-200">
-                                    </div>
-                                
+                                <div class="mt-6 flex justify-end">
+                                    <input type="submit" value="Sửa" class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 transition-colors duration-200">
+                                </div>
+
                             </form>
                         </div>
                     </div>

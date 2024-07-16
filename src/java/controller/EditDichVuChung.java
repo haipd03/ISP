@@ -40,7 +40,7 @@ public class EditDichVuChung extends HttpServlet {
         } else {
             String dvcID = request.getParameter("id");
             SonDAO dao = new SonDAO();
-            DichVuChung dvc = dao.getDichVuChungByID(dvcID, a.getAccountID());
+            DichVuChung dvc = dao.getDichVuChungByID(dvcID);
             request.setAttribute("detail", dvc);
         }
         request.getRequestDispatcher("EditDichVuChung.jsp").forward(request, response);
