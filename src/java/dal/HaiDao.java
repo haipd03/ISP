@@ -799,14 +799,17 @@ public List<HopDong> getHopDongByCriteria1(String soKhachThue, String hoVaTen, D
 
     
     
-    public List<HoaDon> getHoaDonDV() {
+   public List<HoaDon> getHoaDonDV(int dichVuID) {
     List<HoaDon> hoaDonList = new ArrayList<>();
     String sql = "SELECT hd.* " +
                  "FROM Dichvu dv " +
                  "JOIN HoaDonDetail hdd ON hdd.DichVuID = dv.DichVuID " +
-                 "JOIN HoaDon hd ON hd.HoaDonID = hdd.HoaDonID";
+                 "JOIN HoaDon hd ON hd.HoaDonID = hdd.HoaDonID " +
+                 "WHERE hd.TinhTrangThanhToan = N'Đã thanh toán' AND dv.DichVuID = ?";
 
     try (PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setInt(1, dichVuID); // Set the DichVuID parameter
+
         try (ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 int hoaDonID = rs.getInt("HoaDonID");
@@ -819,15 +822,16 @@ public List<HopDong> getHopDongByCriteria1(String soKhachThue, String hoVaTen, D
 
                 // Create HoaDon object
                 HoaDon hoaDon = new HoaDon(hoaDonID, hopDongID, ngayThanhToan, tinhTrangThanhToan, tuNgay, denNgay, tongTien);
-                hoaDonList.add(hoaDon);  // Add each HoaDon object to the list
+                hoaDonList.add(hoaDon); // Add each HoaDon object to the list
             }
         }
     } catch (SQLException e) {
         e.printStackTrace();
     }
-
-    return hoaDonList;  // Return the list of HoaDon objects
+    
+    return hoaDonList; // Return the list of HoaDon objects
 }
+
 
 
     public static void main(String[] args) throws SQLException {
@@ -836,7 +840,7 @@ public List<HopDong> getHopDongByCriteria1(String soKhachThue, String hoVaTen, D
 //        for (HopDong phong : dichVu) {
 //            System.out.println(phong);
 //        }
-List<HoaDon> hoaDons = dao.getHoaDonDV();
+List<HoaDon> hoaDons = dao.getHoaDonDV(1);
 
         // Print the retrieved HoaDon objects
         for (HoaDon hd : hoaDons) {

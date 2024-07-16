@@ -50,7 +50,7 @@ public class ListDichVu extends HttpServlet {
         SonDAO sondao = new SonDAO();
         HaiDao haidao = new HaiDao();
 
-        List<HoaDon> hd = haidao.getHoaDonDV();
+//        List<HoaDon> hd = haidao.getHoaDonDV();
         String pageStr = request.getParameter("page");
         int page = (pageStr == null) ? 1 : Integer.parseInt(pageStr);
         int pageSize = 10;
@@ -72,7 +72,7 @@ public class ListDichVu extends HttpServlet {
         int totalRecords1 = u.getTotalDichVuRecords1(a.getAccountID());
         int totalPages1 = (int) Math.ceil((double) totalRecords1 / pageSize);
 
-        request.setAttribute("hd", hd);
+//        request.setAttribute("hd", hd);
         request.setAttribute("currentPage", page);
         request.setAttribute("ldv", ldv);
         request.setAttribute("totalPages", totalPages);
