@@ -919,39 +919,38 @@ public class SonDAO extends MyDAO {
         }
         return dichVuList;
     }
-    
+
     public List<DichVuChung> getAllDichVuChungByAccountID(int aid) {
-    List<DichVuChung> dichVuChungList = new ArrayList<>();
-    String sql = "SELECT dvc.*\n"
-               + "FROM DichVuChung dvc\n"
-               + "JOIN Khu k ON dvc.KhuID = k.KhuID\n"
-               + "JOIN Accounts a ON a.AccountID = k.AccountID\n"
-               + "WHERE a.AccountID = ?";
-    try {
-        ps = con.prepareStatement(sql);
-        ps.setInt(1, aid);
-        rs = ps.executeQuery();
-        while (rs.next()) {
-            int dichVuChungID = rs.getInt("DichVuChungID");
-            int khuID = rs.getInt("KhuID");
-            String dichVuChungName = rs.getString("DichVuChungName");
-            String ten = rs.getString("Ten");
-            String sdt = rs.getString("SDT");
-            int gia = rs.getInt("Gia");
-            Date tuNgay = rs.getDate("TuNgay");
-            Date denNgay = rs.getDate("DenNgay");
-            String tinhTrang = rs.getString("TinhTrang");
-            String ghiChu = rs.getString("GhiChu");
+        List<DichVuChung> dichVuChungList = new ArrayList<>();
+        String sql = "SELECT dvc.*\n"
+                + "FROM DichVuChung dvc\n"
+                + "JOIN Khu k ON dvc.KhuID = k.KhuID\n"
+                + "JOIN Accounts a ON a.AccountID = k.AccountID\n"
+                + "WHERE a.AccountID = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, aid);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int dichVuChungID = rs.getInt("DichVuChungID");
+                int khuID = rs.getInt("KhuID");
+                String dichVuChungName = rs.getString("DichVuChungName");
+                String ten = rs.getString("Ten");
+                String sdt = rs.getString("SDT");
+                int gia = rs.getInt("Gia");
+                Date tuNgay = rs.getDate("TuNgay");
+                Date denNgay = rs.getDate("DenNgay");
+                String tinhTrang = rs.getString("TinhTrang");
+                String ghiChu = rs.getString("GhiChu");
 
-            DichVuChung dichVuChung = new DichVuChung(dichVuChungID, khuID, dichVuChungName, ten, sdt, gia, tuNgay, denNgay, tinhTrang, ghiChu);
-            dichVuChungList.add(dichVuChung);
+                DichVuChung dichVuChung = new DichVuChung(dichVuChungID, khuID, dichVuChungName, ten, sdt, gia, tuNgay, denNgay, tinhTrang, ghiChu);
+                dichVuChungList.add(dichVuChung);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return dichVuChungList;
     }
-    return dichVuChungList;
-}
-
 
     public List<Phong> getPhongIDByAccountID(int accountID) {
         List<Phong> Phongs = new ArrayList<>();
@@ -1014,38 +1013,37 @@ public class SonDAO extends MyDAO {
     }
 
     public DichVuChung getDichVuChungByID(String id, int aid) {
-    String sql = "SELECT dvc.*\n" +
-                 "FROM DichVuChung dvc\n" +
-                 "JOIN Khu k ON dvc.KhuID = k.KhuID\n" +
-                 "JOIN Accounts a ON a.AccountID = k.AccountID\n" +
-                 "WHERE dvc.DichVuChungID = ? AND a.AccountID = ?";
-    try {
-        PreparedStatement ps = con.prepareStatement(sql);
-        ps.setString(1, id);
-        ps.setInt(2, aid);
-        ResultSet rs = ps.executeQuery();
-        if (rs.next()) {
-            int dichVuChungID = rs.getInt("DichVuChungID");
-            int khuID = rs.getInt("KhuID");
-            String dichVuChungName = rs.getString("DichVuChungName");
-            String ten = rs.getString("Ten");
-            String sdt = rs.getString("Sdt");
-            int gia = rs.getInt("Gia");
-            Date tuNgay = rs.getDate("TuNgay");
-            Date denNgay = rs.getDate("DenNgay");
-            String tinhTrang = rs.getString("TinhTrang");
-            String ghiChu = rs.getString("GhiChu");
+        String sql = "SELECT dvc.*\n"
+                + "FROM DichVuChung dvc\n"
+                + "JOIN Khu k ON dvc.KhuID = k.KhuID\n"
+                + "JOIN Accounts a ON a.AccountID = k.AccountID\n"
+                + "WHERE dvc.DichVuChungID = ? AND a.AccountID = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, id);
+            ps.setInt(2, aid);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int dichVuChungID = rs.getInt("DichVuChungID");
+                int khuID = rs.getInt("KhuID");
+                String dichVuChungName = rs.getString("DichVuChungName");
+                String ten = rs.getString("Ten");
+                String sdt = rs.getString("Sdt");
+                int gia = rs.getInt("Gia");
+                Date tuNgay = rs.getDate("TuNgay");
+                Date denNgay = rs.getDate("DenNgay");
+                String tinhTrang = rs.getString("TinhTrang");
+                String ghiChu = rs.getString("GhiChu");
 
-            DichVuChung dichVuChung = new DichVuChung(dichVuChungID, khuID, dichVuChungName, ten, sdt, gia, tuNgay, denNgay, tinhTrang, ghiChu);
-            return dichVuChung;
+                DichVuChung dichVuChung = new DichVuChung(dichVuChungID, khuID, dichVuChungName, ten, sdt, gia, tuNgay, denNgay, tinhTrang, ghiChu);
+                return dichVuChung;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return null;
     }
-    return null;
-}
 
-    
     public void insertHoaDon(String HoaDonID, String HopDongID, String NgayThanhToan, String TinhTrangThanhToan, String TuNgay, String DenNgay, String TongTien) {
         String sql = "INSERT INTO [dbo].[HoaDon] ([HoaDonID],[HopDongID],[NgayThanhToan],[TinhTrangThanhToan],[TuNgay],[DenNgay],[TongTien]) VALUES (?,?,?,?,?,?,?)";
         try {
@@ -1225,36 +1223,35 @@ public class SonDAO extends MyDAO {
         }
         return 1;
     }
-    
+
     public int getNextDichVuChungID() {
-    String sql = "SELECT MAX(DichVuChungID) FROM DichVuChung";
-    try {
-        ps = con.prepareStatement(sql);
-        rs = ps.executeQuery();
-        if (rs.next()) {
-            int maxID = rs.getInt(1);
-            return maxID + 1;
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    } finally {
+        String sql = "SELECT MAX(DichVuChungID) FROM DichVuChung";
         try {
-            if (rs != null) {
-                rs.close();
-            }
-            if (ps != null) {
-                ps.close();
-            }
-            if (con != null) {
-                con.close();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                int maxID = rs.getInt(1);
+                return maxID + 1;
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+        return 1;
     }
-    return 1;
-}
-
 
     public int getNextHoaDonDetailID() {
         String sql = "SELECT MAX(HoaDonDetailID) FROM HoaDonDetail";
@@ -1504,10 +1501,70 @@ public class SonDAO extends MyDAO {
         return false;
     }
 
+    public List<DichVu> getDichVubyhdonID(int id) {
+        List<DichVu> DichVus = new ArrayList<>();
+        String sql = "select dv.*\n"
+                + "from HoaDon hdon\n"
+                + "join HoaDonDetail hdond on hdond.HoaDonID =hdon.HoaDonID\n"
+                + "join DichVu dv on dv.DichVuID = hdond.DichVuID\n"
+                + "where hdon.HoaDonID = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int dichVuID = rs.getInt("DichVuID");
+                int phongID = rs.getInt("PhongID");
+                String name = rs.getString("Name");
+                int giaTien = rs.getInt("GiaTien");
+                Date tuNgay = rs.getDate("TuNgay");
+                Date denNgay = rs.getDate("DenNgay");
+                int chiSoCu = rs.getInt("ChiSoCu");
+                int chiSoMoi = rs.getInt("ChiSoMoi");
+
+                DichVu dichVu = new DichVu(dichVuID, phongID, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi);
+                DichVus.add(dichVu);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return DichVus;
+    }
+
+    public List<HoaDonDetail> getHoaDonDetailByDVuID(int id) {
+        List<HoaDonDetail> hoaDonDetail = new ArrayList<>();
+        String query = "select hdond.*\n"
+                + "from HoaDon hdon\n"
+                + "join HoaDonDetail hdond on hdond.HoaDonID =hdon.HoaDonID\n"
+                + "join DichVu dv on dv.DichVuID = hdond.DichVuID\n"
+                + "where hdon.HoaDonID = ?";
+        try {
+            ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int hoaDonDetailID = rs.getInt("HoaDonDetailID");
+                int hoaDonID = rs.getInt("HoaDonID");
+                Date tuNgay = rs.getDate("TuNgay");
+                Date denNgay = rs.getDate("DenNgay");
+                int tongSo = rs.getInt("TongSo");
+                int heSo = rs.getInt("HeSo");
+                int thanhTien = rs.getInt("ThanhTien");
+                int dichVuID = rs.getInt("DichVuID");
+
+                HoaDonDetail hoaDonDetails = new HoaDonDetail(hoaDonDetailID, hoaDonID, tuNgay, denNgay, tongSo, heSo, thanhTien, dichVuID);
+                hoaDonDetail.add(hoaDonDetails);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return hoaDonDetail;
+    }
+
     public static void main(String[] args) {
         SonDAO dao = new SonDAO();
-        List<Phong> phongList = dao.getPhongIDByAccountID(3);
-        for (Phong phong : phongList) {
+        List<DichVu> phongList = dao.getDichVubyhdonID(1);
+        for (DichVu phong : phongList) {
             System.out.println(phong);
         }
     }
