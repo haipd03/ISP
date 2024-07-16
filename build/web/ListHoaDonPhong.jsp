@@ -72,8 +72,6 @@
                                                     <th class="px-4 py-2 text-center">Mã dịch vụ</th>
                                                     <th class="px-4 py-2 text-center">Tên</th>
                                                     <th class="px-4 py-2 text-center">Giá tiền</th>
-                                                    <th class="px-4 py-2 text-center">Từ ngày</th>
-                                                    <th class="px-4 py-2 text-center">Đến ngày</th>
                                                     <th class="px-4 py-2 text-center">Chỉ số cũ</th>
                                                     <th class="px-4 py-2 text-center">Chỉ số mới</th>
                                                     <th class="px-4 py-2 text-center">Thành Tiền</th>
@@ -85,8 +83,6 @@
                                                         <td class="px-4 py-2 text-center">${o.dichVuID}</td>
                                                         <td class="px-4 py-2 text-center">${o.name}</td>
                                                         <td class="px-4 py-2 text-center">${o.giaTien}</td>
-                                                        <td class="px-4 py-2 text-center">${o.tuNgay}</td>
-                                                        <td class="px-4 py-2 text-center">${o.denNgay}</td>
                                                         <td class="px-4 py-2 text-center">${o.chiSoCu}</td>
                                                         <td class="px-4 py-2 text-center">${o.chiSoMoi}</td>
                                                         <td class="px-4 py-2 text-center">
