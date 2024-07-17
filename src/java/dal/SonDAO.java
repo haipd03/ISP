@@ -910,8 +910,9 @@ public class SonDAO extends MyDAO {
                 Date denNgay = rs.getDate("DenNgay");
                 int chiSoCu = rs.getInt("ChiSoCu");
                 int chiSoMoi = rs.getInt("ChiSoMoi");
+                String urlAnh = rs.getString("UrlAnh");
 
-                DichVu dichVu = new DichVu(dichVuID, phongID, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi);
+                DichVu dichVu = new DichVu(dichVuID, phongID, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi, urlAnh);
                 dichVuList.add(dichVu);
             }
         } catch (SQLException e) {
@@ -1002,8 +1003,9 @@ public class SonDAO extends MyDAO {
                 Date denNgay = rs.getDate("DenNgay");
                 int chiSoCu = rs.getInt("ChiSoCu");
                 int chiSoMoi = rs.getInt("ChiSoMoi");
+                String urlAnh = rs.getString("UrlAnh");
 
-                DichVu dichVu = new DichVu(dichVuID, phongID, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi);
+                DichVu dichVu = new DichVu(dichVuID, phongID, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi, urlAnh);
                 return dichVu;
             }
         } catch (SQLException e) {
@@ -1061,8 +1063,8 @@ public class SonDAO extends MyDAO {
         }
     }
 
-    public void insertDichVu(String dvid, String PhongID, String name, String giaTien, String tuNgay, String denNgay, String chiSoCu, String chiSoMoi) {
-        String sql = "INSERT INTO DichVu (DichVuID, PhongID, Name, GiaTien, TuNgay, DenNgay, ChiSoCu, ChiSoMoi) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    public void insertDichVu(String dvid, String PhongID, String name, String giaTien, String tuNgay, String denNgay, String chiSoCu, String chiSoMoi, String urlAnh) {
+        String sql = "INSERT INTO DichVu (DichVuID, PhongID, Name, GiaTien, TuNgay, DenNgay, ChiSoCu, ChiSoMoi, UrlAnh) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, dvid);
@@ -1073,6 +1075,7 @@ public class SonDAO extends MyDAO {
             ps.setString(6, denNgay);
             ps.setString(7, chiSoCu);
             ps.setString(8, chiSoMoi);
+            ps.setString(9, urlAnh);
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -1156,8 +1159,9 @@ public class SonDAO extends MyDAO {
                 Date denNgay = rs.getDate("DenNgay");
                 int chiSoCu = rs.getInt("ChiSoCu");
                 int chiSoMoi = rs.getInt("ChiSoMoi");
+                String urlAnh = rs.getString("UrlAnh");
 
-                DichVu dichVu = new DichVu(dichVuID, phongID, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi);
+                DichVu dichVu = new DichVu(dichVuID, phongID, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi, urlAnh);
                 return dichVu;
             }
         } catch (SQLException e) {
@@ -1521,8 +1525,9 @@ public class SonDAO extends MyDAO {
                 Date denNgay = rs.getDate("DenNgay");
                 int chiSoCu = rs.getInt("ChiSoCu");
                 int chiSoMoi = rs.getInt("ChiSoMoi");
+                String urlAnh = rs.getString("UrlAnh");
 
-                DichVu dichVu = new DichVu(dichVuID, phongID, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi);
+                DichVu dichVu = new DichVu(dichVuID, phongID, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi, urlAnh);
                 DichVus.add(dichVu);
             }
         } catch (SQLException e) {
@@ -1563,9 +1568,8 @@ public class SonDAO extends MyDAO {
 
     public static void main(String[] args) {
         SonDAO dao = new SonDAO();
-        List<DichVu> phongList = dao.getDichVubyhdonID(1);
-        for (DichVu phong : phongList) {
-            System.out.println(phong);
-        }
+        String phongID = "1006";
+        int soLuongKhach = dao.countKhachThueByPhongID(phongID);
+            System.out.println("Số lượng khách thuê trong phòng " + phongID + ": " + soLuongKhach);
     }
 }

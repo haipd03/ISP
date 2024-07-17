@@ -73,6 +73,10 @@
                                         <label class="w-2/5 text-gray-700 font-semibold">Chỉ Số Mới:</label>
                                         <input type="text" name="ChiSoMoi" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
+                                    <div class="flex items-center">
+                                        <label class="w-2/5 text-gray-700 font-semibold">Ảnh:</label>
+                                        <input type="text" name="UrlAnh" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                    </div>
                                     <input type="hidden" name="id" value="${lp3}">
                                 </div>
                                 <div class="mt-6 flex justify-end">

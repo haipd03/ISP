@@ -42,8 +42,9 @@ public class LinhDao extends MyDAO {
                 Date denNgay = rs.getDate("DenNgay");
                 int chiSoCu = rs.getInt("ChiSoCu");
                 int chiSoMoi = rs.getInt("ChiSoMoi");
+                String urlAnh = rs.getString("UrlAnh");
 
-                DichVu dichVu = new DichVu(dichVuID, phongID, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi);
+                DichVu dichVu = new DichVu(dichVuID, phongID, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi, urlAnh);
                 dichVuList.add(dichVu);
             }
         } catch (SQLException e) {
@@ -170,8 +171,9 @@ public class LinhDao extends MyDAO {
                 Date denNgayResult = rs.getDate("DenNgay");
                 int chiSoCu = rs.getInt("ChiSoCu");
                 int chiSoMoi = rs.getInt("ChiSoMoi");
+                String urlAnh = rs.getString("UrlAnh");
 
-                DichVu dichVu = new DichVu(dichVuID, phongID1, nameResult, giaTien, tuNgayResult, denNgayResult, chiSoCu, chiSoMoi);
+                DichVu dichVu = new DichVu(dichVuID, phongID1, nameResult, giaTien, tuNgayResult, denNgayResult, chiSoCu, chiSoMoi, urlAnh);
                 dichVuSearch.add(dichVu);
             }
         } catch (SQLException e) {
@@ -241,8 +243,9 @@ public class LinhDao extends MyDAO {
                 Date denNgayResult = rs.getDate("DenNgay");
                 int chiSoCu = rs.getInt("ChiSoCu");
                 int chiSoMoi = rs.getInt("ChiSoMoi");
+                String urlAnh = rs.getString("UrlAnh");
 
-                DichVu dichVu = new DichVu(dichVuID, phongID1, nameResult, giaTien, tuNgayResult, denNgayResult, chiSoCu, chiSoMoi);
+                DichVu dichVu = new DichVu(dichVuID, phongID1, nameResult, giaTien, tuNgayResult, denNgayResult, chiSoCu, chiSoMoi, urlAnh);
                 dichVuSearch.add(dichVu);
             }
         } catch (SQLException e) {
@@ -266,8 +269,9 @@ public class LinhDao extends MyDAO {
                 Date denNgay = rs.getDate("DenNgay");
                 int chiSoCu = rs.getInt("ChiSoCu");
                 int chiSoMoi = rs.getInt("ChiSoMoi");
+                String urlAnh = rs.getString("UrlAnh");
 
-                DichVu dichVu = new DichVu(dichVuID, phongID, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi);
+                DichVu dichVu = new DichVu(dichVuID, phongID, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi, urlAnh);
                 return dichVu;
             }
         } catch (SQLException e) {
@@ -276,7 +280,7 @@ public class LinhDao extends MyDAO {
         return null;
     }
 
-    public void editDichVu(String id, String phongID, String name, String giaTien, Date tuNgay, Date denNgay, String chiSoCu, String chiSoMoi) {
+    public void editDichVu(String id, String phongID, String name, String giaTien, Date tuNgay, Date denNgay, String chiSoCu, String chiSoMoi, String urlAnh) {
         String query = "UPDATE DichVu\n"
                 + "SET PhongID = ?,\n"
                 + "    Name = ?,\n"
@@ -284,7 +288,8 @@ public class LinhDao extends MyDAO {
                 + "    TuNgay = ?,\n"
                 + "    DenNgay = ?,\n"
                 + "    ChiSoCu = ?,\n"
-                + "    ChiSoMoi = ?\n"
+                + "    ChiSoMoi = ?,\n"
+                + "    UrlAnh = ?\n"
                 + "WHERE DichVuID = ?;";
         try {
             PreparedStatement ps = connection.prepareStatement(query);
@@ -295,15 +300,16 @@ public class LinhDao extends MyDAO {
             ps.setDate(5, new java.sql.Date(denNgay.getTime())); // Convert java.util.Date to java.sql.Date
             ps.setString(6, chiSoCu); // Use setString for String parameters
             ps.setString(7, chiSoMoi); // Use setString for String parameters
-            ps.setString(8, id);
+            ps.setString(8, urlAnh);
+            ps.setString(9, id);
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void insertDichVu(String dvid, String phongid, String name, String giaTien, String tuNgay, String denNgay, String chiSoCu, String chiSoMoi) {
-        String sql = "INSERT INTO DichVu (DichVuID, PhongID, Name, GiaTien, TuNgay, DenNgay, ChiSoCu, ChiSoMoi) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    public void insertDichVu(String dvid, String phongid, String name, String giaTien, String tuNgay, String denNgay, String chiSoCu, String chiSoMoi, String urlAnh) {
+        String sql = "INSERT INTO DichVu (DichVuID, PhongID, Name, GiaTien, TuNgay, DenNgay, ChiSoCu, ChiSoMoi, UrlAnh) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, dvid);
@@ -314,6 +320,7 @@ public class LinhDao extends MyDAO {
             ps.setString(6, denNgay);
             ps.setString(7, chiSoCu);
             ps.setString(8, chiSoMoi);
+            ps.setString(9, urlAnh);
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -578,11 +585,22 @@ public List<DichVuChung> getDichVuChungByCriteria(String dichVuChungName, String
     }
 
 
-    public static void main(String[] args) throws SQLException {
-        LinhDao u = new LinhDao();
-        List<DichVu> dichVu = u.getDichVuByCriteria("1001", null, null, null);
-        for (DichVu phong : dichVu) {
-            System.out.println(phong);
-        }
+    public static void main(String[] args) {
+        LinhDao dao = new LinhDao();
+
+        // Test data
+        String dvid = "73";
+        String phongid = "1001";
+        String name = "Dich Vu 1";
+        String giaTien = "100000";
+        String tuNgay = "2024-01-01";
+        String denNgay = "2024-12-31";
+        String chiSoCu = "50";
+        String chiSoMoi = "100";
+        String urlAnh = "https://th.bing.com/th/id/OIP.PzYZEuku8eAKMBscWYHnLgHaE8?w=284&h=189&c=7&r=0&o=5&dpr=1.3&pid=1.7";
+
+        // Insert test data
+        dao.insertDichVu(dvid, phongid, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi, urlAnh);
+        System.out.println("Inserted DichVu record successfully.");
     }
 }

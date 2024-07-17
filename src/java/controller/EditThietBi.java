@@ -34,27 +34,32 @@ public class EditThietBi extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        //response.setContentType("text/html;charset=UTF-8");
-        response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        Accounts a = (Accounts) session.getAttribute("acc");
+        throws ServletException, IOException {
+    response.setContentType("text/html;charset=UTF-8");
+    HttpSession session = request.getSession();
+    Accounts a = (Accounts) session.getAttribute("acc");
 
-        if (a == null) {
-            // Redirect to login page or show error message if account is not logged in
-            response.sendRedirect("login.jsp");
+    if (a == null || a.getRole() == 1) {
+        // Redirect to login page if account is not logged in or is of role 1 (assuming role 1 is not allowed here)
+        response.sendRedirect("login.jsp");
+        return; // Ensure no further processing is done after redirect
+    } else {
+        String tid = request.getParameter("tbid");
+        DAO dao = new DAO();
+        ThietBi tb;
+        
+        if (a.getRole() == 1) {
+            tb = dao.getThietBibyIDandAccID(tid, a.getAccountID());
         } else {
-            String tid = request.getParameter("tbid");
-            DAO dao = new DAO();
-            if (a.getRole() == 1) {
-                ThietBi tb = dao.getThietBibyIDandAccID(tid, a.getAccountID());
-                request.setAttribute("detail", tb);
-            }
-            ThietBi tb = dao.getThietBibyID(tid);
-            request.setAttribute("detail", tb);
+            tb = dao.getThietBibyID(tid);
         }
-        request.getRequestDispatcher("EditThietBi.jsp").forward(request, response);
+
+        request.setAttribute("detail", tb);
     }
+    
+    request.getRequestDispatcher("EditThietBi.jsp").forward(request, response);
+}
+
 
 
 

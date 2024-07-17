@@ -35,6 +35,7 @@ public class AddDichVuAndNhapAddHDonDetail extends HttpServlet {
         String denNgay = request.getParameter("DenNgay");
         String chiSoCu = request.getParameter("ChiSoCu");
         String chiSoMoi = request.getParameter("ChiSoMoi");
+        String urlAnh = request.getParameter("UrlAnh");
 
         String errorMsg = null;
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -65,7 +66,7 @@ public class AddDichVuAndNhapAddHDonDetail extends HttpServlet {
             request.setAttribute("error", errorMsg);
             request.getRequestDispatcher("nhapadddichvu").forward(request, response);
         } else {
-            sondao.insertDichVu(dvid, PhongID, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi);
+            sondao.insertDichVu(dvid, PhongID, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi, urlAnh);
             response.sendRedirect("nhapaddhoadondetail?pid=" + pid + "&dvid=" + dvid);
         }
     }

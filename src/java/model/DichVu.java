@@ -20,12 +20,12 @@ public class DichVu {
     private Date denNgay;
     private int chiSoCu;
     private int chiSoMoi;
+    private String urlAnh;
 
     public DichVu() {
     }
 
-
-    public DichVu(int dichVuID, int PhongID, String name, int giaTien, Date tuNgay, Date denNgay, int chiSoCu, int chiSoMoi) {
+    public DichVu(int dichVuID, int PhongID, String name, int giaTien, Date tuNgay, Date denNgay, int chiSoCu, int chiSoMoi, String urlAnh) {
         this.dichVuID = dichVuID;
         this.PhongID = PhongID;
         this.name = name;
@@ -34,6 +34,7 @@ public class DichVu {
         this.denNgay = denNgay;
         this.chiSoCu = chiSoCu;
         this.chiSoMoi = chiSoMoi;
+        this.urlAnh = urlAnh;
     }
 
     public int getDichVuID() {
@@ -100,9 +101,17 @@ public class DichVu {
         this.chiSoMoi = chiSoMoi;
     }
 
+    public String getUrlAnh() {
+        return urlAnh;
+    }
+
+    public void setUrlAnh(String urlAnh) {
+        this.urlAnh = urlAnh;
+    }
+
     @Override
     public String toString() {
-        return "DichVu{" + "dichVuID=" + dichVuID + ", PhongID=" + PhongID + ", name=" + name + ", giaTien=" + giaTien + ", tuNgay=" + tuNgay + ", denNgay=" + denNgay + ", chiSoCu=" + chiSoCu + ", chiSoMoi=" + chiSoMoi + '}';
+        return "DichVu{" + "dichVuID=" + dichVuID + ", PhongID=" + PhongID + ", name=" + name + ", giaTien=" + giaTien + ", tuNgay=" + tuNgay + ", denNgay=" + denNgay + ", chiSoCu=" + chiSoCu + ", chiSoMoi=" + chiSoMoi + ", urlAnh=" + urlAnh + '}';
     }
 
 }

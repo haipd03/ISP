@@ -13,7 +13,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
+import model.Accounts;
 import model.Phong;
 import model.ThietBi;
 
@@ -36,18 +38,27 @@ public class InsertTB extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String pid = request.getParameter("ib");
+        HttpSession session = request.getSession();
+        Accounts a = (Accounts) session.getAttribute("acc");
 
-        DAO dao = new DAO();
-        SonDAO sondao = new SonDAO();
+        if (a == null || a.getRole() == 1) {
+            // Redirect to login page if account is not logged in or is of role 1 (assuming role 1 is not allowed here)
+            response.sendRedirect("login.jsp");
+            return; // Ensure no further processing is done after redirect
+        } else {
+            String pid = request.getParameter("ib");
 
-        List<Phong> p = dao.getPhongByPhongID(pid);
-        int nextThietBiID = sondao.getNextThietBiID();
+            DAO dao = new DAO();
+            SonDAO sondao = new SonDAO();
 
-        request.setAttribute("pid", p);
-        request.setAttribute("nextThietBiID", nextThietBiID);
+            List<Phong> p = dao.getPhongByPhongID(pid);
+            int nextThietBiID = sondao.getNextThietBiID();
 
-        request.getRequestDispatcher("AddThietBi.jsp").forward(request, response);
+            request.setAttribute("pid", p);
+            request.setAttribute("nextThietBiID", nextThietBiID);
+
+            request.getRequestDispatcher("AddThietBi.jsp").forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

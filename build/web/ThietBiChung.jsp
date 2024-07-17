@@ -66,7 +66,7 @@
 
                         
                             <h4 class="text-lg font-semibold mb-2 flex justify-between items-center">Danh sách thiết bị chung:
-                                <c:if test="${sessionScope.acc.role == 1}">
+                                <c:if test="${sessionScope.acc.role == 0}">
                                     <a href="insertthietbichung">
                                         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded">Thêm thiết bị chung</button>
                                     </a>
@@ -84,7 +84,7 @@
                                         <th class="px-4 py-2 ">Số lượng</th>
                                         <th class="px-4 py-2 ">Tình trạng</th>
                                         <th class="px-4 py-2 ">Giá</th>
-                                            <c:if test="${sessionScope.acc.role == 1}">
+                                            <c:if test="${sessionScope.acc.role == 0}">
                                             <th class="px-4 py-2 text-center">Thao tác</th>
                                             </c:if>
                                     </tr>
@@ -98,20 +98,7 @@
                                             <td class="px-4 py-2 ">${o.soLuong}</td>
                                             <td class="px-4 py-2 ">${o.tinhTrang}</td>
                                             <td class="px-4 py-2 ">${o.gia}</td>
-
-
-                                            <%--<c:if test="${sessionScope.acc.role == 1}">--%>
-                                            <!--                                                <td class="px-4 py-2">
-                                                                                                <a href="loadthietbichung?id=${o.thietBiChungID}" class="text-blue-500 hover:text-blue-700 mr-2">Sửa</a>
-                                                                                                <form id="editForm" action="loadthietbichung?id=${o.thietBiChungID}" method="post">
-                                                                                                    <input type="hidden" name="thietBiChungID" value="${o.thietBiChungID}">
-                                                                                                    <button type="submit" class="bg-purple-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200">Sửa</button>
-                                                                                                </form>
-                                                                                                <a href="${pageContext.request.contextPath}/deletethietbichung?id=${o.thietBiChungID}" class="text-red-500 hover:text-red-700" onclick="return confirm('Bạn có chắc chắn muốn xóa dịch vụ này không?');">Xóa</a>
-                                                                                            </td>-->
-                                            <%--</c:if>--%>
-
-                                            <c:if test="${sessionScope.acc.role == 1}">
+                                            <c:if test="${sessionScope.acc.role == 0}">
                                                 <c:choose>
                                                     <c:when test="${o.tinhTrang == 'Đang sửa'}">
                                                         <td class="px-4 py-2 text-center">

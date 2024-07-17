@@ -1448,8 +1448,9 @@ public static void main(String[] args) {
                 Date denNgay = rs.getDate("DenNgay");
                 int chiSoCu = rs.getInt("ChiSoCu");
                 int chiSoMoi = rs.getInt("ChiSoMoi");
+                String urlAnh = rs.getString("UrlAnh");
 
-                DichVu dichVu = new DichVu(dichVuID, phongID, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi);
+                DichVu dichVu = new DichVu(dichVuID, phongID, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi, urlAnh);
                 return dichVu;
             }
         } catch (SQLException e) {

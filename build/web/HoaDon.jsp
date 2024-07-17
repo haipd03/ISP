@@ -99,10 +99,6 @@
                                                 <c:if test="${o.hoaDon.tinhTrangThanhToan == 'Chưa Thanh Toán'}">
 
                                                     <td class="px-4 py-2">
-                                                        <form action="loadhoadon" method="post" style="display: inline;">
-                                                            <input type="hidden" name="id" value="${o.hoaDon.hoaDonID}" />
-                                                            <button type="submit" class="text-blue-500 hover:text-blue-700 mr-2">Sửa</button>
-                                                        </form>
                                                         <form action="deletehoadon" method="post" style="display: inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa hóa đơn này không?');">
                                                             <input type="hidden" name="id" value="${o.hoaDon.hoaDonID}" />
                                                             <button type="submit" class="text-red-500 hover:text-red-700">Xóa</button>

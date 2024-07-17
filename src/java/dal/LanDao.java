@@ -252,7 +252,7 @@ public class LanDao extends MyDAO {
 
     public List<ThietBiChung> getThietbiChungByCriteria1(String ten, String soLuong, String tinhTrang, String gia, int accountID) {
         List<ThietBiChung> thietbiChungSearch = new ArrayList<>();
-        String sql = "SELECT tbc.* FROM ThietBiChung tbc JOIN Khu k ON tbc.KhuID = k.KhuID JOIN Accounts a ON a.AccountID = k.AccountID WHERE a.AccountID=?";
+        String sql = "SELECT tbc.* FROM ThietBiChung tbc JOIN Khu k ON tbc.KhuID = k.KhuID JOIN Accounts a ON a.AccountID = k.AccountID WHERE 1=1 and a.AccountID=?";
 
         if (ten != null && !ten.trim().isEmpty()) {
             sql += " AND Ten LIKE ?";
@@ -314,7 +314,7 @@ public class LanDao extends MyDAO {
 //        u.editThietBiChung(id, khuID, ten, soLuong, tinhTrang, gia);
 //        u.insertthietBiChung("45", "1", "Máy chiếu", "10", "Tốt", "2000000");
 
-        List<ThietBiChung> tbc = u.getThietbiChungByCriteria1(null, null, null, null, 2);
+        List<ThietBiChung> tbc = u.getThietbiChungByCriteria1("m", null, null, null, 2);
         for (ThietBiChung thietBiChung : tbc) {
             System.out.println(thietBiChung);
         }

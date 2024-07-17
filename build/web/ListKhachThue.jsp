@@ -44,7 +44,7 @@
                         <table border="0">
                             <tbody>
                                 <tr>
-                                    <c:if test="${empty listHopDong1 || (sokhach < listHopDong1.soKhachThue && sokhach > 0) }">
+                                    <c:if test="${(empty listHopDong1 && sokhach1 == 0) || (sokhach < listHopDong1.soKhachThue && sokhach > 0) }">
                                         <td>
                                             <div class="flex justify-end">
                                                 <form action="nhapaddkhachthue?naktpid=${phongID}" method="post">

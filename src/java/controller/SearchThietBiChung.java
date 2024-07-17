@@ -54,17 +54,17 @@ public class SearchThietBiChung extends HttpServlet {
                 if (a.getRole() == 0) {
                     stbc = u.getThietbiChungByCriteria(ten, sl, tt, gia);
                 } else {
-                    stbc1 = u.getThietbiChungByCriteria1(ten, sl, tt, gia, a.getAccountID());
+                    stbc = u.getThietbiChungByCriteria1(ten, sl, tt, gia, a.getAccountID());
                 }
 
-                if ((stbc != null && stbc.isEmpty()) && (stbc1 != null && stbc1.isEmpty())) {
+                if ((stbc != null && stbc.isEmpty())) {
                     request.setAttribute("error", "Không tìm thấy thiết bị chung với tiêu chí tìm kiếm!");
                 } else {
                     if (stbc != null) {
                         request.setAttribute("ltbc", stbc);
                     }
-                    if (stbc1 != null) {
-                        request.setAttribute("ltbc1", stbc1);
+                    if (stbc != null) {
+                        request.setAttribute("ltbc", stbc);
                     }
                 }
             } catch (Exception e) {

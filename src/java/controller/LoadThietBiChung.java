@@ -68,9 +68,10 @@ public class LoadThietBiChung extends HttpServlet {
         HttpSession session = request.getSession();
         Accounts a = (Accounts) session.getAttribute("acc");
 
-        if (a == null) {
+        if (a == null || a.getRole() == 1) {
             // Redirect to login page or show error message if account is not logged in
             response.sendRedirect("login.jsp");
+            return;
         } else {
             String tbcid = request.getParameter("id");
             LanDao u = new LanDao();

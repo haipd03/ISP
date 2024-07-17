@@ -93,6 +93,7 @@
                                         <th class="px-4 py-2 text-center">Đến ngày</th>
                                         <th class="px-4 py-2 text-center">Chỉ số cũ</th>
                                         <th class="px-4 py-2 text-center">Chỉ số mới</th>
+                                        <th class="px-4 py-2 text-center">Ảnh</th>
                                             <c:if test="${sessionScope.acc.role == 1}">
                                             <th class="px-4 py-2 text-center">Thao tác</th>
                                             </c:if>
@@ -109,13 +110,25 @@
                                             <td class="px-4 py-2 text-center">${o.denNgay}</td>
                                             <td class="px-4 py-2 text-center">${o.chiSoCu}</td>
                                             <td class="px-4 py-2 text-center">${o.chiSoMoi}</td>
+                                            <td class="px-4 py-2 text-center">
+                                                <c:choose>
+                                                    <c:when test="${o.urlAnh != 'null'}">
+                                                        <a href="${o.urlAnh}" class="text-indigo-600 hover:text-indigo-900" target="_blank">
+                                                            Xem ảnh
+                                                        </a>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        Không Có Ảnh
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </td>
 
                                             <c:if test="${sessionScope.acc.role == 1}">
                                                 <td class="px-4 py-2">
-                                                    <form action="editdichvu" method="post" style="display: inline;">
+<!--                                                    <form action="editdichvu" method="post" style="display: inline;">
                                                         <input type="hidden" name="id" value="${o.dichVuID}" />
                                                         <button type="submit" class="text-blue-500 hover:text-blue-700 mr-2">Sửa</button>
-                                                    </form>
+                                                    </form>-->
                                                     <form action="${pageContext.request.contextPath}/deletedichvu" method="get" style="display: inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa dịch vụ này không?');">
                                                         <input type="hidden" name="id" value="${o.dichVuID}" />
                                                         <button type="submit" class="text-red-500 hover:text-red-700">Xóa</button>
