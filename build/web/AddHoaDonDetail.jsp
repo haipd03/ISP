@@ -93,7 +93,12 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Hệ số</label>
-                                                        <input name="HeSo" type="text" class="form-control" required>
+                                                        <select name="HeSo" required class="form-control">
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                        </select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Mã dịch vụ</label>

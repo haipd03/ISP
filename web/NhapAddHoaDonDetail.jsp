@@ -63,8 +63,14 @@
 
                                     <div class="flex items-center">
                                         <label class="w-2/5 text-gray-700 font-semibold">Hệ Số:</label>
-                                        <input type="text" name="HeSo" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <select name="HeSo" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                        </select>
                                     </div>
+
 
                                     <input type="hidden" name="GiaTien" value="${lp4.giaTien}">
 

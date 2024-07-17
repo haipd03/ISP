@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="./dist/styles.css">
         <link rel="stylesheet" href="./dist/all.css">
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i,700,700i" rel="stylesheet">
-        <title>Danh sách dịch vụ</title>
+        <title>Danh sách dịch vụ phòng</title>
     </head>
 
     <body>
@@ -73,11 +73,11 @@
 
 
 
-                        <h4 class="text-lg font-semibold mb-2 flex justify-between items-center">Danh sách dịch vụ:
+                        <h4 class="text-lg font-semibold mb-2 flex justify-between items-center">Danh sách dịch vụ phòng:
 
                             <c:if test="${sessionScope.acc.role == 1}">
                                 <a href="insertdichvu">
-                                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Thêm dịch vụ</button>
+                                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Thêm dịch vụ phòng</button>
                                 </a>
                             </c:if>
                         </h4>

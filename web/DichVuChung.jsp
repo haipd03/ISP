@@ -101,7 +101,7 @@
 
                         <h4 class="text-lg font-semibold mb-2 flex justify-between items-center">
                             Danh sách dịch vụ chung:
-                            <c:if test="${sessionScope.acc.role == 1}">
+                            <c:if test="${sessionScope.acc.role == 0}">
                                 <a href="insertdichvuchung">
                                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Thêm dịch vụ chung</button>
                                 </a>
@@ -121,7 +121,7 @@
                                         <th class="px-4 py-2 text-center">Đến ngày</th>
                                         <th class="px-4 py-2 text-center">Tình trạng</th>
                                         <th class="px-4 py-2 text-center">Ghi chú</th>
-                                            <c:if test="${sessionScope.acc.role == 1}">
+                                            <c:if test="${sessionScope.acc.role == 0}">
                                             <th class="px-4 py-2 text-center">Thao tác</th>
                                             </c:if>
                                     </tr>
@@ -141,7 +141,7 @@
                                             <td class="px-4 py-2 text-center">${o.ghiChu}</td>
 
 
-                                            <c:if test="${sessionScope.acc.role == 1}">
+                                            <c:if test="${sessionScope.acc.role == 0}">
                                                 <c:choose>
                                                     <c:when test="${o.tinhTrang == 'Đang làm'}">
                                                         <td class="px-4 py-2">

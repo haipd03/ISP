@@ -43,7 +43,7 @@ public class ListHoaDonPhong extends HttpServlet {
         HttpSession session = request.getSession();
         Accounts a = (Accounts) session.getAttribute("acc");
 
-        if (a == null || a.getRole() == 0) {
+        if (a == null ) {
             response.sendRedirect("login.jsp");
         } else {
             String id = request.getParameter("id");
@@ -57,10 +57,21 @@ public class ListHoaDonPhong extends HttpServlet {
                 hdd = sondao.getHoaDonDetailByDVuID(listhdon.getHoaDonID());
             }
 
+            HoaDon listhdon1 = sondao.getIDByHoaDonIDByPhong(id);
+            List<DichVu> listdv1 = new ArrayList<>();
+            List<HoaDonDetail> hdd1 = new ArrayList<>();
+            if (listhdon1 != null) {
+                listdv1 = sondao.getDichVubyhdonID(listhdon1.getHoaDonID());
+                hdd1 = sondao.getHoaDonDetailByDVuID(listhdon1.getHoaDonID());
+            }
+
             request.setAttribute("listhdon", listhdon);
+            request.setAttribute("listhdon", listhdon1);
             request.setAttribute("phongid", id);
             request.setAttribute("listdv", listdv);
             request.setAttribute("hdd", hdd);
+            request.setAttribute("listdv", listdv1);
+            request.setAttribute("hdd", hdd1);
 
             request.getRequestDispatcher("ListHoaDonPhong.jsp").forward(request, response);
         }

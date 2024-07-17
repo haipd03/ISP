@@ -61,16 +61,17 @@
                                                             <input name="DichVuChungID" type="text" class="form-control" value="${nextDichVuChungID}" readonly>
                                                         </div>
 
-                                                        <c:forEach items="${khu}" var="khu">
-                                                            <div class="form-group col-md-6">
-                                                                <label>Mã Khu:</label>
-                                                                <select name="KhuID" class="form-control" required>
-                                                                    <option value="${khu.khuID}">${khu.khuID}</option>
 
-                                                                </select>
-                                                            </div>
-                                                        </c:forEach>
-                                                        
+                                                        <div class="form-group col-md-6">
+                                                            <label>Mã Khu:</label>
+                                                            <select name="KhuID" class="form-control" required>
+                                                                <c:forEach items="${khu}" var="khu">
+                                                                    <option value="${khu.khuID}">${khu.khuID}</option>
+                                                                </c:forEach>
+                                                            </select>
+                                                        </div>
+
+
                                                     </div>
                                                     <div class="form-row">
                                                         <div class="form-group col-md-6">

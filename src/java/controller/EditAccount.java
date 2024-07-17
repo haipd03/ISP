@@ -34,56 +34,73 @@ import java.util.regex.Pattern;
              * @throws ServletException if a servlet-specific error occurs
              * @throws IOException if an I/O error occurs
              */
- private static final String GMAIL_REGEX = "^[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}$";
-           protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-                response.setContentType("text/html;charset=UTF-8");
+ private static final String GMAIL_REGEX = "^[A-Z0-9a-z._%+-]+@gmail\\.com$";
+private static final String PASSWORD_REGEX = "^(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?])(?=.*[A-Za-z])(?=.*\\d).{6,}$";
 
-                int accountID = Integer.parseInt(request.getParameter("AccountID"));
-                String taiKhoan = request.getParameter("TaiKhoan");
-                String password = request.getParameter("Password");
-                String roleParam = request.getParameter("Role");
-                String hoVaTen = request.getParameter("HoVaTen");
-                String email = request.getParameter("Email");
+protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    response.setContentType("text/html;charset=UTF-8");
 
-                String cccd = request.getParameter("CCCD");
+    int accountID = Integer.parseInt(request.getParameter("AccountID"));
+    String taiKhoan = request.getParameter("TaiKhoan");
+    String password = request.getParameter("Password");
+    String roleParam = request.getParameter("Role");
+    String hoVaTen = request.getParameter("HoVaTen");
+    String email = request.getParameter("Email");
+    String cccd = request.getParameter("CCCD");
+    String diaChi = request.getParameter("DiaChi");
 
-                String diaChi = request.getParameter("DiaChi");
-
-                int role;
-                try {
-                    role = Integer.parseInt(roleParam);
-                    if (role != 0 && role != 1) {
-                        throw new NumberFormatException("Invalid role value");
-                    }
-                } catch (NumberFormatException e) {
-                    request.setAttribute("errorMessage", "Role must be  0 or 1");
-                    request.setAttribute("listA", new Accounts(accountID, taiKhoan, password, 0, hoVaTen, email, cccd, diaChi)); // Maintain input data
-                    request.getRequestDispatcher("EditAccount.jsp").forward(request, response);
-                    return;
-                }
-
-                
-        Pattern pattern = Pattern.compile(GMAIL_REGEX);
-        Matcher matcher = pattern.matcher(email);
-        if (!matcher.matches()) {
-            request.setAttribute("errorMessage", "Invalid Gmail format. Email must end with '@gmail.com'.");
-            request.setAttribute("listA", new Accounts(accountID, taiKhoan, password, role, hoVaTen, email, cccd, diaChi));
-            request.getRequestDispatcher("EditAccount.jsp").forward(request, response);
-            return;
+    int role;
+    try {
+        role = Integer.parseInt(roleParam);
+        if (role != 0 && role != 1) {
+            throw new NumberFormatException("Invalid role value");
         }
+    } catch (NumberFormatException e) {
+        request.setAttribute("errorMessage", "Role must be 0 or 1");
+        request.setAttribute("listA", new Accounts(accountID, taiKhoan, password, 0, hoVaTen, email, cccd, diaChi)); // Maintain input data
+        request.getRequestDispatcher("EditAccount.jsp").forward(request, response);
+        return;
+    }
 
+    // Validate `taiKhoan`
+    if (taiKhoan == null || taiKhoan.length() < 6) {
+        request.setAttribute("errorMessage", "TaiKhoan phải dài ít nhất 6 ký tự.");
+        request.setAttribute("listA", new Accounts(accountID, taiKhoan, password, role, hoVaTen, email, cccd, diaChi));
+        request.getRequestDispatcher("EditAccount.jsp").forward(request, response);
+        return;
+    }
 
+    // Validate `password`
+    Pattern passwordPattern = Pattern.compile(PASSWORD_REGEX);
+    Matcher passwordMatcher = passwordPattern.matcher(password);
+    if (password == null || password.length() < 6 || !passwordMatcher.matches()) {
+        request.setAttribute("errorMessage", "Mật khẩu cần ít nhất 6 ký tự ,chứa ít nhất một ký tự đặc biệt, một ký tự chữ cái, một ký tự số");
+        request.setAttribute("listA", new Accounts(accountID, taiKhoan, password, role, hoVaTen, email, cccd, diaChi));
+        request.getRequestDispatcher("EditAccount.jsp").forward(request, response);
+        return;
+    }
 
-                Accounts account = new Accounts(accountID, taiKhoan, password, role, hoVaTen, email, cccd, diaChi);
-                DAO dao = new DAO();
-                try {
-                    dao.updateAccount(account);
-                } catch (SQLException ex) {
-                    Logger.getLogger(EditAccount.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                response.sendRedirect("listaccount");
-            }
+    // Validate `email`
+    Pattern pattern = Pattern.compile(GMAIL_REGEX);
+    Matcher matcher = pattern.matcher(email);
+    if (!matcher.matches()) {
+        request.setAttribute("errorMessage", "Invalid Gmail format. Email must end with '@gmail.com'.");
+        request.setAttribute("listA", new Accounts(accountID, taiKhoan, password, role, hoVaTen, email, cccd, diaChi));
+        request.getRequestDispatcher("EditAccount.jsp").forward(request, response);
+        return;
+    }
+
+    Accounts account = new Accounts(accountID, taiKhoan, password, role, hoVaTen, email, cccd, diaChi);
+    DAO dao = new DAO();
+    try {
+        dao.updateAccount(account);
+    } catch (SQLException ex) {
+        Logger.getLogger(EditAccount.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    response.sendRedirect("listaccount");
+}
+
 
             // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
             /** 

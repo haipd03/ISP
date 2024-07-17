@@ -48,6 +48,7 @@ public class AddHoaDonDetailPhong extends HttpServlet {
         int csm = Integer.parseInt(request.getParameter("ChiSoMoi"));
 
         int hs1 = Integer.parseInt(request.getParameter("HeSo"));
+        
         int gt = Integer.parseInt(request.getParameter("GiaTien"));
 
         // Tính toán TongSo
@@ -64,9 +65,9 @@ public class AddHoaDonDetailPhong extends HttpServlet {
         String dvid = request.getParameter("DichVuID");
 
         SonDAO sondao = new SonDAO();
-        
+
         sondao.insertHoaDonDetail(hddid, hdid, tn, dn, ts, hs, tt, dvid);
-        
+
         Phong listphong = sondao.getPhongByHoaDonID(hdid);
         int giaPhong = listphong.getGia();
 

@@ -107,9 +107,10 @@
                                                                         <td class="px-4 py-2">${l.name}</td>
                                                                         <td class="px-4 py-2">${l.soLuong}</td>
                                                                         <td class="px-4 py-2">${l.tinhTrang}</td>
-                                                                        <td class="px-4 py-2">
+                                                                        <td class="px-4 py-2">${l.gia}</td>
+<!--                                                                        <td class="px-4 py-2">
                                                                             <fmt:formatNumber value="${l.gia}" pattern="#,##0 đồng" />
-                                                                        </td>
+                                                                        </td>-->
                                                                     </tr>
                                                                 </c:when>
                                                             </c:choose>

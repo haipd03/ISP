@@ -115,12 +115,7 @@
                                                             </c:when>
                                                         </c:choose>
                                                     </td>
-                                                    <c:if test="${o.tinhTrang == 1}">
-                                                        <td class="px-5 py-5 border-b border-gray-200 text-sm">
-                                                            <a href='loadhopdong?lhdid=${o.hopDongID}&lpid=${o.phongID}' class="text-indigo-600 hover:text-indigo-900">Update</a>
-                                                            <a href='#' class="text-red-600 hover:text-red-900 ml-2" onclick="confirmDelete(event, 'deletehopdong?hdid=${o.hopDongID}')">Delete</a>
-                                                        </td>
-                                                    </c:if>
+                                                   
                                                 </tr>
                                             </c:if>
                                         </c:forEach>

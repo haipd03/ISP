@@ -578,6 +578,28 @@ public List<DichVuChung> getDichVuChungByCriteria(String dichVuChungName, String
     }
 
 
+public List<Khu> getKhuBy() {
+        List<Khu> khus = new ArrayList<>();
+        String sql = "select k.*\n"
+                + "from khu k\n";
+        try {
+            ps = con.prepareStatement(sql);
+            
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int KhuID = rs.getInt("KhuID");
+                String Name = rs.getString("Name");
+                int AccountID = rs.getInt("AccountID");
+                Khu khu = new Khu(KhuID, Name, AccountID);
+                khus.add(khu);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return khus;
+    }
+
+
     public static void main(String[] args) throws SQLException {
         LinhDao u = new LinhDao();
         List<DichVu> dichVu = u.getDichVuByCriteria("1001", null, null, null);
