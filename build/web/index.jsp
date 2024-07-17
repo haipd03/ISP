@@ -194,7 +194,7 @@
                                                     <a href="listthietbi?id=${o.phongID}" class="button-link">Thiết bị</a>
                                                 </div>
                                                 <div class="text-center mr-3 border-r pr-3">
-                                                    <a href="listhoadonphong?id=${o.phongID}" class="button-link">Hóa Đơn</a>
+                                                    <a href="listhoadonphong?id=${o.phongID}" class="button-link">Thông Tin Hóa Đơn</a>
                                                 </div>
                                                 <c:if test="${o.phongConTrong == 0}">
                                                     <a  href="listNguoiThue?lntid=${o.phongID}">
