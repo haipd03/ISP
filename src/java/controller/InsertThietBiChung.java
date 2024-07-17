@@ -34,26 +34,28 @@ public class InsertThietBiChung extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        Accounts a = (Accounts) session.getAttribute("acc");
-        if (a == null|| a.getRole() == 0) {
-            response.sendRedirect("login");
-        } else {
-            String tbcid = request.getParameter("ib");
-            LanDao u = new LanDao();
-            
-            ThietBiChung tbc = u.getThietBiChungbyID(tbcid);
-            List<Khu> lk = u.getKhuIDByAccountID(a.getAccountID());
-            int nextThietBiChungID = u.getNextthietBiChungID();
-            
-            request.setAttribute("detail", tbc);
-            request.setAttribute("lk", lk);
-            request.setAttribute("nextThietBiChungID", nextThietBiChungID);
-            request.getRequestDispatcher("AddThietBiChung.jsp").forward(request, response);
-        }
-    } 
+        throws ServletException, IOException {
+    response.setContentType("text/html;charset=UTF-8");
+    HttpSession session = request.getSession();
+    Accounts a = (Accounts) session.getAttribute("acc");
+
+    if (a == null || a.getRole() == 1) {
+        response.sendRedirect("login");
+        return; 
+    } else {
+        String tbcid = request.getParameter("ib");
+        LanDao u = new LanDao();
+
+        ThietBiChung tbc = u.getThietBiChungbyID(tbcid);
+        List<Khu> lk = u.getKhuIDByAccountID(a.getAccountID());
+        int nextThietBiChungID = u.getNextthietBiChungID();
+
+        request.setAttribute("detail", tbc);
+        request.setAttribute("lk", lk);
+        request.setAttribute("nextThietBiChungID", nextThietBiChungID);
+        request.getRequestDispatcher("AddThietBiChung.jsp").forward(request, response);
+    }
+} 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 

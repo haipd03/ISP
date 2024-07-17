@@ -29,6 +29,7 @@ public class AddDichVu extends HttpServlet {
         String denNgay = request.getParameter("DenNgay");
         String chiSoCu = request.getParameter("ChiSoCu");
         String chiSoMoi = request.getParameter("ChiSoMoi");
+        String urlAnh = request.getParameter("UrlAnh");
 
         LinhDao dao = new LinhDao();
         String giaTienPattern = "^[0-9]+$";
@@ -65,7 +66,7 @@ public class AddDichVu extends HttpServlet {
             }
 
 
-            dao.insertDichVu(dvid, phongID, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi);
+            dao.insertDichVu(dvid, phongID, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi, urlAnh);
 
 
             request.getSession().setAttribute("success", "Đã Thêm Dịch Vụ thành công!");

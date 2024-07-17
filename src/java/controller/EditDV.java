@@ -44,6 +44,7 @@ public class EditDV extends HttpServlet {
         String denNgayStr = request.getParameter("DenNgay");
         String chiSoCuStr = request.getParameter("ChiSoCu");
         String chiSoMoiStr = request.getParameter("ChiSoMoi");
+        String urlAnh = request.getParameter("UrlAnh");
 
 
         if (dvid != null && PhongID != null && name != null && giaTienStr != null && tuNgayStr != null && denNgayStr != null && chiSoCuStr != null && chiSoMoiStr != null) {
@@ -82,7 +83,7 @@ public class EditDV extends HttpServlet {
                 // Perform the update
                 LinhDao u = new LinhDao();
 
-                u.editDichVu(dvid, PhongID, name, giaTienStr, tuNgay, denNgay, chiSoCuStr, chiSoMoiStr);
+                u.editDichVu(dvid, PhongID, name, giaTienStr, tuNgay, denNgay, chiSoCuStr, chiSoMoiStr, urlAnh);
 
                 
                 // Set success message

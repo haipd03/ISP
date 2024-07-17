@@ -69,6 +69,10 @@ public class ListNguoiThue extends HttpServlet {
             int sokhach = sondao.countKhachThueByPhongID(id);
             request.setAttribute("sokhach", sokhach);
         }
+        
+        int sokhach1 = sondao.countKhachThueByPhongID(id);
+        request.setAttribute("sokhach1", sokhach1);
+
         request.setAttribute("listHopDong", hd);
         request.setAttribute("listNguoiThue", kt);
         request.setAttribute("listHopDong1", hd1);

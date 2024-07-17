@@ -93,6 +93,12 @@
                                                             <input value="${detail.chiSoMoi}" name="ChiSoMoi" type="text" class="form-control" required>
                                                         </div>
                                                     </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6">
+                                                            <label>Ảnh: </label>
+                                                            <input value="${detail.urlAnh}" name="UrlAnh" type="text" class="form-control" required>
+                                                        </div>
+                                                    </div>
                                                     <button type="submit" class="btn btn-primary">Lưu</button>
                                                     <a href="listdichvu?id=${detail.dichVuID}" class="btn btn-danger">Quay về</a>
                                                 </form>

@@ -45,6 +45,7 @@ public class ListHoaDonPhong extends HttpServlet {
 
         if (a == null ) {
             response.sendRedirect("login.jsp");
+            return;
         } else {
             String id = request.getParameter("id");
             SonDAO sondao = new SonDAO();

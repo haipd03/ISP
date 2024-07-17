@@ -51,7 +51,9 @@
                                         <th class="px-4 py-2">Số lượng</th>
                                         <th class="px-4 py-2">Tình trạng</th>
                                         <th class="px-4 py-2">Giá</th>
-                                        <th class="px-4 py-2">Thao tác</th>
+                                            <c:if test="${sessionScope.acc.role == 0}">
+                                            <th class="px-4 py-2">Thao tác</th>
+                                            </c:if>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -63,12 +65,14 @@
                                             <td class="px-4 py-2">${thietBi.soLuong}</td>
                                             <td class="px-4 py-2">${thietBi.tinhTrang}</td>
                                             <td class="px-4 py-2">${thietBi.gia}</td>
-                                            <td class="px-4 py-2">
-                                                <a href="editthietbi?tbid=${thietBi.thietBiID}" class="text-blue-500 hover:text-blue-700 mr-2">Sửa</a>
-                                                <c:if test="${thietBi.tinhTrang == 'Tốt'}">  
-                                                    <a href="#" class="text-red-500 hover:text-red-700" onclick="confirmDelete(event, 'deletethietbi?tbid=${thietBi.thietBiID}')">Xóa</a>
-                                                </c:if>
-                                            </td>
+                                            <c:if test="${sessionScope.acc.role == 0}">
+                                                <td class="px-4 py-2">
+                                                    <a href="editthietbi?tbid=${thietBi.thietBiID}" class="text-blue-500 hover:text-blue-700 mr-2">Sửa</a>
+                                                    <c:if test="${thietBi.tinhTrang == 'Tốt'}">  
+                                                        <a href="#" class="text-red-500 hover:text-red-700" onclick="confirmDelete(event, 'deletethietbi?tbid=${thietBi.thietBiID}')">Xóa</a>
+                                                    </c:if>
+                                                </td>
+                                            </c:if>
                                         </tr>
                                     </c:forEach>
                                 </tbody>
@@ -76,11 +80,13 @@
                             <c:if test="${not empty error}">
                                 <p style="color: red; font-size: 1.2em; font-weight: bold;">${error}</p>
                             </c:if>
-                            <div class="mt-4">
-                                <a href="inserttb?ib=${phongID}">
-                                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Thêm thiết bị</button>
-                                </a>
-                            </div>
+                            <c:if test="${sessionScope.acc.role == 0}">
+                                <div class="mt-4">
+                                    <a href="inserttb?ib=${phongID}">
+                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Thêm thiết bị</button>
+                                    </a>
+                                </div>
+                            </c:if>  
                         </div>
                     </div>
 
