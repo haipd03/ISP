@@ -92,31 +92,6 @@ public class LinhDao extends MyDAO {
         return count;
     }
 
-//    public List<DichVu> getDichVuBySoPhong(String soPhong) {
-//        List<DichVu> dichVuSearch = new ArrayList<>();
-//        String sql = "SELECT * FROM DichVu WHERE SoPhong = ?";
-//        try {
-//            PreparedStatement ps = con.prepareStatement(sql);
-//            ps.setString(1, soPhong);
-//            ResultSet rs = ps.executeQuery();
-//            while (rs.next()) {
-//                int dichVuID = rs.getInt("DichVuID");
-//                int soPhong1 = rs.getInt("SoPhong");
-//                String name = rs.getString("Name");
-//                int giaTien = rs.getInt("GiaTien");
-//                Date tuNgay = rs.getDate("TuNgay");
-//                Date denNgay = rs.getDate("DenNgay");
-//                int chiSoCu = rs.getInt("ChiSoCu");
-//                int chiSoMoi = rs.getInt("ChiSoMoi");
-//
-//                DichVu dichVu = new DichVu(dichVuID, soPhong1, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi);
-//                dichVuSearch.add(dichVu);
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace(); // In ra lỗi nếu có
-//        }
-//        return dichVuSearch;
-//    }
     public List<DichVu> getDichVuByCriteria(String phongID, String name, String tuNgay, String denNgay) {
         List<DichVu> dichVuSearch = new ArrayList<>();
         String sql = "SELECT * FROM DichVu WHERE 1=1";
