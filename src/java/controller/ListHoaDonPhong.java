@@ -39,15 +39,17 @@ public class ListHoaDonPhong extends HttpServlet {
         HttpSession session = request.getSession();
         Accounts a = (Accounts) session.getAttribute("acc");
 
-        if (a == null || a.getRole() == 0) {
+        if (a == null ) {
             response.sendRedirect("login.jsp");
         } else {
             String id = request.getParameter("id");
             SonDAO sondao = new SonDAO();
 
             HoaDon listhdon = sondao.getIDByHoaDonIDByPhongIDAndAccountID(id, a.getAccountID());
+            HoaDon listhdon1 = sondao.getIDByHoaDonIDByPhong(id);
 
             request.setAttribute("listhdon", listhdon);
+            request.setAttribute("listhdon", listhdon1);
             request.setAttribute("phongid", id);
             request.getRequestDispatcher("ListHoaDonPhong.jsp").forward(request, response);
         }

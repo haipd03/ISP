@@ -40,51 +40,52 @@
                     <!--/Sidebar-->
                     <!--Main-->
                     <main class="bg-gray-100 flex-1 p-6 overflow-hidden">
-
-                        <table border="0">
-                            <tbody>
-                                <tr>
-                                    <c:if test="${empty listHopDong1 || (sokhach < listHopDong1.soKhachThue && sokhach > 0) }">
-                                        <td>
-                                            <div class="flex justify-end">
-                                                <form action="nhapaddkhachthue?naktpid=${phongID}" method="post">
-                                                    <button type="submit" class="bg-green-500 hover:bg-green-800 text-white font-bold py-2 px-4 rounded">Thêm Khách Thuê</button>
-                                                </form>
-                                            </div>
-                                        </td>
-                                    </c:if>
-
-                                    <c:set var="phongDaCoHopDong" value="false" />
-
-                                    <c:forEach var="hopDong" items="${listHopDong}">
-                                        <c:if test="${hopDong.tinhTrang == 1 && hopDong.phongID == phongID}">
-                                            <c:set var="phongDaCoHopDong" value="true" />
+                        <c:if test="${sessionScope.acc.role == 1}">
+                            <table border="0">
+                                <tbody>
+                                    <tr>
+                                        <c:if test="${empty listHopDong1 || (sokhach < listHopDong1.soKhachThue && sokhach > 0) }">
+                                            <td>
+                                                <div class="flex justify-end">
+                                                    <form action="nhapaddkhachthue?naktpid=${phongID}" method="post">
+                                                        <button type="submit" class="bg-green-500 hover:bg-green-800 text-white font-bold py-2 px-4 rounded">Thêm Khách Thuê</button>
+                                                    </form>
+                                                </div>
+                                            </td>
                                         </c:if>
-                                    </c:forEach>
 
-                                    <c:if test="${!phongDaCoHopDong}">
-                                        <td>
-                                            <div class="flex justify-end">
-                                                <form action="nhapaddhopdong?nahdpid=${phongID}" method="post">
-                                                    <button type="submit" class="bg-green-500 hover:bg-green-800 text-white font-bold py-2 px-4 rounded">Thêm Hợp Đồng</button>
-                                                </form>
-                                            </div>
-                                        </td>
-                                    </c:if>
+                                        <c:set var="phongDaCoHopDong" value="false" />
 
-                                    <c:if test="${!(empty listHopDong1 || (sokhach > 0)) && phongDaCoHopDong}">
-                                        <td>
-                                            <div class="flex justify-end">
-                                                <form action="loadhopdong?lhdid=${listHopDong1.hopDongID}&lpid=${phongID}" method="post">
-                                                    <button class="bg-red-500 hover:bg-red-800 text-white font-bold py-2 px-4 rounded">Kết thúc Hợp Đồng</button>
-                                                </form>
-                                            </div>
-                                        </td>
-                                    </c:if>
+                                        <c:forEach var="hopDong" items="${listHopDong}">
+                                            <c:if test="${hopDong.tinhTrang == 1 && hopDong.phongID == phongID}">
+                                                <c:set var="phongDaCoHopDong" value="true" />
+                                            </c:if>
+                                        </c:forEach>
 
-                                </tr>    
-                            </tbody>
-                        </table>
+                                        <c:if test="${!phongDaCoHopDong}">
+                                            <td>
+                                                <div class="flex justify-end">
+                                                    <form action="nhapaddhopdong?nahdpid=${phongID}" method="post">
+                                                        <button type="submit" class="bg-green-500 hover:bg-green-800 text-white font-bold py-2 px-4 rounded">Thêm Hợp Đồng</button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </c:if>
+
+                                        <c:if test="${!(empty listHopDong1 || (sokhach > 0)) && phongDaCoHopDong}">
+                                            <td>
+                                                <div class="flex justify-end">
+                                                    <form action="loadhopdong?lhdid=${listHopDong1.hopDongID}&lpid=${phongID}" method="post">
+                                                        <button class="bg-red-500 hover:bg-red-800 text-white font-bold py-2 px-4 rounded">Kết thúc Hợp Đồng</button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </c:if>
+
+                                    </tr>    
+                                </tbody>
+                            </table>
+                        </c:if>
 
                         <c:if test="${not empty error}">
                             <p style="color: red; font-size: 1.2em; font-weight: bold;">${error}</p>
@@ -119,14 +120,16 @@
                                                         </c:otherwise>
                                                     </c:choose>
                                                 </p>
-                                                <div class="mt-4">
-                                                    <a href='#' class="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200" 
-                                                       onclick="confirmDelete(event, 'deletekhachthue?ktid=${o.khachID}')">Xóa
-                                                    </a>  
-                                                    <a class="inline-block bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
-                                                       href="listEdit?lntt=${o.khachID}">Sửa
-                                                    </a>
-                                                </div>
+                                                <c:if test="${sessionScope.acc.role == 1}">
+                                                    <div class="mt-4">
+                                                        <a href='#' class="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200" 
+                                                           onclick="confirmDelete(event, 'deletekhachthue?ktid=${o.khachID}')">Xóa
+                                                        </a>  
+                                                        <a class="inline-block bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
+                                                           href="listEdit?lntt=${o.khachID}">Sửa
+                                                        </a>
+                                                    </div>
+                                                </c:if>
                                             </div>
                                         </div>
                                     </div>

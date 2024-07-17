@@ -50,11 +50,13 @@
                                         <p class="text-gray-700"><strong>Từ Ngày:</strong> ${listhdon.tuNgay}</p>
                                         <p class="text-gray-700"><strong>Đến Ngày:</strong> ${listhdon.denNgay}</p>
                                         <p class="text-gray-700"><strong>Tổng Tiền:</strong> ${listhdon.tongTien}</p>
-                                        <div class="mt-4">
-                                            <a class="inline-block bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
-                                               href="nhapaddhoadonphong?id=${phongid}">Thêm Hóa Đơn Mới
-                                            </a>
-                                        </div>
+                                        <c:if test="${sessionScope.acc.role == 1}">
+                                            <div class="mt-4">
+                                                <a class="inline-block bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
+                                                   href="nhapaddhoadonphong?id=${phongid}">Thêm Hóa Đơn Mới
+                                                </a>
+                                            </div>
+                                        </c:if>
                                     </div>
                                 </div>
                             </div>
