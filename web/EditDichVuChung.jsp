@@ -101,7 +101,7 @@
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label>Ghi chú</label>
-                                                            <input value="${detail.ghiChu}" name="GhiChu" type="text" class="form-control" required>
+                                                            <input value="${detail.ghiChu}" name="GhiChu" type="text" class="form-control">
                                                         </div>
                                                     </div>
                                                     <div class="form-group text-right">
