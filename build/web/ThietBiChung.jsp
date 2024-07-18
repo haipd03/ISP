@@ -22,7 +22,6 @@
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i,700,700i" rel="stylesheet">
         <title>Danh sách dịch vụ</title>
     </head>
-
     <body>
         <!--Container -->
         <div class="mx-auto bg-grey-lightest">
@@ -63,10 +62,6 @@
                                 </div>
                             </form>
                         </div>
-
-
-
-
                         <h4 class="text-lg font-semibold mb-2 flex justify-between items-center">Danh sách thiết bị chung:
                             <c:if test="${sessionScope.acc.role == 0}">
                                 <a href="insertthietbichung">
@@ -74,8 +69,6 @@
                                 </a>
                             </c:if>
                         </h4>
-
-
                         <div class="overflow-x-auto ">
                             <table class="table-auto w-full border-collapse">
                                 <thead>
@@ -106,38 +99,37 @@
                                             <c:if test="${sessionScope.acc.role == 0}">
                                                 <c:choose>
                                                     <c:when test="${o.tinhTrang == 'Đang sửa'}">
-                                                        <td class="px-4 py-2 text-center">
+                                                        <td class="px-4 py-2">
                                                             <form id="editForm" action="loadthietbichung?id=${o.thietBiChungID}" method="post">
                                                                 <input type="hidden" name="thietBiChungID" value="${o.thietBiChungID}">
-                                                                <button type="submit" class="bg-purple-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200">Sửa</button>
+                                                                <button type="submit" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200">Sửa</button>
                                                             </form>
                                                         </td>
                                                     </c:when>
                                                     <c:when test="${o.tinhTrang == 'Tốt'}">
-                                                        <td class="px-4 py-2 text-center">
-                                                            <div class="flex justify-center space-x-2">
+                                                        <td class="px-4 py-2 ">
+                                                            <div class="flex space-x-4">
                                                                 <form id="editForm" action="loadthietbichung?id=${o.thietBiChungID}" method="post">
                                                                     <input type="hidden" name="thietBiChungID" value="${o.thietBiChungID}">
-                                                                    <button type="submit" class="bg-purple-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200">Sửa</button>
+                                                                    <button type="submit" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200">Sửa</button>
                                                                 </form>
                                                                 <a href="${pageContext.request.contextPath}/deletethietbichung?id=${o.thietBiChungID}" 
-                                                                   class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded transition-colors duration-200 inline-block text-center" 
+                                                                   class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200" 
                                                                    onclick="return confirm('Bạn có chắc chắn muốn xóa dịch vụ này không?');">Xóa</a>
                                                             </div>
                                                         </td>
                                                     </c:when>
                                                     <c:when test="${o.tinhTrang == 'Vô hiệu hóa'}">
-                                                        <td class="px-4 py-2 text-center"></td>
+                                                        <td class="px-4 py-2 "></td>
                                                     </c:when>
                                                     <c:otherwise>
-                                                        <td class="px-4 py-2 text-center"></td>
+                                                        <td class="px-4 py-2 "></td>
                                                     </c:otherwise>
                                                 </c:choose>
                                             </c:if>  
                                         </tr>
                                     </c:forEach>
                                 </tbody>
-
                             </table><br>
                         </div>
                     </div>
