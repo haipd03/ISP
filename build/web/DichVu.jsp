@@ -112,7 +112,7 @@
                                             <td class="px-4 py-2 text-center">${o.chiSoMoi}</td>
                                             <td class="px-4 py-2 text-center">
                                                 <c:choose>
-                                                    <c:when test="${o.urlAnh != 'null'}">
+                                                    <c:when test="${o.urlAnh != 'null' && o.urlAnh != ''}">
                                                         <a href="${o.urlAnh}" class="text-indigo-600 hover:text-indigo-900" target="_blank">
                                                             Xem ảnh
                                                         </a>
