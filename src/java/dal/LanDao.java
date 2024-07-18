@@ -13,6 +13,7 @@ import model.DichVu;
 import model.Khu;
 import model.ThietBiChung;
 import java.sql.ResultSet;
+import model.KhachThue;
 
 /**
  *
@@ -300,6 +301,35 @@ public class LanDao extends MyDAO {
             e.printStackTrace(); // Print error if any
         }
         return thietbiChungSearch;
+    }
+    public KhachThue getKhachThueByHoaDonID(int id) {
+        String sql = "select kt.*\n"
+                + "from KhachThue kt\n"
+                + "join HopDong hdong on hdong.KhachID = kt.KhachID\n"
+                + "join HoaDon hdon on hdon.HopDongID = hdong.HopDongID\n"
+                + "where hdon.HoaDonID = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                int KhachID = rs.getInt("KhachID");
+                String HoVaTen = rs.getString("HoVaTen");
+                String CCCD = rs.getString("CCCD");
+                String SDT = rs.getString("SDT");
+                String QueQuan = rs.getString("QueQuan");
+                String TenNguoiThan = rs.getString("TenNguoiThan");
+                String SDTNguoiThan = rs.getString("SDTNguoiThan");
+                String QuanHeVoiNguoiThan = rs.getString("QuanHeVoiNguoiThan");
+                int PhongID = rs.getInt("PhongID");
+                int TinhTrang = rs.getInt("TinhTrang");
+                KhachThue khachThue = new KhachThue(KhachID, HoVaTen, CCCD, SDT, QueQuan, TenNguoiThan, SDTNguoiThan, QuanHeVoiNguoiThan, PhongID, TinhTrang);
+                return khachThue;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static void main(String[] args) {

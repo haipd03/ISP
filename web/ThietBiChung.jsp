@@ -8,6 +8,8 @@
 <%@page import="model.ThietBiChung"%>
 <%@page import="java.util.*"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -64,15 +66,15 @@
 
 
 
-                        
-                            <h4 class="text-lg font-semibold mb-2 flex justify-between items-center">Danh sách thiết bị chung:
-                                <c:if test="${sessionScope.acc.role == 0}">
-                                    <a href="insertthietbichung">
-                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded">Thêm thiết bị chung</button>
-                                    </a>
-                                </c:if>
-                            </h4>
-                     
+
+                        <h4 class="text-lg font-semibold mb-2 flex justify-between items-center">Danh sách thiết bị chung:
+                            <c:if test="${sessionScope.acc.role == 0}">
+                                <a href="insertthietbichung">
+                                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded">Thêm thiết bị chung</button>
+                                </a>
+                            </c:if>
+                        </h4>
+
 
                         <div class="overflow-x-auto ">
                             <table class="table-auto w-full border-collapse">
@@ -97,7 +99,10 @@
                                             <td class="px-4 py-2 ">${o.ten}</td>
                                             <td class="px-4 py-2 ">${o.soLuong}</td>
                                             <td class="px-4 py-2 ">${o.tinhTrang}</td>
-                                            <td class="px-4 py-2 ">${o.gia}</td>
+<!--                                            <td class="px-4 py-2 ">${o.gia}</td>-->
+                                            <td class="px-4 py-2">
+                                                <fmt:formatNumber value="${o.gia}" pattern="#,##0 đồng" />
+                                            </td>
                                             <c:if test="${sessionScope.acc.role == 0}">
                                                 <c:choose>
                                                     <c:when test="${o.tinhTrang == 'Đang sửa'}">
