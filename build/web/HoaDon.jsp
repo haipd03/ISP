@@ -2,6 +2,7 @@
 <%@page import = "model.HoaDon" %>
 <%@page import = "java.util.*" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -68,7 +69,7 @@
                                         <th class="px-4 py-2">Tình trạng</th>
                                         <th class="px-4 py-2">Từ ngày</th>
                                         <th class="px-4 py-2">Đến ngày</th>
-                                        <th class="px-4 py-2">Tổng tiền</th>
+                                        <th class="px-4 py-2 text-center">Tổng tiền</th>
                                         <th class="px-4 py-2">Thông tin </th>
                                             <c:if test="${sessionScope.acc.role == 1}">
                                             <th class="px-4 py-2">Thao tác</th>
@@ -85,8 +86,10 @@
                                             <td class="px-4 py-2">${o.hoaDon.tinhTrangThanhToan}</td>
                                             <td class="px-4 py-2">${o.hoaDon.tuNgay}</td>
                                             <td class="px-4 py-2">${o.hoaDon.denNgay}</td>
-                                            <td class="px-4 py-2">${o.hoaDon.tongTien}</td>
-
+                                            <!--<td class="px-4 py-2">${o.hoaDon.tongTien}</td>-->
+                                            <td class="px-4 py-2 text-center">
+                                                <fmt:formatNumber value="${o.hoaDon.tongTien}" pattern="#,##0 đồng" />
+                                            </td>
                                             <td class="px-4 py-2">
                                                 <a href="listhoadondetail?id=${o.hoaDon.hoaDonID}" class="text-blue-500 hover:text-red-700">Chi tiết</a>
 

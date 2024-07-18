@@ -2,6 +2,7 @@
 <%@page import="model.DichVu"%>
 <%@page import="java.util.*"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -88,7 +89,7 @@
                                         <th class="px-4 py-2 text-center">Mã dịch vụ</th>
                                         <th class="px-4 py-2 text-center">Số phòng ID</th>
                                         <th class="px-4 py-2 ">Tên</th>
-                                        <th class="px-4 py-2 ">Giá tiền</th>
+                                        <th class="px-4 py-2 text-center">Giá tiền</th>
                                         <th class="px-4 py-2 ">Từ ngày</th>
                                         <th class="px-4 py-2 ">Đến ngày</th>
                                         <th class="px-4 py-2 text-center">Chỉ số cũ</th>
@@ -105,7 +106,10 @@
                                             <td class="px-4 py-2 text-center">${o.dichVuID}</td>
                                             <td class="px-4 py-2 text-center">${o.phongID}</td>
                                             <td class="px-4 py-2 ">${o.name}</td>
-                                            <td class="px-4 py-2 ">${o.giaTien}</td>
+                                            <!--<td class="px-4 py-2 ">${o.giaTien}</td>-->
+                                            <td class="px-4 py-2 text-center">
+                                                <fmt:formatNumber value="${o.giaTien}" pattern="#,##0 đồng" />
+                                            </td>
                                             <td class="px-4 py-2 ">${o.tuNgay}</td>
                                             <td class="px-4 py-2 ">${o.denNgay}</td>
                                             <td class="px-4 py-2 text-center">${o.chiSoCu}</td>

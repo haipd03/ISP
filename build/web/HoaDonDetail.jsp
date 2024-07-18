@@ -3,6 +3,7 @@
 <%@page import = "model.HoaDon" %>
 <%@page import = "java.util.*" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
@@ -60,7 +61,10 @@
                                         <td class="px-2 py-2 text-center">${o.denNgay}</td>
                                         <td class="px-2 py-2 text-center">${o.tongSo}</td>
                                         <td class="px-2 py-2 text-center">${o.heSo}</td>
-                                        <td class="px-2 py-2 text-center">${o.thanhTien}</td>
+                                        <!--<td class="px-2 py-2 text-center">${o.thanhTien}</td>-->
+                                        <td class="px-4 py-2 text-center">
+                                            <fmt:formatNumber value="${o.thanhTien}" pattern="#,##0 đồng" />
+                                        </td>
                                         <td class="px-2 py-2 text-center">${o.dichVuID}</td>
                                         <c:if test="${hd.tinhTrangThanhToan != 'Đã thanh toán'}">
                                             <c:if test="${sessionScope.acc.role == 1}">
