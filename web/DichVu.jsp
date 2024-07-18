@@ -87,15 +87,15 @@
                                     <tr class="bg-gray-200 text-gray-800">
                                         <th class="px-4 py-2 text-center">Mã dịch vụ</th>
                                         <th class="px-4 py-2 text-center">Số phòng ID</th>
-                                        <th class="px-4 py-2 text-center">Tên</th>
-                                        <th class="px-4 py-2 text-center">Giá tiền</th>
-                                        <th class="px-4 py-2 text-center">Từ ngày</th>
-                                        <th class="px-4 py-2 text-center">Đến ngày</th>
+                                        <th class="px-4 py-2 ">Tên</th>
+                                        <th class="px-4 py-2 ">Giá tiền</th>
+                                        <th class="px-4 py-2 ">Từ ngày</th>
+                                        <th class="px-4 py-2 ">Đến ngày</th>
                                         <th class="px-4 py-2 text-center">Chỉ số cũ</th>
                                         <th class="px-4 py-2 text-center">Chỉ số mới</th>
-                                        <th class="px-4 py-2 text-center">Ảnh</th>
+                                        <th class="px-4 py-2 ">Ảnh</th>
                                             <c:if test="${sessionScope.acc.role == 1}">
-                                            <th class="px-4 py-2 text-center">Thao tác</th>
+                                            <th class="px-4 py-2 ">Thao tác</th>
                                             </c:if>
                                     </tr>
                                 </thead>
@@ -104,15 +104,15 @@
                                         <tr class="transition-colors hover:bg-gray-100">
                                             <td class="px-4 py-2 text-center">${o.dichVuID}</td>
                                             <td class="px-4 py-2 text-center">${o.phongID}</td>
-                                            <td class="px-4 py-2 text-center">${o.name}</td>
-                                            <td class="px-4 py-2 text-center">${o.giaTien}</td>
-                                            <td class="px-4 py-2 text-center">${o.tuNgay}</td>
-                                            <td class="px-4 py-2 text-center">${o.denNgay}</td>
+                                            <td class="px-4 py-2 ">${o.name}</td>
+                                            <td class="px-4 py-2 ">${o.giaTien}</td>
+                                            <td class="px-4 py-2 ">${o.tuNgay}</td>
+                                            <td class="px-4 py-2 ">${o.denNgay}</td>
                                             <td class="px-4 py-2 text-center">${o.chiSoCu}</td>
                                             <td class="px-4 py-2 text-center">${o.chiSoMoi}</td>
-                                            <td class="px-4 py-2 text-center">
+                                            <td class="px-4 py-2 ">
                                                 <c:choose>
-                                                    <c:when test="${o.urlAnh != 'null'}">
+                                                    <c:when test="${o.urlAnh != 'null' && o.urlAnh != ''}">
                                                         <a href="${o.urlAnh}" class="text-indigo-600 hover:text-indigo-900" target="_blank">
                                                             Xem ảnh
                                                         </a>
