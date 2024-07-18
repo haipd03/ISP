@@ -57,10 +57,15 @@
 
 
                                 <form class="searchform cf flex justify-center items-center mt-8 mb-8" action="search" method="post">
-                                    <input id="roomNumberInput" name="txt" type="text" placeholder="Nhập số phòng" class="w-full md:w-3/4 lg:w-1/2 p-2 border border-gray-600 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r-lg focus:outline-none focus:ring-2 focus:ring-blue-500" type="submit">
-                                        Tìm kiếm
-                                    </button>
+                                    <div class="flex items-center">
+                                        <!--<label for="roomNumberInput" style="margin-right: 10px; font-size: 20px; font-weight: bold;">Tìm kiếm theo số phòng:</label>-->
+                                        <input id="roomNumberInput" name="txt" type="text" placeholder="Nhập số phòng" style="border: 1px solid black; width: 450px; height: 42px;" class="py-2 px-3 rounded-l-lg">
+                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold px-4 rounded-r-lg focus:outline-none focus:ring-2 focus:ring-blue-500" type="submit" style="height: 42px;">
+                                            Tìm kiếm
+                                        </button>
+                                    </div>
+
+
                                 </form>
 
 
@@ -86,16 +91,16 @@
                                     </div>
 
                                     <!-- LOẠI PHÒNG Button with Dropdown -->
-                                    <div class="shadow bg-info border-l-8 hover:bg-info-dark border-info-dark mb-2 p-2 md:w-1/4 mx-2 relative">
+                                    <div class="shadow bg-blue-500 border-l-8 hover:bg-blue-800 border-blue-800 mb-2 p-2 md:w-1/4 mx-2 relative">
                                         <div class="p-4 flex flex-col items-center justify-center">
                                             <button class="no-underline text-white text-2xl focus:outline-none" id="loaiPhongDropdownButton">
                                                 LOẠI PHÒNG <i class="fas fa-chevron-down ml-2"></i>
                                             </button>
                                         </div>
-                                        <div id="loaiPhongDropdownMenu" class="hidden absolute bg-info-dark text-white right-0 mt-2 py-2 w-48 border border-red-vibrant-dark">
+                                        <div id="loaiPhongDropdownMenu" class="hidden absolute bg-blue-800 text-white right-0 mt-2 py-2 w-48 border border-blue-800">
                                             <c:forEach items="${bp}" var="a">
                                                 <li>
-                                                    <a class="px-4 py-2 hover:bg-info" href="categoryloaiphong?bl=${a.loaiPhong}">
+                                                    <a class="px-4 py-2 hover:bg-blue-500 " href="categoryloaiphong?bl=${a.loaiPhong}">
                                                         <span class="text-dark" style="width: 130px;">${a.loaiPhong}</span>
                                                     </a>
                                                 </li>
@@ -152,7 +157,7 @@
                                         <td><h1>Danh sách </h1></td>
                                         <td><div class="flex justify-end">
                                                 <form action="nhapaddphong" method="post">
-                                                    <button type="submit"  class="bg-green-500 hover:bg-green-800 text-white font-bold py-2 px-4 rounded">Thêm</button>
+                                                    <button type="submit"  class="bg-blue-500 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded">Thêm</button>
                                                 </form>
                                             </div>
                                         </td>
