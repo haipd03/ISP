@@ -52,10 +52,9 @@ public class SearchHopDong extends HttpServlet {
         String ngaytraStr = request.getParameter("ngaytra");
 
         HaiDao dao = new HaiDao();
-        List<HopDong> hopDongList;
-        List<HopDong> hopDongList1;
-        // Fetch all HopDong records initially
+        List<HopDong> hopDongList = null;
 
+        // Check if any search criteria are provided
         if ((soKhachThueStr != null && !soKhachThueStr.trim().isEmpty())
                 || (name != null && !name.trim().isEmpty())
                 || (ngaythueStr != null && !ngaythueStr.trim().isEmpty())
@@ -72,21 +71,22 @@ public class SearchHopDong extends HttpServlet {
                 if (ngaytraStr != null && !ngaytraStr.trim().isEmpty()) {
                     denNgay = sdf.parse(ngaytraStr);
                 }
-                hopDongList = dao.getHopDongByCriteria(soKhachThueStr, name, tuNgay, denNgay);
-                hopDongList1 = dao.getHopDongByCriteria1(soKhachThueStr, name, tuNgay, tuNgay, a.getAccountID());
-                if (hopDongList.isEmpty() && hopDongList1.isEmpty()) {
-                    request.setAttribute("error", "Không tìm thấy hợp đồng với tiêu chí tìm kiếm!");
 
+                if (a.getRole() == 0) {
+                    hopDongList = dao.getHopDongByCriteria(soKhachThueStr, name, tuNgay, denNgay);
+                } else {
+                    hopDongList = dao.getHopDongByCriteria1(soKhachThueStr, name, tuNgay, denNgay, a.getAccountID());
+                }
+
+                if (hopDongList.isEmpty()) {
+                    request.setAttribute("error", "Không tìm thấy hợp đồng với tiêu chí tìm kiếm!");
                 } else {
                     request.setAttribute("listK", hopDongList);
-                    request.setAttribute("listK1", hopDongList1);
                 }
             } catch (ParseException e) {
                 request.setAttribute("error", "Đã xảy ra lỗi trong quá trình tìm kiếm.");
-
             }
         } else {
-
             request.setAttribute("error", "Vui lòng nhập ít nhất một tiêu chí để tìm kiếm.");
         }
 

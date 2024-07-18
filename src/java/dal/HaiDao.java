@@ -613,16 +613,16 @@ public List<HopDong> getHopDongByCriteria1(String soKhachThue, String hoVaTen, D
                  "WHERE a.AccountID = ?";
 
     if (soKhachThue != null && !soKhachThue.trim().isEmpty()) {
-        sql += " AND SoKhachThue = ?";
+        sql += " AND hp.SoKhachThue = ?";
     }
     if (hoVaTen != null && !hoVaTen.trim().isEmpty()) {
-        sql += " AND HoVaTen LIKE ?";
+        sql += " AND hp.HoVaTen LIKE ?";
     }
     if (ngayThue != null) {
-        sql += " AND NgayThue >= ?";
+        sql += " AND hp.NgayThue >= ?";
     }
     if (ngayTra != null) {
-        sql += " AND NgayTra <= ?";
+        sql += " AND hp.NgayTra <= ?";
     }
 
     try (PreparedStatement ps = con.prepareStatement(sql)) {
