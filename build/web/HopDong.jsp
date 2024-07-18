@@ -120,7 +120,7 @@
                                             </c:if>
                                         </c:forEach>
 
-                                        <c:forEach items="${listK1}" var="o">
+                                        <c:forEach items="${listK}" var="o">
                                             <c:if test="${sessionScope.acc.role == 1}">
                                                 <tr class="bg-white border-b">
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.hopDongID}</td>
