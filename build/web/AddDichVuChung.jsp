@@ -57,13 +57,16 @@
                                                 <form action="adddichvuchung" method="post">
                                                     <div class="form-row">
                                                         <div class="form-group col-md-6">
-                                                            <label>Mã Dịch Vụ Chung:</label>
+                                                            <label>Mã Dịch Vụ Chung</label>
                                                             <input name="DichVuChungID" type="text" class="form-control" value="${nextDichVuChungID}" readonly>
                                                         </div>
 
 
                                                         <div class="form-group col-md-6">
-                                                            <label>Mã Khu:</label>
+                                                            <label>
+                                                                Mã Khu
+                                                            <span style="color: red;"> *</span>
+                                                            </label>
                                                             <select name="KhuID" class="form-control" required>
                                                                 <c:forEach items="${khu}" var="khu">
                                                                     <option value="${khu.khuID}">${khu.khuID}</option>
@@ -73,39 +76,43 @@
 
 
                                                     </div>
-                                                    <div class="form-row">
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-6">
+                                                                <label>
+                                                                    Tên Dịch Vụ Chung 
+                                                                    <span style="color: red;"> *</span>
+                                                                </label>
+                                                                <input name="DichVuChungName" type="text" class="form-control" required>
+                                                            </div>
+
                                                         <div class="form-group col-md-6">
-                                                            <label>Tên Dịch Vụ Chung:</label>
-                                                            <input name="DichVuChungName" type="text" class="form-control" required>
-                                                        </div>
-                                                        <div class="form-group col-md-6">
-                                                            <label>Tên công nhân:</label>
+                                                            <label>Tên công nhân <span style="color: red;"> *</span> </label>
                                                             <input name="Ten" type="text" class="form-control" required>
                                                         </div>
                                                     </div>
                                                     <div class="form-row">
                                                         <div class="form-group col-md-6">
-                                                            <label>Số điện thoại</label>
+                                                            <label>Số điện thoại<span style="color: red;"> *</span></label>
                                                             <input name="Sdt" type="text" class="form-control" required pattern="\d{10}" maxlength="10" title="Số điện thoại phải có 10 chữ số" oninput="validatePhoneNumber(this)">
                                                         </div>
                                                         <div class="form-group col-md-6">
-                                                            <label>Giá:</label>
+                                                            <label>Giá<span style="color: red;"> *</span></label>
                                                             <input name="Gia" type="text" class="form-control" required>
                                                         </div>
                                                     </div>
                                                     <div class="form-row">
                                                         <div class="form-group col-md-6">
-                                                            <label>Từ Ngày:</label>
+                                                            <label>Từ Ngày<span style="color: red;"> *</span></label>
                                                             <input name="TuNgay" type="date" class="form-control" required>
                                                         </div>
                                                         <div class="form-group col-md-6">
-                                                            <label>Đến Ngày:</label>
+                                                            <label>Đến Ngày<span style="color: red;"> *</span></label>
                                                             <input name="DenNgay" type="date" class="form-control" required>
                                                         </div>
                                                     </div>
                                                     <div class="form-row">
                                                         <div class="form-group col-md-6">
-                                                            <label>Tình Trạng:</label>
+                                                            <label>Tình Trạng<span style="color: red;"> *</span></label>
                                                             <select name="TinhTrang" class="form-control" required>
                                                                 <option value="" disabled selected hidden>Chọn tình trạng</option>
                                                                 <option value="Chưa làm">Chưa làm</option>
@@ -115,7 +122,7 @@
                                                         </div>
 
                                                         <div class="form-group col-md-6">
-                                                            <label>Ghi Chú:</label>
+                                                            <label>Ghi Chú</label>
                                                             <input name="GhiChu" type="text" class="form-control">
                                                         </div>
                                                     </div>

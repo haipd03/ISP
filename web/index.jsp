@@ -34,6 +34,19 @@
                 });
             });
         </script>
+
+
+        <style>
+            .searchform .flex > input {
+                flex-grow: 9;
+            }
+            .searchform .flex > button {
+                flex-grow: 1;
+            }
+            .w-1/10 {
+                width: 20%;
+            }
+        </style>
     </head>
 
     <body>
@@ -57,12 +70,13 @@
 
 
                                 <form class="searchform cf flex justify-center items-center mt-8 mb-8" action="search" method="post">
-                                    <input id="roomNumberInput" name="txt" type="text" placeholder="Nhập số phòng" class="w-full md:w-3/4 lg:w-1/2 p-2 border border-gray-600 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r-lg focus:outline-none focus:ring-2 focus:ring-blue-500" type="submit">
-                                        Tìm kiếm
-                                    </button>
+                                    <div class="flex w-full md:w-3/4 lg:w-1/2 border border-gray-600 rounded-lg overflow-hidden">
+                                        <input id="roomNumberInput" name="txt" type="text" placeholder="Nhập số phòng" class="flex-grow p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                        <button class="flex-none w-1/5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" type="submit">
+                                            Tìm kiếm
+                                        </button>
+                                    </div>
                                 </form>
-
 
                                 <!-- Stats Row Starts Here -->
 
