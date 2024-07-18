@@ -104,7 +104,7 @@
                                                     <div class="form-row">
                                                         <div class="form-group col-md-6">
                                                             <label>Ảnh: </label>
-                                                            <input name="UrlAnh" type="text" class="form-control" required>
+                                                            <input name="UrlAnh" type="text" class="form-control" >
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">

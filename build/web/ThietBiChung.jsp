@@ -73,10 +73,10 @@
                             <table class="table-auto w-full border-collapse">
                                 <thead>
                                     <tr class="bg-gray-200 text-gray-800">
-                                        <th class="px-4 py-2 ">Mã thiết bị chung</th>
-                                        <th class="px-4 py-2 ">Mã khu</th>
+                                        <th class="px-4 py-2 text-center">Mã thiết bị chung</th>
+                                        <th class="px-4 py-2 text-center">Mã khu</th>
                                         <th class="px-4 py-2 ">Tên</th>
-                                        <th class="px-4 py-2 ">Số lượng</th>
+                                        <th class="px-4 py-2 text-center">Số lượng</th>
                                         <th class="px-4 py-2 ">Tình trạng</th>
                                         <th class="px-4 py-2 ">Giá</th>
                                             <c:if test="${sessionScope.acc.role == 0}">
@@ -87,10 +87,10 @@
                                 <tbody>
                                     <c:forEach items="${ltbc}" var="o">
                                         <tr class="transition-colors hover:bg-gray-100">
-                                            <td class="px-4 py-2 ">${o.thietBiChungID}</td>
-                                            <td class="px-4 py-2 ">${o.khuID}</td>
+                                            <td class="px-4 py-2 text-center">${o.thietBiChungID}</td>
+                                            <td class="px-4 py-2 text-center">${o.khuID}</td>
                                             <td class="px-4 py-2 ">${o.ten}</td>
-                                            <td class="px-4 py-2 ">${o.soLuong}</td>
+                                            <td class="px-4 py-2 text-center">${o.soLuong}</td>
                                             <td class="px-4 py-2 ">${o.tinhTrang}</td>
 <!--                                            <td class="px-4 py-2 ">${o.gia}</td>-->
                                             <td class="px-4 py-2">

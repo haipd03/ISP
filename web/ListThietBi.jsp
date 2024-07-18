@@ -83,13 +83,13 @@
                                 <table class="table-auto w-full border-collapse">
                                     <thead>
                                         <tr class="bg-gray-200 text-gray-800">
-                                            <th class="px-4 py-2">Khu</th>
-                                            <th class="px-4 py-2">Số Phòng</th>
-                                            <th class="px-4 py-2">Mã Thiết Bị</th>
-                                            <th class="px-4 py-2">Tên Thiết Bị</th>
-                                            <th class="px-4 py-2">Số Lượng</th>
+                                            <th class="px-4 py-2 text-center">Khu</th>
+                                            <th class="px-4 py-2 text-center">Số Phòng</th>
+                                            <th class="px-4 py-2 text-center">Mã Thiết Bị</th>
+                                            <th class="px-4 py-2 ">Tên Thiết Bị</th>
+                                            <th class="px-4 py-2 text-center">Số Lượng</th>
                                             <th class="px-4 py-2">Tình Trạng</th>
-                                            <th class="px-4 py-2">Giá </th>
+                                            <th class="px-4 py-2 ">Giá </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -101,14 +101,14 @@
                                                             <c:choose>
                                                                 <c:when test="${sessionScope.acc.role == 0 || (sessionScope.acc.role == 1 && k.accountID == sessionScope.acc.accountID)}">
                                                                     <tr class="transition-colors hover:bg-gray-100">
-                                                                        <td class="px-4 py-2">${k.name}</td>
-                                                                        <td class="px-4 py-2">${p.soPhong}</td>
-                                                                        <td class="px-4 py-2">${l.thietBiID}</td>
+                                                                        <td class="px-4 py-2 text-center">${k.name}</td>
+                                                                        <td class="px-4 py-2 text-center">${p.soPhong}</td>
+                                                                        <td class="px-4 py-2 text-center">${l.thietBiID}</td>
                                                                         <td class="px-4 py-2">${l.name}</td>
-                                                                        <td class="px-4 py-2">${l.soLuong}</td>
+                                                                        <td class="px-4 py-2 text-center">${l.soLuong}</td>
                                                                         <td class="px-4 py-2">${l.tinhTrang}</td>
 <!--                                                                        <td class="px-4 py-2">${l.gia}</td>-->
-                                                                        <td class="px-4 py-2">
+                                                                        <td class="px-4 py-2 ">
                                                                             <fmt:formatNumber value="${l.gia}" pattern="#,##0 đồng" />
                                                                         </td>
                                                                     </tr>
@@ -140,13 +140,13 @@
                                 <table class="table-auto w-full border-collapse">
                                     <thead>
                                         <tr class="bg-gray-200 text-gray-800">
-                                            <th class="px-4 py-2">Khu</th>
-                                            <th class="px-4 py-2">Số Phòng</th>
-                                            <th class="px-4 py-2">Mã Thiết Bị</th>
-                                            <th class="px-4 py-2">Tên Thiết Bị</th>
-                                            <th class="px-4 py-2">Số Lượng</th>
+                                            <th class="px-4 py-2 text-center">Khu</th>
+                                            <th class="px-4 py-2 text-center">Số Phòng</th>
+                                            <th class="px-4 py-2 text-center">Mã Thiết Bị</th>
+                                            <th class="px-4 py-2 ">Tên Thiết Bị</th>
+                                            <th class="px-4 py-2 text-center">Số Lượng</th>
                                             <th class="px-4 py-2">Tình Trạng</th>
-                                            <th class="px-4 py-2">Giá </th>
+                                            <th class="px-4 py-2 ">Giá </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -158,11 +158,11 @@
                                                             <c:choose>
                                                                 <c:when test="${sessionScope.acc.role == 0 || (sessionScope.acc.role == 1 && k.accountID == sessionScope.acc.accountID)}">
                                                                     <tr class="transition-colors hover:bg-gray-100">
-                                                                        <td class="px-4 py-2">${k.name}</td>
-                                                                        <td class="px-4 py-2">${p.soPhong}</td>
-                                                                        <td class="px-4 py-2">${l1.thietBiID}</td>
+                                                                        <td class="px-4 py-2 text-center">${k.name}</td>
+                                                                        <td class="px-4 py-2 text-center">${p.soPhong}</td>
+                                                                        <td class="px-4 py-2 text-center">${l1.thietBiID}</td>
                                                                         <td class="px-4 py-2">${l1.name}</td>
-                                                                        <td class="px-4 py-2">${l1.soLuong}</td>
+                                                                        <td class="px-4 py-2 text-center">${l1.soLuong}</td>
                                                                         <td class="px-4 py-2">${l1.tinhTrang}</td>
                                                                         <td class="px-4 py-2">
                                                                             <fmt:formatNumber value="${l1.gia}" pattern="#,##0 đồng" />

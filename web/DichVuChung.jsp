@@ -2,6 +2,7 @@
 <%@page import="model.DichVuChung"%>
 <%@page import="java.util.*"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -99,32 +100,35 @@
                                     <tr class="bg-gray-200 text-gray-800">
                                         <th class="px-4 py-2 text-center">Mã dịch vụ chung</th>
                                         <th class="px-4 py-2 text-center">Mã Khu</th>
-                                        <th class="px-4 py-2 text-center">Tên dịch vụ chung</th>
-                                        <th class="px-4 py-2 text-center">Tên công nhân</th>
-                                        <th class="px-4 py-2 text-center">Số điện thoại</th>
-                                        <th class="px-4 py-2 text-center">Giá tiền</th>
-                                        <th class="px-4 py-2 text-center">Từ ngày</th>
-                                        <th class="px-4 py-2 text-center">Đến ngày</th>
-                                        <th class="px-4 py-2 text-center">Tình trạng</th>
-                                        <th class="px-4 py-2 text-center">Ghi chú</th>
+                                        <th class="px-4 py-2 ">Tên dịch vụ chung</th>
+                                        <th class="px-4 py-2 ">Tên công nhân</th>
+                                        <th class="px-4 py-2 ">Số điện thoại</th>
+                                        <th class="px-4 py-2 ">Giá tiền</th>
+                                        <th class="px-4 py-2 ">Từ ngày</th>
+                                        <th class="px-4 py-2 ">Đến ngày</th>
+                                        <th class="px-4 py-2 ">Tình trạng</th>
+                                        <th class="px-4 py-2 ">Ghi chú</th>
                                             <c:if test="${sessionScope.acc.role == 0}">
-                                            <th class="px-4 py-2 text-center">Thao tác</th>
+                                            <th class="px-4 py-2 ">Thao tác</th>
                                             </c:if>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <c:forEach items="${ldvc}" var="o">
                                         <tr class="transition-colors hover:bg-gray-100">
-                                            <td class="px-4 py-2 text-center">${o.dichVuChungID}</td>
+                                            <td class="px-4 py-2 text-center ">${o.dichVuChungID}</td>
                                             <td class="px-4 py-2 text-center">${o.khuID}</td>
-                                            <td class="px-4 py-2 text-center">${o.dichVuChungName}</td>
-                                            <td class="px-4 py-2 text-center">${o.ten}</td>
-                                            <td class="px-4 py-2 text-center">${o.sdt}</td>
-                                            <td class="px-4 py-2 text-center">${o.gia}</td>
-                                            <td class="px-4 py-2 text-center">${o.tuNgay}</td>
-                                            <td class="px-4 py-2 text-center">${o.denNgay}</td>
-                                            <td class="px-4 py-2 text-center">${o.tinhTrang}</td>
-                                            <td class="px-4 py-2 text-center">${o.ghiChu}</td>
+                                            <td class="px-4 py-2 ">${o.dichVuChungName}</td>
+                                            <td class="px-4 py-2 ">${o.ten}</td>
+                                            <td class="px-4 py-2 ">${o.sdt}</td>
+                                            <!--<td class="px-4 py-2 text-center">${o.gia}</td>-->
+                                            <td class="px-4 py-2">
+                                                <fmt:formatNumber value="${o.gia}" pattern="#,##0 đồng" />
+                                            </td>
+                                            <td class="px-4 py-2 ">${o.tuNgay}</td>
+                                            <td class="px-4 py-2 ">${o.denNgay}</td>
+                                            <td class="px-4 py-2 ">${o.tinhTrang}</td>
+                                            <td class="px-4 py-2 ">${o.ghiChu}</td>
                                             <c:if test="${sessionScope.acc.role == 0}">
                                                 <c:choose>
                                                     <c:when test="${o.tinhTrang == 'Đang làm'}">
