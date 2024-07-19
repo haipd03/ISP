@@ -177,8 +177,6 @@ public class HaiDao extends MyDAO {
         }
         return hoaDonWithSoPhongList;
     }
-    
-    
 
     public int getTotalHoaDonRecords() {
         int count = 0;
@@ -216,78 +214,78 @@ public class HaiDao extends MyDAO {
         return count;
     }
 
-public List<HoaDonWithSoPhong> getHoaDonByCriteria(String soPhong, String tinhTrangThanhToan, String tuNgay, String denNgay) {
-    List<HoaDonWithSoPhong> hoaDonWithSoPhongList = new ArrayList<>();
-    String sql = "SELECT hd.*, p.SoPhong "
-            + "FROM HoaDon hd "
-            + "JOIN HopDong hdg ON hdg.HopDongID = hd.HopDongID "
-            + "JOIN Phong p ON p.PhongID = hdg.PhongID WHERE 1=1";
-
-    if (soPhong != null && !soPhong.trim().isEmpty()) {
-        sql += " AND p.SoPhong = ?";
-    }
-    if (tinhTrangThanhToan != null && !tinhTrangThanhToan.trim().isEmpty()) {
-        sql += " AND hd.TinhTrangThanhToan LIKE ?";
-    }
-    if (tuNgay != null && !tuNgay.trim().isEmpty()) {
-        sql += " AND hd.tuNgay >= ?";
-    }
-    if (denNgay != null && !denNgay.trim().isEmpty()) {
-        sql += " AND hd.denNgay <= ?";
-    }
-
-    try (PreparedStatement ps = con.prepareStatement(sql)) {
-        int paramIndex = 1;
+    public List<HoaDonWithSoPhong> getHoaDonByCriteria(String soPhong, String tinhTrangThanhToan, String tuNgay, String denNgay) {
+        List<HoaDonWithSoPhong> hoaDonWithSoPhongList = new ArrayList<>();
+        String sql = "SELECT hd.*, p.SoPhong "
+                + "FROM HoaDon hd "
+                + "JOIN HopDong hdg ON hdg.HopDongID = hd.HopDongID "
+                + "JOIN Phong p ON p.PhongID = hdg.PhongID WHERE 1=1";
 
         if (soPhong != null && !soPhong.trim().isEmpty()) {
-            ps.setString(paramIndex++, soPhong);
+            sql += " AND p.SoPhong = ?";
         }
         if (tinhTrangThanhToan != null && !tinhTrangThanhToan.trim().isEmpty()) {
-            ps.setString(paramIndex++, "%" + tinhTrangThanhToan + "%");
+            sql += " AND hd.TinhTrangThanhToan LIKE ?";
         }
         if (tuNgay != null && !tuNgay.trim().isEmpty()) {
-            try {
-                ps.setDate(paramIndex++, java.sql.Date.valueOf(tuNgay));
-            } catch (IllegalArgumentException e) {
-                throw new SQLException("Invalid 'tuNgay' format, expected 'yyyy-[m]m-[d]d'.");
-            }
+            sql += " AND hd.tuNgay >= ?";
         }
         if (denNgay != null && !denNgay.trim().isEmpty()) {
-            try {
-                ps.setDate(paramIndex++, java.sql.Date.valueOf(denNgay));
-            } catch (IllegalArgumentException e) {
-                throw new SQLException("Invalid 'denNgay' format, expected 'yyyy-[m]m-[d]d'.");
-            }
+            sql += " AND hd.denNgay <= ?";
         }
 
-        try (ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
-                int hoaDonID = rs.getInt("HoaDonID");
-                int hopDongID = rs.getInt("HopDongID");
-                Date ngayThanhToan = rs.getDate("NgayThanhToan");
-                String tinhTrangThanhToanFromDb = rs.getString("TinhTrangThanhToan");  // Lấy giá trị từ ResultSet
-                Date tuNgayDate = rs.getDate("TuNgay");
-                Date denNgayDate = rs.getDate("DenNgay");
-                int tongTien = rs.getInt("TongTien");
-                String soPhongFromDb = rs.getString("SoPhong");  // Đảm bảo rằng `SoPhong` là một String từ ResultSet
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            int paramIndex = 1;
 
-                // Tạo đối tượng HoaDon
-                HoaDon hoaDon = new HoaDon(hoaDonID, hopDongID, ngayThanhToan, tinhTrangThanhToanFromDb, tuNgayDate, denNgayDate, tongTien);
-
-                // Tạo đối tượng HoaDonWithSoPhong
-                HoaDonWithSoPhong hoaDonWithSoPhong = new HoaDonWithSoPhong(hoaDon, Integer.parseInt(soPhongFromDb));
-                hoaDonWithSoPhongList.add(hoaDonWithSoPhong);
+            if (soPhong != null && !soPhong.trim().isEmpty()) {
+                ps.setString(paramIndex++, soPhong);
             }
+            if (tinhTrangThanhToan != null && !tinhTrangThanhToan.trim().isEmpty()) {
+                ps.setString(paramIndex++, "%" + tinhTrangThanhToan + "%");
+            }
+            if (tuNgay != null && !tuNgay.trim().isEmpty()) {
+                try {
+                    ps.setDate(paramIndex++, java.sql.Date.valueOf(tuNgay));
+                } catch (IllegalArgumentException e) {
+                    throw new SQLException("Invalid 'tuNgay' format, expected 'yyyy-[m]m-[d]d'.");
+                }
+            }
+            if (denNgay != null && !denNgay.trim().isEmpty()) {
+                try {
+                    ps.setDate(paramIndex++, java.sql.Date.valueOf(denNgay));
+                } catch (IllegalArgumentException e) {
+                    throw new SQLException("Invalid 'denNgay' format, expected 'yyyy-[m]m-[d]d'.");
+                }
+            }
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    int hoaDonID = rs.getInt("HoaDonID");
+                    int hopDongID = rs.getInt("HopDongID");
+                    Date ngayThanhToan = rs.getDate("NgayThanhToan");
+                    String tinhTrangThanhToanFromDb = rs.getString("TinhTrangThanhToan");  // Lấy giá trị từ ResultSet
+                    Date tuNgayDate = rs.getDate("TuNgay");
+                    Date denNgayDate = rs.getDate("DenNgay");
+                    int tongTien = rs.getInt("TongTien");
+                    String soPhongFromDb = rs.getString("SoPhong");  // Đảm bảo rằng `SoPhong` là một String từ ResultSet
+
+                    // Tạo đối tượng HoaDon
+                    HoaDon hoaDon = new HoaDon(hoaDonID, hopDongID, ngayThanhToan, tinhTrangThanhToanFromDb, tuNgayDate, denNgayDate, tongTien);
+
+                    // Tạo đối tượng HoaDonWithSoPhong
+                    HoaDonWithSoPhong hoaDonWithSoPhong = new HoaDonWithSoPhong(hoaDon, Integer.parseInt(soPhongFromDb));
+                    hoaDonWithSoPhongList.add(hoaDonWithSoPhong);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return hoaDonWithSoPhongList;
     }
-    return hoaDonWithSoPhongList;
-}
 
-public List<HoaDonWithSoPhong> getHoaDonByCriteria1(String soPhong, String tinhTrangThanhToan, String tuNgay, String denNgay, int accountId) {
-    List<HoaDonWithSoPhong> hoaDonWithSoPhongList = new ArrayList<>();
-    String sql = "SELECT hd.*, p.SoPhong "
+    public List<HoaDonWithSoPhong> getHoaDonByCriteria1(String soPhong, String tinhTrangThanhToan, String tuNgay, String denNgay, int accountId) {
+        List<HoaDonWithSoPhong> hoaDonWithSoPhongList = new ArrayList<>();
+        String sql = "SELECT hd.*, p.SoPhong "
                 + "FROM HoaDon hd "
                 + "JOIN HopDong hdong ON hdong.HopDongID = hd.HopDongID "
                 + "JOIN Phong p ON p.PhongID = hdong.PhongID "
@@ -295,73 +293,71 @@ public List<HoaDonWithSoPhong> getHoaDonByCriteria1(String soPhong, String tinhT
                 + "JOIN Accounts a ON a.AccountID = k.AccountID "
                 + "WHERE a.AccountID = ?";
 
-    if (soPhong != null && !soPhong.trim().isEmpty()) {
-        sql += " AND p.SoPhong = ?";
-    }
-    if (tinhTrangThanhToan != null && !tinhTrangThanhToan.trim().isEmpty()) {
-        sql += " AND hd.TinhTrangThanhToan LIKE ?";
-    }
-    if (tuNgay != null && !tuNgay.trim().isEmpty()) {
-        sql += " AND hd.tuNgay >= ?";
-    }
-    if (denNgay != null && !denNgay.trim().isEmpty()) {
-        sql += " AND hd.denNgay <= ?";
-    }
-
-    try (PreparedStatement ps = con.prepareStatement(sql)) {
-        int paramIndex = 1;
-
-        // Set AccountID
-        ps.setInt(paramIndex++, accountId);
-
-        // Set other parameters based on provided criteria
         if (soPhong != null && !soPhong.trim().isEmpty()) {
-            ps.setString(paramIndex++, soPhong);
+            sql += " AND p.SoPhong = ?";
         }
         if (tinhTrangThanhToan != null && !tinhTrangThanhToan.trim().isEmpty()) {
-            ps.setString(paramIndex++, "%" + tinhTrangThanhToan + "%");
+            sql += " AND hd.TinhTrangThanhToan LIKE ?";
         }
         if (tuNgay != null && !tuNgay.trim().isEmpty()) {
-            try {
-                ps.setDate(paramIndex++, java.sql.Date.valueOf(tuNgay));
-            } catch (IllegalArgumentException e) {
-                throw new SQLException("Invalid 'tuNgay' format, expected 'yyyy-[m]m-[d]d'.");
-            }
+            sql += " AND hd.tuNgay >= ?";
         }
         if (denNgay != null && !denNgay.trim().isEmpty()) {
-            try {
-                ps.setDate(paramIndex++, java.sql.Date.valueOf(denNgay));
-            } catch (IllegalArgumentException e) {
-                throw new SQLException("Invalid 'denNgay' format, expected 'yyyy-[m]m-[d]d'.");
-            }
+            sql += " AND hd.denNgay <= ?";
         }
 
-        try (ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
-                int hoaDonID = rs.getInt("HoaDonID");
-                int hopDongID = rs.getInt("HopDongID");
-                Date ngayThanhToan = rs.getDate("NgayThanhToan");
-                String tinhTrangThanhToanFromDb = rs.getString("TinhTrangThanhToan");
-                Date tuNgayDate = rs.getDate("TuNgay");
-                Date denNgayDate = rs.getDate("DenNgay");
-                int tongTien = rs.getInt("TongTien");
-                String soPhongFromDb = rs.getString("SoPhong");
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            int paramIndex = 1;
 
-                // Tạo đối tượng HoaDon
-                HoaDon hoaDon = new HoaDon(hoaDonID, hopDongID, ngayThanhToan, tinhTrangThanhToanFromDb, tuNgayDate, denNgayDate, tongTien);
+            // Set AccountID
+            ps.setInt(paramIndex++, accountId);
 
-                // Tạo đối tượng HoaDonWithSoPhong
-                HoaDonWithSoPhong hoaDonWithSoPhong = new HoaDonWithSoPhong(hoaDon, Integer.parseInt(soPhongFromDb));
-                hoaDonWithSoPhongList.add(hoaDonWithSoPhong);
+            // Set other parameters based on provided criteria
+            if (soPhong != null && !soPhong.trim().isEmpty()) {
+                ps.setString(paramIndex++, soPhong);
             }
+            if (tinhTrangThanhToan != null && !tinhTrangThanhToan.trim().isEmpty()) {
+                ps.setString(paramIndex++, "%" + tinhTrangThanhToan + "%");
+            }
+            if (tuNgay != null && !tuNgay.trim().isEmpty()) {
+                try {
+                    ps.setDate(paramIndex++, java.sql.Date.valueOf(tuNgay));
+                } catch (IllegalArgumentException e) {
+                    throw new SQLException("Invalid 'tuNgay' format, expected 'yyyy-[m]m-[d]d'.");
+                }
+            }
+            if (denNgay != null && !denNgay.trim().isEmpty()) {
+                try {
+                    ps.setDate(paramIndex++, java.sql.Date.valueOf(denNgay));
+                } catch (IllegalArgumentException e) {
+                    throw new SQLException("Invalid 'denNgay' format, expected 'yyyy-[m]m-[d]d'.");
+                }
+            }
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    int hoaDonID = rs.getInt("HoaDonID");
+                    int hopDongID = rs.getInt("HopDongID");
+                    Date ngayThanhToan = rs.getDate("NgayThanhToan");
+                    String tinhTrangThanhToanFromDb = rs.getString("TinhTrangThanhToan");
+                    Date tuNgayDate = rs.getDate("TuNgay");
+                    Date denNgayDate = rs.getDate("DenNgay");
+                    int tongTien = rs.getInt("TongTien");
+                    String soPhongFromDb = rs.getString("SoPhong");
+
+                    // Tạo đối tượng HoaDon
+                    HoaDon hoaDon = new HoaDon(hoaDonID, hopDongID, ngayThanhToan, tinhTrangThanhToanFromDb, tuNgayDate, denNgayDate, tongTien);
+
+                    // Tạo đối tượng HoaDonWithSoPhong
+                    HoaDonWithSoPhong hoaDonWithSoPhong = new HoaDonWithSoPhong(hoaDon, Integer.parseInt(soPhongFromDb));
+                    hoaDonWithSoPhongList.add(hoaDonWithSoPhong);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return hoaDonWithSoPhongList;
     }
-    return hoaDonWithSoPhongList;
-}
-
-
 
     public void addHoaDon(HoaDon hoaDon) {
         String sql = "INSERT INTO HoaDon (HoaDonID, HopDongID,NgayThanhToan, TinhTrangThanhToan, TuNgay, DenNgay, TongTien) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -604,72 +600,70 @@ public List<HoaDonWithSoPhong> getHoaDonByCriteria1(String soPhong, String tinhT
         return hopDongSearch;
     }
 
-public List<HopDong> getHopDongByCriteria1(String soKhachThue, String hoVaTen, Date ngayThue, Date ngayTra, int accountId) {
-    List<HopDong> hopDongSearch = new ArrayList<>();
-    String sql = "SELECT hp.* FROM HopDong hp " +
-                 "JOIN Phong p ON p.PhongID = hp.PhongID " +
-                 "JOIN Khu k ON k.KhuID = p.KhuID " +
-                 "JOIN Accounts a ON a.AccountID = k.AccountID " +
-                 "WHERE a.AccountID = ?";
+    public List<HopDong> getHopDongByCriteria1(String soKhachThue, String hoVaTen, Date ngayThue, Date ngayTra, int accountId) {
+        List<HopDong> hopDongSearch = new ArrayList<>();
+        String sql = "SELECT hp.* FROM HopDong hp "
+                + "JOIN Phong p ON p.PhongID = hp.PhongID "
+                + "JOIN Khu k ON k.KhuID = p.KhuID "
+                + "JOIN Accounts a ON a.AccountID = k.AccountID "
+                + "WHERE a.AccountID = ?";
 
-    if (soKhachThue != null && !soKhachThue.trim().isEmpty()) {
-        sql += " AND hp.SoKhachThue = ?";
-    }
-    if (hoVaTen != null && !hoVaTen.trim().isEmpty()) {
-        sql += " AND hp.HoVaTen LIKE ?";
-    }
-    if (ngayThue != null) {
-        sql += " AND hp.NgayThue >= ?";
-    }
-    if (ngayTra != null) {
-        sql += " AND hp.NgayTra <= ?";
-    }
-
-    try (PreparedStatement ps = con.prepareStatement(sql)) {
-        int paramIndex = 1;
-        ps.setInt(paramIndex++, accountId);
-        
         if (soKhachThue != null && !soKhachThue.trim().isEmpty()) {
-            ps.setString(paramIndex++, soKhachThue);
+            sql += " AND hp.SoKhachThue = ?";
         }
         if (hoVaTen != null && !hoVaTen.trim().isEmpty()) {
-            ps.setString(paramIndex++, "%" + hoVaTen + "%");
+            sql += " AND hp.HoVaTen LIKE ?";
         }
         if (ngayThue != null) {
-            ps.setDate(paramIndex++, new java.sql.Date(ngayThue.getTime()));
+            sql += " AND hp.NgayThue >= ?";
         }
         if (ngayTra != null) {
-            ps.setDate(paramIndex++, new java.sql.Date(ngayTra.getTime()));
+            sql += " AND hp.NgayTra <= ?";
         }
 
-        try (ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
-                HopDong hopDong = new HopDong(
-                        rs.getInt("HopDongID"),
-                        rs.getInt("KhachID"),
-                        rs.getInt("PhongID"),
-                        rs.getInt("TienCoc"),
-                        rs.getDate("NgayThue"),
-                        rs.getDate("NgayTra"),
-                        rs.getInt("SoKhachThue"),
-                        rs.getString("GhiChu"),
-                        rs.getString("CCCD"),
-                        rs.getString("SDT"),
-                        rs.getString("HoVaTen"),
-                        rs.getInt("TinhTrang")
-                );
-                hopDongSearch.add(hopDong);
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            int paramIndex = 1;
+            ps.setInt(paramIndex++, accountId);
+
+            if (soKhachThue != null && !soKhachThue.trim().isEmpty()) {
+                ps.setString(paramIndex++, soKhachThue);
             }
+            if (hoVaTen != null && !hoVaTen.trim().isEmpty()) {
+                ps.setString(paramIndex++, "%" + hoVaTen + "%");
+            }
+            if (ngayThue != null) {
+                ps.setDate(paramIndex++, new java.sql.Date(ngayThue.getTime()));
+            }
+            if (ngayTra != null) {
+                ps.setDate(paramIndex++, new java.sql.Date(ngayTra.getTime()));
+            }
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    HopDong hopDong = new HopDong(
+                            rs.getInt("HopDongID"),
+                            rs.getInt("KhachID"),
+                            rs.getInt("PhongID"),
+                            rs.getInt("TienCoc"),
+                            rs.getDate("NgayThue"),
+                            rs.getDate("NgayTra"),
+                            rs.getInt("SoKhachThue"),
+                            rs.getString("GhiChu"),
+                            rs.getString("CCCD"),
+                            rs.getString("SDT"),
+                            rs.getString("HoVaTen"),
+                            rs.getInt("TinhTrang")
+                    );
+                    hopDongSearch.add(hopDong);
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
-    } catch (SQLException ex) {
-        ex.printStackTrace();
+
+        return hopDongSearch;
     }
 
-    return hopDongSearch;
-}
-
-    
-    
     public List<HopDong> getHopDong() {
         List<HopDong> HopDongs = new ArrayList<>();
         String sql = "SELECT * FROM HopDong";
@@ -768,7 +762,7 @@ public List<HopDong> getHopDongByCriteria1(String soKhachThue, String hoVaTen, D
 
         return account;
     }
-    
+
     public HoaDon getHoaDonByIdAndAccountID(int hoaDonID) {
         HoaDon hoaDon = null;
         String sql = "SELECT hd.* \n"
@@ -776,7 +770,7 @@ public List<HopDong> getHopDongByCriteria1(String soKhachThue, String hoVaTen, D
                 + "WHERE HoaDonID = ? ";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, hoaDonID);
-           
+
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     int hopDongID = rs.getInt("HopDongID");
@@ -797,42 +791,54 @@ public List<HopDong> getHopDongByCriteria1(String soKhachThue, String hoVaTen, D
         return hoaDon;
     }
 
-    
-    
-   public List<HoaDon> getHoaDonDV(int dichVuID) {
-    List<HoaDon> hoaDonList = new ArrayList<>();
-    String sql = "SELECT hd.* " +
-                 "FROM Dichvu dv " +
-                 "JOIN HoaDonDetail hdd ON hdd.DichVuID = dv.DichVuID " +
-                 "JOIN HoaDon hd ON hd.HoaDonID = hdd.HoaDonID " +
-                 "WHERE hd.TinhTrangThanhToan = N'Đã thanh toán' AND dv.DichVuID = ?";
+    public List<HoaDon> getHoaDonDV(int dichVuID) {
+        List<HoaDon> hoaDonList = new ArrayList<>();
+        String sql = "SELECT hd.* "
+                + "FROM Dichvu dv "
+                + "JOIN HoaDonDetail hdd ON hdd.DichVuID = dv.DichVuID "
+                + "JOIN HoaDon hd ON hd.HoaDonID = hdd.HoaDonID "
+                + "WHERE hd.TinhTrangThanhToan = N'Đã thanh toán' AND dv.DichVuID = ?";
 
-    try (PreparedStatement ps = con.prepareStatement(sql)) {
-        ps.setInt(1, dichVuID); // Set the DichVuID parameter
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, dichVuID); // Set the DichVuID parameter
 
-        try (ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
-                int hoaDonID = rs.getInt("HoaDonID");
-                int hopDongID = rs.getInt("HopDongID");
-                Date ngayThanhToan = rs.getDate("NgayThanhToan");
-                String tinhTrangThanhToan = rs.getString("TinhTrangThanhToan");
-                Date tuNgay = rs.getDate("TuNgay");
-                Date denNgay = rs.getDate("DenNgay");
-                int tongTien = rs.getInt("TongTien");
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    int hoaDonID = rs.getInt("HoaDonID");
+                    int hopDongID = rs.getInt("HopDongID");
+                    Date ngayThanhToan = rs.getDate("NgayThanhToan");
+                    String tinhTrangThanhToan = rs.getString("TinhTrangThanhToan");
+                    Date tuNgay = rs.getDate("TuNgay");
+                    Date denNgay = rs.getDate("DenNgay");
+                    int tongTien = rs.getInt("TongTien");
 
-                // Create HoaDon object
-                HoaDon hoaDon = new HoaDon(hoaDonID, hopDongID, ngayThanhToan, tinhTrangThanhToan, tuNgay, denNgay, tongTien);
-                hoaDonList.add(hoaDon); // Add each HoaDon object to the list
+                    // Create HoaDon object
+                    HoaDon hoaDon = new HoaDon(hoaDonID, hopDongID, ngayThanhToan, tinhTrangThanhToan, tuNgay, denNgay, tongTien);
+                    hoaDonList.add(hoaDon); // Add each HoaDon object to the list
+                }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+
+        return hoaDonList; // Return the list of HoaDon objects
     }
-    
-    return hoaDonList; // Return the list of HoaDon objects
-}
 
+    public int countUnreadRequests(int accountId) {
+        int count = 0;
+        String query = "SELECT COUNT(*) FROM Request WHERE AccountNhan =? AND TinhTrang ='0' ";
 
+        try (PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setInt(1, accountId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
 
     public static void main(String[] args) throws SQLException {
         HaiDao dao = new HaiDao();
@@ -840,7 +846,7 @@ public List<HopDong> getHopDongByCriteria1(String soKhachThue, String hoVaTen, D
 //        for (HopDong phong : dichVu) {
 //            System.out.println(phong);
 //        }
-List<HoaDon> hoaDons = dao.getHoaDonDV(1);
+        List<HoaDon> hoaDons = dao.getHoaDonDV(1);
 
         // Print the retrieved HoaDon objects
         for (HoaDon hd : hoaDons) {

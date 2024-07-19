@@ -69,7 +69,7 @@ public class ThemPhong extends HttpServlet {
                 if (phongList != null && !phongList.isEmpty()) {
                     request.setAttribute("success", "Thêm phòng thành công!");
                     request.setAttribute("Phong", phong);
-                    request.getRequestDispatcher("HienThiPhongThem.jsp").forward(request, response);
+                    request.getRequestDispatcher("/loadphong").forward(request, response);
                 } else {
                     request.setAttribute("message", "Thêm phòng thất bại!");
                     request.getRequestDispatcher("/nhapaddphong").forward(request, response);
