@@ -34,6 +34,9 @@
 
 
                     <h4 class="text-lg font-semibold mb-2">Danh sách thông tin hóa đơn chi tiết:</h4>
+                    <c:if test="${not empty error}">
+                        <p style="color: red; font-size: 1.2em; font-weight: bold;">${error}</p>
+                    </c:if>
                     <div class="overflow-x-auto">
                         <table class="table-auto w-full border-collapse">
                             <thead>
@@ -82,13 +85,15 @@
                             </tbody>
                         </table>
                     </div>
-                    <c:if test="${sessionScope.acc.role == 1}">
-                        <div class="mt-4">
-                            <a href="inserthoadondetail?id=${hdid1}">
-                                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Thêm hóa đơn chi tiết</button>
-                            </a>
-                        </div>
-                    </c:if>   
+                    <c:if test="${hd.tinhTrangThanhToan != 'Đã thanh toán'}">
+                        <c:if test="${sessionScope.acc.role == 1}">
+                            <div class="mt-4">
+                                <a href="inserthoadondetail?id=${hdid1}">
+                                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Thêm hóa đơn chi tiết</button>
+                                </a>
+                            </div>
+                        </c:if> 
+                    </c:if> 
                 </div>
             </div>
         </div>

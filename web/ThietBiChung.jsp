@@ -62,6 +62,10 @@
                                 </div>
                             </form>
                         </div>
+                        
+                        <c:if test="${not empty error}">
+                            <p style="color: red; font-size: 1.2em; font-weight: bold;">${error}</p>
+                        </c:if>
                         <h4 class="text-lg font-semibold mb-2 flex justify-between items-center">Danh sách thiết bị chung:
                             <c:if test="${sessionScope.acc.role == 0}">
                                 <a href="insertthietbichung">
@@ -115,7 +119,7 @@
                                                                 </form>
                                                                 <a href="${pageContext.request.contextPath}/deletethietbichung?id=${o.thietBiChungID}" 
                                                                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200" 
-                                                                   onclick="return confirm('Bạn có chắc chắn muốn xóa dịch vụ này không?');">Xóa</a>
+                                                                   onclick="return confirm('Bạn có chắc chắn muốn xóa thiết bị chung này không?');">Xóa</a>
                                                             </div>
                                                         </td>
                                                     </c:when>
