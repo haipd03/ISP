@@ -6,6 +6,7 @@
 package controller;
 
 import dal.DAO;
+import dal.HaiDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -66,7 +67,7 @@ public class Login extends HttpServlet {
         String password = request.getParameter("password");
         DAO dao = new DAO();
         Accounts a = dao.login(username, password);
-        if (a == null) {
+        if (a == null || a.getRole() == 2) {
             request.setAttribute("mess", "Wrong user or pass");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
@@ -74,6 +75,9 @@ public class Login extends HttpServlet {
             session.setAttribute("acc", a);
             session.setMaxInactiveInterval(10000);
             response.sendRedirect("listphong");
+            HaiDao dao2 = new HaiDao();
+        int unreadCount = dao2.countUnreadRequests(a.getAccountID());
+           session.setAttribute("un", unreadCount);
         }
     }
 
@@ -87,3 +91,5 @@ public class Login extends HttpServlet {
     }// </editor-fold>
 
 }
+
+

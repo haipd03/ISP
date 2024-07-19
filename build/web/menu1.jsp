@@ -11,10 +11,20 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <style>
-            .white-image {
-                filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(100%) contrast(100%);
-            }
-        </style>
+        .white-image {
+            filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(100%) contrast(100%);
+        }
+        .badge {
+            background-color: yellowgreen;
+            color: white;
+            border-radius: 50%;
+            padding: 0.5em;
+            font-size: 0.65em;
+              margin-left: 15px;
+        }
+    </style>
+
+
     </head>
     <body>
         <header class="bg-nav">
@@ -26,7 +36,10 @@
 
                 <div class="p-1 flex flex-row items-center">
                     <a href="ListRequest" class="no-underline">
+                           <span class="badge">${sessionScope.un}</span>
+
                         <img src="dist/images/mailbox.png" alt="Mailbox" class="mr-2 white-image" width="30" height="30">
+                        
                     </a>
 
                     <a onclick="profileToggle()" class="text-white p-2 no-underline hidden md:block lg:block">

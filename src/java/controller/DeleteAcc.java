@@ -33,31 +33,36 @@ public class DeleteAcc extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        String aid = request.getParameter("aid");
-        DAO dao = new DAO();
+   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    response.setContentType("text/html;charset=UTF-8");
+    String aid = request.getParameter("aid");
+    DAO dao = new DAO();
+
+    try {
+        if ("1".equals(aid)) {
+            request.setAttribute("error", "Không Thể Xóa Account Admin");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("listaccount");
+            dispatcher.forward(request, response);
+            return;
+        }
+
         if (dao.checkAccIDcoKhu(aid)) {
             request.setAttribute("error", "Account đang quản lý khu không thể xóa!");
             RequestDispatcher dispatcher = request.getRequestDispatcher("listaccount");
             dispatcher.forward(request, response);
         } else {
-            try {
-                if ("1".equals(aid)) {
-                    request.setAttribute("error", "Không Thể Xóa Account Admin");
-                    RequestDispatcher dispatcher = request.getRequestDispatcher("listaccount");
-                    dispatcher.forward(request, response);
-                    return;
-                } else {
-                    dao.deleteAccount(aid);
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(DeleteAcc.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            dao.deleteAccount(aid);
+            response.sendRedirect("listaccount");
         }
-        response.sendRedirect("listaccount");
+    } catch (SQLException ex) {
+        Logger.getLogger(DeleteAcc.class.getName()).log(Level.SEVERE, null, ex);
+        request.setAttribute("error", "Có lỗi xảy ra trong quá trình xóa tài khoản.");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("listaccount");
+        dispatcher.forward(request, response);
     }
+}
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -99,3 +104,6 @@ public class DeleteAcc extends HttpServlet {
     }// </editor-fold>
 
 }
+
+
+

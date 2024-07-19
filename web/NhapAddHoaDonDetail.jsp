@@ -33,7 +33,7 @@
                     <!-- Underline form -->
                     <div class="mb-4 mx-auto border border-gray-300 rounded-lg shadow-lg w-full md:w-1/2 lg:w-1/3">
                         <div class="bg-purple-600 text-white px-4 py-3 rounded-t-lg w-full ">
-                            Thêm Hóa Đơn Chi Tiết
+                            Thêm Hóa Đơn Chi Tiết (Hóa đơn)
                         </div>
                         <c:if test="${not empty error}">
                             <p style="color: red; font-size: 1.2em; font-weight: bold;">${error}</p>
