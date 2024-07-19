@@ -38,14 +38,14 @@ public class EditKhu extends HttpServlet {
         String khuID = request.getParameter("khuID");
         DAO dao = new DAO();
 
-        if (dao.checkExistingName(name)) {
-            request.setAttribute("error", "Đã tồn tại Tên Khu trong cơ sở dữ liệu! Vui lòng chọn Tên Khu khác!");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("khu");
-            dispatcher.forward(request, response);
-        } else {
+//        if (dao.checkExistingName(name)) {
+//            request.setAttribute("error", "Đã tồn tại Tên Khu trong cơ sở dữ liệu! Vui lòng chọn Tên Khu khác!");
+//            RequestDispatcher dispatcher = request.getRequestDispatcher("khu");
+//            dispatcher.forward(request, response);
+//        } else {
             dao.UpdateKhu(name, accountID, khuID);
             response.sendRedirect("khu");
-        }
+//        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -88,3 +88,6 @@ public class EditKhu extends HttpServlet {
     }// </editor-fold>
 
 }
+
+
+

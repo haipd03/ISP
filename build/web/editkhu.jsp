@@ -44,7 +44,7 @@
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Tên Khu</label>
-                                        <input type="text" name="name" value="${listkhu.name}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <input type="text" name="name" readonly value="${listkhu.name}" class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Tên Quản Lý</label>
@@ -90,3 +90,5 @@
     </body>
 
 </html>
+
+

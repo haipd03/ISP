@@ -40,9 +40,9 @@ public class DeleteKhu extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("khu");
             dispatcher.forward(request, response);
         } else {
-            dao.DeleteKhu(kid);
+            dao.DeleteKhu(kid); // Make sure this method name matches your DAO method
+            response.sendRedirect("khu");
         }
-        response.sendRedirect("khu");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -85,3 +85,6 @@ public class DeleteKhu extends HttpServlet {
     }// </editor-fold>
 
 }
+
+
+
