@@ -62,6 +62,9 @@
                                 </div>
                             </form>
                         </div>
+                          <c:if test="${not empty error}">
+                            <span style="color: red; font-size: 1.2em; font-weight: bold;">${error}</span>
+                        </c:if>
                         <h4 class="text-lg font-semibold mb-2 flex justify-between items-center">Danh sách thiết bị chung:
                             <c:if test="${sessionScope.acc.role == 0}">
                                 <a href="insertthietbichung">

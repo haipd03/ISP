@@ -3,15 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/D:/ki5/ISP/Clone/187/ISP/web/index.jsp</file>
-            <file>file:/D:/ki5/ISP/Clone/187/ISP/web/ChiTietKhachThue.jsp</file>
-            <file>file:/D:/ki5/ISP/Clone/187/ISP/web/HopDong.jsp</file>
-            <file>file:/D:/ki5/ISP/Clone/187/ISP/web/HoaDon.jsp</file>
-            <file>file:/D:/ki5/ISP/Clone/187/ISP/src/java/controller/AddAccount.java</file>
-=======
-            <file>file:/D:/ki5/ISP/Clone/187/ISP/src/java/dal/DBContext.java</file>
->>>>>>> lannnn
+            <file>file:/D:/ki5/ISP/Clone/187/ISP/src/java/controller/ListThietBiChung.java</file>
+            <file>file:/D:/ki5/ISP/Clone/187/ISP/src/java/controller/SearchThietBiChung.java</file>
+            <file>file:/D:/ki5/ISP/Clone/187/ISP/src/java/controller/LoadThietBiChung.java</file>
+            <file>file:/D:/ki5/ISP/Clone/187/ISP/src/java/dal/LanDao.java</file>
         </group>
     </open-files>
 </project-private>

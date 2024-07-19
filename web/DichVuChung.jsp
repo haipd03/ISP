@@ -142,7 +142,6 @@
                                             <td class="px-4 py-2 ">${o.dichVuChungName}</td>
                                             <td class="px-4 py-2 ">${o.ten}</td>
                                             <td class="px-4 py-2 ">${o.sdt}</td>
-                                            <!--<td class="px-4 py-2 text-center">${o.gia}</td>-->
                                             <td class="px-4 py-2">
                                                 <fmt:formatNumber value="${o.gia}" pattern="#,##0 đồng" />
                                             </td>
