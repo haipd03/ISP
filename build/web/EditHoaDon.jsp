@@ -46,7 +46,6 @@
                         </c:if>
                         <div class="p-6 bg-white">
                             <div class="container">
-                                <h2 class="text-center">Sửa Thông tin Hóa Đơn</h2>
                                 <div class="row justify-content-center">
                                     <div class="col-md-8">
                                         <div class="card">
@@ -68,14 +67,14 @@
                                                     <div class="form-group">
                                                         <label>Tình trạng</label>
                                                         <select name="TinhTrangThanhToan" id="TinhTrangThanhToan" class="form-control" required>
-                                                    <option value="Đã thanh toán" <c:if test="${hoadon.tinhTrangThanhToan eq 'Đã thanh toán'}">selected</c:if>>Đã thanh toán</option>
-                                                    <option value="Chưa Thanh Toán" <c:if test="${hoadon.tinhTrangThanhToan eq 'Chưa thanh toán'}">selected</c:if>>Chưa thanh toán</option>
-                                                    
-                                                    </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Từ ngày</label>
-                                                        <input value="${hoadon.tuNgay}" name="TuNgay" type="date" class="form-control" required>
+                                                            <option value="Chưa Thanh Toán" <c:if test="${hoadon.tinhTrangThanhToan eq 'Chưa thanh toán'}">selected</c:if>>Chưa thanh toán</option>
+                                                            <option value="Đã thanh toán" <c:if test="${hoadon.tinhTrangThanhToan eq 'Đã thanh toán'}">selected</c:if>>Đã thanh toán</option>
+
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Từ ngày</label>
+                                                            <input value="${hoadon.tuNgay}" name="TuNgay" type="date" class="form-control" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Đến ngày</label>

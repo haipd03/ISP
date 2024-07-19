@@ -36,7 +36,6 @@ public class EditHoaDon extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        response.setContentType("text/html;charset=UTF-8");
 
         // Get the form data
         int hoaDonID = Integer.parseInt(request.getParameter("HoaDonID"));
@@ -45,7 +44,7 @@ public class EditHoaDon extends HttpServlet {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date tuNgay = null;
         Date denNgay = null;
-        Date ngayThanhToan=null;
+        Date ngayThanhToan = null;
         try {
             ngayThanhToan = new Date(dateFormat.parse(request.getParameter("NgayThanhToan")).getTime());
             tuNgay = new Date(dateFormat.parse(request.getParameter("TuNgay")).getTime());
@@ -53,10 +52,18 @@ public class EditHoaDon extends HttpServlet {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+        // Check if tuNgay is less than denNgay
+        if (!denNgay.after(tuNgay)) {
+            request.setAttribute("error", "Từ ngày phải bé hơn Đến Ngày");
+            request.getRequestDispatcher("loadhoadon?id="+hoaDonID).forward(request, response);
+            return;
+        }
+
         int tongTien = Integer.parseInt(request.getParameter("TongTien"));
 
         // Create a HoaDon object with the updated details
-        HoaDon hoadon = new HoaDon(hoaDonID, hopDongID,ngayThanhToan, tinhTrangThanhToan, tuNgay, denNgay, tongTien);
+        HoaDon hoadon = new HoaDon(hoaDonID, hopDongID, ngayThanhToan, tinhTrangThanhToan, tuNgay, denNgay, tongTien);
 
         // Update the HoaDon in the database
         HaiDao dao = new HaiDao();
