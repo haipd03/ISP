@@ -61,9 +61,9 @@
                             <table class="table-auto w-full border-collapse">
                                 <thead>
                                     <tr class="bg-gray-200 text-gray-800">
-                                        <th class="px-4 py-2">Mã hóa đơn</th>
-                                        <th class="px-4 py-2">Mã hợp đồng</th>
-                                        <th class="px-4 py-2">Số phòng</th>
+                                        <th class="px-4 py-2 text-center">Mã hóa đơn</th>
+                                        <th class="px-4 py-2 text-center">Mã hợp đồng</th>
+                                        <th class="px-4 py-2 text-center">Số phòng</th>
                                         <th class="px-4 py-2">Ngày thanh toán</th>
                                         <th class="px-4 py-2">Tình trạng</th>
                                         <th class="px-4 py-2">Từ ngày</th>
@@ -78,9 +78,9 @@
                                 <tbody>
                                     <c:forEach items="${lhd}" var="o">
                                         <tr class="transition-colors hover:bg-gray-100">
-                                            <td class="px-4 py-2">${o.hoaDon.hoaDonID}</td>
-                                            <td class="px-4 py-2">${o.hoaDon.hopDongID}</td>
-                                            <td class="px-4 py-2">${o.soPhong}</td>
+                                            <td class="px-4 py-2 text-center">${o.hoaDon.hoaDonID}</td>
+                                            <td class="px-4 py-2 text-center">${o.hoaDon.hopDongID}</td>
+                                            <td class="px-4 py-2 text-center">${o.soPhong}</td>
                                             <td class="px-4 py-2">${o.hoaDon.ngayThanhToan}</td>
                                             <td class="px-4 py-2">${o.hoaDon.tinhTrangThanhToan}</td>
                                             <td class="px-4 py-2">${o.hoaDon.tuNgay}</td>
@@ -97,13 +97,17 @@
 
                                             <c:if test="${sessionScope.acc.role == 1}">
                                                 <c:if test="${o.hoaDon.tinhTrangThanhToan == 'Chưa Thanh Toán'}">
-
                                                     <td class="px-4 py-2">
-                                                        <form action="deletehoadon" method="post" style="display: inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa hóa đơn này không?');">
+                                                        <form action="loadhoadon" method="post" style="display: inline;">
+                                                            <input type="hidden" name="id" value="${o.hoaDon.hoaDonID}" />
+                                                            <button type="submit" class="text-blue-500 hover:text-blue-700 mr-2">Sửa</button>
+                                                        </form>
+                                                            <form action="deletehoadon" method="post" style="display: inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa hóa đơn này không?');">
                                                             <input type="hidden" name="id" value="${o.hoaDon.hoaDonID}" />
                                                             <button type="submit" class="text-red-500 hover:text-red-700">Xóa</button>
                                                         </form>
                                                     </td>
+                                                    
                                                 </c:if> 
                                             </c:if> 
                                         </tr>

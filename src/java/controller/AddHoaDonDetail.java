@@ -37,29 +37,38 @@ public class AddHoaDonDetail extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        String hddid = request.getParameter("HoaDonDetailID");
-        String hdid = request.getParameter("HoaDonID");
-        String tn = request.getParameter("TuNgay");
-        String dn = request.getParameter("DenNgay");
-        int hs1 = Integer.parseInt(request.getParameter("HeSo"));
-        String dvid = request.getParameter("DichVuID");
+   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    response.setContentType("text/html;charset=UTF-8");
+    request.setCharacterEncoding("UTF-8");
+    String hddid = request.getParameter("HoaDonDetailID");
+    String hdid = request.getParameter("HoaDonID");
+    String tn = request.getParameter("TuNgay");
+    String dn = request.getParameter("DenNgay");
+    int hs1 = Integer.parseInt(request.getParameter("HeSo"));
+    String dvid = request.getParameter("DichVuID");
 
-        String errorMsg = null;
-        if (tn == null || tn.trim().isEmpty() || dn == null || dn.trim().isEmpty()) {
-            errorMsg = "Bạn Không Thể Thêm Hóa Đơn Chi Tiết!";
-        }
-        if (errorMsg != null) {
-            request.setAttribute("error", errorMsg);
-            request.getRequestDispatcher("inserthoadondetail").forward(request, response);
-        } else {
-            DAO dao = new DAO();
-            SonDAO sondao = new SonDAO();
+    String errorMsg = null;
+    if (tn == null || tn.trim().isEmpty() || dn == null || dn.trim().isEmpty()) {
+        errorMsg = "Bạn Không Thể Thêm Hóa Đơn Chi Tiết!";
+    }
+    if (dvid == null || dvid.trim().isEmpty()) {
+        errorMsg = "Dịch Vụ ID không được để trống!";
+    }
 
+    if (errorMsg != null) {
+        request.setAttribute("error", errorMsg);
+        request.getRequestDispatcher("listhoadondetail?id=" + hdid).forward(request, response);
+    } else {
+        DAO dao = new DAO();
+        SonDAO sondao = new SonDAO();
+
+        try {
             DichVu listdvu = sondao.getDichVubyID(dvid);
+            if (listdvu == null) {
+                throw new Exception("Không tìm thấy dịch vụ với ID: " + dvid);
+            }
+
             Phong listphong = sondao.getPhongByHoaDonID(hdid);
 
             int giaTien = listdvu.getGiaTien();
@@ -75,35 +84,35 @@ public class AddHoaDonDetail extends HttpServlet {
             String hs = String.valueOf(hs1);
             String tt = String.valueOf(thanhTien);
 
-            try {
-                dao.insertHoaDonDetail(hddid, hdid, tn, dn, ts, hs, tt, dvid);
+            dao.insertHoaDonDetail(hddid, hdid, tn, dn, ts, hs, tt, dvid);
 
-                HoaDon listhdon1 = sondao.getHoaDonByHoaDonID(hdid);
+            HoaDon listhdon1 = sondao.getHoaDonByHoaDonID(hdid);
 
-                int hdonid = listhdon1.getHoaDonID();
-                int hdongid = listhdon1.getHopDongID();
-                Date NgayThanhToan = listhdon1.getNgayThanhToan();
-                String tttt = listhdon1.getTinhTrangThanhToan();
-                Date TuNgay = listhdon1.getTuNgay();
-                Date DenNgay = listhdon1.getDenNgay();
+            int hdonid = listhdon1.getHoaDonID();
+            int hdongid = listhdon1.getHopDongID();
+            Date NgayThanhToan = listhdon1.getNgayThanhToan();
+            String tttt = listhdon1.getTinhTrangThanhToan();
+            Date TuNgay = listhdon1.getTuNgay();
+            Date DenNgay = listhdon1.getDenNgay();
 
-                List<HoaDonDetail> listhdondetail = sondao.getHoaDonDetail(String.valueOf(hdonid));
+            List<HoaDonDetail> listhdondetail = sondao.getHoaDonDetail(String.valueOf(hdonid));
 
-                int TongTien = giaPhong;
-                for (HoaDonDetail detail : listhdondetail) {
-                    TongTien += detail.getThanhTien();
-                }
-
-                HoaDon hoadon = new HoaDon(hdonid, hdongid, NgayThanhToan, tttt, TuNgay, DenNgay, TongTien);
-                sondao.updateHoaDon(hoadon);
-
-                response.sendRedirect("listhoadondetail?id=" + hdid);
-            } catch (Exception e) {
-                e.printStackTrace();
-                response.getWriter().println("Error: " + e.getMessage());
+            int TongTien = giaPhong;
+            for (HoaDonDetail detail : listhdondetail) {
+                TongTien += detail.getThanhTien();
             }
+
+            HoaDon hoadon = new HoaDon(hdonid, hdongid, NgayThanhToan, tttt, TuNgay, DenNgay, TongTien);
+            sondao.updateHoaDon(hoadon);
+
+            response.sendRedirect("listhoadondetail?id=" + hdid);
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("error", "Không thể thêm dịch vụ: " + e.getMessage());
+            request.getRequestDispatcher("listhoadondetail?id=" + hdid).forward(request, response);
         }
     }
+}
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

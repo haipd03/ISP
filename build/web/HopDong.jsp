@@ -45,7 +45,7 @@
                         <form method="post" action="searchhopdong" style="display: flex; flex-wrap: wrap; gap: 15px; align-items: center; margin-bottom: 20px;">
                             <div class="flex" style="display: flex; align-items: center;">
                                 <label for="hovaten" style="margin-right: 10px;">HỌ VÀ TÊN:</label>
-                                <input type="text" id="hovaten" name="hovaten" placeholder="Nhập HỌ VÀ TÊN" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
+                                <input type="text" id="hovaten" name="hovaten" placeholder="Nhập họ và tên" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
                             </div>
                             <div class="flex" style="display: flex; align-items: center;">
                                 <label for="sokhachthue" style="margin-right: 10px;">SỐ KHÁCH THUÊ:</label>
@@ -120,7 +120,7 @@
                                             </c:if>
                                         </c:forEach>
 
-                                        <c:forEach items="${listK1}" var="o">
+                                        <c:forEach items="${listK}" var="o">
                                             <c:if test="${sessionScope.acc.role == 1}">
                                                 <tr class="bg-white border-b">
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.hopDongID}</td>

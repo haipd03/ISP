@@ -30,70 +30,60 @@ import model.HopDong;
 @WebServlet(name = "SearchHopDong", urlPatterns = {"/searchhopdong"})
 public class SearchHopDong extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ParseException {
-        response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
+        throws ServletException, IOException, ParseException {
+    response.setContentType("text/html;charset=UTF-8");
+    request.setCharacterEncoding("UTF-8");
 
-        HttpSession session = request.getSession();
-        Accounts a = (Accounts) session.getAttribute("acc");
-        String soKhachThueStr = request.getParameter("sokhachthue");
-        String name = request.getParameter("hovaten");
-        String ngaythueStr = request.getParameter("ngaythue");
-        String ngaytraStr = request.getParameter("ngaytra");
+    HttpSession session = request.getSession();
+    Accounts a = (Accounts) session.getAttribute("acc");
+    String soKhachThueStr = request.getParameter("sokhachthue");
+    String name = request.getParameter("hovaten");
+    String ngaythueStr = request.getParameter("ngaythue");
+    String ngaytraStr = request.getParameter("ngaytra");
 
-        HaiDao dao = new HaiDao();
-        List<HopDong> hopDongList;
-        List<HopDong> hopDongList1;
-        // Fetch all HopDong records initially
+    HaiDao dao = new HaiDao();
+    List<HopDong> hopDongList = null;
 
-        if ((soKhachThueStr != null && !soKhachThueStr.trim().isEmpty())
-                || (name != null && !name.trim().isEmpty())
-                || (ngaythueStr != null && !ngaythueStr.trim().isEmpty())
-                || (ngaytraStr != null && !ngaytraStr.trim().isEmpty())) {
+    // Check if any search criteria are provided
+    if ((soKhachThueStr != null && !soKhachThueStr.trim().isEmpty())
+            || (name != null && !name.trim().isEmpty())
+            || (ngaythueStr != null && !ngaythueStr.trim().isEmpty())
+            || (ngaytraStr != null && !ngaytraStr.trim().isEmpty())) {
 
-            try {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                Date tuNgay = null;
-                Date denNgay = null;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date tuNgay = null;
+            Date denNgay = null;
 
-                if (ngaythueStr != null && !ngaythueStr.trim().isEmpty()) {
-                    tuNgay = sdf.parse(ngaythueStr);
-                }
-                if (ngaytraStr != null && !ngaytraStr.trim().isEmpty()) {
-                    denNgay = sdf.parse(ngaytraStr);
-                }
-                hopDongList = dao.getHopDongByCriteria(soKhachThueStr, name, tuNgay, denNgay);
-                hopDongList1 = dao.getHopDongByCriteria1(soKhachThueStr, name, tuNgay, tuNgay, a.getAccountID());
-                if (hopDongList.isEmpty() && hopDongList1.isEmpty()) {
-                    request.setAttribute("error", "Không tìm thấy hợp đồng với tiêu chí tìm kiếm!");
-
-                } else {
-                    request.setAttribute("listK", hopDongList);
-                    request.setAttribute("listK1", hopDongList1);
-                }
-            } catch (ParseException e) {
-                request.setAttribute("error", "Đã xảy ra lỗi trong quá trình tìm kiếm.");
-
+            if (ngaythueStr != null && !ngaythueStr.trim().isEmpty()) {
+                tuNgay = sdf.parse(ngaythueStr);
             }
-        } else {
+            if (ngaytraStr != null && !ngaytraStr.trim().isEmpty()) {
+                denNgay = sdf.parse(ngaytraStr);
+            }
 
-            request.setAttribute("error", "Vui lòng nhập ít nhất một tiêu chí để tìm kiếm.");
+            if (a.getRole() == 0) {
+                hopDongList = dao.getHopDongByCriteria(soKhachThueStr, name, tuNgay, denNgay);
+            } else {
+                hopDongList = dao.getHopDongByCriteria1(soKhachThueStr, name, tuNgay, denNgay, a.getAccountID());
+            }
+
+            if (hopDongList.isEmpty()) {
+                request.setAttribute("error", "Không tìm thấy hợp đồng với tiêu chí tìm kiếm!");
+            } else {
+                request.setAttribute("listK", hopDongList);
+            }
+        } catch (ParseException e) {
+            request.setAttribute("error", "Đã xảy ra lỗi trong quá trình tìm kiếm.");
         }
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("HopDong.jsp");
-        dispatcher.include(request, response); // Forward to JSP page to display the results
+    } else {
+        request.setAttribute("error", "Vui lòng nhập ít nhất một tiêu chí để tìm kiếm.");
     }
 
+    RequestDispatcher dispatcher = request.getRequestDispatcher("HopDong.jsp");
+    dispatcher.include(request, response); // Forward to JSP page to display the results
+}
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

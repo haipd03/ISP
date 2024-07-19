@@ -34,6 +34,9 @@
 
 
                     <h4 class="text-lg font-semibold mb-2">Danh sách thông tin hóa đơn chi tiết:</h4>
+                    <c:if test="${not empty error}">
+                        <p style="color: red; font-size: 1.2em; font-weight: bold;">${error}</p>
+                    </c:if>
                     <div class="overflow-x-auto">
                         <table class="table-auto w-full border-collapse">
                             <thead>
@@ -90,7 +93,7 @@
                                 </a>
                             </div>
                         </c:if> 
-                    </c:if>
+                    </c:if> 
                 </div>
             </div>
         </div>

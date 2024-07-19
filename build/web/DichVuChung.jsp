@@ -2,6 +2,7 @@
 <%@page import="model.DichVuChung"%>
 <%@page import="java.util.*"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -29,55 +30,60 @@
                     <!-- Main content -->
                     <div class="p-4">
 
-                        <form method="post" action="searchdichvuchung" style="display: flex; flex-wrap: wrap; gap: 15px; align-items: center; margin-bottom: 20px;">
 
-                            <c:if test="${sessionScope.acc.role == 0}">
-                                <div class="flex" style="display: flex; align-items: center; margin-bottom: 10px;">
-                                    <label for="khu" style="margin-right: 10px;">Mã Khu:</label>
-                                    <select id="khu" name="khuID" style="border: 1px solid black; width: 180px;" class="py-2 px-3 rounded" onclick="showOptions()">
-                                        <option value="" disabled selected hidden>Chọn Mã Khu</option>
-                                        <c:forEach items="${khu}" var="khu">
-                                            <option value="${khu.khuID}">${khu.khuID}</option>
-                                        </c:forEach>
-                                    </select>
+                       <form method="post" action="searchdichvuchung" style="margin-bottom: 20px;">
+    <div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: flex-end;">
+        <div style="display: flex; flex-direction: column;">
+            <label for="khu" style="margin-bottom: 5px;">Mã Khu:</label>
+            <select id="khu" name="khuID" style="border: 1px solid black; width: 120px;" class="py-2 px-3 rounded">
+                <option value="" disabled selected hidden>Chọn Khu</option>
+                <c:forEach items="${khu}" var="khu">
+                    <option value="${khu.khuID}">${khu.khuID}</option>
+                </c:forEach>
+            </select>
+        </div>
 
-                                </div>
-                            </c:if>
+        <div style="display: flex; flex-direction: column;">
+            <label for="dichVuChungName" style="margin-bottom: 5px;">Tên dịch vụ chung:</label>
+            <input type="text" id="dichVuChungName" name="dichVuChungName" placeholder="Nhập tên dịch vụ chung" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
+        </div>
+
+        <div style="display: flex; flex-direction: column;">
+            <label for="ten" style="margin-bottom: 5px;">Tên công nhân:</label>
+            <input type="text" id="ten" name="ten" placeholder="Nhập tên" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
+        </div>
+
+        <div style="display: flex; flex-direction: column;">
+            <label for="sdt" style="margin-bottom: 5px;">Số điện thoại:</label>
+            <input type="text" id="sdt" name="sdt" placeholder="Nhập số điện thoại" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
+        </div>
+
+        <div style="display: flex; flex-direction: column;">
+            <label for="tuNgay" style="margin-bottom: 5px;">Từ ngày:</label>
+            <input type="date" id="tuNgay" name="tuNgay" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
+        </div>
+
+        <div style="display: flex; flex-direction: column;">
+            <label for="denNgay" style="margin-bottom: 5px;">Đến ngày:</label>
+            <input type="date" id="denNgay" name="denNgay" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
+        </div>
+
+        <div style="display: flex; flex-direction: column;">
+            <label for="tinhTrang" style="margin-bottom: 5px;">Tình trạng:</label>
+            <select id="tinhTrang" name="tinhTrang" style="border: 1px solid black; width: 180px;" class="py-2 px-3 rounded">
+                <option value="" disabled selected hidden>Chọn tình trạng</option>
+                <option value="Chưa làm">Chưa làm</option>
+                <option value="Đang làm">Đang làm</option>
+                <option value="Đã hoàn thành">Đã hoàn thành</option>
+            </select>
+        </div>
+
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" style="margin-top: 20px;">Tìm kiếm</button>
+    </div>
+</form>
 
 
-                            <div class="flex" style="display: flex; align-items: center;">
-                                <label for="dichVuChungName" style="margin-right: 10px;">Tên dịch vụ chung:</label>
-                                <input type="text" id="dichVuChungName" name="dichVuChungName" placeholder="Nhập tên dịch vụ chung" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
-                            </div>
 
-                            <div class="flex" style="display: flex; align-items: center;">
-                                <label for="ten" style="margin-right: 10px;">Tên công nhân:</label>
-                                <input type="text" id="ten" name="ten" placeholder="Nhập tên" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
-                            </div>
-
-                            <div class="flex" style="display: flex; align-items: center;">
-                                <label for="sdt" style="margin-right: 10px;">Số điện thoại:</label>
-                                <input type="text" id="sdt" name="sdt" placeholder="Nhập số điện thoại" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
-                            </div>
-
-                            <div class="flex" style="display: flex; align-items: center;">
-                                <label for="tuNgay" style="margin-right: 10px;">Từ ngày:</label>
-                                <input type="date" id="tuNgay" name="tuNgay" style="border: 1px solid black; width: 180px;" class="py-2 px-3 rounded">
-                            </div>
-
-                            <div class="flex" style="display: flex; align-items: center; margin-bottom: 10px;">
-                                <label for="tinhTrang" style="margin-right: 10px;">Tình trạng:</label>
-                                <select id="tinhTrang" name="tinhTrang" style="border: 1px solid black; width: 180px;" class="py-2 px-3 rounded" onclick="showOptions()">
-                                    <option value="" disabled selected hidden>Chọn tình trạng</option>
-                                    <option value="Chưa làm">Chưa làm</option>
-                                    <option value="Đang làm">Đang làm</option>
-                                    <option value="Đã hoàn thành">Đã hoàn thành</option>
-                                </select>
-                            </div>
-
-                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" style="margin-left: 10px;">Tìm kiếm</button>
-
-                        </form>
 
 
 
@@ -113,34 +119,35 @@
                                     <tr class="bg-gray-200 text-gray-800">
                                         <th class="px-4 py-2 text-center">Mã dịch vụ chung</th>
                                         <th class="px-4 py-2 text-center">Mã Khu</th>
-                                        <th class="px-4 py-2 text-center">Tên dịch vụ chung</th>
-                                        <th class="px-4 py-2 text-center">Tên công nhân</th>
-                                        <th class="px-4 py-2 text-center">Số điện thoại</th>
-                                        <th class="px-4 py-2 text-center">Giá tiền</th>
-                                        <th class="px-4 py-2 text-center">Từ ngày</th>
-                                        <th class="px-4 py-2 text-center">Đến ngày</th>
-                                        <th class="px-4 py-2 text-center">Tình trạng</th>
-                                        <th class="px-4 py-2 text-center">Ghi chú</th>
+                                        <th class="px-4 py-2 ">Tên dịch vụ chung</th>
+                                        <th class="px-4 py-2 ">Tên công nhân</th>
+                                        <th class="px-4 py-2 ">Số điện thoại</th>
+                                        <th class="px-4 py-2 ">Giá tiền</th>
+                                        <th class="px-4 py-2 ">Từ ngày</th>
+                                        <th class="px-4 py-2 ">Đến ngày</th>
+                                        <th class="px-4 py-2 ">Tình trạng</th>
+                                        <th class="px-4 py-2 ">Ghi chú</th>
                                             <c:if test="${sessionScope.acc.role == 0}">
-                                            <th class="px-4 py-2 text-center">Thao tác</th>
+                                            <th class="px-4 py-2 ">Thao tác</th>
                                             </c:if>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <c:forEach items="${ldvc}" var="o">
                                         <tr class="transition-colors hover:bg-gray-100">
-                                            <td class="px-4 py-2 text-center">${o.dichVuChungID}</td>
+                                            <td class="px-4 py-2 text-center ">${o.dichVuChungID}</td>
                                             <td class="px-4 py-2 text-center">${o.khuID}</td>
-                                            <td class="px-4 py-2 text-center">${o.dichVuChungName}</td>
-                                            <td class="px-4 py-2 text-center">${o.ten}</td>
-                                            <td class="px-4 py-2 text-center">${o.sdt}</td>
-                                            <td class="px-4 py-2 text-center">${o.gia}</td>
-                                            <td class="px-4 py-2 text-center">${o.tuNgay}</td>
-                                            <td class="px-4 py-2 text-center">${o.denNgay}</td>
-                                            <td class="px-4 py-2 text-center">${o.tinhTrang}</td>
-                                            <td class="px-4 py-2 text-center">${o.ghiChu}</td>
-
-
+                                            <td class="px-4 py-2 ">${o.dichVuChungName}</td>
+                                            <td class="px-4 py-2 ">${o.ten}</td>
+                                            <td class="px-4 py-2 ">${o.sdt}</td>
+                                            <!--<td class="px-4 py-2 text-center">${o.gia}</td>-->
+                                            <td class="px-4 py-2">
+                                                <fmt:formatNumber value="${o.gia}" pattern="#,##0 đồng" />
+                                            </td>
+                                            <td class="px-4 py-2 ">${o.tuNgay}</td>
+                                            <td class="px-4 py-2 ">${o.denNgay}</td>
+                                            <td class="px-4 py-2 ">${o.tinhTrang}</td>
+                                            <td class="px-4 py-2 ">${o.ghiChu}</td>
                                             <c:if test="${sessionScope.acc.role == 0}">
                                                 <c:choose>
                                                     <c:when test="${o.tinhTrang == 'Đang làm'}">
@@ -170,15 +177,10 @@
                                                     </c:otherwise>
                                                 </c:choose>
                                             </c:if>
-
-
-
                                         </tr>
                                     </c:forEach>
-
                                 </tbody>
                             </table><br>
-
                         </div>
                     </div>
                 </div>
