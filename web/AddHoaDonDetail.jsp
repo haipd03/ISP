@@ -102,8 +102,13 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Mã dịch vụ</label>
-                                                        <input name="DichVuID" type="text" class="form-control" required>
+                                                        <select name="DichVuID" required class="form-control">
+                                                            <c:forEach items="${dv1}" var="d">
+                                                                <option value="${d.dichVuID}">${d.dichVuID}</option>
+                                                            </c:forEach>
+                                                        </select>
                                                     </div>
+
                                                 </div>
                                                 <div class="modal-footer">                            
                                                     <input type="submit" class="btn btn-success" value="Add">
@@ -121,8 +126,8 @@
                     <!--/Main-->                                
                 </div>
                 <!--Footer-->
-                 <footer class="bg-grey-darkest text-white p-2">
-<!--                    <div class="flex flex-1 mx-auto">&copy; My Design</div>-->
+                <footer class="bg-grey-darkest text-white p-2">
+                    <!--                    <div class="flex flex-1 mx-auto">&copy; My Design</div>-->
                 </footer>
                 <!--/footer-->
             </div>

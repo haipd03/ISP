@@ -21,6 +21,7 @@ import model.Accounts;
 public class AddAccount extends HttpServlet {
 
     private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+    private static final String PASSWORD_REGEX = "^(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?])(?=.*[A-Za-z])(?=.*\\d).{6,}$";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -45,11 +46,48 @@ public class AddAccount extends HttpServlet {
         String cccd = request.getParameter("cccd");
         String diaChi = request.getParameter("diachi");
 
+        // Validate `taiKhoan`
+        if (taiKhoan == null || taiKhoan.length() < 6) {
+            request.setAttribute("errorMessage", "TaiKhoan phải dài ít nhất 6 ký tự.");
+            request.setAttribute("listA", new Accounts(accountID, taiKhoan, password, role, hoVaTen, email, cccd, diaChi));
+            request.getRequestDispatcher("listaccount").forward(request, response);
+            return;
+        }
+
+        // Validate `password`
+        Pattern passwordPattern = Pattern.compile(PASSWORD_REGEX);
+        Matcher passwordMatcher = passwordPattern.matcher(password);
+        if (password == null || password.length() < 6 || !passwordMatcher.matches()) {
+            request.setAttribute("errorMessage", "Mật khẩu cần ít nhất 6 ký tự ,chứa ít nhất một ký tự đặc biệt, một ký tự chữ cái, một ký tự số");
+            request.setAttribute("listA", new Accounts(accountID, taiKhoan, password, role, hoVaTen, email, cccd, diaChi));
+            request.getRequestDispatcher("listaccount").forward(request, response);
+            return;
+        }
+
+        // Validate email format
         Pattern pattern = Pattern.compile(EMAIL_REGEX);
         Matcher matcher = pattern.matcher(email);
         if (!matcher.matches()) {
-            // Email is invalid, set an error message and return
             request.setAttribute("errorMessage", "Invalid email format.");
+            request.getRequestDispatcher("listaccount").forward(request, response);
+            return;
+        }
+
+        // Validate non-empty fields
+        if (hoVaTen == null || hoVaTen.trim().isEmpty()) {
+            request.setAttribute("errorMessage", "Họ và tên không được để trống.");
+            request.getRequestDispatcher("listaccount").forward(request, response);
+            return;
+        }
+
+        if (cccd == null || cccd.trim().isEmpty()) {
+            request.setAttribute("errorMessage", "CCCD không được để trống.");
+            request.getRequestDispatcher("listaccount").forward(request, response);
+            return;
+        }
+
+        if (diaChi == null || diaChi.trim().isEmpty()) {
+            request.setAttribute("errorMessage", "Địa chỉ không được để trống.");
             request.getRequestDispatcher("listaccount").forward(request, response);
             return;
         }

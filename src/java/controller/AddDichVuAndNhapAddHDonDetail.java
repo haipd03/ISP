@@ -40,7 +40,9 @@ public class AddDichVuAndNhapAddHDonDetail extends HttpServlet {
         String errorMsg = null;
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-        if (PhongID == null || !PhongID.matches("\\d+")) {
+        if (name == null || name.trim().isEmpty()) {
+            errorMsg = "Tên không được để trống!";
+        } else if (PhongID == null || !PhongID.matches("\\d+")) {
             errorMsg = "Bạn Không Thể Thêm Dịch Vụ!";
         } else if (giaTien == null || !giaTien.matches("\\d+")) {
             errorMsg = "Giá tiền không hợp lệ.";

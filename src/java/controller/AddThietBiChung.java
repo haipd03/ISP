@@ -41,10 +41,14 @@ public class AddThietBiChung extends HttpServlet {
         String tt = request.getParameter("TinhTrang");
         String g = request.getParameter("Gia");
         String soPattern = "^[0-9]+$";
-       
+       if (t == null || t.trim().isEmpty()) {
+            request.setAttribute("errorMessage", "Tên không được để trống.");
+            request.getRequestDispatcher("insertthietbichung").forward(request, response);
+            return;
+        }
         if (!sl.matches(soPattern) || !g.matches(soPattern) ) {
             request.setAttribute("errorMessage", "Dữ liệu nhập vào không hợp lệ!");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("insertdichvu");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("insertthietbichung");
 
             dispatcher.forward(request, response);
             return;

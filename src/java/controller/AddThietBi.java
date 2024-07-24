@@ -48,7 +48,11 @@ public class AddThietBi extends HttpServlet {
         
         String SoLuongPattern = "^[0-9]+$";
         String GiaPattern = "^[0-9]+$";
-        
+        if (tbname == null || tbname.trim().isEmpty()) {
+            request.setAttribute("error", "Tên không được để trống.");
+            request.getRequestDispatcher("listthietbi?id=" + tbpid).forward(request, response);
+            return;
+        }
         if (!tbsoluong.matches(SoLuongPattern) || !tbgia.matches(GiaPattern)) {
             request.setAttribute("error", "Dữ liệu nhập vào không hợp lệ!");
             RequestDispatcher dispatcher = request.getRequestDispatcher("listthietbi?id=" + tbpid);
