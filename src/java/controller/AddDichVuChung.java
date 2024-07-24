@@ -43,14 +43,24 @@ public class AddDichVuChung extends HttpServlet {
 //            dispatcher.forward(request, response);
 //            return;
 //        }
+        if (dichVuChungName == null || dichVuChungName.trim().isEmpty()) {
+            request.setAttribute("errorMessage", "Tên không được để trống.");
+            request.getRequestDispatcher("insertdichvuchung").forward(request, response);
+            return;
+        }
 
+        if (ten == null || ten.trim().isEmpty()) {
+            request.setAttribute("errorMessage", "Tên không được để trống.");
+            request.getRequestDispatcher("insertdichvuchung").forward(request, response);
+            return;
+        }
         if (!gia.matches(numericPattern)) {
             request.setAttribute("errorMessage", "Giá nhập vào không hợp lệ!");
             RequestDispatcher dispatcher = request.getRequestDispatcher("insertdichvuchung");
             dispatcher.forward(request, response);
             return;
         }
-        
+
         if (!sdt.matches(numericPattern)) {
             request.setAttribute("errorMessage", "Số điện thoại nhập vào không hợp lệ!");
             RequestDispatcher dispatcher = request.getRequestDispatcher("insertdichvuchung");

@@ -31,16 +31,22 @@ public class AddDichVu extends HttpServlet {
         String chiSoMoi = request.getParameter("ChiSoMoi");
         String urlAnh = request.getParameter("UrlAnh");
 
-        LinhDao dao = new LinhDao();
+        // Define patterns for validation
         String giaTienPattern = "^[0-9]+$";
         String datePattern = "\\d{4}-\\d{2}-\\d{2}";
 
-
+        // Validate input fields
         if (!dvid.matches(giaTienPattern) || !phongID.matches(giaTienPattern) || !giaTien.matches(giaTienPattern) || !tuNgay.matches(datePattern) || !denNgay.matches(datePattern)
                 || !chiSoCu.matches(giaTienPattern) || !chiSoMoi.matches(giaTienPattern)) {
             request.setAttribute("errorMessage", "Dữ liệu nhập vào không hợp lệ!");
             RequestDispatcher dispatcher = request.getRequestDispatcher("insertdichvu");
+            dispatcher.forward(request, response);
+            return;
+        }
 
+        if (name == null || name.trim().isEmpty()) {
+            request.setAttribute("errorMessage", "Tên không được để trống.");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("insertdichvu");
             dispatcher.forward(request, response);
             return;
         }
@@ -49,7 +55,7 @@ public class AddDichVu extends HttpServlet {
             int chiSoCuInt = Integer.parseInt(chiSoCu);
             int chiSoMoiInt = Integer.parseInt(chiSoMoi);
             if (chiSoCuInt >= chiSoMoiInt) {
-                request.setAttribute("error", "Thêm dịch dịch vụ không thành công! Chi số cũ phải nhỏ hơn chi số mới!");
+                request.setAttribute("error", "Chi số cũ phải nhỏ hơn chi số mới!");
                 RequestDispatcher dispatcher = request.getRequestDispatcher("listdichvu");
                 dispatcher.forward(request, response);
                 return;
@@ -59,24 +65,22 @@ public class AddDichVu extends HttpServlet {
             Date tuNgayDate = dateFormat.parse(tuNgay);
             Date denNgayDate = dateFormat.parse(denNgay);
             if (tuNgayDate.after(denNgayDate)) {
-                request.setAttribute("error", "Thêm dịch dịch vụ không thành công! Từ ngày phải nhỏ hơn hoặc bằng đến ngày!");
+                request.setAttribute("error", "Từ ngày phải nhỏ hơn hoặc bằng đến ngày!");
                 RequestDispatcher dispatcher = request.getRequestDispatcher("listdichvu");
                 dispatcher.forward(request, response);
                 return;
             }
 
-
+            // Perform data insertion
+            LinhDao dao = new LinhDao();
             dao.insertDichVu(dvid, phongID, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi, urlAnh);
-
 
             request.getSession().setAttribute("success", "Đã Thêm Dịch Vụ thành công!");
             response.sendRedirect("listdichvu?id=" + dvid);
 
         } catch (NumberFormatException | ParseException e) {
             request.setAttribute("errorMessage", "Lỗi định dạng dữ liệu!");
-
             RequestDispatcher dispatcher = request.getRequestDispatcher("insertdichvu");
-
             dispatcher.forward(request, response);
         }
     }

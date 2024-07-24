@@ -886,13 +886,47 @@ public class HaiDao extends MyDAO {
     return hopDongs;
 }
 
+public List<DichVu> getDichVuTrong() {
+    List<DichVu> dichVuList = new ArrayList<>();
+    String sql = "SELECT * FROM Dichvu dv " +
+                 "LEFT JOIN HoaDonDetail hdd ON hdd.DichVuID = dv.DichVuID " +
+                 "WHERE hdd.HoaDonID IS NULL";
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+
+    try {
+        ps = con.prepareStatement(sql);
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            int dichVuID = rs.getInt("DichVuID");
+            int phongID = rs.getInt("PhongID");
+            String name = rs.getString("Name");
+            int giaTien = rs.getInt("GiaTien");
+            Date tuNgay = rs.getDate("TuNgay");
+            Date denNgay = rs.getDate("DenNgay");
+            int chiSoCu = rs.getInt("ChiSoCu");
+            int chiSoMoi = rs.getInt("ChiSoMoi");
+            String urlAnh = rs.getString("UrlAnh");
+
+            DichVu dichVu = new DichVu(dichVuID, phongID, name, giaTien, tuNgay, denNgay, chiSoCu, chiSoMoi, urlAnh);
+            dichVuList.add(dichVu);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace(); // Print error if any
+    } finally {
+        // Always close resources to avoid leaks
+        if (rs != null) try { rs.close(); } catch (SQLException e) { e.printStackTrace(); }
+        if (ps != null) try { ps.close(); } catch (SQLException e) { e.printStackTrace(); }
+    }
+    return dichVuList;
+}
 
 
 
     public static void main(String[] args) throws SQLException {
         HaiDao dao = new HaiDao();
-        List<HopDong> dichVu = dao.getHopDonghethan();
-        for (HopDong phong : dichVu) {
+        List<DichVu> dichVu = dao.getDichVuTrong();
+        for (DichVu phong : dichVu) {
             System.out.println(phong);
         }
 //        List<HoaDon> hoaDons = dao.getHoaDonDV(1);

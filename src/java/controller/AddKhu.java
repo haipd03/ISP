@@ -30,23 +30,32 @@ public class AddKhu extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        String khuID = request.getParameter("khuID");
-        String name = request.getParameter("name");
-        String accountID = request.getParameter("accountID");
-        DAO dao = new DAO();
+   protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    response.setContentType("text/html;charset=UTF-8");
+    String khuID = request.getParameter("khuID");
+    String name = request.getParameter("name");
+    String accountID = request.getParameter("accountID");
+    DAO dao = new DAO();
 
-        if (dao.checkExistingName(name)) {
-            request.setAttribute("error", "Đã tồn tại Tên Khu trong cơ sở dữ liệu! Vui lòng chọn Tên Khu khác!");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("NhapAddKhu");
-            dispatcher.forward(request, response);
-        } else {
-            dao.InsertKhu(khuID, name, accountID);
-            response.sendRedirect("khu");
-        }
-
+    // Check if the name is empty
+    if (name == null || name.trim().isEmpty()) {
+        request.setAttribute("error", "Tên Khu không được để trống! Vui lòng nhập Tên Khu.");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("NhapAddKhu");
+        dispatcher.forward(request, response);
+        return; // Ensure that the rest of the code is not executed
     }
+
+    // Check if the name already exists in the database
+    if (dao.checkExistingName(name)) {
+        request.setAttribute("error", "Đã tồn tại Tên Khu trong cơ sở dữ liệu! Vui lòng chọn Tên Khu khác!");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("NhapAddKhu");
+        dispatcher.forward(request, response);
+    } else {
+        dao.InsertKhu(khuID, name, accountID);
+        response.sendRedirect("khu");
+    }
+}
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
