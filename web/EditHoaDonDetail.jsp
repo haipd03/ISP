@@ -84,9 +84,9 @@
                     </div>
                 </div>
             </div>
-            <footer class="bg-grey-darkest text-white p-2">
-                <div class="flex flex-1 mx-auto">&copy; My Design</div>
-            </footer>
+             <footer class="bg-grey-darkest text-white p-2">
+<!--                    <div class="flex flex-1 mx-auto">&copy; My Design</div>-->
+                </footer>
         </div>
     </div>
     <script src="./main.js"></script>

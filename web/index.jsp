@@ -185,7 +185,7 @@
                                                     <form action="loadphong" method="get">
                                                         <input type="hidden" name="PhongID" value="${o.phongID}" />
                                                         <button type="submit">
-                                                            Loại Phòng: ${o.loaiPhong} - Số Phòng: ${o.soPhong}
+                                                            Loại Phòng: ${o.loaiPhong} - Số Phòng: ${o.soPhong} - Khu: ${o.khuID}
                                                         </button>
                                                     </form>
                                                 </h3>
@@ -281,9 +281,8 @@
                     <!--/Main-->
                 </div>
                 <!--Footer-->
-                <footer class="bg-grey-darkest text-white p-2">
-                    <div class="flex flex-1 mx-auto">&copy; My Design</div>
-                    <div class="flex flex-1 mx-auto">Distributed by:  <a href="https://themewagon.com/" target=" _blank">Themewagon</a></div>
+                 <footer class="bg-grey-darkest text-white p-2">
+<!--                    <div class="flex flex-1 mx-auto">&copy; My Design</div>-->
                 </footer>
                 <!--/footer-->
 

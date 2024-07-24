@@ -23,6 +23,21 @@
                 }
             }
         </script>
+
+        <style>
+            .container {
+                background-color: white; /* Màu đỏ nhạt hơn */
+                padding: 10px;
+                display: flex;
+                flex-wrap: wrap; /* Nếu muốn các phần tử xuống dòng khi hết chỗ */
+            }
+            .item {
+                color: #f03c3c;
+                font-size: 1em;
+                font-weight: bold;
+                margin-right: 10px; /* Khoảng cách giữa các phần tử */
+            }
+        </style>
     </head>
 
     <body>
@@ -70,6 +85,21 @@
                         <c:if test="${not empty error}">
                             <p style="color: red; font-size: 1.2em; font-weight: bold;">${error}</p>
                         </c:if>
+
+<!--                        <div class="container">
+                            <c:if test="${not empty list11}">
+                                <div class="item">
+                                    Lưu ý các hợp đồng sắp hết hạn có mã:
+                                    <c:forEach items="${list11}" var="a" varStatus="status">
+                                        <c:if test="${a.hopDongID != null}">
+                                            ${a.hopDongID}<c:if test="${status.last}"> </c:if>
+                                            <c:if test="${!status.last}">, </c:if>  Thay dấu ';' bằng dấu ',' nếu không muốn có dấu phân cách nào khác 
+                                        </c:if>
+                                    </c:forEach>
+                                </div>
+                            </c:if>
+                        </div>-->
+
                         <div class="p-3">
                             <form action="listhopdong" method="post">
                                 <table class="min-w-full leading-normal">
@@ -115,12 +145,12 @@
                                                             </c:when>
                                                         </c:choose>
                                                     </td>
-                                                   
+
                                                 </tr>
                                             </c:if>
                                         </c:forEach>
 
-                                        <c:forEach items="${listK}" var="o">
+                                        <c:forEach items="${listK1}" var="o">
                                             <c:if test="${sessionScope.acc.role == 1}">
                                                 <tr class="bg-white border-b">
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.hopDongID}</td>
@@ -192,9 +222,9 @@
                 <!--/Main-->
             </div>
             <!--Footer-->
-            <footer class="bg-grey-darkest text-white p-2">
-                <div class="flex flex-1 mx-auto">&copy; My Design</div>
-            </footer>
+             <footer class="bg-grey-darkest text-white p-2">
+<!--                    <div class="flex flex-1 mx-auto">&copy; My Design</div>-->
+                </footer>
             <!--/footer-->
         </div>
 
