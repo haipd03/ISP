@@ -51,7 +51,7 @@
                                 <!--Email Request Form-->
                                 <div class="mb-4 border-solid border-gray-300 border shadow-lg w-full md:w-3/4 lg:w-1/2 mx-auto rounded-lg">
                                     <div class="bg-gray-700 px-4 py-3 border-solid border-gray-300 border-b text-white rounded-t-lg">
-                                        Phản Hồi Yêu Cầu
+                                        Phản Hồi Tin Nhắn
                                     </div>
                                     <div class="p-4 bg-white rounded-b-lg">
                                         <form action="UpdateRequest" method="post" class="w-full" name="feedbackForm" onsubmit="return confirmSend(event)">
@@ -186,8 +186,8 @@
                     <!--/Main-->                                
                 </div>
                 <!--Footer-->
-                <footer class="bg-grey-darkest text-white p-2">
-                    <div class="flex flex-1 mx-auto">&copy; My Design</div>
+                 <footer class="bg-grey-darkest text-white p-2">
+<!--                    <div class="flex flex-1 mx-auto">&copy; My Design</div>-->
                 </footer>
                 <!--/footer-->
             </div>

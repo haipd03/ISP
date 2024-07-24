@@ -839,18 +839,67 @@ public class HaiDao extends MyDAO {
         }
         return count;
     }
+    public List<HopDong> getHopDonghethan() {
+    List<HopDong> hopDongs = new ArrayList<>();
+    String sql = "SELECT * FROM HopDong h " +
+                 "WHERE (" +
+                     "DATEDIFF(day, h.NgayTra, GETDATE()) <= 3 " +
+                     "AND DATEDIFF(day, h.NgayTra, GETDATE()) < 0 " +
+                     "AND DATEDIFF(MONTH, h.NgayTra, GETDATE()) = 0 " +
+                     "AND DATEDIFF(year, h.NgayTra, GETDATE()) = 0 " +
+                 ") " +
+                 "OR (" +
+                     "DATEDIFF(day, h.NgayTra, GETDATE()) <= 3 " +
+                     "AND DATEDIFF(MONTH, h.NgayTra, GETDATE()) > 0 " +
+                     "AND DATEDIFF(year, h.NgayTra, GETDATE()) = 0 " +
+                 ") " +
+                 "OR (" +
+                     "DATEDIFF(day, h.NgayTra, GETDATE()) <= 3 " +
+                     "AND DATEDIFF(year, h.NgayTra, GETDATE()) > 0 " +
+                 ") " +
+                 "AND h.TinhTrang = 1;";
+
+    try (PreparedStatement ps = con.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+
+        while (rs.next()) {
+            int hopDongID = rs.getInt("HopDongID");
+            int khachID = rs.getInt("KhachID");
+            int phongID = rs.getInt("PhongID");
+            int tienCoc = rs.getInt("TienCoc");
+            java.sql.Date ngayThue = rs.getDate("NgayThue");
+            java.sql.Date ngayTra = rs.getDate("NgayTra");
+            int soKhachThue = rs.getInt("SoKhachThue");
+            String ghiChu = rs.getString("GhiChu");
+            String cccd = rs.getString("CCCD");
+            String sdt = rs.getString("SDT");
+            String hoVaTen = rs.getString("HoVaTen");
+            int tinhTrang = rs.getInt("TinhTrang");
+
+            HopDong hopDong = new HopDong(hopDongID, khachID, phongID, tienCoc, ngayThue, ngayTra, soKhachThue, ghiChu, cccd, sdt, hoVaTen, tinhTrang);
+            hopDongs.add(hopDong);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return hopDongs;
+}
+
+
+
 
     public static void main(String[] args) throws SQLException {
         HaiDao dao = new HaiDao();
-//        List<HopDong> dichVu = dao.getHopDongByCriteria1(null, null, null, null,2);
-//        for (HopDong phong : dichVu) {
-//            System.out.println(phong);
-//        }
-        List<HoaDon> hoaDons = dao.getHoaDonDV(1);
-
-        // Print the retrieved HoaDon objects
-        for (HoaDon hd : hoaDons) {
-            System.out.println(hd);
+        List<HopDong> dichVu = dao.getHopDonghethan();
+        for (HopDong phong : dichVu) {
+            System.out.println(phong);
         }
+//        List<HoaDon> hoaDons = dao.getHoaDonDV(1);
+//
+//        // Print the retrieved HoaDon objects
+//        for (HoaDon hd : hoaDons) {
+//            System.out.println(hd);
+//        }
     }
 }

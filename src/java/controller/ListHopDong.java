@@ -42,22 +42,24 @@ public class ListHopDong extends HttpServlet {
         Accounts a = (Accounts) session.getAttribute("acc");
 
         SonDAO sondao = new SonDAO();
-        HaiDao u =new HaiDao();
-        
+        HaiDao u = new HaiDao();
+        List<HopDong> list11 = u.getHopDonghethan();
+
         String pageStr = request.getParameter("page");
         int page = (pageStr == null) ? 1 : Integer.parseInt(pageStr);
         int pageSize = 5;
         int offset = (page - 1) * pageSize;
-        
+
         List<HopDong> list = u.getHopDong(offset, pageSize);
         List<HopDong> list1 = sondao.getHopDong1(a.getAccountID(), offset, pageSize);
-        
+
         int totalRecords = u.getTotalHopDongCount();
         int totalPages = (int) Math.ceil((double) totalRecords / pageSize);
-        
-         int totalRecords1 = sondao.getTotalHopDongCount1(a.getAccountID());
+
+        int totalRecords1 = sondao.getTotalHopDongCount1(a.getAccountID());
         int totalPages1 = (int) Math.ceil((double) totalRecords1 / pageSize);
 
+        request.setAttribute("list11", list11);
         request.setAttribute("listK", list);
         request.setAttribute("listK1", list1);
         request.setAttribute("currentPage", page);

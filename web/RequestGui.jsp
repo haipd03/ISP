@@ -35,7 +35,7 @@
                                 <!-- Request Details Form -->
                                 <div class="mb-4 border-solid border-gray-300 border shadow-lg w-full md:w-3/4 lg:w-1/2 mx-auto rounded-lg">
                                     <div class="bg-gray-700 px-4 py-3 border-solid border-gray-300 border-b text-white rounded-t-lg">
-                                        Yêu Cầu Đã Gửi
+                                        Tin Nhắn Đã Gửi
                                     </div>
                                     <div class="p-4 bg-white rounded-b-lg">
                                         <div class="mb-6">
@@ -114,8 +114,8 @@
                     <!--/Main-->
                 </div>
                 <!--Footer-->
-                <footer class="bg-grey-darkest text-white p-2">
-                    <div class="flex flex-1 mx-auto">&copy; My Design</div>
+                 <footer class="bg-grey-darkest text-white p-2">
+<!--                    <div class="flex flex-1 mx-auto">&copy; My Design</div>-->
                 </footer>
                 <!--/footer-->
             </div>

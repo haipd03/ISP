@@ -70,7 +70,7 @@
                                                         <input name="taikhoan" type="text" class="form-control" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>Mật hẩu:</label>
+                                                        <label>Mật Khẩu:</label>
                                                         <input name="password" type="text" class="form-control" required>
                                                     </div>
                                                     <div class="form-group">
@@ -107,8 +107,8 @@
                     <!--/Main-->                                
                 </div>
                 <!--Footer-->
-                <footer class="bg-grey-darkest text-white p-2">
-                    <div class="flex flex-1 mx-auto">&copy; My Design</div>
+                 <footer class="bg-grey-darkest text-white p-2">
+<!--                    <div class="flex flex-1 mx-auto">&copy; My Design</div>-->
                 </footer>
                 <!--/footer-->
             </div>

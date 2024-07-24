@@ -52,17 +52,9 @@ public class EditAccount extends HttpServlet {
         String diaChi = request.getParameter("DiaChi");
 
         int role;
-        try {
+        
             role = Integer.parseInt(roleParam);
-            if (role != 1 && role != 2) {
-                throw new NumberFormatException("Invalid role value");
-            }
-        } catch (NumberFormatException e) {
-            request.setAttribute("errorMessage", "Role must be 1 or 2");
-            request.setAttribute("listA", new Accounts(accountID, taiKhoan, password, 0, hoVaTen, email, cccd, diaChi)); // Maintain input data
-            request.getRequestDispatcher("EditAccount.jsp").forward(request, response);
-            return;
-        }
+           
 
         // Validate `taiKhoan`
         if (taiKhoan == null || taiKhoan.length() < 6) {

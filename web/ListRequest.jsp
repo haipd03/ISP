@@ -42,11 +42,11 @@
                             <c:if test="${not empty error}">
                             <span style="color: red; font-size: 1.2em; font-weight: bold;">${error}</span>
                         </c:if>
-                        <h4 class="text-lg font-semibold mb-2">Danh sách yêu cầu:</h4>
+                        <h4 class="text-lg font-semibold mb-2">Danh sách tin nhắn:</h4>
                         <div class="overflow-x-auto">
                             <div class="mb-4">
                                 <form method="get">
-                                    <button type="submit" name="action" value="soan" formaction="NhapRequest" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Soạn Yêu Cầu</button>
+                                    <button type="submit" name="action" value="soan" formaction="NhapRequest" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Soạn Tin Nhắn</button>
                                     <button type="submit" name="action" value="nhan" formaction="ListRequest" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Nhận</button>
                                     <button type="submit" name="action" value="gui" formaction="ListRequest?action=gui" class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded">Gửi</button>
                                 </form>

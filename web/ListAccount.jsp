@@ -45,7 +45,7 @@
                     <!--/Sidebar-->
 
                     <!-- Underline form -->
-                    <div class="mb-2 md:mx-2 lg:mx-2 border-solid border-gray-200 rounded border shadow-sm w-full md:w-1/2 lg:w-2/3">
+                    <div class="mb-2 flex-1 md:mx-2 lg:mx-2 border-solid border-gray-200 rounded border shadow-sm w-full md:w-1/2 lg:w-2/3">
                         <div class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b font-bold">
                             Danh sách tài khoản
                         </div>
@@ -65,7 +65,7 @@
                                             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Mã tài khoản</th>
                                             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Tài khoản</th>
                                             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Mật khẩu</th>
-                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Vai trò</th>
+                                            <th class="px-10 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Vai trò</th>
                                             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Họ và tên</th>
                                             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Email</th>
                                             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">CCCD</th>
@@ -79,7 +79,20 @@
                                                 <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.accountID}</td>
                                                 <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.taiKhoan}</td>
                                                 <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.password}</td>
-                                                <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.role}</td>
+                                                <td class="px-5 py-5 border-b border-gray-200 text-sm">
+                                                    <c:choose>
+                                                        <c:when test="${o.role == 1}">
+                                                            Quản Lý
+                                                        </c:when>
+                                                        <c:when test="${o.role == 2}">
+                                                            Vô hiệu hóa
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            Chủ
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </td>
+
                                                 <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.hoVaTen}</td>
                                                 <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.email}</td>
                                                 <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.CCCD}</td>
@@ -95,7 +108,7 @@
                             </form>
                             <div class="mb-2 md:mx-2 lg:mx-2">
 
-                                 <a href="nhapaddaccount" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">Thêm tài khoản mới</a>
+                                <a href="nhapaddaccount" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">Thêm tài khoản mới</a>
 
                             </div>
                         </div>
@@ -104,8 +117,8 @@
                     <!--/Main-->                                
                 </div>
                 <!--Footer-->
-                <footer class="bg-grey-darkest text-white p-2">
-                    <div class="flex flex-1 mx-auto">&copy; My Design</div>
+                 <footer class="bg-grey-darkest text-white p-2">
+<!--                    <div class="flex flex-1 mx-auto">&copy; My Design</div>-->
                 </footer>
                 <!--/footer-->
 
