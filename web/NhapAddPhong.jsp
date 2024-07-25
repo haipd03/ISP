@@ -14,6 +14,11 @@
         <link rel="stylesheet" href="./dist/all.css">
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i,700,700i" rel="stylesheet">
         <title>Forms | Tailwind Admin</title>
+        <script>
+            function confirmUpdate() {
+                return confirm("Bạn có chắc chắn muốn thêm phòng này?");
+            }
+        </script>
     </head>
 
     <body>
@@ -36,7 +41,7 @@
                             Thêm Phòng
                         </div>
                         <div class="p-6 bg-white">
-                            <form action="themphong" method="get">
+                            <form action="themphong" method="get" onsubmit="return confirmUpdate()">
                                 <div class="space-y-4">
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Mã Phòng:</label>
