@@ -57,7 +57,7 @@ public class DeleteAcc extends HttpServlet {
         }
     } catch (SQLException ex) {
         Logger.getLogger(DeleteAcc.class.getName()).log(Level.SEVERE, null, ex);
-        request.setAttribute("error", "Có lỗi xảy ra trong quá trình xóa tài khoản.");
+        request.setAttribute("error", "Không thể xóa tài khoản này!");
         RequestDispatcher dispatcher = request.getRequestDispatcher("listaccount");
         dispatcher.forward(request, response);
     }

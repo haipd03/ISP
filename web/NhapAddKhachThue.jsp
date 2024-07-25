@@ -44,31 +44,31 @@
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Tên Khách:</label>
-                                        <input type="text" name="HoVaTen" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <input type="text" name="HoVaTen" value="${HoVaTen}" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">CCCD:</label>
-                                        <input type="text" name="CCCD" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <input type="text" name="CCCD" value="${CCCD}" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">SDT:</label>
-                                        <input type="text" name="SDT" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <input type="text" name="SDT" value="${SDT}" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Quê Quán:</label>
-                                        <input type="text" name="QueQuan" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <input type="text" name="QueQuan" value="${QueQuan}" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Tên Người Thân:</label>
-                                        <input type="text" name="TenNguoiThan" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <input type="text" name="TenNguoiThan" value="${TenNguoiThan}" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">SDT Người Thân:</label>
-                                        <input type="text" name="SDTNguoiThan" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <input type="text" name="SDTNguoiThan" value="${SDTNguoiThan}" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Quan Hệ Với Người Thân:</label>
-                                        <input type="text" name="QuanHeVoiNguoiThan" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <input type="text" name="QuanHeVoiNguoiThan" value="${QuanHeVoiNguoiThan}" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Mã Phòng:</label>
@@ -81,6 +81,7 @@
                                             <option value="0" ${listNguoiThue1.tinhTrang == 0 ? 'selected' : ''}>Không còn Thuê</option>
                                         </select>
                                     </div>
+                                        <p style="color: red">${error}</p>
                                 </div>
                                 <div class="mt-6 flex justify-end">
                                     <input type="submit" value="Thêm" class="bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 transition-colors duration-200">

@@ -57,7 +57,17 @@ public class AddKhachThue extends HttpServlet {
         
         if (errorMsg != null) {
             request.setAttribute("error", errorMsg);
-            request.getRequestDispatcher("listNguoiThue?lntid=" + PhongID).forward(request, response);
+            request.setAttribute("HoVaTen", HoVaTen);
+            request.setAttribute("CCCD", CCCD);
+            request.setAttribute("SDT", SDT);
+            request.setAttribute("QueQuan", QueQuan);
+            request.setAttribute("TenNguoiThan", TenNguoiThan);
+            request.setAttribute("SDTNguoiThan", SDTNguoiThan);
+            request.setAttribute("QuanHeVoiNguoiThan", QuanHeVoiNguoiThan);
+            request.setAttribute("PhongID", PhongID);
+            request.setAttribute("TinhTrang", TinhTrang);
+            request.getRequestDispatcher("nhapaddkhachthue?naktpid=" + PhongID).forward(request, response);
+//            request.getRequestDispatcher("listNguoiThue?lntid=" + PhongID).forward(request, response);
         } else {
             sondao.insertkhachthue(KhachID, HoVaTen, CCCD, SDT, QueQuan, TenNguoiThan, SDTNguoiThan, QuanHeVoiNguoiThan, PhongID, TinhTrang);
             response.sendRedirect("listNguoiThue?lntid=" + PhongID);
