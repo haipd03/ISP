@@ -2,6 +2,7 @@
 <%@page import = "model.Phong" %>
 <%@page import = "java.util.*" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,7 +50,10 @@
                                         <p class="text-gray-700"><strong>Tình Trạng Thanh Toán:</strong> ${listhdon.tinhTrangThanhToan}</p>
                                         <p class="text-gray-700"><strong>Từ Ngày:</strong> ${listhdon.tuNgay}</p>
                                         <p class="text-gray-700"><strong>Đến Ngày:</strong> ${listhdon.denNgay}</p>
-                                        <p class="text-gray-700"><strong>Tổng Tiền:</strong> ${listhdon.tongTien}</p>
+                                        <!--<p class="text-gray-700"><strong>Tổng Tiền:</strong> ${listhdon.tongTien}</p>-->
+                                        <p class="text-gray-700">
+                                                    <strong>Giá:</strong> <fmt:formatNumber value="${listhdon.tongTien}" pattern="#,##0 đồng" />
+                                                </p>
                                         <c:if test="${sessionScope.acc.role == 1}">
                                             <div class="mt-4">
                                                 <a class="inline-block bg-purple-500 hover:bg-purple-400 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
