@@ -8,6 +8,7 @@
 <%@page import = "model.Phong" %>
 <%@page import = "java.util.*" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -70,7 +71,10 @@
                                                 </c:if>
                                             </p>
                                             <p class="text-gray-700"><strong>Ghi Chú:</strong> ${phong.ghiChu}</p>
-                                            <p class="text-gray-700"><strong>Giá:</strong> ${phong.gia}</p>
+                                            <!--<p class="text-gray-700"><strong>Giá:</strong> ${phong.gia}</p>-->
+                                            <p class="text-gray-700">
+                                                    <strong>Giá:</strong> <fmt:formatNumber value="${phong.gia}" pattern="#,##0 đồng" />
+                                                </p>
                                             <div class="mt-4 flex space-x-2">
                                                 <c:if test="${sessionScope.acc.role == 0}">
                                                     <c:if test="${phong.phongConTrong eq 1}">

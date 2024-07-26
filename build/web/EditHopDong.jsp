@@ -86,7 +86,7 @@
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Số Khách Thuê Phòng:</label>
-                                        <input type="text" name="SoKhachThue" value="${listhd.soKhachThue}" required class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <input type="text" style="background-color: gray;opacity: 0.7 "  name="SoKhachThue" value="${listhd.soKhachThue}" readonly class="w-2/3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600">
                                     </div>
                                     <div class="flex items-center">
                                         <label class="w-1/3 text-gray-700 font-semibold">Ghi Chú:</label>
