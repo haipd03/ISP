@@ -31,56 +31,58 @@
                     <div class="p-4">
 
 
-                       <form method="post" action="searchdichvuchung" style="margin-bottom: 20px;">
-    <div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: flex-end;">
-        <div style="display: flex; flex-direction: column;">
-            <label for="khu" style="margin-bottom: 5px;">Mã Khu:</label>
-            <select id="khu" name="khuID" style="border: 1px solid black; width: 120px;" class="py-2 px-3 rounded">
-                <option value="" disabled selected hidden>Chọn Khu</option>
-                <c:forEach items="${khu}" var="khu">
-                    <option value="${khu.khuID}">${khu.khuID}</option>
-                </c:forEach>
-            </select>
-        </div>
+                        <form method="post" action="searchdichvuchung" style="margin-bottom: 20px;">
+                            <div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: flex-end;">
+                                <c:if test="${sessionScope.acc.role == 0}">
+                                    <div style="display: flex; flex-direction: column;">
+                                        <label for="khu" style="margin-bottom: 5px;">Mã Khu:</label>
+                                        <select id="khu" name="khuID" style="border: 1px solid black; width: 80px;" class="py-2 px-3 rounded" onclick="showOptions()">
+                                            <option value="" disabled selected hidden>Khu</option>
+                                            <c:forEach items="${khu}" var="khu">
+                                                <option value="${khu.khuID}">${khu.khuID}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                </c:if>
 
-        <div style="display: flex; flex-direction: column;">
-            <label for="dichVuChungName" style="margin-bottom: 5px;">Tên dịch vụ chung:</label>
-            <input type="text" id="dichVuChungName" name="dichVuChungName" placeholder="Nhập tên dịch vụ chung" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
-        </div>
+                                <div style="display: flex; flex-direction: column;">
+                                    <label for="dichVuChungName" style="margin-bottom: 5px;">Tên dịch vụ chung:</label>
+                                    <input type="text" id="dichVuChungName" name="dichVuChungName" placeholder="Nhập tên dịch vụ chung" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
+                                </div>
 
-        <div style="display: flex; flex-direction: column;">
-            <label for="ten" style="margin-bottom: 5px;">Tên công nhân:</label>
-            <input type="text" id="ten" name="ten" placeholder="Nhập tên" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
-        </div>
+                                <div style="display: flex; flex-direction: column;">
+                                    <label for="ten" style="margin-bottom: 5px;">Tên công nhân:</label>
+                                    <input type="text" id="ten" name="ten" placeholder="Nhập tên" style="border: 1px solid black; width: 180px;" class="py-2 px-3 rounded">
+                                </div>
 
-        <div style="display: flex; flex-direction: column;">
-            <label for="sdt" style="margin-bottom: 5px;">Số điện thoại:</label>
-            <input type="text" id="sdt" name="sdt" placeholder="Nhập số điện thoại" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
-        </div>
+                                <div style="display: flex; flex-direction: column;">
+                                    <label for="sdt" style="margin-bottom: 5px;">Số điện thoại:</label>
+                                    <input type="text" id="sdt" name="sdt" placeholder="Nhập số điện thoại" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
+                                </div>
 
-        <div style="display: flex; flex-direction: column;">
-            <label for="tuNgay" style="margin-bottom: 5px;">Từ ngày:</label>
-            <input type="date" id="tuNgay" name="tuNgay" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
-        </div>
+                                <div style="display: flex; flex-direction: column;">
+                                    <label for="tuNgay" style="margin-bottom: 5px;">Từ ngày:</label>
+                                    <input type="date" id="tuNgay" name="tuNgay" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
+                                </div>
 
-        <div style="display: flex; flex-direction: column;">
-            <label for="denNgay" style="margin-bottom: 5px;">Đến ngày:</label>
-            <input type="date" id="denNgay" name="denNgay" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
-        </div>
+                                <div style="display: flex; flex-direction: column;">
+                                    <label for="denNgay" style="margin-bottom: 5px;">Đến ngày:</label>
+                                    <input type="date" id="denNgay" name="denNgay" style="border: 1px solid black; width: 150px;" class="py-2 px-3 rounded">
+                                </div>
 
-        <div style="display: flex; flex-direction: column;">
-            <label for="tinhTrang" style="margin-bottom: 5px;">Tình trạng:</label>
-            <select id="tinhTrang" name="tinhTrang" style="border: 1px solid black; width: 180px;" class="py-2 px-3 rounded">
-                <option value="" disabled selected hidden>Chọn tình trạng</option>
-                <option value="Chưa làm">Chưa làm</option>
-                <option value="Đang làm">Đang làm</option>
-                <option value="Đã hoàn thành">Đã hoàn thành</option>
-            </select>
-        </div>
+                                <div style="display: flex; flex-direction: column;">
+                                    <label for="tinhTrang" style="margin-bottom: 5px;">Tình trạng:</label>
+                                    <select id="tinhTrang" name="tinhTrang" style="border: 1px solid black; width: 180px;" class="py-2 px-3 rounded">
+                                        <option value="" disabled selected hidden>Chọn tình trạng</option>
+                                        <option value="Chưa làm">Chưa làm</option>
+                                        <option value="Đang làm">Đang làm</option>
+                                        <option value="Đã hoàn thành">Đã hoàn thành</option>
+                                    </select>
+                                </div>
 
-        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" style="margin-top: 20px;">Tìm kiếm</button>
-    </div>
-</form>
+                                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" style="margin-top: 20px;">Tìm kiếm</button>
+                            </div>
+                        </form>
 
 
 

@@ -3,6 +3,7 @@
 <%@page import = "model.Phong" %>
 <%@page import = "java.util.*" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html lang="en">
 
     <head>
@@ -189,7 +190,11 @@
                                                         </button>
                                                     </form>
                                                 </h3>
-                                                <p class="mt-2 font-sans font-light text-grey-700">Giá ${o.gia}</p>
+                                                <p class="mt-2 font-sans font-light text-grey-700">
+                                                    Giá: <fmt:formatNumber value="${o.gia}" pattern="#,##0 đồng" />
+                                                </p>
+
+
                                                 <p class="mt-2 font-sans font-light text-grey-700">
                                                     Tình trạng: 
                                                     <c:choose>
@@ -237,7 +242,11 @@
                                                         </button>
                                                     </form>
                                                 </h3>
-                                                <p class="mt-2 font-sans font-light text-grey-700">Giá ${p.gia}</p>
+                                                <p class="mt-2 font-sans font-light text-grey-700">
+                                                    Giá: <fmt:formatNumber value="${p.gia}" pattern="#,##0 đồng" />
+                                                </p>
+
+
                                                 <p class="mt-2 font-sans font-light text-grey-700">
                                                     Tình trạng: 
                                                     <c:choose>
@@ -281,8 +290,8 @@
                     <!--/Main-->
                 </div>
                 <!--Footer-->
-                 <footer class="bg-grey-darkest text-white p-2">
-<!--                    <div class="flex flex-1 mx-auto">&copy; My Design</div>-->
+                <footer class="bg-grey-darkest text-white p-2">
+                    <!--                    <div class="flex flex-1 mx-auto">&copy; My Design</div>-->
                 </footer>
                 <!--/footer-->
 

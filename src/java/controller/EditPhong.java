@@ -14,8 +14,7 @@ import model.Accounts;
 
 @WebServlet(name = "EditPhong", urlPatterns = {"/editPhong"})
 public class EditPhong extends HttpServlet {
-    
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -29,7 +28,7 @@ public class EditPhong extends HttpServlet {
         HttpSession session = request.getSession();
         Accounts a = (Accounts) session.getAttribute("acc");
 
-        if (a == null ) {
+        if (a == null) {
             response.sendRedirect("login.jsp");
         } else {
             String phongIDStr = request.getParameter("phongID");
@@ -61,7 +60,7 @@ public class EditPhong extends HttpServlet {
 
                 Phong phong = new Phong(phongID, soPhong, khuID, loaiPhong, phongConTrong, ghiChu, gia);
                 PhongDAO phongDAO = new PhongDAO();
-                
+
                 if (phongDAO.checkPhongIDcoTinTrangHopDong(phongID)) {
                     request.setAttribute("message", "Không thể cập nhật vì phòng có hợp đồng có khách đang thuê!");
                     request.getRequestDispatcher("/nhapeditphong").forward(request, response);
@@ -72,10 +71,22 @@ public class EditPhong extends HttpServlet {
                     request.getRequestDispatcher("HienThiEditPhong.jsp").forward(request, response);
                 }
             } catch (NumberFormatException e) {
-                request.setAttribute("message", "Dữ liệu nhập vào không hợp lệ!");
+//                request.setAttribute("message", "Dữ liệu nhập vào không hợp lệ!");
+                try {
+                    int phongID = Integer.parseInt(phongIDStr);
+                    PhongDAO phongDAO = new PhongDAO();
+                    if (phongDAO.checkPhongIDcoTinTrangHopDong(phongID)) {
+                        request.setAttribute("message", "Phòng đang có khách thuê không thể thay đổi thông tin");
+                    } else {
+                        request.setAttribute("message", "Dữ liệu nhập vào không hợp lệ!");
+                    }
+                } catch (NumberFormatException ex) {
+                    request.setAttribute("message", "Dữ liệu nhập vào không hợp lệ!");
+                }
                 request.getRequestDispatcher("/nhapeditphong").forward(request, response);
             }
         }
     }
 }
+
 

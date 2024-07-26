@@ -2,6 +2,7 @@
 <%@page import = "model.Phong" %>
 <%@page import = "java.util.*" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -86,19 +87,19 @@
                             <p style="color: red; font-size: 1.2em; font-weight: bold;">${error}</p>
                         </c:if>
 
-<!--                        <div class="container">
-                            <c:if test="${not empty list11}">
-                                <div class="item">
-                                    Lưu ý các hợp đồng sắp hết hạn có mã:
-                                    <c:forEach items="${list11}" var="a" varStatus="status">
-                                        <c:if test="${a.hopDongID != null}">
-                                            ${a.hopDongID}<c:if test="${status.last}"> </c:if>
-                                            <c:if test="${!status.last}">, </c:if>  Thay dấu ';' bằng dấu ',' nếu không muốn có dấu phân cách nào khác 
-                                        </c:if>
-                                    </c:forEach>
-                                </div>
-                            </c:if>
-                        </div>-->
+                        <!--                        <div class="container">
+                        <c:if test="${not empty list11}">
+                            <div class="item">
+                                Lưu ý các hợp đồng sắp hết hạn có mã:
+                            <c:forEach items="${list11}" var="a" varStatus="status">
+                                <c:if test="${a.hopDongID != null}">
+                                    ${a.hopDongID}<c:if test="${status.last}"> </c:if>
+                                    <c:if test="${!status.last}">, </c:if>  Thay dấu ';' bằng dấu ',' nếu không muốn có dấu phân cách nào khác 
+                                </c:if>
+                            </c:forEach>
+                        </div>
+                        </c:if>
+                    </div>-->
 
                         <div class="p-3">
                             <form action="listhopdong" method="post">
@@ -111,7 +112,7 @@
                                             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Tiền Cọc</th>
                                             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Ngày Thuê</th>
                                             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Ngày Trả</th>
-                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Số Khách Thuê Phòng</th>
+                                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider text-center">Số Khách Thuê Phòng</th>
                                             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Ghi Chú</th>
                                             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">CCCD</th>
                                             <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Số Điện Thoại</th>
@@ -127,10 +128,12 @@
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.hopDongID}</td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.khachID}</td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.phongID}</td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.tienCoc}</td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">
+                                                        <fmt:formatNumber value="${o.tienCoc}" pattern="#,##0 đồng" />
+                                                    </td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.ngayThue}</td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.ngayTra}</td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.soKhachThue}</td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm text-center">${o.soKhachThue}</td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.ghiChu}</td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.CCCD}</td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.SDT}</td>
@@ -156,10 +159,12 @@
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.hopDongID}</td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.khachID}</td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.phongID}</td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.tienCoc}</td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">
+                                                        <fmt:formatNumber value="${o.tienCoc}" pattern="#,##0 đồng" />
+                                                    </td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.ngayThue}</td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.ngayTra}</td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.soKhachThue}</td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 text-sm text-center">${o.soKhachThue}</td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.ghiChu}</td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.CCCD}</td>
                                                     <td class="px-5 py-5 border-b border-gray-200 text-sm">${o.SDT}</td>
@@ -222,9 +227,9 @@
                 <!--/Main-->
             </div>
             <!--Footer-->
-             <footer class="bg-grey-darkest text-white p-2">
-<!--                    <div class="flex flex-1 mx-auto">&copy; My Design</div>-->
-                </footer>
+            <footer class="bg-grey-darkest text-white p-2">
+                <!--                    <div class="flex flex-1 mx-auto">&copy; My Design</div>-->
+            </footer>
             <!--/footer-->
         </div>
 
