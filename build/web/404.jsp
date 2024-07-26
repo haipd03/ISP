@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <head>
   <title>404 | Tailwind Admin</title>
   <meta charset="utf-8">
