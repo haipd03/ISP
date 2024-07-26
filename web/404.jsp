@@ -20,8 +20,8 @@
   <div class="w-full max-w-lg">
     <div class="leading-loose">
       <div class="max-w-xl m-4 p-10 bg-white rounded shadow-xl">
-        <p class="text-gray-800 font-medium text-center text-xl font-bold"> Not Found</p>
-         <a href="listphong" class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded ml-24" type="submit"> Take Me Back To Home</a>
+        <p class="text-gray-800 font-medium text-center text-xl font-bold"> Không tìm thấy</p>
+         <a href="listphong" class="px-8 py-1 text-white font-light tracking-wider bg-gray-900 rounded ml-24" type="submit"> Quay lại trang chủ</a>
       </div>
 
     </div>
